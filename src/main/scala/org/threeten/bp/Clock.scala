@@ -296,6 +296,7 @@ object Clock {
     */
   @SerialVersionUID(6740630888130243051L)
   private[bp] final class SystemClock(val zone: ZoneId) extends Clock with Serializable {
+    if (zone == null) throw new NullPointerException("'zone' can not be null")
 
     def getZone: ZoneId = zone
 
@@ -324,6 +325,7 @@ object Clock {
     */
   @SerialVersionUID(7430389292664866958L)
   private[bp] final class FixedClock(val instant: Instant, val zone: ZoneId) extends Clock with Serializable {
+    if (zone == null) throw new NullPointerException("'zone' can not be null")
 
     def getZone: ZoneId = zone
 
