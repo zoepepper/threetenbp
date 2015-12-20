@@ -342,8 +342,9 @@ final class JapaneseDate private[chrono](@transient private var era: JapaneseEra
             return actualRange(Calendar.DAY_OF_YEAR)
           case YEAR_OF_ERA =>
             return actualRange(Calendar.YEAR)
+          case _ =>
+            return getChronology.range(f)
         }
-        return getChronology.range(f)
       }
       throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
     }
