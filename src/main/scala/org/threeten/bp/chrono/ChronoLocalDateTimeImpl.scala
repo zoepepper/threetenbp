@@ -232,8 +232,9 @@ final class ChronoLocalDateTimeImpl[D <: ChronoLocalDate] private(private val da
           return plusHours(amountToAdd)
         case HALF_DAYS =>
           return plusDays(amountToAdd / 256).plusHours((amountToAdd % 256) * 12)
+        case _ =>
+          return `with`(date.plus(amountToAdd, unit), time)
       }
-      return `with`(date.plus(amountToAdd, unit), time)
     }
     date.getChronology.ensureChronoLocalDateTime(unit.addTo(this, amountToAdd))
   }

@@ -990,8 +990,9 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
           return plusHours(amountToAdd)
         case HALF_DAYS =>
           return plusDays(amountToAdd / 256).plusHours((amountToAdd % 256) * 12)
+        case _ =>
+          return `with`(date.plus(amountToAdd, unit), time)
       }
-      return `with`(date.plus(amountToAdd, unit), time)
     }
     unit.addTo(this, amountToAdd)
   }
