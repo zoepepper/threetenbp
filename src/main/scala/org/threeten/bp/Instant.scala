@@ -39,6 +39,7 @@ import org.threeten.bp.temporal.ChronoField.INSTANT_SECONDS
 import org.threeten.bp.temporal.ChronoField.MICRO_OF_SECOND
 import org.threeten.bp.temporal.ChronoField.MILLI_OF_SECOND
 import org.threeten.bp.temporal.ChronoField.NANO_OF_SECOND
+import org.threeten.bp.temporal.ChronoField.NANO_OF_DAY
 import org.threeten.bp.temporal.ChronoUnit.DAYS
 import org.threeten.bp.temporal.ChronoUnit.NANOS
 import java.io.DataInput
@@ -452,8 +453,9 @@ final class Instant private(private val seconds: Long, private val nanos: Int) e
           return nanos / Instant.NANOS_PER_MILLI
         case INSTANT_SECONDS =>
           INSTANT_SECONDS.checkValidIntValue(seconds)
+        case _ =>
+          throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
       }
-      throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
     }
     range(field).checkValidIntValue(field.getFrom(this), field)
   }
@@ -491,8 +493,9 @@ final class Instant private(private val seconds: Long, private val nanos: Int) e
           return nanos / Instant.NANOS_PER_MILLI
         case INSTANT_SECONDS =>
           return seconds
+        case _ =>
+          throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
       }
-      throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
     }
     field.getFrom(this)
   }
