@@ -16,6 +16,8 @@
 *.ear
 /*.launch
 /*.dic
+/.idea
+*.iml
 
 /src/*/
 !/src/changes/
