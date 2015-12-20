@@ -165,6 +165,16 @@ object Instant {
     * The maximum supported epoch second.
     */
   private val MAX_SECOND: Long = 31556889864403199L
+
+  /**
+    * Constant for nanos per second.
+    */
+  private val NANOS_PER_SECOND: Int = 1000000000
+  /**
+    * Constant for nanos per milli.
+    */
+  private val NANOS_PER_MILLI: Int = 1000000
+
   /**
     * The minimum supported {@code Instant}, '-1000000000-01-01T00:00Z'.
     * This could be used by an application as a "far past" instant.
@@ -187,15 +197,6 @@ object Instant {
     * an {@code int}.
     */
   val MAX: Instant = Instant.ofEpochSecond(MAX_SECOND, 999999999)
-
-  /**
-    * Constant for nanos per second.
-    */
-  private val NANOS_PER_SECOND: Int = 1000000000
-  /**
-    * Constant for nanos per milli.
-    */
-  private val NANOS_PER_MILLI: Int = 1000000
 
   /**
     * Obtains the current instant from the system clock.
