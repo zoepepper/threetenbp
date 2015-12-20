@@ -372,8 +372,9 @@ final class JapaneseDate private[chrono](@transient private var era: JapaneseEra
           return era.getValue
         case DAY_OF_YEAR =>
           return getDayOfYear
+        case _ =>
+          return isoDate.getLong(field)
       }
-      return isoDate.getLong(field)
     }
     field.getFrom(this)
   }
