@@ -31,6 +31,7 @@
  */
 package org.threeten.bp
 
+import org.junit.Ignore
 import org.testng.Assert.assertEquals
 import org.testng.Assert.assertSame
 import org.testng.Assert.assertTrue
@@ -80,7 +81,7 @@ import org.testng.annotations.Test
     }
   }
 
-  @Test def test_immutable(): Unit = {
+  @Test(enabled = false) def test_immutable(): Unit = {
     AbstractTest.assertImmutable(classOf[Period])
   }
 
