@@ -633,8 +633,9 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
         return if (hour == 0) 24 else hour
       case AMPM_OF_DAY =>
         return hour / 12
+      case _ =>
+        throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
     }
-    throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
   }
 
   /**
