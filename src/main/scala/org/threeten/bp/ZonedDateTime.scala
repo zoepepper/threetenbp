@@ -718,8 +718,9 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
           return toEpochSecond
         case OFFSET_SECONDS =>
           return getOffset.getTotalSeconds
+        case _ =>
+          return dateTime.getLong(field)
       }
-      return dateTime.getLong(field)
     }
     field.getFrom(this)
   }

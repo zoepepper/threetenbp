@@ -410,8 +410,9 @@ final class JapaneseDate private[chrono](@transient private var era: JapaneseEra
             }
           }
         }
+        case _ =>
+          return `with`(isoDate.`with`(field, newValue))
       }
-      return `with`(isoDate.`with`(field, newValue))
     }
     field.adjustInto(this, newValue)
   }

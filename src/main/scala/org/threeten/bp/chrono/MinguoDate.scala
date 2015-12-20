@@ -231,8 +231,9 @@ final class MinguoDate private[chrono](private val isoDate: LocalDate) extends C
             case ERA =>
               return `with`(isoDate.withYear((1 - getProlepticYear) + YEARS_DIFFERENCE))
           }
+        case _ =>
+          return `with`(isoDate.`with`(field, newValue))
       }
-      return `with`(isoDate.`with`(field, newValue))
     }
     field.adjustInto(this, newValue)
   }

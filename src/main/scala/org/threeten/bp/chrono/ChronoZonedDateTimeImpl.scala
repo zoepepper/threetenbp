@@ -210,8 +210,9 @@ final class ChronoZonedDateTimeImpl[D <: ChronoLocalDate] private(private val da
           val offset: ZoneOffset = ZoneOffset.ofTotalSeconds(f.checkValidIntValue(newValue))
           return create(dateTime.toInstant(offset), zone)
         }
+        case _ =>
+          return ChronoZonedDateTimeImpl.ofBest(dateTime.`with`(field, newValue), zone, offset)
       }
-      return ChronoZonedDateTimeImpl.ofBest(dateTime.`with`(field, newValue), zone, offset)
     }
     toLocalDate.getChronology.ensureChronoZonedDateTime(field.adjustInto(this, newValue))
   }
