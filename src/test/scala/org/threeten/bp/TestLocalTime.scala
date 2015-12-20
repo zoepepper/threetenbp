@@ -90,7 +90,9 @@ import org.threeten.bp.temporal.UnsupportedTemporalTypeException
   * Test LocalTime.
   */
 @Test object TestLocalTime {
-  private var INVALID_UNITS: Array[TemporalUnit] =  {
+  private val INVALID_UNITS: Array[TemporalUnit] =  {
+    // FIXME: Following line workarounds the test with the invalid units but the actual fix should be done in the ChronoUnit class
+    //ChronoUnit.values.filter(unit => unit.ordinal() >= WEEKS.ordinal() && unit.ordinal() <= FOREVER.ordinal()).asInstanceOf[Array[TemporalUnit]]
     val set: java.util.EnumSet[ChronoUnit] = EnumSet.range(WEEKS, FOREVER)
     set.toArray(new Array[TemporalUnit](set.size)).asInstanceOf[Array[TemporalUnit]]
   }

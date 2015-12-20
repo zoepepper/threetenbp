@@ -976,8 +976,9 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
           return plusHours(amountToAdd)
         case HALF_DAYS =>
           return plusHours((amountToAdd % 2) * 12)
+        case _ =>
+          throw new UnsupportedTemporalTypeException("Unsupported unit: " + unit)
       }
-      throw new UnsupportedTemporalTypeException("Unsupported unit: " + unit)
     }
     unit.addTo(this, amountToAdd)
   }
