@@ -560,8 +560,9 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
         return year
       case ERA =>
         return if (year >= 1) 1 else 0
+      case _ =>
+        throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
     }
-    throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
   }
 
   private def getProlepticMonth: Long = (year * 12L) + (month - 1)
@@ -893,8 +894,9 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
           return withYear(newValue.toInt)
         case ERA =>
           return if (getLong(ERA) == newValue) this else withYear(1 - year)
+        case _ =>
+          throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
       }
-      throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
     }
     field.adjustInto(this, newValue)
   }
@@ -1023,8 +1025,9 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
           return plusYears(Math.multiplyExact(amountToAdd, 1000))
         case ERAS =>
           return `with`(ERA, Math.addExact(getLong(ERA), amountToAdd))
+        case _ =>
+          throw new UnsupportedTemporalTypeException("Unsupported unit: " + unit)
       }
-      throw new UnsupportedTemporalTypeException("Unsupported unit: " + unit)
     }
     unit.addTo(this, amountToAdd)
   }
