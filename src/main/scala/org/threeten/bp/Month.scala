@@ -121,7 +121,11 @@ object Month {
   val DECEMBER  = new Month("DECEMBER", 11)
 
   val values: Array[Month] = Array(JANUARY, FEBRUARY, MARCH, APRIL, MAY, JUNE, JULY, AUGUST, SEPTEMBER, OCTOBER, NOVEMBER, DECEMBER)
-  def valueOf(enum: String): Month = ??? // !!! FIXME
+  def valueOf(enum: String): Month = values.find(_.name() == enum) match {
+    case Some(month) => month
+    case _ =>
+      throw new IllegalArgumentException(s"Unrecognized month name: $enum")
+  }
 
   /**
     * Private cache of all the constants.
