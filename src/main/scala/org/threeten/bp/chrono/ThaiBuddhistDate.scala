@@ -172,17 +172,16 @@ final class ThaiBuddhistDate private[chrono](private val isoDate: LocalDate) ext
       if (isSupported(field)) {
         val f: ChronoField = field.asInstanceOf[ChronoField]
         f match {
-          case DAY_OF_MONTH =>
-          case DAY_OF_YEAR =>
-          case ALIGNED_WEEK_OF_MONTH =>
+          case DAY_OF_MONTH | DAY_OF_YEAR | ALIGNED_WEEK_OF_MONTH =>
             return isoDate.range(field)
           case YEAR_OF_ERA => {
             val range: ValueRange = YEAR.range
             val max: Long = if (getProlepticYear <= 0) -(range.getMinimum + YEARS_DIFFERENCE) + 1 else range.getMaximum + YEARS_DIFFERENCE
             return ValueRange.of(1, max)
           }
+          case _ =>
+            return getChronology.range(f)
         }
-        return getChronology.range(f)
       }
       throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
     }
@@ -226,8 +225,9 @@ final class ThaiBuddhistDate private[chrono](private val isoDate: LocalDate) ext
             case ERA =>
               return `with`(isoDate.withYear((1 - getProlepticYear) - YEARS_DIFFERENCE))
           }
+        case _ =>
+          return `with`(isoDate.`with`(field, newValue))
       }
-      return `with`(isoDate.`with`(field, newValue))
     }
     field.adjustInto(this, newValue)
   }

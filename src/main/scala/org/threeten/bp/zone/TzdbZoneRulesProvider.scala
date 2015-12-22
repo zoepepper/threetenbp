@@ -104,7 +104,7 @@ final class TzdbZoneRulesProvider extends ZoneRulesProvider {
     * All the URLs that have been loaded.
     * Uses String to avoid equals() on URL.
     */
-  private var loadedUrls: java.util.Set[String] = new CopyOnWriteArraySet[String]
+  private val loadedUrls: java.util.Set[String] = new CopyOnWriteArraySet[String]
 
   /// !!! FIXME
 
@@ -114,12 +114,11 @@ final class TzdbZoneRulesProvider extends ZoneRulesProvider {
     *
     * @throws ZoneRulesException if unable to load
     */
-  /*
-  def this() {
+  //def this() = {
     if (!load(classOf[ZoneRulesProvider].getClassLoader)) {
       throw new ZoneRulesException("No time-zone rules found for 'TZDB'")
     }
-  }*/
+  //}
 
   /**
     * Creates an instance and loads the specified URL.

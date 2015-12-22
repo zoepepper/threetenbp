@@ -110,7 +110,11 @@ object DayOfWeek {
   val SUNDAY    = new DayOfWeek("SUNDAY", 6)
 
   val values: Array[DayOfWeek] = Array(MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY)
-  def valueOf(enum: String): DayOfWeek = ???
+  def valueOf(enum: String): DayOfWeek = values.find(_.name() == enum) match {
+    case Some(dayOfWeek) => dayOfWeek
+    case _ =>
+      throw new IllegalArgumentException(s"Unrecognized day of week name: $enum")
+  }
 
   /**
     * Private cache of all the constants.

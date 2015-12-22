@@ -39,6 +39,7 @@ import org.threeten.bp.temporal.ChronoField.INSTANT_SECONDS
 import org.threeten.bp.temporal.ChronoField.MICRO_OF_SECOND
 import org.threeten.bp.temporal.ChronoField.MILLI_OF_SECOND
 import org.threeten.bp.temporal.ChronoField.NANO_OF_SECOND
+import org.threeten.bp.temporal.ChronoField.NANO_OF_DAY
 import org.threeten.bp.temporal.ChronoUnit.DAYS
 import org.threeten.bp.temporal.ChronoUnit.NANOS
 import java.io.DataInput
@@ -165,6 +166,16 @@ object Instant {
     * The maximum supported epoch second.
     */
   private val MAX_SECOND: Long = 31556889864403199L
+
+  /**
+    * Constant for nanos per second.
+    */
+  private val NANOS_PER_SECOND: Int = 1000000000
+  /**
+    * Constant for nanos per milli.
+    */
+  private val NANOS_PER_MILLI: Int = 1000000
+
   /**
     * The minimum supported {@code Instant}, '-1000000000-01-01T00:00Z'.
     * This could be used by an application as a "far past" instant.
@@ -187,15 +198,6 @@ object Instant {
     * an {@code int}.
     */
   val MAX: Instant = Instant.ofEpochSecond(MAX_SECOND, 999999999)
-
-  /**
-    * Constant for nanos per second.
-    */
-  private val NANOS_PER_SECOND: Int = 1000000000
-  /**
-    * Constant for nanos per milli.
-    */
-  private val NANOS_PER_MILLI: Int = 1000000
 
   /**
     * Obtains the current instant from the system clock.
@@ -451,8 +453,9 @@ final class Instant private(private val seconds: Long, private val nanos: Int) e
           return nanos / Instant.NANOS_PER_MILLI
         case INSTANT_SECONDS =>
           INSTANT_SECONDS.checkValidIntValue(seconds)
+        case _ =>
+          throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
       }
-      throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
     }
     range(field).checkValidIntValue(field.getFrom(this), field)
   }
@@ -490,8 +493,9 @@ final class Instant private(private val seconds: Long, private val nanos: Int) e
           return nanos / Instant.NANOS_PER_MILLI
         case INSTANT_SECONDS =>
           return seconds
+        case _ =>
+          throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
       }
-      throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
     }
     field.getFrom(this)
   }

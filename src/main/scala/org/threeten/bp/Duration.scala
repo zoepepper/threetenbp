@@ -617,8 +617,9 @@ final class Duration private(private val seconds: Long, private val nanos: Int) 
           return plusMillis(amountToAdd)
         case SECONDS =>
           return plusSeconds(amountToAdd)
+        case _ =>
+          return plusSeconds(Math.multiplyExact(unit.getDuration.seconds, amountToAdd))
       }
-      return plusSeconds(Math.multiplyExact(unit.getDuration.seconds, amountToAdd))
     }
     val duration: Duration = unit.getDuration.multipliedBy(amountToAdd)
     plusSeconds(duration.getSeconds).plusNanos(duration.getNano)

@@ -342,8 +342,9 @@ final class JapaneseDate private[chrono](@transient private var era: JapaneseEra
             return actualRange(Calendar.DAY_OF_YEAR)
           case YEAR_OF_ERA =>
             return actualRange(Calendar.YEAR)
+          case _ =>
+            return getChronology.range(f)
         }
-        return getChronology.range(f)
       }
       throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
     }
@@ -372,8 +373,9 @@ final class JapaneseDate private[chrono](@transient private var era: JapaneseEra
           return era.getValue
         case DAY_OF_YEAR =>
           return getDayOfYear
+        case _ =>
+          return isoDate.getLong(field)
       }
-      return isoDate.getLong(field)
     }
     field.getFrom(this)
   }
@@ -408,8 +410,9 @@ final class JapaneseDate private[chrono](@transient private var era: JapaneseEra
             }
           }
         }
+        case _ =>
+          return `with`(isoDate.`with`(field, newValue))
       }
-      return `with`(isoDate.`with`(field, newValue))
     }
     field.adjustInto(this, newValue)
   }

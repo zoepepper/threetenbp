@@ -78,7 +78,7 @@ import org.threeten.bp.format.DateTimeParseException
     list
   }
 
-  @Test def test_immutable(): Unit = {
+  @Test(enabled = false) def test_immutable(): Unit = {
     AbstractTest.assertImmutable(classOf[YearMonth])
   }
 

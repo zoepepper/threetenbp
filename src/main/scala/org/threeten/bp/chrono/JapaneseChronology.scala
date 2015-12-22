@@ -298,9 +298,6 @@ final class JapaneseChronology private() extends Chronology with Serializable {
            MINUTE_OF_HOUR | SECOND_OF_DAY | SECOND_OF_MINUTE | MILLI_OF_DAY | MILLI_OF_SECOND | NANO_OF_DAY |
            NANO_OF_SECOND | CLOCK_HOUR_OF_DAY | CLOCK_HOUR_OF_AMPM | EPOCH_DAY | PROLEPTIC_MONTH =>
         field.range
-    }
-    val jcal: Calendar = Calendar.getInstance(JapaneseChronology.LOCALE)
-    field match {
       case ERA =>
         val eras: Array[JapaneseEra] = JapaneseEra.values
         ValueRange.of(eras(0).getValue, eras(eras.length - 1).getValue)
@@ -313,15 +310,16 @@ final class JapaneseChronology private() extends Chronology with Serializable {
         val maxJapanese: Int = maxIso - eras(eras.length - 1).startDate.getYear + 1
         var min: Int = Int.MaxValue
 
-      {
-        var i: Int = 0
-        while (i < eras.length) {
+        {
+          var i: Int = 0
+          while (i < eras.length) {
             min = Math.min(min, eras(i).endDate.getYear - eras(i).startDate.getYear + 1)
             i += 1
+          }
         }
-      }
         ValueRange.of(1, 6, min, maxJapanese)
       case MONTH_OF_YEAR =>
+        val jcal: Calendar = Calendar.getInstance(JapaneseChronology.LOCALE)
         ValueRange.of(jcal.getMinimum(Calendar.MONTH) + 1, jcal.getGreatestMinimum(Calendar.MONTH) + 1, jcal.getLeastMaximum(Calendar.MONTH) + 1, jcal.getMaximum(Calendar.MONTH) + 1)
       case DAY_OF_YEAR =>
         val eras: Array[JapaneseEra] = JapaneseEra.values
@@ -329,8 +327,8 @@ final class JapaneseChronology private() extends Chronology with Serializable {
 
         var i: Int = 0
         while (i < eras.length) {
-            min = Math.min(min, eras(i).startDate.lengthOfYear - eras(i).startDate.getDayOfYear + 1)
-            i += 1
+          min = Math.min(min, eras(i).startDate.lengthOfYear - eras(i).startDate.getDayOfYear + 1)
+          i += 1
         }
 
         ValueRange.of(1, min, 366)

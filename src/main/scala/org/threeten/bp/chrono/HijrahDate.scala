@@ -1478,8 +1478,9 @@ final class HijrahDate private (private val gregorianEpochDay: Long) extends Chr
             return ValueRange.of(1, 5)
           case YEAR_OF_ERA =>
             return ValueRange.of(1, 1000)
+          case _ =>
+            return getChronology.range(f)
         }
-        return getChronology.range(f)
       }
       throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
     }

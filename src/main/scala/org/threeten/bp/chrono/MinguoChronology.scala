@@ -208,8 +208,9 @@ final class MinguoChronology private() extends Chronology with Serializable {
       case YEAR =>
         val range: ValueRange = YEAR.range
         return ValueRange.of(range.getMinimum - MinguoChronology.YEARS_DIFFERENCE, range.getMaximum - MinguoChronology.YEARS_DIFFERENCE)
+      case _ =>
+        field.range
     }
-    field.range
   }
 
   override def resolveDate(fieldValues: java.util.Map[TemporalField, java.lang.Long], resolverStyle: ResolverStyle): MinguoDate = {

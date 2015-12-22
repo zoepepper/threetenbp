@@ -683,8 +683,9 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
           throw new DateTimeException("Field too large for an int: " + field)
         case OFFSET_SECONDS =>
           return getOffset.getTotalSeconds
+        case _ =>
+          return dateTime.get(field)
       }
-      return dateTime.get(field)
     }
     super.get(field)
   }
@@ -718,8 +719,9 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
           return toEpochSecond
         case OFFSET_SECONDS =>
           return getOffset.getTotalSeconds
+        case _ =>
+          return dateTime.getLong(field)
       }
-      return dateTime.getLong(field)
     }
     field.getFrom(this)
   }
@@ -1092,8 +1094,9 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
         case OFFSET_SECONDS =>
           val offset: ZoneOffset = ZoneOffset.ofTotalSeconds(f.checkValidIntValue(newValue))
           return resolveOffset(offset)
+        case _ =>
+          return resolveLocal(dateTime.`with`(field, newValue))
       }
-      return resolveLocal(dateTime.`with`(field, newValue))
     }
     field.adjustInto(this, newValue)
   }
