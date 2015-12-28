@@ -69,8 +69,7 @@ import org.threeten.bp.format.SignStyle._
 
 import scala.annotation.tailrec
 
-/**
-  * Builder to create date-time formatters.
+/** Builder to create date-time formatters.
   * <p>
   * This allows a {@code DateTimeFormatter} to be created.
   * All date-time formatters are created ultimately using this builder.
@@ -98,17 +97,14 @@ import scala.annotation.tailrec
   * This class is a mutable builder intended for use from a single thread.
   */
 object DateTimeFormatterBuilder {
-  /**
-    * Query for a time-zone that is region-only.
-    */
+  /** Query for a time-zone that is region-only. */
   private val QUERY_REGION_ONLY: TemporalQuery[ZoneId] =
     (temporal: TemporalAccessor) => {
       val zone: ZoneId = temporal.query(TemporalQueries.zoneId)
       if (zone != null && !zone.isInstanceOf[ZoneOffset]) zone else null
     }
 
-  /**
-    * Gets the formatting pattern for date and time styles for a locale and chronology.
+  /** Gets the formatting pattern for date and time styles for a locale and chronology.
     * The locale and chronology are used to lookup the locale specific format
     * for the requested dateStyle and/or timeStyle.
     *
@@ -168,8 +164,7 @@ object DateTimeFormatterBuilder {
     map
   }
 
-  /**
-    * Strategy for printing/parsing date-time information.
+  /** Strategy for printing/parsing date-time information.
     * <p>
     * The printer may print any part, or the whole, of the input date-time object.
     * Typically, a complete print is constructed from a number of smaller
@@ -196,8 +191,7 @@ object DateTimeFormatterBuilder {
     * variable or shared with any other threads.
     */
   private[format] trait DateTimePrinterParser {
-    /**
-      * Prints the date-time object to the buffer.
+    /** Prints the date-time object to the buffer.
       * <p>
       * The context holds information to use during the print.
       * It also contains the date-time information to be printed.
@@ -211,8 +205,7 @@ object DateTimeFormatterBuilder {
       */
     def print(context: DateTimePrintContext, buf: StringBuilder): Boolean
 
-    /**
-      * Parses text into date-time information.
+    /** Parses text into date-time information.
       * <p>
       * The context holds information to use during the parse.
       * It is also used to store the parsed date-time information.
@@ -228,9 +221,7 @@ object DateTimeFormatterBuilder {
     def parse(context: DateTimeParseContext, text: CharSequence, position: Int): Int
   }
 
-  /**
-    * Composite printer and parser.
-    */
+  /** Composite printer and parser. */
   private[format] final class CompositePrinterParser private[format](private val printerParsers: Array[DateTimeFormatterBuilder.DateTimePrinterParser], private val optional: Boolean) extends DateTimePrinterParser {
 
     private[format] def this(printerParsers: java.util.List[DateTimeFormatterBuilder.DateTimePrinterParser], optional: Boolean) {
@@ -238,8 +229,7 @@ object DateTimeFormatterBuilder {
     }
 
 
-    /**
-      * Returns a copy of this printer-parser with the optional flag changed.
+    /** Returns a copy of this printer-parser with the optional flag changed.
       *
       * @param optional  the optional flag to set in the copy
       * @return the new printer-parser, not null
@@ -311,8 +301,7 @@ object DateTimeFormatterBuilder {
     }
   }
 
-  /**
-    * Pads the output to a fixed width.
+  /** Pads the output to a fixed width.
     *
     * Constructor.
     *
@@ -365,9 +354,7 @@ object DateTimeFormatterBuilder {
     override def toString: String = "Pad(" + printerParser + "," + padWidth + (if (padChar == ' ') ")" else ",'" + padChar + "')")
   }
 
-  /**
-    * Enumeration to apply simple parse settings.
-    */
+  /** Enumeration to apply simple parse settings. */
   private[format] object SettingsParser {
     val SENSITIVE   = new SettingsParser("SENSITIVE", 0)
     val INSENSITIVE = new SettingsParser("INSENSITIVE", 1)
@@ -398,9 +385,7 @@ object DateTimeFormatterBuilder {
       }
   }
 
-  /**
-    * Used by parseDefaulting().
-    */
+  /** Used by parseDefaulting(). */
   private[format] class DefaultingParser private[format](private val field: TemporalField, private val value: Long) extends DateTimePrinterParser {
 
     def print(context: DateTimePrintContext, buf: StringBuilder): Boolean = true
@@ -412,9 +397,7 @@ object DateTimeFormatterBuilder {
     }
   }
 
-  /**
-    * Prints or parses a character literal.
-    */
+  /** Prints or parses a character literal. */
   private[format] final class CharLiteralPrinterParser private[format](private val literal: Char) extends DateTimePrinterParser {
 
     def print(context: DateTimePrintContext, buf: StringBuilder): Boolean = {
@@ -437,9 +420,7 @@ object DateTimeFormatterBuilder {
       else s"'$literal'"
   }
 
-  /**
-    * Prints or parses a string literal.
-    */
+  /** Prints or parses a string literal. */
   private[format] final class StringLiteralPrinterParser private[format](private val literal: String) extends DateTimePrinterParser {
 
     def print(context: DateTimePrintContext, buf: StringBuilder): Boolean = {
@@ -463,18 +444,13 @@ object DateTimeFormatterBuilder {
     }
   }
 
-  /**
-    * Prints and parses a numeric date-time field with optional padding.
-    */
+  /** Prints and parses a numeric date-time field with optional padding. */
   private[format] object NumberPrinterParser {
-    /**
-      * Array of 10 to the power of n.
-      */
+    /** Array of 10 to the power of n. */
     private[format] val EXCEED_POINTS: Array[Int] = Array[Int](0, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000)
   }
 
-    /**
-      * Constructor.
+    /** Constructor.
       *
       * @param field  the field to print, not null
       * @param minWidth  the minimum field width, from 1 to 19
@@ -489,8 +465,7 @@ object DateTimeFormatterBuilder {
                                                             private[format] val signStyle: SignStyle,
                                                             private[format] val subsequentWidth: Int) extends DateTimePrinterParser {
 
-    /**
-      * Constructor.
+    /** Constructor.
       *
       * @param field  the field to print, not null
       * @param minWidth  the minimum field width, from 1 to 19
@@ -501,8 +476,7 @@ object DateTimeFormatterBuilder {
       this(field, minWidth, maxWidth, signStyle, 0)
     }
 
-    /**
-      * Returns a new instance with fixed width flag set.
+    /** Returns a new instance with fixed width flag set.
       *
       * @return a new updated printer-parser, not null
       */
@@ -512,8 +486,7 @@ object DateTimeFormatterBuilder {
       else
         new NumberPrinterParser(field, minWidth, maxWidth, signStyle, -1)
 
-    /**
-      * Returns a new instance with an updated subsequent width.
+    /** Returns a new instance with an updated subsequent width.
       *
       * @param subsequentWidth  the width of subsequent non-negative numbers, 0 or greater
       * @return a new updated printer-parser, not null
@@ -527,9 +500,9 @@ object DateTimeFormatterBuilder {
         return false
       val value: Long = getValue(context, valueLong)
       val symbols: DecimalStyle = context.getSymbols
-      var str: String = if (value == Long.MinValue) "9223372036854775808" else java.lang.Long.toString(Math.abs(value))
+      var str: String = if (value == Long.MinValue) "9223372036854775808" else Math.abs(value).toString
       if (str.length > maxWidth)
-        throw new DateTimeException("Field " + field + " cannot be printed as the value " + value + " exceeds the maximum print width of " + maxWidth)
+        throw new DateTimeException(s"Field $field cannot be printed as the value $value exceeds the maximum print width of $maxWidth")
       str = symbols.convertNumberToI18N(str)
       println(value)
       if (value >= 0) {
@@ -562,8 +535,7 @@ object DateTimeFormatterBuilder {
       true
     }
 
-    /**
-      * Gets the value to output.
+    /** Gets the value to output.
       *
       * @param context  the context
       * @param value  the value of the field, not null
@@ -685,8 +657,7 @@ object DateTimeFormatterBuilder {
       setValue(context, total, _position, pos)
     }
 
-    /**
-      * Stores the value.
+    /** Stores the value.
       *
       * @param context  the context to store into, not null
       * @param value  the value
@@ -699,22 +670,19 @@ object DateTimeFormatterBuilder {
 
     override def toString: String =
       if (minWidth == 1 && maxWidth == 19 && (signStyle eq SignStyle.NORMAL))
-        "Value(" + field + ")"
+        s"Value($field)"
       else if (minWidth == maxWidth && (signStyle eq SignStyle.NOT_NEGATIVE))
-        "Value(" + field + "," + minWidth + ")"
+        s"Value($field,$minWidth)"
       else
-        "Value(" + field + "," + minWidth + "," + maxWidth + "," + signStyle + ")"
+        s"Value($field,$minWidth,$maxWidth,$signStyle)"
   }
 
-  /**
-    * Prints and parses a reduced numeric date-time field.
-    */
+  /** Prints and parses a reduced numeric date-time field. */
   private[format] object ReducedPrinterParser {
     private[format] val BASE_DATE: LocalDate = LocalDate.of(2000, 1, 1)
   }
 
-    /**
-      * Constructor.
+    /** Constructor.
       *
       * @param field  the field to print, validated not null
       * @param minWidth  the field width, from 1 to 10
@@ -731,9 +699,9 @@ object DateTimeFormatterBuilder {
       extends NumberPrinterParser(field, minWidth, maxWidth, SignStyle.NOT_NEGATIVE, subsequentWidth) {
 
       if (minWidth < 1 || minWidth > 10)
-        throw new IllegalArgumentException("The width must be from 1 to 10 inclusive but was " + minWidth)
+        throw new IllegalArgumentException(s"The width must be from 1 to 10 inclusive but was $minWidth")
       if (maxWidth < 1 || maxWidth > 10)
-        throw new IllegalArgumentException("The maxWidth must be from 1 to 10 inclusive but was " + maxWidth)
+        throw new IllegalArgumentException(s"The maxWidth must be from 1 to 10 inclusive but was $maxWidth")
       if (maxWidth < minWidth)
         throw new IllegalArgumentException("The maxWidth must be greater than the width")
       if (baseDate == null){
@@ -804,12 +772,11 @@ object DateTimeFormatterBuilder {
     }
 
     override def toString: String = {
-      "ReducedValue(" + field + "," + minWidth + "," + maxWidth + "," + (if (baseDate != null) baseDate else baseValue) + ")"
+      s"ReducedValue($field,$minWidth,$maxWidth,${if (baseDate != null) baseDate else baseValue})"
     }
   }
 
-  /**
-    * Prints and parses a numeric date-time field with optional padding.
+  /** Prints and parses a numeric date-time field with optional padding.
     *
     *
     * Constructor.
@@ -826,13 +793,13 @@ object DateTimeFormatterBuilder {
     extends DateTimePrinterParser {
     Objects.requireNonNull(field, "field")
     if (!field.range.isFixed)
-      throw new IllegalArgumentException("Field must have a fixed set of values: " + field)
+      throw new IllegalArgumentException(s"Field must have a fixed set of values: $field")
     if (minWidth < 0 || minWidth > 9)
-      throw new IllegalArgumentException("Minimum width must be from 0 to 9 inclusive but was " + minWidth)
+      throw new IllegalArgumentException(s"Minimum width must be from 0 to 9 inclusive but was $minWidth")
     if (maxWidth < 1 || maxWidth > 9)
-      throw new IllegalArgumentException("Maximum width must be from 1 to 9 inclusive but was " + maxWidth)
+      throw new IllegalArgumentException(s"Maximum width must be from 1 to 9 inclusive but was $maxWidth")
     if (maxWidth < minWidth)
-      throw new IllegalArgumentException("Maximum width must exceed or equal the minimum width but " + maxWidth + " < " + minWidth)
+      throw new IllegalArgumentException(s"Maximum width must exceed or equal the minimum width but $maxWidth < $minWidth")
 
     def print(context: DateTimePrintContext, buf: StringBuilder): Boolean = {
       val value: java.lang.Long = context.getValue(field)
@@ -906,8 +873,7 @@ object DateTimeFormatterBuilder {
       context.setParsedField(field, value, _position, pos)
     }
 
-    /**
-      * Converts a value for this field to a fraction between 0 and 1.
+    /** Converts a value for this field to a fraction between 0 and 1.
       * <p>
       * The fractional value is between 0 (inclusive) and 1 (exclusive).
       * It can only be returned if the {@link TemporalField#range() value range} is fixed.
@@ -932,8 +898,7 @@ object DateTimeFormatterBuilder {
       if (fraction.compareTo(BigDecimal.ZERO) == 0) BigDecimal.ZERO else fraction.stripTrailingZeros
     }
 
-    /**
-      * Converts a fraction from 0 to 1 for this field to a value.
+    /** Converts a fraction from 0 to 1 for this field to a value.
       * <p>
       * The fractional value must be between 0 (inclusive) and 1 (exclusive).
       * It can only be returned if the {@link TemporalField#range() value range} is fixed.
@@ -962,8 +927,7 @@ object DateTimeFormatterBuilder {
     }
   }
 
-  /**
-    * Prints or parses field text.
+  /** Prints or parses field text.
     *
     * Constructor.
     *
@@ -972,8 +936,7 @@ object DateTimeFormatterBuilder {
     * @param provider  the text provider, not null
     */
   private[format] final class TextPrinterParser private[format](private val field: TemporalField, private val textStyle: TextStyle, private val provider: DateTimeTextProvider) extends DateTimePrinterParser {
-    /**
-      * The cached number printer parser.
+    /** The cached number printer parser.
       * Immutable and volatile, so no synchronization needed.
       */
     @volatile
@@ -1016,8 +979,7 @@ object DateTimeFormatterBuilder {
       numberPrinterParser.parse(context, parseText, position)
     }
 
-    /**
-      * Create and cache a number printer parser.
+    /** Create and cache a number printer parser.
       * @return the number printer parser for this field, not null
       */
     private def numberPrinterParser: DateTimeFormatterBuilder.NumberPrinterParser = {
@@ -1033,9 +995,7 @@ object DateTimeFormatterBuilder {
         "Text(" + field + "," + textStyle + ")"
   }
 
-  /**
-    * Prints or parses an ISO-8601 instant.
-    */
+  /** Prints or parses an ISO-8601 instant. */
   private[format] object InstantPrinterParser {
     private val SECONDS_PER_10000_YEARS: Long = 146097L * 25L * 86400L
     private val SECONDS_0000_TO_1970: Long = ((146097L * 5L) - (30L * 365L + 7L)) * 86400L
@@ -1161,16 +1121,13 @@ object DateTimeFormatterBuilder {
     override def toString: String = "Instant()"
   }
 
-  /**
-    * Prints or parses an offset ID.
-    */
+  /** Prints or parses an offset ID. */
   private[format] object OffsetIdPrinterParser {
     private[format] val PATTERNS: Array[String] = Array[String]("+HH", "+HHmm", "+HH:mm", "+HHMM", "+HH:MM", "+HHMMss", "+HH:MM:ss", "+HHMMSS", "+HH:MM:SS")
     private[format] val INSTANCE_ID: OffsetIdPrinterParser = new OffsetIdPrinterParser("Z", "+HH:MM:ss")
   }
 
-    /**
-      * Constructor.
+    /** Constructor.
       *
       * @param noOffsetText  the text to use for UTC, not null
       * @param pattern  the pattern
@@ -1255,8 +1212,7 @@ object DateTimeFormatterBuilder {
       ~position
     }
 
-    /**
-      * Parse a two digit zero-prefixed number.
+    /** Parse a two digit zero-prefixed number.
       *
       * @param array  the array of parsed data, 0=pos,1=hours,2=mins,3=secs, not null
       * @param arrayIndex  the index to parse the value into
@@ -1300,9 +1256,7 @@ object DateTimeFormatterBuilder {
     }
   }
 
-  /**
-    * Prints or parses a localized offset.
-    */
+  /** Prints or parses a localized offset. */
   private[format] final class LocalizedOffsetPrinterParser(private val style: TextStyle) extends DateTimePrinterParser {
 
     def print(context: DateTimePrintContext, buf: StringBuilder): Boolean = {
@@ -1405,9 +1359,7 @@ object DateTimeFormatterBuilder {
     }
   }
 
-  /**
-    * Prints or parses a zone ID.
-    */
+  /** Prints or parses a zone ID. */
   private[format] object ZoneTextPrinterParser {
     /** The text style to output. */
     private val LENGTH_COMPARATOR: Comparator[String] =
@@ -1468,18 +1420,13 @@ object DateTimeFormatterBuilder {
     override def toString: String = "ZoneText(" + textStyle + ")"
   }
 
-  /**
-    * Prints or parses a zone ID.
-    */
+  /** Prints or parses a zone ID. */
   private[format] object ZoneIdPrinterParser {
-    /**
-      * The cached tree to speed up parsing.
-      */
+    /** The cached tree to speed up parsing. */
     @volatile
     private var cachedSubstringTree: java.util.Map.Entry[Integer, SubstringTree] = null
 
-    /**
-      * Model a tree of substrings to make the parsing easier. Due to the nature
+    /** Model a tree of substrings to make the parsing easier. Due to the nature
       * of time-zone names, it can be faster to parse based in unique substrings
       * rather than just a character by character match.
       * <p>
@@ -1505,13 +1452,9 @@ object DateTimeFormatterBuilder {
       *                Subtrees will have a longer length.
       */
     private final class SubstringTree private[format](private[format] val length: Int) {
-      /**
-        * Map of a substring to a set of substrings that contain the key.
-        */
+      /** Map of a substring to a set of substrings that contain the key. */
       private val substringMap: java.util.Map[CharSequence, SubstringTree] = new java.util.HashMap[CharSequence, SubstringTree]
-      /**
-        * Map of a substring to a set of substrings that contain the key.
-        */
+      /** Map of a substring to a set of substrings that contain the key. */
       private val substringMapCI: java.util.Map[String, SubstringTree] = new java.util.HashMap[String, SubstringTree]
 
 
@@ -1519,8 +1462,7 @@ object DateTimeFormatterBuilder {
         if (caseSensitive) substringMap.get(substring2)
         else substringMapCI.get(substring2.toString.toLowerCase(Locale.ENGLISH))
 
-      /**
-        * Values must be added from shortest to longest.
+      /** Values must be added from shortest to longest.
         *
         * @param newSubstring  the substring to add, not null
         */
@@ -1544,8 +1486,7 @@ object DateTimeFormatterBuilder {
       }
     }
 
-    /**
-      * Builds an optimized parsing tree.
+    /** Builds an optimized parsing tree.
       *
       * @param availableIDs  the available IDs, not null, not empty
       * @return the tree, not null
@@ -1574,8 +1515,7 @@ object DateTimeFormatterBuilder {
       }
     }
 
-    /**
-      * This implementation looks for the longest matching string.
+    /** This implementation looks for the longest matching string.
       * For example, parsing Etc/GMT-2 will return Etc/GMC-2 rather than just
       * Etc/GMC although both are valid.
       * <p>
@@ -1689,8 +1629,7 @@ object DateTimeFormatterBuilder {
     override def toString: String = description
   }
 
-  /**
-    * Prints or parses a chronology.
+  /** Prints or parses a chronology.
     *
     * @param textStyle The text style to output, null means the ID.
     */
@@ -1739,8 +1678,7 @@ object DateTimeFormatterBuilder {
     }
   }
 
-  /**
-    * Prints or parses a localized pattern.
+  /** Prints or parses a localized pattern.
     *
     * Constructor.
     *
@@ -1759,8 +1697,7 @@ object DateTimeFormatterBuilder {
       formatter(context.getLocale, chrono).toPrinterParser(false).parse(context, text, position)
     }
 
-    /**
-      * Gets the formatter to use.
+    /** Gets the formatter to use.
       *
       * @param locale  the locale to use, not null
       * @return the formatter, not null
@@ -1773,9 +1710,7 @@ object DateTimeFormatterBuilder {
       "Localized(" + (if (dateStyle != null) dateStyle else "") + "," + (if (timeStyle != null) timeStyle else "") + ")"
   }
 
-  /**
-    * Prints or parses a localized pattern.
-    */
+  /** Prints or parses a localized pattern. */
   private[format] final class WeekFieldsPrinterParser(private val letter: Char, private val count: Int) extends DateTimePrinterParser {
 
     def print(context: DateTimePrintContext, buf: StringBuilder): Boolean = {
@@ -1836,49 +1771,34 @@ object DateTimeFormatterBuilder {
     }
   }
 
-  /**
-    * Length comparator.
-    */
+  /** Length comparator. */
   private[format] val LENGTH_SORT: Comparator[String] = (str1: String, str2: String) => if (str1.length == str2.length) str1.compareTo(str2) else str1.length - str2.length
 }
 
-/**
-  * Constructs a new instance of the builder.
+/** Constructs a new instance of the builder.
   *
   * @param parent  the parent builder, not null
   * @param optional  whether the formatter is optional, not null
   */
 final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatterBuilder, private val optional: Boolean) {
-  /**
-    * Constructs a new instance of the builder.
-    */
+  /** Constructs a new instance of the builder. */
   def this() {
     this(null, false)
   }
 
-  /**
-    * The currently active builder, used by the outermost builder.
-    */
+  /** The currently active builder, used by the outermost builder. */
   private var active: DateTimeFormatterBuilder = this
-  /**
-    * The list of printers that will be used.
+  /** The list of printers that will be used.
     */
   private val printerParsers: java.util.List[DateTimeFormatterBuilder.DateTimePrinterParser] = new java.util.ArrayList[DateTimeFormatterBuilder.DateTimePrinterParser]
-  /**
-    * The width to pad the next field to.
-    */
+  /** The width to pad the next field to. */
   private var padNextWidth: Int = 0
-  /**
-    * The character to pad the next field with.
-    */
+  /** The character to pad the next field with. */
   private var padNextChar: Char = 0
-  /**
-    * The index of the last variable width value parser.
-    */
+  /** The index of the last variable width value parser. */
   private var valueParserIndex: Int = -1
 
-  /**
-    * Changes the parse style to be case sensitive for the remainder of the formatter.
+  /** Changes the parse style to be case sensitive for the remainder of the formatter.
     * <p>
     * Parsing can be case sensitive or insensitive - by default it is case sensitive.
     * This method allows the case sensitivity setting of parsing to be changed.
@@ -1900,8 +1820,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     this
   }
 
-  /**
-    * Changes the parse style to be case insensitive for the remainder of the formatter.
+  /** Changes the parse style to be case insensitive for the remainder of the formatter.
     * <p>
     * Parsing can be case sensitive or insensitive - by default it is case sensitive.
     * This method allows the case sensitivity setting of parsing to be changed.
@@ -1920,8 +1839,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     this
   }
 
-  /**
-    * Changes the parse style to be strict for the remainder of the formatter.
+  /** Changes the parse style to be strict for the remainder of the formatter.
     * <p>
     * Parsing can be strict or lenient - by default its strict.
     * This controls the degree of flexibility in matching the text and sign styles.
@@ -1938,8 +1856,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     this
   }
 
-  /**
-    * Changes the parse style to be lenient for the remainder of the formatter.
+  /** Changes the parse style to be lenient for the remainder of the formatter.
     * Note that case sensitivity is set separately to this method.
     * <p>
     * Parsing can be strict or lenient - by default its strict.
@@ -1957,8 +1874,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     this
   }
 
-  /**
-    * Appends a default value for a field to the formatter for use in parsing.
+  /** Appends a default value for a field to the formatter for use in parsing.
     * <p>
     * This appends an instruction to the builder to inject a default value
     * into the parsed result. This is especially useful in conjunction with
@@ -1990,8 +1906,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     this
   }
 
-  /**
-    * Appends the value of a date-time field to the formatter using a normal
+  /** Appends the value of a date-time field to the formatter using a normal
     * output style.
     * <p>
     * The value of the field will be output during a print.
@@ -2014,8 +1929,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     this
   }
 
-  /**
-    * Appends the value of a date-time field to the formatter using a fixed
+  /** Appends the value of a date-time field to the formatter using a fixed
     * width, zero-padded approach.
     * <p>
     * The value of the field will be output during a print.
@@ -2071,8 +1985,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     this
   }
 
-  /**
-    * Appends the value of a date-time field to the formatter providing full
+  /** Appends the value of a date-time field to the formatter providing full
     * control over printing.
     * <p>
     * The value of the field will be output during a print.
@@ -2116,8 +2029,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     this
   }
 
-  /**
-    * Appends the reduced value of a date-time field to the formatter.
+  /** Appends the reduced value of a date-time field to the formatter.
     * <p>
     * Since fields such as year vary by chronology, it is recommended to use the
     * {@link #appendValueReduced(TemporalField, int, int, ChronoLocalDate)} date}
@@ -2161,8 +2073,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     this
   }
 
-  /**
-    * Appends the reduced value of a date-time field to the formatter.
+  /** Appends the reduced value of a date-time field to the formatter.
     * <p>
     * This is typically used for formatting and parsing a two digit year.
     * <p>
@@ -2221,8 +2132,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     this
   }
 
-  /**
-    * Appends a fixed width printer-parser.
+  /** Appends a fixed width printer-parser.
     *
     * @param pp  the printer-parser, not null
     * @return this, for chaining, not null
@@ -2248,8 +2158,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     this
   }
 
-  /**
-    * Appends the fractional value of a date-time field to the formatter.
+  /** Appends the fractional value of a date-time field to the formatter.
     * <p>
     * The fractional value of the field will be output including the
     * preceding decimal point. The preceding value is not output.
@@ -2285,8 +2194,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     this
   }
 
-  /**
-    * Appends the text of a date-time field to the formatter using the full
+  /** Appends the text of a date-time field to the formatter using the full
     * text style.
     * <p>
     * The text of the field will be output during a print.
@@ -2302,8 +2210,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     */
   def appendText(field: TemporalField): DateTimeFormatterBuilder = appendText(field, TextStyle.FULL)
 
-  /**
-    * Appends the text of a date-time field to the formatter.
+  /** Appends the text of a date-time field to the formatter.
     * <p>
     * The text of the field will be output during a print.
     * The value must be within the valid range of the field.
@@ -2324,8 +2231,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     this
   }
 
-  /**
-    * Appends the text of a date-time field to the formatter using the specified
+  /** Appends the text of a date-time field to the formatter using the specified
     * map to supply the text.
     * <p>
     * The standard text outputting methods use the localized text in the JDK.
@@ -2377,8 +2283,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     this
   }
 
-  /**
-    * Appends an instant using ISO-8601 to the formatter, formatting fractional
+  /** Appends an instant using ISO-8601 to the formatter, formatting fractional
     * digits in groups of three.
     * <p>
     * Instants have a fixed output format.
@@ -2407,8 +2312,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     this
   }
 
-  /**
-    * Appends an instant using ISO-8601 to the formatter with control over
+  /** Appends an instant using ISO-8601 to the formatter with control over
     * the number of fractional digits.
     * <p>
     * Instants have a fixed output format, although this method provides some
@@ -2450,8 +2354,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
       this
     }
 
-  /**
-    * Appends the zone offset, such as '+01:00', to the formatter.
+  /** Appends the zone offset, such as '+01:00', to the formatter.
     * <p>
     * This appends an instruction to print/parse the offset ID to the builder.
     * This is equivalent to calling {@code appendOffset("HH:MM:ss", "Z")}.
@@ -2463,8 +2366,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     this
   }
 
-  /**
-    * Appends the zone offset, such as '+01:00', to the formatter.
+  /** Appends the zone offset, such as '+01:00', to the formatter.
     * <p>
     * This appends an instruction to print/parse the offset ID to the builder.
     * <p>
@@ -2506,8 +2408,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     this
   }
 
-  /**
-    * Appends the localized zone offset, such as 'GMT+01:00', to the formatter.
+  /** Appends the localized zone offset, such as 'GMT+01:00', to the formatter.
     * <p>
     * This appends a localized zone offset to the builder, the format of the
     * localized offset is controlled by the specified {@link FormatStyle style}
@@ -2543,8 +2444,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     this
   }
 
-  /**
-    * Appends the time-zone ID, such as 'Europe/Paris' or '+02:00', to the formatter.
+  /** Appends the time-zone ID, such as 'Europe/Paris' or '+02:00', to the formatter.
     * <p>
     * This appends an instruction to print/parse the zone ID to the builder.
     * The zone ID is obtained in a strict manner suitable for {@code ZonedDateTime}.
@@ -2569,8 +2469,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     this
   }
 
-  /**
-    * Appends the time-zone region ID, such as 'Europe/Paris', to the formatter,
+  /** Appends the time-zone region ID, such as 'Europe/Paris', to the formatter,
     * rejecting the zone ID if it is a {@code ZoneOffset}.
     * <p>
     * This appends an instruction to print/parse the zone ID to the builder
@@ -2597,8 +2496,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     this
   }
 
-  /**
-    * Appends the time-zone ID, such as 'Europe/Paris' or '+02:00', to
+  /** Appends the time-zone ID, such as 'Europe/Paris' or '+02:00', to
     * the formatter, using the best available zone ID.
     * <p>
     * This appends an instruction to print/parse the best available
@@ -2628,8 +2526,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     this
   }
 
-  /**
-    * Appends the time-zone name, such as 'British Summer Time', to the formatter.
+  /** Appends the time-zone name, such as 'British Summer Time', to the formatter.
     * <p>
     * This appends an instruction to print the textual name of the zone to the builder.
     * <p>
@@ -2656,8 +2553,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     this
   }
 
-  /**
-    * Appends the time-zone name, such as 'British Summer Time', to the formatter.
+  /** Appends the time-zone name, such as 'British Summer Time', to the formatter.
     * <p>
     * This appends an instruction to format/parse the textual name of the zone to
     * the builder.
@@ -2698,8 +2594,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     this
   }
 
-  /**
-    * Appends the chronology ID to the formatter.
+  /** Appends the chronology ID to the formatter.
     * <p>
     * The chronology ID will be output during a print.
     * If the chronology cannot be obtained then an exception will be thrown.
@@ -2711,8 +2606,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     this
   }
 
-  /**
-    * Appends the chronology ID, such as 'ISO' or 'ThaiBuddhist', to the formatter.
+  /** Appends the chronology ID, such as 'ISO' or 'ThaiBuddhist', to the formatter.
     * <p>
     * This appends an instruction to format/parse the chronology ID to the builder.
     * <p>
@@ -2736,8 +2630,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     this
   }
 
-  /**
-    * Appends a localized date-time pattern to the formatter.
+  /** Appends a localized date-time pattern to the formatter.
     * <p>
     * This appends a localized section to the builder, suitable for outputting
     * a date, time or date-time combination. The format of the localized
@@ -2771,8 +2664,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     this
   }
 
-  /**
-    * Appends a character literal to the formatter.
+  /** Appends a character literal to the formatter.
     * <p>
     * This character will be output during a print.
     *
@@ -2784,8 +2676,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     this
   }
 
-  /**
-    * Appends a string literal to the formatter.
+  /** Appends a string literal to the formatter.
     * <p>
     * This string will be output during a print.
     * <p>
@@ -2804,8 +2695,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     this
   }
 
-  /**
-    * Appends all the elements of a formatter to the builder.
+  /** Appends all the elements of a formatter to the builder.
     * <p>
     * This method has the same effect as appending each of the constituent
     * parts of the formatter directly to this builder.
@@ -2819,8 +2709,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     this
   }
 
-  /**
-    * Appends a formatter to the builder which will optionally print/parse.
+  /** Appends a formatter to the builder which will optionally print/parse.
     * <p>
     * This method has the same effect as appending each of the constituent
     * parts directly to this builder surrounded by an {@link #optionalStart()} and
@@ -2838,8 +2727,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     this
   }
 
-  /**
-    * Appends the elements defined by the specified pattern to the builder.
+  /** Appends the elements defined by the specified pattern to the builder.
     * <p>
     * All letters 'A' to 'Z' and 'a' to 'z' are reserved as pattern letters.
     * The characters '{' and '}' are reserved for future use.
@@ -3251,8 +3139,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     }
   }
 
-  /**
-    * Causes the next added printer/parser to pad to a fixed width using a space.
+  /** Causes the next added printer/parser to pad to a fixed width using a space.
     * <p>
     * This padding will pad to a fixed width using spaces.
     * <p>
@@ -3272,8 +3159,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     */
   def padNext(padWidth: Int): DateTimeFormatterBuilder = padNext(padWidth, ' ')
 
-  /**
-    * Causes the next added printer/parser to pad to a fixed width.
+  /** Causes the next added printer/parser to pad to a fixed width.
     * <p>
     * This padding is intended for padding other than zero-padding.
     * Zero-padding should be achieved using the appendValue methods.
@@ -3302,8 +3188,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     this
   }
 
-  /**
-    * Mark the start of an optional section.
+  /** Mark the start of an optional section.
     * <p>
     * The output of printing can include optional sections, which may be nested.
     * An optional section is started by calling this method and ended by calling
@@ -3328,8 +3213,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     this
   }
 
-  /**
-    * Ends an optional section.
+  /** Ends an optional section.
     * <p>
     * The output of printing can include optional sections, which may be nested.
     * An optional section is started by calling {@link #optionalStart()} and ended
@@ -3366,8 +3250,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     this
   }
 
-  /**
-    * Appends a printer and/or parser to the internal list handling padding.
+  /** Appends a printer and/or parser to the internal list handling padding.
     *
     * @param pp  the printer-parser to add, not null
     * @return the index into the active parsers list
@@ -3386,8 +3269,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     active.printerParsers.size - 1
   }
 
-  /**
-    * Completes this builder by creating the DateTimeFormatter using the default locale.
+  /** Completes this builder by creating the DateTimeFormatter using the default locale.
     * <p>
     * This will create a formatter with the default locale.
     * Numbers will be printed and parsed using the standard non-localized set of symbols.
@@ -3402,8 +3284,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     */
   def toFormatter: DateTimeFormatter = toFormatter(Locale.getDefault)
 
-  /**
-    * Completes this builder by creating the DateTimeFormatter using the specified locale.
+  /** Completes this builder by creating the DateTimeFormatter using the specified locale.
     * <p>
     * This will create a formatter with the specified locale.
     * Numbers will be printed and parsed using the standard non-localized set of symbols.
