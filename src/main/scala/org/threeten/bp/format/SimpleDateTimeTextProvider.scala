@@ -96,31 +96,30 @@ object SimpleDateTimeTextProvider {
     /**
       * Parsable data.
       */
-    private final val parsable: java.util.Map[TextStyle, java.util.List[java.util.Map.Entry[String, Long]]] = null
-
-    /* !!! FIXME
-     def this {
+    private final val parsable: java.util.Map[TextStyle, java.util.List[java.util.Map.Entry[String, Long]]] = {
       val map: java.util.Map[TextStyle, java.util.List[java.util.Map.Entry[String, Long]]] = new java.util.HashMap[TextStyle, java.util.List[java.util.Map.Entry[String, Long]]]
       val allList: java.util.List[java.util.Map.Entry[String, Long]] = new java.util.ArrayList[java.util.Map.Entry[String, Long]]
       import scala.collection.JavaConversions._
       for (style <- valueTextMap.keySet) {
         val reverse: java.util.Map[String, java.util.Map.Entry[String, Long]] = new java.util.HashMap[String, java.util.Map.Entry[String, Long]]
         import scala.collection.JavaConversions._
-        for (entry <- valueTextMap.get(style).entrySet) {
-          if (reverse.put(entry.getValue, createEntry(entry.getValue, entry.getKey)) != null) {
-            continue //todo: continue is not supported
-          }
+        var continue = true
+        val entries = valueTextMap.get(style).entrySet.iterator()
+        while (continue && entries.hasNext) {
+          val entry = entries.next()
+          if (reverse.put(entry.getValue, createEntry(entry.getValue, entry.getKey)) != null)
+            continue = false
         }
         val list: java.util.List[java.util.Map.Entry[String, Long]] = new java.util.ArrayList[java.util.Map.Entry[String, Long]](reverse.values)
-        Collections.sort(list, COMPARATOR)
+        java.util.Collections.sort(list, COMPARATOR)
         map.put(style, list)
         allList.addAll(list)
         map.put(null, allList)
       }
-      Collections.sort(allList, COMPARATOR)
-      this.parsable = map
+      java.util.Collections.sort(allList, COMPARATOR)
+      map
     }
-    */
+
 
     /**
       * Gets the text for the specified field value, locale and style
