@@ -221,7 +221,7 @@ object HijrahDate {
   private val ADJUSTED_CYCLES: Array[Long] = {
     val cycles = new Array[Long](MAX_ADJUSTED_CYCLE)
     var i: Int = 0
-    while (i < ADJUSTED_CYCLES.length) {
+    while (i < MAX_ADJUSTED_CYCLE) {
       cycles(i) = new java.lang.Long(10631 * i)
       i += 1
     }
@@ -247,7 +247,7 @@ object HijrahDate {
     val values = new Array[Integer](LEAST_MAX_VALUES.length)
     var i: Int = 0
     while (i < LEAST_MAX_VALUES.length) {
-      ADJUSTED_LEAST_MAX_VALUES(i) = new Integer(LEAST_MAX_VALUES(i))
+      values(i) = new Integer(LEAST_MAX_VALUES(i))
       i += 1
     }
     values
@@ -259,7 +259,7 @@ object HijrahDate {
     val values = new Array[Integer](MAX_VALUES.length)
     var i: Int = 0
     while (i < MAX_VALUES.length) {
-      ADJUSTED_MAX_VALUES(i) = new Integer(MAX_VALUES(i))
+      values(i) = new Integer(MAX_VALUES(i))
       i += 1
     }
     values
