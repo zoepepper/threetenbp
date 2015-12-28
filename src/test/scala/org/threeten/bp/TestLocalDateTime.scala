@@ -615,7 +615,7 @@ import org.threeten.bp.temporal.TemporalUnit
 
   @Test def factory_ofEpochSecond_longOffset_afterEpoch(): Unit = {
     val base: LocalDateTime = LocalDateTime.of(1970, 1, 1, 2, 0, 0, 500)
-    
+
     {
       var i: Int = 0
       while (i < 100000) {
@@ -633,7 +633,7 @@ import org.threeten.bp.temporal.TemporalUnit
 
   @Test def factory_ofEpochSecond_longOffset_beforeEpoch(): Unit = {
     val base: LocalDateTime = LocalDateTime.of(1970, 1, 1, 2, 0, 0, 500)
-    
+
     {
       var i: Int = 0
       while (i < 100000) {
@@ -759,12 +759,12 @@ import org.threeten.bp.temporal.TemporalUnit
     TEST_2007_07_15_12_30_40_987654321.query(null)
   }
 
-  @DataProvider(name = "sampleDates") private[bp] def provider_sampleDates: Array[Array[Int]] = {
-    Array[Array[Int]](Array(2008, 7, 5), Array(2007, 7, 5), Array(2006, 7, 5), Array(2005, 7, 5), Array(2004, 1, 1), Array(-1, 1, 2))
+  @DataProvider(name = "sampleDates") private[bp] def provider_sampleDates: Array[Array[AnyRef]] = {
+    Array[Array[AnyRef]](Array(2008: Integer, 7: Integer, 5: Integer), Array(2007: Integer, 7: Integer, 5: Integer), Array(2006: Integer, 7: Integer, 5: Integer), Array(2005: Integer, 7: Integer, 5: Integer), Array(2004: Integer, 1: Integer, 1: Integer), Array(-1: Integer, 1: Integer, 2: Integer))
   }
 
-  @DataProvider(name = "sampleTimes") private[bp] def provider_sampleTimes: Array[Array[Int]] = {
-    Array[Array[Int]](Array(0, 0, 0, 0), Array(0, 0, 0, 1), Array(0, 0, 1, 0), Array(0, 0, 1, 1), Array(0, 1, 0, 0), Array(0, 1, 0, 1), Array(0, 1, 1, 0), Array(0, 1, 1, 1), Array(1, 0, 0, 0), Array(1, 0, 0, 1), Array(1, 0, 1, 0), Array(1, 0, 1, 1), Array(1, 1, 0, 0), Array(1, 1, 0, 1), Array(1, 1, 1, 0), Array(1, 1, 1, 1))
+  @DataProvider(name = "sampleTimes") private[bp] def provider_sampleTimes: Array[Array[AnyRef]] = {
+    Array[Array[AnyRef]](Array(0: Integer, 0: Integer, 0: Integer, 0: Integer), Array(0: Integer, 0: Integer, 0: Integer, 1: Integer), Array(0: Integer, 0: Integer, 1: Integer, 0: Integer), Array(0: Integer, 0: Integer, 1: Integer, 1: Integer), Array(0: Integer, 1: Integer, 0: Integer, 0: Integer), Array(0: Integer, 1: Integer, 0: Integer, 1: Integer), Array(0: Integer, 1: Integer, 1: Integer, 0: Integer), Array(0: Integer, 1: Integer, 1: Integer, 1: Integer), Array(1: Integer, 0: Integer, 0: Integer, 0: Integer), Array(1: Integer, 0: Integer, 0: Integer, 1: Integer), Array(1: Integer, 0: Integer, 1: Integer, 0: Integer), Array(1: Integer, 0: Integer, 1: Integer, 1: Integer), Array(1: Integer, 1: Integer, 0: Integer, 0: Integer), Array(1: Integer, 1: Integer, 0: Integer, 1: Integer), Array(1: Integer, 1: Integer, 1: Integer, 0: Integer), Array(1: Integer, 1: Integer, 1: Integer, 1: Integer))
   }
 
   @Test(dataProvider = "sampleDates") def test_get_dates(y: Int, m: Int, d: Int): Unit = {
@@ -2287,16 +2287,16 @@ import org.threeten.bp.temporal.TemporalUnit
 
   @DataProvider(name = "sampleDateTimes") private[bp] def provider_sampleDateTimes: java.util.Iterator[Array[AnyRef]] = {
     new java.util.Iterator[Array[AnyRef]]() {
-      private[bp] var sampleDates: Array[Array[Int]] = provider_sampleDates
-      private[bp] var sampleTimes: Array[Array[Int]] = provider_sampleTimes
+      private[bp] var sampleDates: Array[Array[AnyRef]] = provider_sampleDates
+      private[bp] var sampleTimes: Array[Array[AnyRef]] = provider_sampleTimes
       private[bp] var datesIndex: Int = 0
       private[bp] var timesIndex: Int = 0
 
       def hasNext: Boolean = datesIndex < sampleDates.length
 
       def next: Array[AnyRef] = {
-        val sampleDate: Array[Int] = sampleDates(datesIndex)
-        val sampleTime: Array[Int] = sampleTimes(timesIndex)
+        val sampleDate: Array[AnyRef] = sampleDates(datesIndex)
+        val sampleTime: Array[AnyRef] = sampleTimes(timesIndex)
         val ret: Array[AnyRef] = new Array[AnyRef](sampleDate.length + sampleTime.length)
         System.arraycopy(sampleDate, 0, ret, 0, sampleDate.length)
         System.arraycopy(sampleTime, 0, ret, sampleDate.length, sampleTime.length)
@@ -2310,9 +2310,7 @@ import org.threeten.bp.temporal.TemporalUnit
         ret
       }
 
-      override def remove(): Unit = {
-        throw new UnsupportedOperationException
-      }
+      override def remove(): Unit = throw new UnsupportedOperationException
     }
   }
 
