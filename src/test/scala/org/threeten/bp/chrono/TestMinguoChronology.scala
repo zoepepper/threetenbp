@@ -74,9 +74,9 @@ import org.threeten.bp.temporal.TemporalAdjusters
   @SuppressWarnings(Array("unused"))
   @Test(dataProvider = "samples") def test_MinguoDate(minguoDate: ChronoLocalDate, iso: LocalDate): Unit = {
     val hd: ChronoLocalDate = minguoDate
-    var hdt: ChronoLocalDateTime[_] = hd.atTime(LocalTime.NOON)
+    var hdt: ChronoLocalDateTime[_ <: ChronoLocalDate] = hd.atTime(LocalTime.NOON)
     val zo: ZoneOffset = ZoneOffset.ofHours(1)
-    val hzdt: ChronoZonedDateTime[_] = hdt.atZone(zo)
+    val hzdt: ChronoZonedDateTime[_ <: ChronoLocalDate] = hdt.atZone(zo)
     hdt = hdt.plus(1, ChronoUnit.YEARS)
     hdt = hdt.plus(1, ChronoUnit.MONTHS)
     hdt = hdt.plus(1, ChronoUnit.DAYS)
@@ -84,10 +84,9 @@ import org.threeten.bp.temporal.TemporalAdjusters
     hdt = hdt.plus(1, ChronoUnit.MINUTES)
     hdt = hdt.plus(1, ChronoUnit.SECONDS)
     hdt = hdt.plus(1, ChronoUnit.NANOS)
-    val a2: ChronoLocalDateTime[_] = hzdt.toLocalDateTime
-    ??? // !!! FIXME
-    //val a3: ChronoLocalDate = a2.toLocalDate
-    //val a5: ChronoLocalDate = hzdt.toLocalDate
+    val a2: ChronoLocalDateTime[_ <: ChronoLocalDate] = hzdt.toLocalDateTime
+    val a3: ChronoLocalDate = a2.toLocalDate
+    val a5: ChronoLocalDate = hzdt.toLocalDate
   }
 
   @Test def test_MinguoChrono(): Unit = {
