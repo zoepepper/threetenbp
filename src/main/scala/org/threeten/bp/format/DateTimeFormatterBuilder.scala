@@ -537,16 +537,18 @@ object DateTimeFormatterBuilder {
           case EXCEEDS_PAD =>
             if (minWidth < 19 && value >= NumberPrinterParser.EXCEED_POINTS(minWidth))
               buf.append(symbols.getPositiveSign)
-          case ALWAYS =>
+          case ALWAYS      =>
             buf.append(symbols.getPositiveSign)
+          case _           =>
         }
       }
       else {
         signStyle match {
           case NORMAL | EXCEEDS_PAD | ALWAYS =>
             buf.append(symbols.getNegativeSign)
-          case NOT_NEGATIVE =>
-            throw new DateTimeException("Field " + field + " cannot be printed as the value " + value + " cannot be negative according to the SignStyle")
+          case NOT_NEGATIVE                  =>
+            throw new DateTimeException(s"Field $field cannot be printed as the value $value cannot be negative according to the SignStyle")
+          case _                             =>
         }
       }
 
