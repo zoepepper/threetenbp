@@ -102,7 +102,7 @@ import org.threeten.bp.temporal.TemporalQueries
     val pp: DateTimeFormatterBuilder.NumberPrinterParser = new DateTimeFormatterBuilder.NumberPrinterParser(DAY_OF_MONTH, min, max, style)
     val newPos: Int = pp.parse(parseContext, input, 0)
     assertEquals(newPos, parseLen)
-    assertParsed(parseContext, DAY_OF_MONTH, if (parseVal != null) parseVal.asInstanceOf[Long] else null)
+    assertParsed(parseContext, DAY_OF_MONTH, if (parseVal != null) parseVal.toLong else null)
   }
 
   @DataProvider(name = "parseSignsLenient") private[format] def provider_parseSignsLenient: Array[Array[Any]] = {
@@ -116,7 +116,7 @@ import org.threeten.bp.temporal.TemporalQueries
     val pp: DateTimeFormatterBuilder.NumberPrinterParser = new DateTimeFormatterBuilder.NumberPrinterParser(DAY_OF_MONTH, min, max, style)
     val newPos: Int = pp.parse(parseContext, input, 0)
     assertEquals(newPos, parseLen)
-    assertParsed(parseContext, DAY_OF_MONTH, if (parseVal != null) parseVal.asInstanceOf[Long] else null)
+    assertParsed(parseContext, DAY_OF_MONTH, if (parseVal != null) parseVal.toLong else null)
   }
 
   private def assertParsed(context: DateTimeParseContext, field: TemporalField, value: java.lang.Long): Unit = {
