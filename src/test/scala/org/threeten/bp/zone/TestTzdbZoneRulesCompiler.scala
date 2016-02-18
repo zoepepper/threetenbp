@@ -31,6 +31,7 @@
  */
 package org.threeten.bp.zone
 
+import org.scalatest.testng.TestNGSuite
 import org.testng.Assert.assertEquals
 import java.io.File
 import java.lang.reflect.InvocationTargetException
@@ -85,7 +86,7 @@ import org.threeten.bp.zone.ZoneOffsetTransitionRule.TimeDefinition
   }
 }
 
-@Test class TestTzdbZoneRulesCompiler {
+@Test class TestTzdbZoneRulesCompiler extends TestNGSuite {
   @Test
   @throws[Exception]
   def test_parseYear_specific(): Unit = {

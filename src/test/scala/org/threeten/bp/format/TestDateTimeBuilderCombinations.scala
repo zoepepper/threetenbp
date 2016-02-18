@@ -31,6 +31,7 @@
  */
 package org.threeten.bp.format
 
+import org.scalatest.testng.TestNGSuite
 import org.testng.Assert.assertEquals
 import org.threeten.bp.temporal.ChronoField.ALIGNED_DAY_OF_WEEK_IN_MONTH
 import org.threeten.bp.temporal.ChronoField.ALIGNED_DAY_OF_WEEK_IN_YEAR
@@ -61,7 +62,7 @@ object TestDateTimeBuilderCombinations {
   private val PARIS: ZoneId = ZoneId.of("Europe/Paris")
 }
 
-class TestDateTimeBuilderCombinations {
+class TestDateTimeBuilderCombinations extends TestNGSuite {
   @DataProvider(name = "combine") private[format] def data_combine: Array[Array[Any]] = {
     Array[Array[Any]](Array(YEAR, 2012, MONTH_OF_YEAR, 6, DAY_OF_MONTH, 3, null, null, LocalDate.from _, LocalDate.of(2012, 6, 3)), Array(PROLEPTIC_MONTH, 2012 * 12 + 6 - 1, DAY_OF_MONTH, 3, null, null, null, null, LocalDate.from _, LocalDate.of(2012, 6, 3)), Array(YEAR, 2012, ALIGNED_WEEK_OF_YEAR, 6, DAY_OF_WEEK, 3, null, null, LocalDate.from _, LocalDate.of(2012, 2, 8)), Array(YEAR, 2012, DAY_OF_YEAR, 155, null, null, null, null, LocalDate.from _, LocalDate.of(2012, 6, 3)), Array(EPOCH_DAY, 12, null, null, null, null, null, null, LocalDate.from _, LocalDate.of(1970, 1, 13)))
   }

@@ -31,6 +31,7 @@
  */
 package org.threeten.bp.format
 
+import org.scalatest.testng.TestNGSuite
 import org.testng.Assert.assertEquals
 import org.threeten.bp.temporal.ChronoField.AMPM_OF_DAY
 import org.threeten.bp.temporal.ChronoField.DAY_OF_WEEK
@@ -44,7 +45,7 @@ import org.threeten.bp.temporal.TemporalField
 /**
   * Test SimpleDateTimeTextProvider.
   */
-@Test class TestSimpleDateTimeTextProvider {
+@Test class TestSimpleDateTimeTextProvider extends TestNGSuite {
   private[format] var enUS: Locale = new Locale("en", "US")
   private[format] var ptBR: Locale = new Locale("pt", "BR")
   private[format] var frFR: Locale = new Locale("fr", "FR")

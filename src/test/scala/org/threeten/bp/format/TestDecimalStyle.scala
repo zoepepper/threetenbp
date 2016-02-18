@@ -31,6 +31,7 @@
  */
 package org.threeten.bp.format
 
+import org.scalatest.testng.TestNGSuite
 import org.testng.Assert.assertEquals
 import java.util.Locale
 import java.util.Set
@@ -39,7 +40,7 @@ import org.testng.annotations.Test
 /**
   * Test DecimalStyle.
   */
-@Test class TestDecimalStyle {
+@Test class TestDecimalStyle extends TestNGSuite {
   @Test def test_getAvailableLocales(): Unit = {
     val locales: java.util.Set[Locale] = DecimalStyle.getAvailableLocales
     assertEquals(locales.size > 0, true)

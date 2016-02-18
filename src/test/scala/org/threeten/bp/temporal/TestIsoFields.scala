@@ -31,6 +31,7 @@
  */
 package org.threeten.bp.temporal
 
+import org.scalatest.testng.TestNGSuite
 import org.testng.Assert.assertEquals
 import org.testng.Assert.assertTrue
 import org.threeten.bp.DayOfWeek.FRIDAY
@@ -51,7 +52,7 @@ import org.threeten.bp.format.DateTimeFormatterBuilder
 /**
   * Test.
   */
-@Test class TestIsoFields {
+@Test class TestIsoFields extends TestNGSuite {
   def test_enum(): Unit = {
     assertTrue(IsoFields.WEEK_OF_WEEK_BASED_YEAR.isInstanceOf[Enum[_]])
     assertTrue(IsoFields.WEEK_BASED_YEAR.isInstanceOf[Enum[_]])

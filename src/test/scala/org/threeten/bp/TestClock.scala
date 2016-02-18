@@ -31,6 +31,7 @@
  */
 package org.threeten.bp
 
+import org.scalatest.testng.TestNGSuite
 import org.testng.Assert.assertEquals
 import org.testng.annotations.Test
 
@@ -59,7 +60,7 @@ import org.testng.annotations.Test
   private val MOCK_INSTANT: Clock = new TestClock.MockInstantClock(INSTANT.toEpochMilli, ZONE)
 }
 
-@Test class TestClock {
+@Test class TestClock extends TestNGSuite {
   @Test def test_mockInstantClock_get(): Unit = {
     assertEquals(TestClock.MOCK_INSTANT.instant, TestClock.INSTANT)
     assertEquals(TestClock.MOCK_INSTANT.millis, TestClock.INSTANT.toEpochMilli)

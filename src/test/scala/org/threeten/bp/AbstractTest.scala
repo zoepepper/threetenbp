@@ -31,6 +31,7 @@
  */
 package org.threeten.bp
 
+import org.scalatest.testng.TestNGSuite
 import org.testng.Assert.assertEquals
 import org.testng.Assert.assertSame
 import org.testng.Assert.assertTrue
@@ -49,7 +50,7 @@ import java.lang.reflect.Modifier
 /**
   * Base test class.
   */
-object AbstractTest {
+object AbstractTest extends TestNGSuite {
   private val SERIALISATION_DATA_FOLDER: String = "src/test/resources/"
 
   def isIsoLeap(year: Long): Boolean =

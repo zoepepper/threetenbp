@@ -31,6 +31,7 @@
  */
 package org.threeten.bp.zone
 
+import org.scalatest.testng.TestNGSuite
 import org.testng.Assert.assertEquals
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
@@ -57,7 +58,7 @@ import org.threeten.bp.zone.ZoneOffsetTransitionRule.TimeDefinition
   private val INSTANT: Instant = LDT.toInstant(OFFSET_PONE)
 }
 
-@Test class TestFixedZoneRules {
+@Test class TestFixedZoneRules extends TestNGSuite {
   private def make(offset: ZoneOffset): ZoneRules = {
     offset.getRules
   }

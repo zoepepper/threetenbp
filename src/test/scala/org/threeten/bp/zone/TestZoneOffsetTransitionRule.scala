@@ -31,6 +31,7 @@
  */
 package org.threeten.bp.zone
 
+import org.scalatest.testng.TestNGSuite
 import org.testng.Assert.assertEquals
 import java.io.IOException
 import org.testng.annotations.Test
@@ -45,7 +46,7 @@ import org.threeten.bp.zone.ZoneOffsetTransitionRule.TimeDefinition
 /**
   * Test ZoneOffsetTransitionRule.
   */
-@Test object TestZoneOffsetTransitionRule {
+@Test object TestZoneOffsetTransitionRule extends TestNGSuite {
   private val TIME_0100: LocalTime = LocalTime.of(1, 0)
   private val OFFSET_0200: ZoneOffset = ZoneOffset.ofHours(2)
   private val OFFSET_0300: ZoneOffset = ZoneOffset.ofHours(3)

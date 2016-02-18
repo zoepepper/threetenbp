@@ -31,6 +31,7 @@
  */
 package org.threeten.bp
 
+import org.scalatest.testng.TestNGSuite
 import org.testng.Assert.assertEquals
 import org.testng.Assert.fail
 import org.threeten.bp.temporal.ChronoUnit.DAYS
@@ -55,7 +56,7 @@ import org.threeten.bp.temporal.TemporalUnit
 /**
   * Test Duration.
   */
-@Test class TestDuration {
+@Test class TestDuration extends TestNGSuite {
   @Test def test_immutable(): Unit = {
     AbstractTest.assertImmutable(classOf[Duration])
   }

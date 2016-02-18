@@ -31,6 +31,7 @@
  */
 package org.threeten.bp.zone
 
+import org.scalatest.testng.TestNGSuite
 import org.testng.Assert.assertEquals
 import org.testng.Assert.assertFalse
 import org.testng.Assert.assertNotNull
@@ -66,7 +67,7 @@ import org.threeten.bp.zone.ZoneOffsetTransitionRule.TimeDefinition
   private val GAP: Int = 0
 }
 
-@Test class TestStandardZoneRules {
+@Test class TestStandardZoneRules extends TestNGSuite {
   @throws(classOf[Exception])
   def test_serialization_loaded(): Unit = {
     assertSerialization(europeLondon)
