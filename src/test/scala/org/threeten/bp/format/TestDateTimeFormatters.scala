@@ -715,13 +715,13 @@ import org.threeten.bp.temporal.TemporalQuery
   private def createDate(year: Integer, month: Integer, day: Integer): TestDateTimeFormatters.Expected = {
     val test: TestDateTimeFormatters.Expected = new TestDateTimeFormatters.Expected
     if (year != null) {
-      test.fieldValues.put(YEAR, year.asInstanceOf[Long])
+      test.fieldValues.put(YEAR, year.toLong)
     }
     if (month != null) {
-      test.fieldValues.put(MONTH_OF_YEAR, month.asInstanceOf[Long])
+      test.fieldValues.put(MONTH_OF_YEAR, month.toLong)
     }
     if (day != null) {
-      test.fieldValues.put(DAY_OF_MONTH, day.asInstanceOf[Long])
+      test.fieldValues.put(DAY_OF_MONTH, day.toLong)
     }
     test
   }
@@ -729,16 +729,16 @@ import org.threeten.bp.temporal.TemporalQuery
   private def createTime(hour: Integer, min: Integer, sec: Integer, nano: Integer): TestDateTimeFormatters.Expected = {
     val test: TestDateTimeFormatters.Expected = new TestDateTimeFormatters.Expected
     if (hour != null) {
-      test.fieldValues.put(HOUR_OF_DAY, hour.asInstanceOf[Long])
+      test.fieldValues.put(HOUR_OF_DAY, hour.toLong)
     }
     if (min != null) {
-      test.fieldValues.put(MINUTE_OF_HOUR, min.asInstanceOf[Long])
+      test.fieldValues.put(MINUTE_OF_HOUR, min.toLong)
     }
     if (sec != null) {
-      test.fieldValues.put(SECOND_OF_MINUTE, sec.asInstanceOf[Long])
+      test.fieldValues.put(SECOND_OF_MINUTE, sec.toLong)
     }
     if (nano != null) {
-      test.fieldValues.put(NANO_OF_SECOND, nano.asInstanceOf[Long])
+      test.fieldValues.put(NANO_OF_SECOND, nano.toLong)
     }
     test
   }
@@ -746,25 +746,25 @@ import org.threeten.bp.temporal.TemporalQuery
   private def createDateTime(year: Integer, month: Integer, day: Integer, hour: Integer, min: Integer, sec: Integer, nano: Integer): TestDateTimeFormatters.Expected = {
     val test: TestDateTimeFormatters.Expected = new TestDateTimeFormatters.Expected
     if (year != null) {
-      test.fieldValues.put(YEAR, year.asInstanceOf[Long])
+      test.fieldValues.put(YEAR, year.toLong)
     }
     if (month != null) {
-      test.fieldValues.put(MONTH_OF_YEAR, month.asInstanceOf[Long])
+      test.fieldValues.put(MONTH_OF_YEAR, month.toLong)
     }
     if (day != null) {
-      test.fieldValues.put(DAY_OF_MONTH, day.asInstanceOf[Long])
+      test.fieldValues.put(DAY_OF_MONTH, day.toLong)
     }
     if (hour != null) {
-      test.fieldValues.put(HOUR_OF_DAY, hour.asInstanceOf[Long])
+      test.fieldValues.put(HOUR_OF_DAY, hour.toLong)
     }
     if (min != null) {
-      test.fieldValues.put(MINUTE_OF_HOUR, min.asInstanceOf[Long])
+      test.fieldValues.put(MINUTE_OF_HOUR, min.toLong)
     }
     if (sec != null) {
-      test.fieldValues.put(SECOND_OF_MINUTE, sec.asInstanceOf[Long])
+      test.fieldValues.put(SECOND_OF_MINUTE, sec.toLong)
     }
     if (nano != null) {
-      test.fieldValues.put(NANO_OF_SECOND, nano.asInstanceOf[Long])
+      test.fieldValues.put(NANO_OF_SECOND, nano.toLong)
     }
     test
   }
@@ -772,25 +772,25 @@ import org.threeten.bp.temporal.TemporalQuery
   private def buildAccessor(year: Integer, month: Integer, day: Integer, hour: Integer, min: Integer, sec: Integer, nano: Integer, offsetId: String, zoneId: String): TemporalAccessor = {
     val mock: TestDateTimeFormatters.MockAccessor = new TestDateTimeFormatters.MockAccessor
     if (year != null) {
-      mock.fields.put(YEAR, year.asInstanceOf[Long])
+      mock.fields.put(YEAR, year.toLong)
     }
     if (month != null) {
-      mock.fields.put(MONTH_OF_YEAR, month.asInstanceOf[Long])
+      mock.fields.put(MONTH_OF_YEAR, month.toLong)
     }
     if (day != null) {
-      mock.fields.put(DAY_OF_MONTH, day.asInstanceOf[Long])
+      mock.fields.put(DAY_OF_MONTH, day.toLong)
     }
     if (hour != null) {
-      mock.fields.put(HOUR_OF_DAY, hour.asInstanceOf[Long])
+      mock.fields.put(HOUR_OF_DAY, hour.toLong)
     }
     if (min != null) {
-      mock.fields.put(MINUTE_OF_HOUR, min.asInstanceOf[Long])
+      mock.fields.put(MINUTE_OF_HOUR, min.toLong)
     }
     if (sec != null) {
-      mock.fields.put(SECOND_OF_MINUTE, sec.asInstanceOf[Long])
+      mock.fields.put(SECOND_OF_MINUTE, sec.toLong)
     }
     if (nano != null) {
-      mock.fields.put(NANO_OF_SECOND, nano.asInstanceOf[Long])
+      mock.fields.put(NANO_OF_SECOND, nano.toLong)
     }
     mock.setOffset(offsetId)
     mock.setZone(zoneId)
