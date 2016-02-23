@@ -31,6 +31,7 @@
  */
 package org.threeten.bp
 
+import org.scalatest.testng.TestNGSuite
 import org.testng.Assert.assertEquals
 import org.testng.Assert.assertTrue
 import java.lang.reflect.Modifier
@@ -41,7 +42,7 @@ import org.testng.annotations.Test
 /**
   * Test.
   */
-@Test class TestDateTimes_implementation {
+@Test class TestDateTimes_implementation extends TestNGSuite {
   @SuppressWarnings(Array("rawtypes"))
   @throws(classOf[Exception])
   def test_constructor(): Unit = {

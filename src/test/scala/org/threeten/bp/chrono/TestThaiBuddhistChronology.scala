@@ -31,6 +31,7 @@
  */
 package org.threeten.bp.chrono
 
+import org.scalatest.testng.TestNGSuite
 import org.testng.Assert.assertEquals
 import org.testng.Assert.assertFalse
 import org.testng.Assert.assertTrue
@@ -57,7 +58,7 @@ import org.threeten.bp.temporal.ValueRange
   private val YDIFF: Int = 543
 }
 
-@Test class TestThaiBuddhistChronology {
+@Test class TestThaiBuddhistChronology extends TestNGSuite {
   @Test def test_chrono_byName(): Unit = {
     val c: Chronology = ThaiBuddhistChronology.INSTANCE
     val test: Chronology = Chronology.of("ThaiBuddhist")

@@ -31,6 +31,7 @@
  */
 package org.threeten.bp
 
+import org.scalatest.testng.TestNGSuite
 import org.testng.Assert.assertEquals
 import org.testng.Assert.assertSame
 import java.io.IOException
@@ -45,7 +46,7 @@ import org.testng.annotations.Test
   private val INSTANT: Instant = LocalDateTime.of(2008, 6, 30, 11, 30, 10, 500).atZone(ZoneOffset.ofHours(2)).toInstant
 }
 
-@Test class TestClock_Fixed {
+@Test class TestClock_Fixed extends TestNGSuite {
   @throws(classOf[IOException])
   @throws(classOf[ClassNotFoundException])
   def test_isSerializable(): Unit = {

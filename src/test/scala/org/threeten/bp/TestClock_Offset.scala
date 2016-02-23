@@ -31,6 +31,7 @@
  */
 package org.threeten.bp
 
+import org.scalatest.testng.TestNGSuite
 import org.testng.Assert.assertEquals
 import org.testng.Assert.assertSame
 import java.io.IOException
@@ -46,7 +47,7 @@ import org.testng.annotations.Test
   private val OFFSET: Duration = Duration.ofSeconds(2)
 }
 
-@Test class TestClock_Offset {
+@Test class TestClock_Offset extends TestNGSuite {
   @throws(classOf[IOException])
   @throws(classOf[ClassNotFoundException])
   def test_isSerializable(): Unit = {

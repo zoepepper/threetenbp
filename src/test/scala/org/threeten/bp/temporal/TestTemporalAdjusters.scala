@@ -31,6 +31,7 @@
  */
 package org.threeten.bp.temporal
 
+import org.scalatest.testng.TestNGSuite
 import org.testng.Assert.assertEquals
 import org.testng.Assert.assertFalse
 import org.testng.Assert.assertNotNull
@@ -49,7 +50,7 @@ import org.threeten.bp.Month
 /**
   * Test DateTimeAdjusters.
   */
-@Test class TestTemporalAdjusters {
+@Test class TestTemporalAdjusters extends TestNGSuite {
   @Test def factory_firstDayOfMonth(): Unit = {
     assertNotNull(TemporalAdjusters.firstDayOfMonth)
   }

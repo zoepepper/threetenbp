@@ -31,6 +31,7 @@
  */
 package org.threeten.bp.temporal
 
+import org.scalatest.testng.TestNGSuite
 import org.testng.Assert.assertEquals
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
@@ -43,7 +44,7 @@ import org.threeten.bp.AbstractTest
 /**
   * Test.
   */
-@Test class TestValueRange {
+@Test class TestValueRange extends TestNGSuite {
   @Test def test_immutable(): Unit = {
     AbstractTest.assertImmutable(classOf[ValueRange])
   }

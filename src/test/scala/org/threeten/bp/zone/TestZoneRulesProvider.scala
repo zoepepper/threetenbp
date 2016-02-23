@@ -31,6 +31,7 @@
  */
 package org.threeten.bp.zone
 
+import org.scalatest.testng.TestNGSuite
 import org.testng.Assert.assertEquals
 import org.testng.Assert.assertNotNull
 import org.testng.Assert.assertTrue
@@ -66,7 +67,7 @@ import org.threeten.bp.ZoneOffset
 
 }
 
-@Test class TestZoneRulesProvider {
+@Test class TestZoneRulesProvider extends TestNGSuite {
   @Test def test_getAvailableGroupIds(): Unit = {
     val zoneIds: java.util.Set[String] = ZoneRulesProvider.getAvailableZoneIds
     assertEquals(zoneIds.contains("Europe/London"), true)
