@@ -964,24 +964,19 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
       val nanosUntil: Long = end.toEpochNano - toEpochNano
       import ChronoUnit._
       unit.asInstanceOf[ChronoUnit] match {
-        case NANOS =>
-          return nanosUntil
-        case MICROS =>
-          return nanosUntil / 1000
-        case MILLIS =>
-          return nanosUntil / 1000000
-        case SECONDS =>
-          return nanosUntil / NANOS_PER_SECOND
-        case MINUTES =>
-          return nanosUntil / NANOS_PER_MINUTE
-        case HOURS =>
-          return nanosUntil / NANOS_PER_HOUR
-        case HALF_DAYS =>
-          return nanosUntil / (12 * NANOS_PER_HOUR)
+        case NANOS     => nanosUntil
+        case MICROS    => nanosUntil / 1000
+        case MILLIS    => nanosUntil / 1000000
+        case SECONDS   => nanosUntil / NANOS_PER_SECOND
+        case MINUTES   => nanosUntil / NANOS_PER_MINUTE
+        case HOURS     => nanosUntil / NANOS_PER_HOUR
+        case HALF_DAYS => nanosUntil / (12 * NANOS_PER_HOUR)
+        case _         => throw new UnsupportedTemporalTypeException(s"Unsupported unit: $unit")
+
       }
-      throw new UnsupportedTemporalTypeException("Unsupported unit: " + unit)
+    } else {
+      unit.between(this, end)
     }
-    unit.between(this, end)
   }
 
   /**

@@ -1434,29 +1434,23 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
         var amount: Long = daysUntil
         import ChronoUnit._
         f match {
-          case NANOS =>
-            amount = Math.multiplyExact(amount, NANOS_PER_DAY)
-            return Math.addExact(amount, timeUntil)
-          case MICROS =>
-            amount = Math.multiplyExact(amount, MICROS_PER_DAY)
-            return Math.addExact(amount, timeUntil / 1000)
-          case MILLIS =>
-            amount = Math.multiplyExact(amount, MILLIS_PER_DAY)
-            return Math.addExact(amount, timeUntil / 1000000)
-          case SECONDS =>
-            amount = Math.multiplyExact(amount, SECONDS_PER_DAY)
-            return Math.addExact(amount, timeUntil / NANOS_PER_SECOND)
-          case MINUTES =>
-            amount = Math.multiplyExact(amount, MINUTES_PER_DAY)
-            return Math.addExact(amount, timeUntil / NANOS_PER_MINUTE)
-          case HOURS =>
-            amount = Math.multiplyExact(amount, HOURS_PER_DAY)
-            return Math.addExact(amount, timeUntil / NANOS_PER_HOUR)
-          case HALF_DAYS =>
-            amount = Math.multiplyExact(amount, 2)
-            return Math.addExact(amount, timeUntil / (NANOS_PER_HOUR * 12))
+          case NANOS => amount = Math.multiplyExact(amount, NANOS_PER_DAY)
+                            return Math.addExact(amount, timeUntil)
+          case MICROS    => amount = Math.multiplyExact(amount, MICROS_PER_DAY)
+                            return Math.addExact(amount, timeUntil / 1000)
+          case MILLIS    => amount = Math.multiplyExact(amount, MILLIS_PER_DAY)
+                            return Math.addExact(amount, timeUntil / 1000000)
+          case SECONDS   => amount = Math.multiplyExact(amount, SECONDS_PER_DAY)
+                            return Math.addExact(amount, timeUntil / NANOS_PER_SECOND)
+          case MINUTES   => amount = Math.multiplyExact(amount, MINUTES_PER_DAY)
+                            return Math.addExact(amount, timeUntil / NANOS_PER_MINUTE)
+          case HOURS     => amount = Math.multiplyExact(amount, HOURS_PER_DAY)
+                            return Math.addExact(amount, timeUntil / NANOS_PER_HOUR)
+          case HALF_DAYS => amount = Math.multiplyExact(amount, 2)
+                            return Math.addExact(amount, timeUntil / (NANOS_PER_HOUR * 12))
+          case _         => throw new UnsupportedTemporalTypeException("Unsupported unit: " + unit)
+
         }
-        throw new UnsupportedTemporalTypeException("Unsupported unit: " + unit)
       }
       var endDate: LocalDate = end.date
       if (endDate.isAfter(date) && end.time.isBefore(time)) {

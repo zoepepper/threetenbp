@@ -1356,26 +1356,20 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
     if (unit.isInstanceOf[ChronoUnit]) {
       import ChronoUnit._
       unit.asInstanceOf[ChronoUnit] match {
-        case DAYS =>
-          return daysUntil(end)
-        case WEEKS =>
-          return daysUntil(end) / 7
-        case MONTHS =>
-          return monthsUntil(end)
-        case YEARS =>
-          return monthsUntil(end) / 12
-        case DECADES =>
-          return monthsUntil(end) / 120
-        case CENTURIES =>
-          return monthsUntil(end) / 1200
-        case MILLENNIA =>
-          return monthsUntil(end) / 12000
-        case ERAS =>
-          return end.getLong(ERA) - getLong(ERA)
+        case DAYS      => daysUntil(end)
+        case WEEKS     => daysUntil(end) / 7
+        case MONTHS    => monthsUntil(end)
+        case YEARS     => monthsUntil(end) / 12
+        case DECADES   => monthsUntil(end) / 120
+        case CENTURIES => monthsUntil(end) / 1200
+        case MILLENNIA => monthsUntil(end) / 12000
+        case ERAS      => end.getLong(ERA) - getLong(ERA)
+        case _         => throw new UnsupportedTemporalTypeException(s"Unsupported unit: $unit")
       }
-      throw new UnsupportedTemporalTypeException("Unsupported unit: " + unit)
+
+    } else {
+      unit.between(this, end)
     }
-    unit.between(this, end)
   }
 
   private[bp] def daysUntil(end: LocalDate): Long = end.toEpochDay - toEpochDay
