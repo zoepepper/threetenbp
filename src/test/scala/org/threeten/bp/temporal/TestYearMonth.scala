@@ -299,8 +299,8 @@ import org.threeten.bp.format.DateTimeParseException
     TEST_2008_06.getLong(ChronoField.AMPM_OF_DAY)
   }
 
-  @DataProvider(name = "sampleDates") private[temporal] def provider_sampleDates: Array[Array[Int]] =
-    Array[Array[Int]](Array(2008, 1), Array(2008, 2), Array(-1, 3), Array(0, 12))
+  @DataProvider(name = "sampleDates") private[temporal] def provider_sampleDates: Array[Array[Any]] =
+    Array[Array[Any]](Array(2008, 1), Array(2008, 2), Array(-1, 3), Array(0, 12))
 
   @Test def test_with_Year(): Unit = {
     val test: YearMonth = YearMonth.of(2008, 6)
