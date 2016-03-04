@@ -102,9 +102,7 @@ object Period {
     * @param years  the number of years, positive or negative
     * @return the period of years, not null
     */
-  def ofYears(years: Int): Period = {
-    create(years, 0, 0)
-  }
+  def ofYears(years: Int): Period = create(years, 0, 0)
 
   /**
     * Obtains a {@code Period} representing a number of months.
@@ -284,7 +282,7 @@ object Period {
         }
         catch {
           case ex: NumberFormatException =>
-            throw new DateTimeParseException("Text cannot be parsed to a Period", text, 0).initCause(ex).asInstanceOf[DateTimeParseException]
+            throw new DateTimeParseException("Text cannot be parsed to a Period", text, 0, ex)
         }
       }
     }
@@ -301,7 +299,7 @@ object Period {
     }
     catch {
       case ex: ArithmeticException =>
-        throw new DateTimeParseException("Text cannot be parsed to a Period", text, 0).initCause(ex).asInstanceOf[DateTimeParseException]
+        throw new DateTimeParseException("Text cannot be parsed to a Period", text, 0, ex)
     }
   }
 

@@ -49,22 +49,11 @@ import org.threeten.bp.DateTimeException
   * @param cause  the cause exception, may be null
   */
 @SerialVersionUID(4304633501674722597L)
-class DateTimeParseException(message: String, parsedData: CharSequence, private val errorIndex: Int, cause: Throwable) extends DateTimeException(message, cause) {
+class DateTimeParseException(message: String, parsedData: CharSequence, private val errorIndex: Int, cause: Throwable = null) extends DateTimeException(message, cause) {
   /**
     * The text that was being parsed.
     */
   private final val parsedString: String = parsedData.toString
-
-  /**
-    * Constructs a new exception with the specified message.
-    *
-    * @param message  the message to use for this exception, may be null
-    * @param parsedData  the parsed text, should not be null
-    * @param errorIndex  the index in the parsed string that was invalid, should be a valid index
-    */
-  def this(message: String, parsedData: CharSequence, errorIndex: Int) {
-    this(message, parsedData, errorIndex, null)
-  }
 
   /**
     * Returns the string that was being parsed.

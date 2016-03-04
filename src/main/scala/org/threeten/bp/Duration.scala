@@ -378,7 +378,7 @@ object Duration {
           }
           catch {
             case ex: ArithmeticException =>
-              throw new DateTimeParseException("Text cannot be parsed to a Duration: overflow", text, 0).initCause(ex).asInstanceOf[DateTimeParseException]
+              throw new DateTimeParseException("Text cannot be parsed to a Duration: overflow", text, 0, ex)
           }
         }
       }
@@ -400,9 +400,9 @@ object Duration {
     }
     catch {
       case ex: NumberFormatException =>
-        throw new DateTimeParseException("Text cannot be parsed to a Duration: " + errorText, text, 0).initCause(ex).asInstanceOf[DateTimeParseException]
+        throw new DateTimeParseException("Text cannot be parsed to a Duration: " + errorText, text, 0, ex)
       case ex: ArithmeticException =>
-        throw new DateTimeParseException("Text cannot be parsed to a Duration: " + errorText, text, 0).initCause(ex).asInstanceOf[DateTimeParseException]
+        throw new DateTimeParseException("Text cannot be parsed to a Duration: " + errorText, text, 0, ex)
     }
   }
 
@@ -417,9 +417,9 @@ object Duration {
     }
     catch {
       case ex: NumberFormatException =>
-        throw new DateTimeParseException("Text cannot be parsed to a Duration: fraction", text, 0).initCause(ex).asInstanceOf[DateTimeParseException]
+        throw new DateTimeParseException("Text cannot be parsed to a Duration: fraction", text, 0, ex)
       case ex: ArithmeticException =>
-        throw new DateTimeParseException("Text cannot be parsed to a Duration: fraction", text, 0).initCause(ex).asInstanceOf[DateTimeParseException]
+        throw new DateTimeParseException("Text cannot be parsed to a Duration: fraction", text, 0, ex)
     }
   }
 
@@ -598,15 +598,12 @@ final class Duration private(private val seconds: Long, private val nanos: Int) 
     */
   def plus(amountToAdd: Long, unit: TemporalUnit): Duration = {
     Objects.requireNonNull(unit, "unit")
-    if (unit eq DAYS) {
+    if (unit eq DAYS)
       return plus(Math.multiplyExact(amountToAdd, SECONDS_PER_DAY), 0)
-    }
-    if (unit.isDurationEstimated) {
+    if (unit.isDurationEstimated)
       throw new DateTimeException("Unit must not have an estimated duration")
-    }
-    if (amountToAdd == 0) {
+    if (amountToAdd == 0)
       return this
-    }
     if (unit.isInstanceOf[ChronoUnit]) {
       unit.asInstanceOf[ChronoUnit] match {
         case NANOS =>
