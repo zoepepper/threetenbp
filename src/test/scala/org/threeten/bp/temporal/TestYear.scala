@@ -185,7 +185,7 @@ import org.threeten.bp.format.DateTimeParseException
   @Test(dataProvider = "badParseData", expectedExceptions = Array(classOf[DateTimeParseException])) def factory_parse_fail(text: String, pos: Int): Unit = {
     try {
       Year.parse(text)
-      fail(String.format("Parse should have failed for %s at position %d", text, pos.asInstanceOf[AnyRef]))
+      fail(f"Parse should have failed for $text%s at position $pos%d")
     }
     catch {
       case ex: DateTimeParseException =>
