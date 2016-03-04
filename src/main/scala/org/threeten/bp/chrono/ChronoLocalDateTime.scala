@@ -107,7 +107,7 @@ object ChronoLocalDateTime {
   }
 }
 
-abstract class ChronoLocalDateTime[D <: ChronoLocalDate] extends Temporal with TemporalAdjuster with Comparable[ChronoLocalDateTime[_]] {
+abstract class ChronoLocalDateTime[D <: ChronoLocalDate] extends Temporal with TemporalAdjuster with Ordered[ChronoLocalDateTime[_]] {
   /** Gets the chronology of this date-time.
     * <p>
     * The {@code Chronology} represents the calendar system in use.
@@ -265,7 +265,7 @@ abstract class ChronoLocalDateTime[D <: ChronoLocalDate] extends Temporal with T
     * @param other  the other date-time to compare to, not null
     * @return the comparator value, negative if less, positive if greater
     */
-  def compareTo(other: ChronoLocalDateTime[_]): Int = {
+  def compare(other: ChronoLocalDateTime[_]): Int = {
     var cmp: Int = toLocalDate.compareTo(other.toLocalDate.asInstanceOf[ChronoLocalDate])
     if (cmp == 0) {
       cmp = toLocalTime.compareTo(other.toLocalTime)

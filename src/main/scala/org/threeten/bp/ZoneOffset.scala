@@ -349,7 +349,7 @@ object ZoneOffset {
   * @param totalSeconds  the total time-zone offset in seconds, from -64800 to +64800
   */
 @SerialVersionUID(2357656521762053153L)
-final class ZoneOffset private(private val totalSeconds: Int) extends ZoneId with TemporalAccessor with TemporalAdjuster with Comparable[ZoneOffset] with Serializable {
+final class ZoneOffset private(private val totalSeconds: Int) extends ZoneId with TemporalAccessor with TemporalAdjuster with Ordered[ZoneOffset] with Serializable {
 
   /** The string form of the time-zone offset. */
   @transient
@@ -558,7 +558,7 @@ final class ZoneOffset private(private val totalSeconds: Int) extends ZoneId wit
     * @return the comparator value, negative if less, postive if greater
     * @throws NullPointerException if { @code other} is null
     */
-  def compareTo(other: ZoneOffset): Int = other.totalSeconds - totalSeconds
+  def compare(other: ZoneOffset): Int = other.totalSeconds - totalSeconds
 
   /** Checks if this offset is equal to another offset.
     * <p>

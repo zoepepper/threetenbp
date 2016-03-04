@@ -306,7 +306,7 @@ object Chronology {
   * All implementations that can be instantiated must be final, immutable and thread-safe.
   * Subclasses should be Serializable wherever possible.
   */
-trait Chronology extends Comparable[Chronology] {
+trait Chronology extends Ordered[Chronology] {
 
   /**
     * Casts the {@code Temporal} to {@code ChronoLocalDate} with the same chronology.
@@ -758,7 +758,7 @@ trait Chronology extends Comparable[Chronology] {
     * @param other  the other chronology to compare to, not null
     * @return the comparator value, negative if less, positive if greater
     */
-  def compareTo(other: Chronology): Int = getId.compareTo(other.getId)
+  def compare(other: Chronology): Int = getId.compareTo(other.getId)
 
   /**
     * Checks if this chronology is equal to another chronology.

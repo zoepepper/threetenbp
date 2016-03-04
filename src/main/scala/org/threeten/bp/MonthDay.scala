@@ -249,7 +249,7 @@ object MonthDay {
   * @param day  the day-of-month to represent, validated from 1 to 29-31
   */
 @SerialVersionUID(-939150713474957432L)
-final class MonthDay private (private val month: Int, private val day: Int) extends TemporalAccessor with TemporalAdjuster with Comparable[MonthDay] with Serializable {
+final class MonthDay private (private val month: Int, private val day: Int) extends TemporalAccessor with TemporalAdjuster with Ordered[MonthDay] with Serializable {
 
   /**
     * Checks if the specified field is supported.
@@ -554,7 +554,7 @@ final class MonthDay private (private val month: Int, private val day: Int) exte
     * @param other  the other month-day to compare to, not null
     * @return the comparator value, negative if less, positive if greater
     */
-  def compareTo(other: MonthDay): Int = {
+  def compare(other: MonthDay): Int = {
     var cmp: Int = month - other.month
     if (cmp == 0)
       cmp = day - other.day

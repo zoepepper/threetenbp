@@ -266,7 +266,7 @@ object ChronoLocalDate {
   * Additional calendar systems may be added to the system.
   * See {@link Chronology} for more details.
   */
-trait ChronoLocalDate extends Temporal with TemporalAdjuster with Comparable[ChronoLocalDate] {
+trait ChronoLocalDate extends Temporal with TemporalAdjuster with Ordered[ChronoLocalDate] {
   /**
     * Gets the chronology of this date.
     * <p>
@@ -458,7 +458,7 @@ trait ChronoLocalDate extends Temporal with TemporalAdjuster with Comparable[Chr
     * @param other  the other date to compare to, not null
     * @return the comparator value, negative if less, positive if greater
     */
-  def compareTo(other: ChronoLocalDate): Int = {
+  def compare(other: ChronoLocalDate): Int = {
     var cmp: Int = java.lang.Long.compare(toEpochDay, other.toEpochDay)
     if (cmp == 0)
       cmp = getChronology.compareTo(other.getChronology)

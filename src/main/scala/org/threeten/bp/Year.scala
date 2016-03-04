@@ -259,7 +259,7 @@ object Year {
   * @param year  the year to represent
   */
 @SerialVersionUID(-23038383694477807L)
-final class Year private(private val year: Int) extends TemporalAccessor with Temporal with TemporalAdjuster with Comparable[Year] with Serializable {
+final class Year private(private val year: Int) extends TemporalAccessor with Temporal with TemporalAdjuster with Ordered[Year] with Serializable {
 
   /**
     * Gets the year value.
@@ -387,14 +387,10 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
   def getLong(field: TemporalField): Long =
     if (field.isInstanceOf[ChronoField])
       field.asInstanceOf[ChronoField] match {
-        case YEAR_OF_ERA =>
-          return if (year < 1) 1 - year else year
-        case YEAR =>
-          return year
-        case ERA =>
-          return if (year < 1) 0 else 1
-        case _ =>
-          throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
+        case YEAR_OF_ERA => if (year < 1) 1 - year else year
+        case YEAR        => year
+        case ERA         => if (year < 1) 0 else 1
+        case _           => throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
       }
     else
       field.getFrom(this)
@@ -815,7 +811,7 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
     * @param other  the other year to compare to, not null
     * @return the comparator value, negative if less, positive if greater
     */
-  def compareTo(other: Year): Int = {
+  def compare(other: Year): Int = {
     year - other.year
   }
 

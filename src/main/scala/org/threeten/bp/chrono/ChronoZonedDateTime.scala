@@ -140,7 +140,7 @@ object ChronoZonedDateTime {
   *
   * @tparam D the date type
   */
-trait ChronoZonedDateTime[D <: ChronoLocalDate] extends Temporal with Comparable[ChronoZonedDateTime[_]] {
+trait ChronoZonedDateTime[D <: ChronoLocalDate] extends Temporal with Ordered[ChronoZonedDateTime[_]] {
   override def range(field: TemporalField): ValueRange =
     field match {
       case INSTANT_SECONDS | OFFSET_SECONDS => field.range
@@ -371,7 +371,7 @@ trait ChronoZonedDateTime[D <: ChronoLocalDate] extends Temporal with Comparable
     * @param other  the other date-time to compare to, not null
     * @return the comparator value, negative if less, positive if greater
     */
-  def compareTo(other: ChronoZonedDateTime[_]): Int = {
+  def compare(other: ChronoZonedDateTime[_]): Int = {
     var cmp: Int = java.lang.Long.compare(toEpochSecond, other.toEpochSecond)
     if (cmp == 0) {
       cmp = toLocalTime.getNano - other.toLocalTime.getNano

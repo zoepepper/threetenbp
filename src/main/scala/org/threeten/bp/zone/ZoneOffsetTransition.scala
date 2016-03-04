@@ -115,7 +115,7 @@ object ZoneOffsetTransition {
 @SerialVersionUID(-6946044323557704546L)
 final class ZoneOffsetTransition private[zone](private val transition: LocalDateTime,
                                                private val offsetBefore: ZoneOffset,
-                                               private val offsetAfter: ZoneOffset) extends Comparable[ZoneOffsetTransition] with Serializable {
+                                               private val offsetAfter: ZoneOffset) extends Ordered[ZoneOffsetTransition] with Serializable {
 
   /**
     * Creates an instance from epoch-second and offsets.
@@ -287,7 +287,7 @@ final class ZoneOffsetTransition private[zone](private val transition: LocalDate
     * @param transition  the transition to compare to, not null
     * @return the comparator value, negative if less, positive if greater
     */
-  def compareTo(transition: ZoneOffsetTransition): Int = this.getInstant.compareTo(transition.getInstant)
+  def compare(transition: ZoneOffsetTransition): Int = this.getInstant.compareTo(transition.getInstant)
 
   /**
     * Checks if this object equals another.

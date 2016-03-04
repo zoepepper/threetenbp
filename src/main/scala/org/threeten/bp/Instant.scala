@@ -353,7 +353,7 @@ object Instant {
   * @param nanos  the nanoseconds within the second, must be positive and never exceed 999,999,999
   */
 @SerialVersionUID(-665713676816604388L)
-final class Instant private(private val seconds: Long, private val nanos: Int) extends TemporalAccessor with Temporal with TemporalAdjuster with Comparable[Instant] with Serializable {
+final class Instant private(private val seconds: Long, private val nanos: Int) extends TemporalAccessor with Temporal with TemporalAdjuster with Ordered[Instant] with Serializable {
 
   /**
     * Checks if the specified field is supported.
@@ -1004,7 +1004,7 @@ final class Instant private(private val seconds: Long, private val nanos: Int) e
     * @return the comparator value, negative if less, positive if greater
     * @throws NullPointerException if otherInstant is null
     */
-  def compareTo(otherInstant: Instant): Int = {
+  def compare(otherInstant: Instant): Int = {
     val cmp: Int = java.lang.Long.compare(seconds, otherInstant.seconds)
     if (cmp != 0) cmp
     else nanos - otherInstant.nanos

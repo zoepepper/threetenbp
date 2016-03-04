@@ -473,7 +473,7 @@ object Duration {
   * @param nanos  the nanoseconds within the second, from 0 to 999,999,999
   */
 @SerialVersionUID(3078945930695997490L)
-final class Duration private(private val seconds: Long, private val nanos: Int) extends TemporalAmount with Comparable[Duration] with Serializable {
+final class Duration private(private val seconds: Long, private val nanos: Int) extends TemporalAmount with Ordered[Duration] with Serializable {
 
   def getUnits: java.util.List[TemporalUnit] = Collections.unmodifiableList[TemporalUnit](Arrays.asList(SECONDS, NANOS))
 
@@ -1042,7 +1042,7 @@ final class Duration private(private val seconds: Long, private val nanos: Int) 
     * @param otherDuration  the other duration to compare to, not null
     * @return the comparator value, negative if less, positive if greater
     */
-  def compareTo(otherDuration: Duration): Int = {
+  def compare(otherDuration: Duration): Int = {
     val cmp: Int = java.lang.Long.compare(seconds, otherDuration.seconds)
     if (cmp != 0)
       cmp

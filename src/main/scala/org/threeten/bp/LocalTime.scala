@@ -441,7 +441,7 @@ object LocalTime {
   * @param nano  the nano-of-second to represent, validated from 0 to 999,999,999
   */
 @SerialVersionUID(6414437269572265201L)
-final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: Int) extends TemporalAccessor with Temporal with TemporalAdjuster with Comparable[LocalTime] with Serializable {
+final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: Int) extends TemporalAccessor with Temporal with TemporalAdjuster with Ordered[LocalTime] with Serializable {
   /**
     * The hour.
     */
@@ -1293,7 +1293,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     * @return the comparator value, negative if less, positive if greater
     * @throws NullPointerException if { @code other} is null
     */
-  def compareTo(other: LocalTime): Int = {
+  def compare(other: LocalTime): Int = {
     var cmp: Int = Integer.compare(hour, other.hour)
     if (cmp == 0) {
       cmp = Integer.compare(minute, other.minute)

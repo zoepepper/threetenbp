@@ -270,7 +270,7 @@ object OffsetTime {
   * @param offset  the zone offset, not null
   */
 @SerialVersionUID(7264499704384272492L)
-final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffset) extends TemporalAccessor with Temporal with TemporalAdjuster with Comparable[OffsetTime] with Serializable {
+final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffset) extends TemporalAccessor with Temporal with TemporalAdjuster with Ordered[OffsetTime] with Serializable {
   Objects.requireNonNull(time, "time")
   Objects.requireNonNull(offset, "offset")
 
@@ -1035,7 +1035,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     * @return the comparator value, negative if less, positive if greater
     * @throws NullPointerException if { @code other} is null
     */
-  def compareTo(other: OffsetTime): Int =
+  def compare(other: OffsetTime): Int =
     if (offset == other.offset)
       time.compareTo(other.time)
     else {

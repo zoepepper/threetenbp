@@ -326,7 +326,7 @@ object OffsetDateTime {
   * @param offset  the zone offset, not null
   */
 @SerialVersionUID(2287754244819255394L)
-final class OffsetDateTime private(private val dateTime: LocalDateTime, private val offset: ZoneOffset) extends Temporal with TemporalAdjuster with Comparable[OffsetDateTime] with Serializable {
+final class OffsetDateTime private(private val dateTime: LocalDateTime, private val offset: ZoneOffset) extends Temporal with TemporalAdjuster with Ordered[OffsetDateTime] with Serializable {
     Objects.requireNonNull(dateTime, "dateTime")
     Objects.requireNonNull(offset, "offset")
 
@@ -1484,7 +1484,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     * @param other  the other date-time to compare to, not null
     * @return the comparator value, negative if less, positive if greater
     */
-  def compareTo(other: OffsetDateTime): Int = {
+  def compare(other: OffsetDateTime): Int = {
     if (getOffset == other.getOffset) {
       return toLocalDateTime.compareTo(other.toLocalDateTime)
     }
