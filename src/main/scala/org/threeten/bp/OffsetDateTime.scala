@@ -109,7 +109,6 @@ object OffsetDateTime {
     * only compares the underlying instant.
     *
     * @return a comparator that compares in time-line order
-    *
     * @see #isAfter
     * @see #isBefore
     * @see #isEqual
@@ -463,14 +462,13 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
   override def get(field: TemporalField): Int = {
     if (field.isInstanceOf[ChronoField]) {
       field.asInstanceOf[ChronoField] match {
-        case INSTANT_SECONDS =>
-          throw new DateTimeException("Field too large for an int: " + field)
-        case OFFSET_SECONDS =>
-          return getOffset.getTotalSeconds
+        case INSTANT_SECONDS => throw new DateTimeException(s"Field too large for an int: $field")
+        case OFFSET_SECONDS  => getOffset.getTotalSeconds
+        case _               => dateTime.get(field)
       }
-      return dateTime.get(field)
+    } else {
+      super.get(field)
     }
-    super.get(field)
   }
 
   /**
@@ -498,14 +496,13 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
   def getLong(field: TemporalField): Long = {
     if (field.isInstanceOf[ChronoField]) {
       field.asInstanceOf[ChronoField] match {
-        case INSTANT_SECONDS =>
-          return toEpochSecond
-        case OFFSET_SECONDS =>
-          return getOffset.getTotalSeconds
+        case INSTANT_SECONDS => toEpochSecond
+        case OFFSET_SECONDS  => getOffset.getTotalSeconds
+        case _               => dateTime.getLong(field)
       }
-      return dateTime.getLong(field)
+    } else {
+      field.getFrom(this)
     }
-    field.getFrom(this)
   }
 
   /**
@@ -764,14 +761,14 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     if (field.isInstanceOf[ChronoField]) {
       val f: ChronoField = field.asInstanceOf[ChronoField]
       f match {
-        case INSTANT_SECONDS =>
-          return OffsetDateTime.ofInstant(Instant.ofEpochSecond(newValue, getNano), offset)
-        case OFFSET_SECONDS =>
-          return `with`(dateTime, ZoneOffset.ofTotalSeconds(f.checkValidIntValue(newValue)))
+        case INSTANT_SECONDS => OffsetDateTime.ofInstant(Instant.ofEpochSecond(newValue, getNano), offset)
+        case OFFSET_SECONDS  => `with`(dateTime, ZoneOffset.ofTotalSeconds(f.checkValidIntValue(newValue)))
+        case _               => `with`(dateTime.`with`(field, newValue), offset)
+
       }
-      return `with`(dateTime.`with`(field, newValue), offset)
+    } else {
+      field.adjustInto(this, newValue)
     }
-    field.adjustInto(this, newValue)
   }
 
   /**
@@ -1606,6 +1603,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
 
   /**
     * Defend against malicious streams.
+    *
     * @return never
     * @throws InvalidObjectException always
     */
