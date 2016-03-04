@@ -61,27 +61,6 @@ import org.threeten.bp.temporal.TemporalUnit
 import org.threeten.bp.temporal.UnsupportedTemporalTypeException
 import org.threeten.bp.temporal.ValueRange
 
-/**
-  * A time without time-zone in the ISO-8601 calendar system,
-  * such as {@code 10:15:30}.
-  * <p>
-  * {@code LocalTime} is an immutable date-time object that represents a time,
-  * often viewed as hour-minute-second.
-  * Time is represented to nanosecond precision.
-  * For example, the value "13:45.30.123456789" can be stored in a {@code LocalTime}.
-  * <p>
-  * It does not store or represent a date or time-zone.
-  * Instead, it is a description of the local time as seen on a wall clock.
-  * It cannot represent an instant on the time-line without additional information
-  * such as an offset or time-zone.
-  * <p>
-  * The ISO-8601 calendar system is the modern civil calendar system used today
-  * in most of the world. This API assumes that all calendar systems use the same
-  * representation, this class, for time-of-day.
-  *
-  * <h3>Specification for implementors</h3>
-  * This class is immutable and thread-safe.
-  */
 @SerialVersionUID(6414437269572265201L)
 object LocalTime {
 
@@ -434,7 +413,26 @@ object LocalTime {
   }
 }
 
-/**
+/** A time without time-zone in the ISO-8601 calendar system,
+  * such as {@code 10:15:30}.
+  * <p>
+  * {@code LocalTime} is an immutable date-time object that represents a time,
+  * often viewed as hour-minute-second.
+  * Time is represented to nanosecond precision.
+  * For example, the value "13:45.30.123456789" can be stored in a {@code LocalTime}.
+  * <p>
+  * It does not store or represent a date or time-zone.
+  * Instead, it is a description of the local time as seen on a wall clock.
+  * It cannot represent an instant on the time-line without additional information
+  * such as an offset or time-zone.
+  * <p>
+  * The ISO-8601 calendar system is the modern civil calendar system used today
+  * in most of the world. This API assumes that all calendar systems use the same
+  * representation, this class, for time-of-day.
+  *
+  * <h3>Specification for implementors</h3>
+  * This class is immutable and thread-safe.
+  *
   * Constructor, previously validated.
   *
   * @param _hour  the hour-of-day to represent, validated from 0 to 23

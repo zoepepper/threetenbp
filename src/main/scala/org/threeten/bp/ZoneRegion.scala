@@ -45,7 +45,7 @@ import org.threeten.bp.zone.ZoneRulesProvider
 import scala.annotation.meta.field
 
 @SerialVersionUID(8386373296231747096L)
-object ZoneRegion {
+private object ZoneRegion {
   /** The regex pattern for region IDs. */
   private val PATTERN: Pattern = Pattern.compile("[A-Za-z][A-Za-z0-9~/._+-]+")
 

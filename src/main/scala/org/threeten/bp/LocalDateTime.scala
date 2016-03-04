@@ -340,7 +340,7 @@ object LocalDateTime {
       return temporal.asInstanceOf[LocalDateTime]
     }
     else if (temporal.isInstanceOf[ZonedDateTime]) {
-      return (temporal.asInstanceOf[ZonedDateTime]).toLocalDateTime
+      return temporal.asInstanceOf[ZonedDateTime].toLocalDateTime
     }
     try {
       val date: LocalDate = LocalDate.from(temporal)

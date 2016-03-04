@@ -62,20 +62,6 @@ import org.threeten.bp.temporal.UnsupportedTemporalTypeException
 import org.threeten.bp.temporal.ValueRange
 import org.threeten.bp.zone.ZoneRules
 
-/**
-  * A time with an offset from UTC/Greenwich in the ISO-8601 calendar system,
-  * such as {@code 10:15:30+01:00}.
-  * <p>
-  * {@code OffsetTime} is an immutable date-time object that represents a time, often
-  * viewed as hour-minute-second-offset.
-  * This class stores all time fields, to a precision of nanoseconds,
-  * as well as a zone offset.
-  * For example, the value "13:45.30.123456789+02:00" can be stored
-  * in an {@code OffsetTime}.
-  *
-  * <h3>Specification for implementors</h3>
-  * This class is immutable and thread-safe.
-  */
 @SerialVersionUID(7264499704384272492L)
 object OffsetTime {
   /**
@@ -265,7 +251,19 @@ object OffsetTime {
   }
 }
 
-/**
+/** A time with an offset from UTC/Greenwich in the ISO-8601 calendar system,
+  * such as {@code 10:15:30+01:00}.
+  * <p>
+  * {@code OffsetTime} is an immutable date-time object that represents a time, often
+  * viewed as hour-minute-second-offset.
+  * This class stores all time fields, to a precision of nanoseconds,
+  * as well as a zone offset.
+  * For example, the value "13:45.30.123456789+02:00" can be stored
+  * in an {@code OffsetTime}.
+  *
+  * <h3>Specification for implementors</h3>
+  * This class is immutable and thread-safe.
+  *
   * Constructor.
   *
   * @param time  the local time, not null
