@@ -37,9 +37,7 @@ import org.threeten.bp.DayOfWeek.MONDAY
 import org.threeten.bp.DayOfWeek.SUNDAY
 import org.threeten.bp.DayOfWeek.WEDNESDAY
 import org.threeten.bp.temporal.ChronoField.DAY_OF_WEEK
-import java.util.ArrayList
 import java.util.Arrays
-import java.util.List
 import java.util.Locale
 import org.testng.annotations.BeforeMethod
 import org.testng.annotations.DataProvider
@@ -57,8 +55,7 @@ import org.threeten.bp.temporal.TemporalQueries
   * Test DayOfWeek.
   */
 @Test class TestDayOfWeek extends AbstractDateTimeTest {
-  @BeforeMethod def setUp(): Unit = {
-  }
+  @BeforeMethod def setUp(): Unit = {}
 
   protected def samples: java.util.List[TemporalAccessor] = {
     val array: Array[TemporalAccessor] = Array(MONDAY, WEDNESDAY, SUNDAY)
@@ -143,16 +140,16 @@ import org.threeten.bp.temporal.TemporalQueries
     DayOfWeek.MONDAY.getDisplayName(TextStyle.FULL, null)
   }
 
-  @DataProvider(name = "plus") private[bp] def data_plus: Array[Array[Int]] = {
-    Array[Array[Int]](Array(1, -8, 7), Array(1, -7, 1), Array(1, -6, 2), Array(1, -5, 3), Array(1, -4, 4), Array(1, -3, 5), Array(1, -2, 6), Array(1, -1, 7), Array(1, 0, 1), Array(1, 1, 2), Array(1, 2, 3), Array(1, 3, 4), Array(1, 4, 5), Array(1, 5, 6), Array(1, 6, 7), Array(1, 7, 1), Array(1, 8, 2), Array(1, 1, 2), Array(2, 1, 3), Array(3, 1, 4), Array(4, 1, 5), Array(5, 1, 6), Array(6, 1, 7), Array(7, 1, 1), Array(1, -1, 7), Array(2, -1, 1), Array(3, -1, 2), Array(4, -1, 3), Array(5, -1, 4), Array(6, -1, 5), Array(7, -1, 6))
+  @DataProvider(name = "plus") private[bp] def data_plus: Array[Array[Any]] = {
+    Array[Array[Any]](Array(1, -8, 7), Array(1, -7, 1), Array(1, -6, 2), Array(1, -5, 3), Array(1, -4, 4), Array(1, -3, 5), Array(1, -2, 6), Array(1, -1, 7), Array(1, 0, 1), Array(1, 1, 2), Array(1, 2, 3), Array(1, 3, 4), Array(1, 4, 5), Array(1, 5, 6), Array(1, 6, 7), Array(1, 7, 1), Array(1, 8, 2), Array(1, 1, 2), Array(2, 1, 3), Array(3, 1, 4), Array(4, 1, 5), Array(5, 1, 6), Array(6, 1, 7), Array(7, 1, 1), Array(1, -1, 7), Array(2, -1, 1), Array(3, -1, 2), Array(4, -1, 3), Array(5, -1, 4), Array(6, -1, 5), Array(7, -1, 6))
   }
 
   @Test(dataProvider = "plus") def test_plus_long(base: Int, amount: Long, expected: Int): Unit = {
     assertEquals(DayOfWeek.of(base).plus(amount), DayOfWeek.of(expected))
   }
 
-  @DataProvider(name = "minus") private[bp] def data_minus: Array[Array[Int]] = {
-    Array[Array[Int]](Array(1, -8, 2), Array(1, -7, 1), Array(1, -6, 7), Array(1, -5, 6), Array(1, -4, 5), Array(1, -3, 4), Array(1, -2, 3), Array(1, -1, 2), Array(1, 0, 1), Array(1, 1, 7), Array(1, 2, 6), Array(1, 3, 5), Array(1, 4, 4), Array(1, 5, 3), Array(1, 6, 2), Array(1, 7, 1), Array(1, 8, 7))
+  @DataProvider(name = "minus") private[bp] def data_minus: Array[Array[Any]] = {
+    Array[Array[Any]](Array(1, -8, 2), Array(1, -7, 1), Array(1, -6, 7), Array(1, -5, 6), Array(1, -4, 5), Array(1, -3, 4), Array(1, -2, 3), Array(1, -1, 2), Array(1, 0, 1), Array(1, 1, 7), Array(1, 2, 6), Array(1, 3, 5), Array(1, 4, 4), Array(1, 5, 3), Array(1, 6, 2), Array(1, 7, 1), Array(1, 8, 7))
   }
 
   @Test(dataProvider = "minus") def test_minus_long(base: Int, amount: Long, expected: Int): Unit = {
