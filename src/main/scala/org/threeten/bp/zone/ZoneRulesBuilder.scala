@@ -523,7 +523,7 @@ class ZoneRulesBuilder() {
                                            private[zone] var timeEndOfDay: Boolean,
                                            private[zone] var timeDefinition: ZoneOffsetTransitionRule.TimeDefinition,
                                            private[zone] var savingAmountSecs: Int)
-    extends Comparable[ZoneRulesBuilder#TZRule] {
+    extends Ordered[ZoneRulesBuilder#TZRule] {
 
     /**
       * Converts this to a transition.
@@ -568,7 +568,7 @@ class ZoneRulesBuilder() {
       new ZoneOffsetTransitionRule(month, dayOfMonthIndicator, dayOfWeek, time, timeEndOfDay, timeDefinition, standardOffset, trans.getOffsetBefore, trans.getOffsetAfter)
     }
 
-    def compareTo(other: ZoneRulesBuilder#TZRule): Int = {
+    def compare(other: ZoneRulesBuilder#TZRule): Int = {
       var cmp: Int = year - other.year
       cmp = if (cmp == 0) month.compareTo(other.month) else cmp
       if (cmp == 0) {

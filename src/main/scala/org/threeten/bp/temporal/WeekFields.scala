@@ -204,45 +204,40 @@ object WeekFields {
       * The WeekDefintion of the first day of the week is used with
       * the ISO DAY_OF_WEEK field to compute week boundaries.
       */
-    private[temporal] def ofDayOfWeekField(weekDef: WeekFields): WeekFields.ComputedDayOfField = {
+    private[temporal] def ofDayOfWeekField(weekDef: WeekFields): WeekFields.ComputedDayOfField =
       new WeekFields.ComputedDayOfField("DayOfWeek", weekDef, ChronoUnit.DAYS, ChronoUnit.WEEKS, DAY_OF_WEEK_RANGE)
-    }
 
     /**
       * Returns a field to access the week of month,
       * computed based on a WeekFields.
       * @see WeekFields#weekOfMonth()
       */
-    private[temporal] def ofWeekOfMonthField(weekDef: WeekFields): WeekFields.ComputedDayOfField = {
+    private[temporal] def ofWeekOfMonthField(weekDef: WeekFields): WeekFields.ComputedDayOfField =
       new WeekFields.ComputedDayOfField("WeekOfMonth", weekDef, ChronoUnit.WEEKS, ChronoUnit.MONTHS, WEEK_OF_MONTH_RANGE)
-    }
 
     /**
       * Returns a field to access the week of year,
       * computed based on a WeekFields.
       * @see WeekFields#weekOfYear()
       */
-    private[temporal] def ofWeekOfYearField(weekDef: WeekFields): WeekFields.ComputedDayOfField = {
+    private[temporal] def ofWeekOfYearField(weekDef: WeekFields): WeekFields.ComputedDayOfField =
       new WeekFields.ComputedDayOfField("WeekOfYear", weekDef, ChronoUnit.WEEKS, ChronoUnit.YEARS, WEEK_OF_YEAR_RANGE)
-    }
 
     /**
       * Returns a field to access the week of week-based-year,
       * computed based on a WeekFields.
       * @see WeekFields#weekOfWeekBasedYear()
       */
-    private[temporal] def ofWeekOfWeekBasedYearField(weekDef: WeekFields): WeekFields.ComputedDayOfField = {
+    private[temporal] def ofWeekOfWeekBasedYearField(weekDef: WeekFields): WeekFields.ComputedDayOfField =
       new WeekFields.ComputedDayOfField("WeekOfWeekBasedYear", weekDef, ChronoUnit.WEEKS, IsoFields.WEEK_BASED_YEARS, WEEK_OF_WEEK_BASED_YEAR_RANGE)
-    }
 
     /**
       * Returns a field to access the week-based-year,
       * computed based on a WeekFields.
       * @see WeekFields#weekBasedYear()
       */
-    private[temporal] def ofWeekBasedYearField(weekDef: WeekFields): WeekFields.ComputedDayOfField = {
+    private[temporal] def ofWeekBasedYearField(weekDef: WeekFields): WeekFields.ComputedDayOfField =
       new WeekFields.ComputedDayOfField("WeekBasedYear", weekDef, IsoFields.WEEK_BASED_YEARS, ChronoUnit.FOREVER, WEEK_BASED_YEAR_RANGE)
-    }
 
     private val DAY_OF_WEEK_RANGE: ValueRange = ValueRange.of(1, 7)
     private val WEEK_OF_MONTH_RANGE: ValueRange = ValueRange.of(0, 1, 4, 6)
@@ -561,13 +556,11 @@ object WeekFields {
 
     def getDisplayName(locale: Locale): String = {
       Objects.requireNonNull(locale, "locale")
-      if (rangeUnit eq YEARS)
-        "Week"
-      else
-        toString
+      if (rangeUnit eq YEARS) "Week"
+      else toString
     }
 
-    override def toString: String = name + "[" + weekDef.toString + "]"
+    override def toString: String = s"$name[${weekDef.toString}]"
   }
 
 }
@@ -793,9 +786,7 @@ final class WeekFields private(private val firstDayOfWeek: DayOfWeek, private va
     */
   @throws[InvalidObjectException]
   private def readResolve: AnyRef = {
-    try {
-      WeekFields.of(firstDayOfWeek, minimalDays)
-    }
+    try WeekFields.of(firstDayOfWeek, minimalDays)
     catch {
       case ex: IllegalArgumentException =>
         throw new InvalidObjectException("Invalid WeekFields" + ex.getMessage)
@@ -851,5 +842,5 @@ final class WeekFields private(private val firstDayOfWeek: DayOfWeek, private va
     *
     * @return the string representation, not null
     */
-  override def toString: String = "WeekFields[" + firstDayOfWeek + ',' + minimalDays + ']'
+  override def toString: String = s"WeekFields[$firstDayOfWeek,$minimalDays]"
 }

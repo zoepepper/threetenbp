@@ -80,8 +80,8 @@ import org.threeten.bp.temporal.ValueRange
     assertEquals(ThaiBuddhistChronology.INSTANCE.date(iso), jdate)
   }
 
-  @DataProvider(name = "badDates") private[chrono] def data_badDates: Array[Array[Int]] = {
-    Array[Array[Int]](Array(1728, 0, 0), Array(1728, -1, 1), Array(1728, 0, 1), Array(1728, 14, 1), Array(1728, 15, 1), Array(1728, 1, -1), Array(1728, 1, 0), Array(1728, 1, 32), Array(1728, 12, -1), Array(1728, 12, 0), Array(1728, 12, 32))
+  @DataProvider(name = "badDates") private[chrono] def data_badDates: Array[Array[Any]] = {
+    Array[Array[Any]](Array(1728, 0, 0), Array(1728, -1, 1), Array(1728, 0, 1), Array(1728, 14, 1), Array(1728, 15, 1), Array(1728, 1, -1), Array(1728, 1, 0), Array(1728, 1, 32), Array(1728, 12, -1), Array(1728, 12, 0), Array(1728, 12, 32))
   }
 
   @Test(dataProvider = "badDates", expectedExceptions = Array(classOf[DateTimeException])) def test_badDates(year: Int, month: Int, dom: Int): Unit = {

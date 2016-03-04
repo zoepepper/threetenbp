@@ -65,33 +65,6 @@ import org.threeten.bp.temporal.TemporalUnit
 import org.threeten.bp.temporal.UnsupportedTemporalTypeException
 import org.threeten.bp.temporal.ValueRange
 
-/**
-  * A year in the ISO-8601 calendar system, such as {@code 2007}.
-  * <p>
-  * {@code Year} is an immutable date-time object that represents a year.
-  * Any field that can be derived from a year can be obtained.
-  * <p>
-  * <b>Note that years in the ISO chronology only align with years in the
-  * Gregorian-Julian system for modern years. Parts of Russia did not switch to the
-  * modern Gregorian/ISO rules until 1920.
-  * As such, historical years must be treated with caution.</b>
-  * <p>
-  * This class does not store or represent a month, day, time or time-zone.
-  * For example, the value "2007" can be stored in a {@code Year}.
-  * <p>
-  * Years represented by this class follow the ISO-8601 standard and use
-  * the proleptic numbering system. Year 1 is preceded by year 0, then by year -1.
-  * <p>
-  * The ISO-8601 calendar system is the modern civil calendar system used today
-  * in most of the world. It is equivalent to the proleptic Gregorian calendar
-  * system, in which today's rules for leap years are applied for all time.
-  * For most applications written today, the ISO-8601 rules are entirely suitable.
-  * However, any application that makes use of historical dates, and requires them
-  * to be accurate will find the ISO-8601 approach unsuitable.
-  *
-  * <h3>Specification for implementors</h3>
-  * This class is immutable and thread-safe.
-  */
 @SerialVersionUID(-23038383694477807L)
 object Year {
   /**
@@ -255,13 +228,38 @@ object Year {
   private[bp] def readExternal(in: DataInput): Year = Year.of(in.readInt)
 }
 
-/**
+/** A year in the ISO-8601 calendar system, such as {@code 2007}.
+  * <p>
+  * {@code Year} is an immutable date-time object that represents a year.
+  * Any field that can be derived from a year can be obtained.
+  * <p>
+  * <b>Note that years in the ISO chronology only align with years in the
+  * Gregorian-Julian system for modern years. Parts of Russia did not switch to the
+  * modern Gregorian/ISO rules until 1920.
+  * As such, historical years must be treated with caution.</b>
+  * <p>
+  * This class does not store or represent a month, day, time or time-zone.
+  * For example, the value "2007" can be stored in a {@code Year}.
+  * <p>
+  * Years represented by this class follow the ISO-8601 standard and use
+  * the proleptic numbering system. Year 1 is preceded by year 0, then by year -1.
+  * <p>
+  * The ISO-8601 calendar system is the modern civil calendar system used today
+  * in most of the world. It is equivalent to the proleptic Gregorian calendar
+  * system, in which today's rules for leap years are applied for all time.
+  * For most applications written today, the ISO-8601 rules are entirely suitable.
+  * However, any application that makes use of historical dates, and requires them
+  * to be accurate will find the ISO-8601 approach unsuitable.
+  *
+  * <h3>Specification for implementors</h3>
+  * This class is immutable and thread-safe.
+  *
   * Constructor.
   *
   * @param year  the year to represent
   */
 @SerialVersionUID(-23038383694477807L)
-final class Year private(private val year: Int) extends TemporalAccessor with Temporal with TemporalAdjuster with Comparable[Year] with Serializable {
+final class Year private(private val year: Int) extends TemporalAccessor with Temporal with TemporalAdjuster with Ordered[Year] with Serializable {
 
   /**
     * Gets the year value.
@@ -389,14 +387,10 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
   def getLong(field: TemporalField): Long =
     if (field.isInstanceOf[ChronoField])
       field.asInstanceOf[ChronoField] match {
-        case YEAR_OF_ERA =>
-          return if (year < 1) 1 - year else year
-        case YEAR =>
-          return year
-        case ERA =>
-          return if (year < 1) 0 else 1
-        case _ =>
-          throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
+        case YEAR_OF_ERA => if (year < 1) 1 - year else year
+        case YEAR        => year
+        case ERA         => if (year < 1) 0 else 1
+        case _           => throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
       }
     else
       field.getFrom(this)
@@ -817,7 +811,7 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
     * @param other  the other year to compare to, not null
     * @return the comparator value, negative if less, positive if greater
     */
-  def compareTo(other: Year): Int = {
+  def compare(other: Year): Int = {
     year - other.year
   }
 

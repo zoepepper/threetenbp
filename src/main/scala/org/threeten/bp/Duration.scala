@@ -59,33 +59,6 @@ import org.threeten.bp.temporal.TemporalAmount
 import org.threeten.bp.temporal.TemporalUnit
 import org.threeten.bp.temporal.UnsupportedTemporalTypeException
 
-/**
-  * A time-based amount of time, such as '34.5 seconds'.
-  * <p>
-  * This class models a quantity or amount of time in terms of seconds and nanoseconds.
-  * It can be accessed using other duration-based units, such as minutes and hours.
-  * In addition, the {@link ChronoUnit#DAYS DAYS} unit can be used and is treated as
-  * exactly equal to 24 hours, thus ignoring daylight savings effects.
-  * See {@link Period} for the date-based equivalent to this class.
-  * <p>
-  * A physical duration could be of infinite length.
-  * For practicality, the duration is stored with constraints similar to {@link Instant}.
-  * The duration uses nanosecond resolution with a maximum value of the seconds that can
-  * be held in a {@code long}. This is greater than the current estimated age of the universe.
-  * <p>
-  * The range of a duration requires the storage of a number larger than a {@code long}.
-  * To achieve this, the class stores a {@code long} representing seconds and an {@code int}
-  * representing nanosecond-of-second, which will always be between 0 and 999,999,999.
-  * <p>
-  * The duration is measured in "seconds", but these are not necessarily identical to
-  * the scientific "SI second" definition based on atomic clocks.
-  * This difference only impacts durations measured near a leap-second and should not affect
-  * most applications.
-  * See {@link Instant} for a discussion as to the meaning of the second and time-scales.
-  *
-  * <h3>Specification for implementors</h3>
-  * This class is immutable and thread-safe.
-  */
 @SerialVersionUID(3078945930695997490L)
 object Duration {
   /**
@@ -378,7 +351,7 @@ object Duration {
           }
           catch {
             case ex: ArithmeticException =>
-              throw new DateTimeParseException("Text cannot be parsed to a Duration: overflow", text, 0).initCause(ex).asInstanceOf[DateTimeParseException]
+              throw new DateTimeParseException("Text cannot be parsed to a Duration: overflow", text, 0, ex)
           }
         }
       }
@@ -400,9 +373,9 @@ object Duration {
     }
     catch {
       case ex: NumberFormatException =>
-        throw new DateTimeParseException("Text cannot be parsed to a Duration: " + errorText, text, 0).initCause(ex).asInstanceOf[DateTimeParseException]
+        throw new DateTimeParseException(s"Text cannot be parsed to a Duration: $errorText", text, 0, ex)
       case ex: ArithmeticException =>
-        throw new DateTimeParseException("Text cannot be parsed to a Duration: " + errorText, text, 0).initCause(ex).asInstanceOf[DateTimeParseException]
+        throw new DateTimeParseException(s"Text cannot be parsed to a Duration: $errorText", text, 0, ex)
     }
   }
 
@@ -417,9 +390,9 @@ object Duration {
     }
     catch {
       case ex: NumberFormatException =>
-        throw new DateTimeParseException("Text cannot be parsed to a Duration: fraction", text, 0).initCause(ex).asInstanceOf[DateTimeParseException]
+        throw new DateTimeParseException("Text cannot be parsed to a Duration: fraction", text, 0, ex)
       case ex: ArithmeticException =>
-        throw new DateTimeParseException("Text cannot be parsed to a Duration: fraction", text, 0).initCause(ex).asInstanceOf[DateTimeParseException]
+        throw new DateTimeParseException("Text cannot be parsed to a Duration: fraction", text, 0, ex)
     }
   }
 
@@ -454,7 +427,7 @@ object Duration {
     val nanos: BigInteger = seconds.movePointRight(9).toBigIntegerExact
     val divRem: Array[BigInteger] = nanos.divideAndRemainder(BI_NANOS_PER_SECOND)
     if (divRem(0).bitLength > 63) {
-      throw new ArithmeticException("Exceeds capacity of Duration: " + nanos)
+      throw new ArithmeticException(s"Exceeds capacity of Duration: $nanos")
     }
     ofSeconds(divRem(0).longValue, divRem(1).intValue)
   }
@@ -468,13 +441,39 @@ object Duration {
 }
 
 /**
+  * A time-based amount of time, such as '34.5 seconds'.
+  * <p>
+  * This class models a quantity or amount of time in terms of seconds and nanoseconds.
+  * It can be accessed using other duration-based units, such as minutes and hours.
+  * In addition, the {@link ChronoUnit#DAYS DAYS} unit can be used and is treated as
+  * exactly equal to 24 hours, thus ignoring daylight savings effects.
+  * See {@link Period} for the date-based equivalent to this class.
+  * <p>
+  * A physical duration could be of infinite length.
+  * For practicality, the duration is stored with constraints similar to {@link Instant}.
+  * The duration uses nanosecond resolution with a maximum value of the seconds that can
+  * be held in a {@code long}. This is greater than the current estimated age of the universe.
+  * <p>
+  * The range of a duration requires the storage of a number larger than a {@code long}.
+  * To achieve this, the class stores a {@code long} representing seconds and an {@code int}
+  * representing nanosecond-of-second, which will always be between 0 and 999,999,999.
+  * <p>
+  * The duration is measured in "seconds", but these are not necessarily identical to
+  * the scientific "SI second" definition based on atomic clocks.
+  * This difference only impacts durations measured near a leap-second and should not affect
+  * most applications.
+  * See {@link Instant} for a discussion as to the meaning of the second and time-scales.
+  *
+  * <h3>Specification for implementors</h3>
+  * This class is immutable and thread-safe.
+  *
   * Constructs an instance of {@code Duration} using seconds and nanoseconds.
   *
   * @param seconds  the length of the duration in seconds, positive or negative
   * @param nanos  the nanoseconds within the second, from 0 to 999,999,999
   */
 @SerialVersionUID(3078945930695997490L)
-final class Duration private(private val seconds: Long, private val nanos: Int) extends TemporalAmount with Comparable[Duration] with Serializable {
+final class Duration private(private val seconds: Long, private val nanos: Int) extends TemporalAmount with Ordered[Duration] with Serializable {
 
   def getUnits: java.util.List[TemporalUnit] = Collections.unmodifiableList[TemporalUnit](Arrays.asList(SECONDS, NANOS))
 
@@ -484,7 +483,7 @@ final class Duration private(private val seconds: Long, private val nanos: Int) 
     else if (unit eq NANOS)
       nanos
     else
-      throw new UnsupportedTemporalTypeException("Unsupported unit: " + unit)
+      throw new UnsupportedTemporalTypeException(s"Unsupported unit: $unit")
 
   /**
     * Checks if this duration is zero length.
@@ -598,15 +597,12 @@ final class Duration private(private val seconds: Long, private val nanos: Int) 
     */
   def plus(amountToAdd: Long, unit: TemporalUnit): Duration = {
     Objects.requireNonNull(unit, "unit")
-    if (unit eq DAYS) {
+    if (unit eq DAYS)
       return plus(Math.multiplyExact(amountToAdd, SECONDS_PER_DAY), 0)
-    }
-    if (unit.isDurationEstimated) {
+    if (unit.isDurationEstimated)
       throw new DateTimeException("Unit must not have an estimated duration")
-    }
-    if (amountToAdd == 0) {
+    if (amountToAdd == 0)
       return this
-    }
     if (unit.isInstanceOf[ChronoUnit]) {
       unit.asInstanceOf[ChronoUnit] match {
         case NANOS =>
@@ -1046,7 +1042,7 @@ final class Duration private(private val seconds: Long, private val nanos: Int) 
     * @param otherDuration  the other duration to compare to, not null
     * @return the comparator value, negative if less, positive if greater
     */
-  def compareTo(otherDuration: Duration): Int = {
+  def compare(otherDuration: Duration): Int = {
     val cmp: Int = java.lang.Long.compare(seconds, otherDuration.seconds)
     if (cmp != 0)
       cmp

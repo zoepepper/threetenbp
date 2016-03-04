@@ -45,10 +45,8 @@ import org.threeten.bp.Month
 import org.threeten.bp.Year
 import org.threeten.bp.zone.ZoneOffsetTransitionRule.TimeDefinition
 
-/**
-  * Test TzdbZoneRulesCompiler.
-  */
-@Test object TestTzdbZoneRulesCompiler {
+
+object TestTzdbZoneRulesCompiler {
   private[zone] var PARSE_YEAR: Method = null
   private[zone] var PARSE_MONTH: Method = null
   private[zone] var PARSE_DOW: Method = null
@@ -79,13 +77,16 @@ import org.threeten.bp.zone.ZoneOffsetTransitionRule.TimeDefinition
     case ex: Exception => throw new RuntimeException(ex)
   }
   try {
-    PARSE_LSR = classOf[TzdbZoneRulesCompiler].getDeclaredMethod("parseLeapSecondRule", classOf[String])
+    PARSE_LSR = classOf[TzdbZoneRulesCompiler].getDeclaredMethod("org$threeten$bp$zone$TzdbZoneRulesCompiler$$parseLeapSecondRule", classOf[String]) // !!! WTF?
     PARSE_LSR.setAccessible(true)
   } catch {
     case ex: Exception => throw new RuntimeException(ex)
   }
 }
 
+/**
+  * Test TzdbZoneRulesCompiler.
+  */
 @Test class TestTzdbZoneRulesCompiler extends TestNGSuite {
   @Test
   @throws[Exception]

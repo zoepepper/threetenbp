@@ -58,78 +58,6 @@ import org.threeten.bp.temporal.TemporalQuery
 import org.threeten.bp.temporal.UnsupportedTemporalTypeException
 import org.threeten.bp.temporal.ValueRange
 
-/**
-  * A calendar system, used to organize and identify dates.
-  * <p>
-  * The main date and time API is built on the ISO calendar system.
-  * This class operates behind the scenes to represent the general concept of a calendar system.
-  * For example, the Japanese, Minguo, Thai Buddhist and others.
-  * <p>
-  * Most other calendar systems also operate on the shared concepts of year, month and day,
-  * linked to the cycles of the Earth around the Sun, and the Moon around the Earth.
-  * These shared concepts are defined by {@link ChronoField} and are availalbe
-  * for use by any {@code Chronology} implementation:
-  * <pre>
-  * LocalDate isoDate = ...
-  * ChronoLocalDate&lt;ThaiBuddhistChrono&gt; minguoDate = ...
-  * int isoYear = isoDate.get(ChronoField.YEAR);
-  * int thaiYear = thaiDate.get(ChronoField.YEAR);
-  * </pre>
-  * As shown, although the date objects are in different calendar systems, represented by different
-  * {@code Chronology} instances, both can be queried using the same constant on {@code ChronoField}.
-  * For a full discussion of the implications of this, see {@link ChronoLocalDate}.
-  * In general, the advice is to use the known ISO-based {@code LocalDate}, rather than
-  * {@code ChronoLocalDate}.
-  * <p>
-  * While a {@code Chronology} object typically uses {@code ChronoField} and is based on
-  * an era, year-of-era, month-of-year, day-of-month model of a date, this is not required.
-  * A {@code Chronology} instance may represent a totally different kind of calendar system,
-  * such as the Mayan.
-  * <p>
-  * In practical terms, the {@code Chronology} instance also acts as a factory.
-  * The {@link #of(String)} method allows an instance to be looked up by identifier,
-  * while the {@link #ofLocale(Locale)} method allows lookup by locale.
-  * <p>
-  * The {@code Chronology} instance provides a set of methods to create {@code ChronoLocalDate} instances.
-  * The date classes are used to manipulate specific dates.
-  * <p><ul>
-  * <li> {@link #dateNow() dateNow()}
-  * <li> {@link #dateNow(Clock) dateNow(clock)}
-  * <li> {@link #dateNow(ZoneId) dateNow(zone)}
-  * <li> {@link #date(int, int, int) date(yearProleptic, month, day)}
-  * <li> {@link #date(Era, int, int, int) date(era, yearOfEra, month, day)}
-  * <li> {@link #dateYearDay(int, int) dateYearDay(yearProleptic, dayOfYear)}
-  * <li> {@link #dateYearDay(Era, int, int) dateYearDay(era, yearOfEra, dayOfYear)}
-  * <li> {@link #date(TemporalAccessor) date(TemporalAccessor)}
-  * </ul><p>
-  *
-  * <p id="addcalendars">Adding New Calendars</p>
-  * The set of available chronologies can be extended by applications.
-  * Adding a new calendar system requires the writing of an implementation of
-  * {@code Chronology}, {@code ChronoLocalDate} and {@code Era}.
-  * The majority of the logic specific to the calendar system will be in
-  * {@code ChronoLocalDate}. The {@code Chronology} subclass acts as a factory.
-  * <p>
-  * To permit the discovery of additional chronologies, the {@link java.util.ServiceLoader ServiceLoader}
-  * is used. A file must be added to the {@code META-INF/services} directory with the
-  * name 'org.threeten.bp.chrono.Chrono' listing the implementation classes.
-  * See the ServiceLoader for more details on service loading.
-  * For lookup by id or calendarType, the system provided calendars are found
-  * first followed by application provided calendars.
-  * <p>
-  * Each chronology must define a chronology ID that is unique within the system.
-  * If the chronology represents a calendar system defined by the
-  * <em>Unicode Locale Data Markup Language (LDML)</em> specification then that
-  * calendar type should also be specified.
-  *
-  * <h3>Specification for implementors</h3>
-  * This class must be implemented with care to ensure other classes operate correctly.
-  * All implementations that can be instantiated must be final, immutable and thread-safe.
-  * Subclasses should be Serializable wherever possible.
-  * <p>
-  * In JDK 8, this is an interface with default methods.
-  * Since there are no default methods in JDK 7, an abstract class is used.
-  */
 object Chronology {
 
   /**
@@ -310,7 +238,75 @@ object Chronology {
   }
 }
 
-abstract class Chronology protected()  extends Comparable[Chronology] {
+/** A calendar system, used to organize and identify dates.
+  * <p>
+  * The main date and time API is built on the ISO calendar system.
+  * This class operates behind the scenes to represent the general concept of a calendar system.
+  * For example, the Japanese, Minguo, Thai Buddhist and others.
+  * <p>
+  * Most other calendar systems also operate on the shared concepts of year, month and day,
+  * linked to the cycles of the Earth around the Sun, and the Moon around the Earth.
+  * These shared concepts are defined by {@link ChronoField} and are availalbe
+  * for use by any {@code Chronology} implementation:
+  * <pre>
+  * LocalDate isoDate = ...
+  * ChronoLocalDate&lt;ThaiBuddhistChrono&gt; minguoDate = ...
+  * int isoYear = isoDate.get(ChronoField.YEAR);
+  * int thaiYear = thaiDate.get(ChronoField.YEAR);
+  * </pre>
+  * As shown, although the date objects are in different calendar systems, represented by different
+  * {@code Chronology} instances, both can be queried using the same constant on {@code ChronoField}.
+  * For a full discussion of the implications of this, see {@link ChronoLocalDate}.
+  * In general, the advice is to use the known ISO-based {@code LocalDate}, rather than
+  * {@code ChronoLocalDate}.
+  * <p>
+  * While a {@code Chronology} object typically uses {@code ChronoField} and is based on
+  * an era, year-of-era, month-of-year, day-of-month model of a date, this is not required.
+  * A {@code Chronology} instance may represent a totally different kind of calendar system,
+  * such as the Mayan.
+  * <p>
+  * In practical terms, the {@code Chronology} instance also acts as a factory.
+  * The {@link #of(String)} method allows an instance to be looked up by identifier,
+  * while the {@link #ofLocale(Locale)} method allows lookup by locale.
+  * <p>
+  * The {@code Chronology} instance provides a set of methods to create {@code ChronoLocalDate} instances.
+  * The date classes are used to manipulate specific dates.
+  * <p><ul>
+  * <li> {@link #dateNow() dateNow()}
+  * <li> {@link #dateNow(Clock) dateNow(clock)}
+  * <li> {@link #dateNow(ZoneId) dateNow(zone)}
+  * <li> {@link #date(int, int, int) date(yearProleptic, month, day)}
+  * <li> {@link #date(Era, int, int, int) date(era, yearOfEra, month, day)}
+  * <li> {@link #dateYearDay(int, int) dateYearDay(yearProleptic, dayOfYear)}
+  * <li> {@link #dateYearDay(Era, int, int) dateYearDay(era, yearOfEra, dayOfYear)}
+  * <li> {@link #date(TemporalAccessor) date(TemporalAccessor)}
+  * </ul><p>
+  *
+  * <p id="addcalendars">Adding New Calendars</p>
+  * The set of available chronologies can be extended by applications.
+  * Adding a new calendar system requires the writing of an implementation of
+  * {@code Chronology}, {@code ChronoLocalDate} and {@code Era}.
+  * The majority of the logic specific to the calendar system will be in
+  * {@code ChronoLocalDate}. The {@code Chronology} subclass acts as a factory.
+  * <p>
+  * To permit the discovery of additional chronologies, the {@link java.util.ServiceLoader ServiceLoader}
+  * is used. A file must be added to the {@code META-INF/services} directory with the
+  * name 'org.threeten.bp.chrono.Chrono' listing the implementation classes.
+  * See the ServiceLoader for more details on service loading.
+  * For lookup by id or calendarType, the system provided calendars are found
+  * first followed by application provided calendars.
+  * <p>
+  * Each chronology must define a chronology ID that is unique within the system.
+  * If the chronology represents a calendar system defined by the
+  * <em>Unicode Locale Data Markup Language (LDML)</em> specification then that
+  * calendar type should also be specified.
+  *
+  * <h3>Specification for implementors</h3>
+  * This class must be implemented with care to ensure other classes operate correctly.
+  * All implementations that can be instantiated must be final, immutable and thread-safe.
+  * Subclasses should be Serializable wherever possible.
+  */
+trait Chronology extends Ordered[Chronology] {
 
   /**
     * Casts the {@code Temporal} to {@code ChronoLocalDate} with the same chronology.
@@ -762,7 +758,7 @@ abstract class Chronology protected()  extends Comparable[Chronology] {
     * @param other  the other chronology to compare to, not null
     * @return the comparator value, negative if less, positive if greater
     */
-  def compareTo(other: Chronology): Int = getId.compareTo(other.getId)
+  def compare(other: Chronology): Int = getId.compareTo(other.getId)
 
   /**
     * Checks if this chronology is equal to another chronology.

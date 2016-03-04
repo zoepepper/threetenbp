@@ -34,8 +34,7 @@ package org.threeten.bp.temporal
 import org.threeten.bp.DateTimeException
 import org.threeten.bp.Duration
 
-/**
-  * A unit of date-time, such as Days or Hours.
+/** A unit of date-time, such as Days or Hours.
   * <p>
   * Measurement of time is built on units, such as years, months, days, hours, minutes and seconds.
   * Implementations of this interface represent those units.
@@ -58,8 +57,7 @@ import org.threeten.bp.Duration
   * It is recommended to use an enum where possible.
   */
 trait TemporalUnit {
-  /**
-    * Gets the duration of this unit, which may be an estimate.
+  /** Gets the duration of this unit, which may be an estimate.
     * <p>
     * All units return a duration measured in standard nanoseconds from this method.
     * The duration will be positive and non-zero.
@@ -74,8 +72,7 @@ trait TemporalUnit {
     */
   def getDuration: Duration
 
-  /**
-    * Checks if the duration of the unit is an estimate.
+  /** Checks if the duration of the unit is an estimate.
     * <p>
     * All units have a duration, however the duration is not always accurate.
     * For example, days have an estimated duration due to the possibility of
@@ -87,22 +84,19 @@ trait TemporalUnit {
     */
   def isDurationEstimated: Boolean
 
-  /**
-    * Checks if this unit is date-based.
+  /** Checks if this unit is date-based.
     *
     * @return true if date-based
     */
   def isDateBased: Boolean
 
-  /**
-    * Checks if this unit is time-based.
+  /** Checks if this unit is time-based.
     *
     * @return true if time-based
     */
   def isTimeBased: Boolean
 
-  /**
-    * Checks if this unit is supported by the specified temporal object.
+  /** Checks if this unit is supported by the specified temporal object.
     * <p>
     * This checks that the implementing date-time can add/subtract this unit.
     * This can be used to avoid throwing an exception.
@@ -112,8 +106,7 @@ trait TemporalUnit {
     */
   def isSupportedBy(temporal: Temporal): Boolean
 
-  /**
-    * Returns a copy of the specified temporal object with the specified period added.
+  /** Returns a copy of the specified temporal object with the specified period added.
     * <p>
     * The period added is a multiple of this unit. For example, this method
     * could be used to add "3 days" to a date by calling this method on the
@@ -139,7 +132,7 @@ trait TemporalUnit {
     * Instead, an adjusted copy of the original must be returned.
     * This provides equivalent, safe behavior for immutable and mutable implementations.
     *
-    * @param <R>  the type of the Temporal object
+    * @tparam R  the type of the Temporal object
     * @param dateTime  the temporal object to adjust, not null
     * @param periodToAdd  the period of this unit to add, positive or negative
     * @return the adjusted temporal object, not null
@@ -147,8 +140,7 @@ trait TemporalUnit {
     */
   def addTo[R <: Temporal](dateTime: R, periodToAdd: Long): R
 
-  /**
-    * Calculates the period in terms of this unit between two temporal objects of the same type.
+  /** Calculates the period in terms of this unit between two temporal objects of the same type.
     * <p>
     * This calculates the period between two temporals in terms of this unit.
     * The start and end points are supplied as temporal objects and must be of the same type.
@@ -190,8 +182,7 @@ trait TemporalUnit {
     */
   def between(temporal1: Temporal, temporal2: Temporal): Long
 
-  /**
-    * Outputs this unit as a {@code String} using the name.
+  /** Outputs this unit as a {@code String} using the name.
     *
     * @return the name of this unit, not null
     */

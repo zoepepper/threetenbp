@@ -608,8 +608,8 @@ import org.threeten.bp.temporal.TemporalUnit
     TEST_2007_07_15.query(null)
   }
 
-  @DataProvider(name = "sampleDates") private[bp] def provider_sampleDates: Array[Array[Int]] = {
-    Array[Array[Int]](Array(2008, 7, 5), Array(2007, 7, 5), Array(2006, 7, 5), Array(2005, 7, 5), Array(2004, 1, 1), Array(-1, 1, 2))
+  @DataProvider(name = "sampleDates") private[bp] def provider_sampleDates: Array[Array[_ <: AnyRef]] = {
+    Array[Array[_ <: AnyRef]](Array[Integer](2008, 7, 5), Array[Integer](2007, 7, 5), Array[Integer](2006, 7, 5), Array[Integer](2005, 7, 5), Array[Integer](2004, 1, 1), Array[Integer](-1, 1, 2))
   }
 
   @Test(dataProvider = "sampleDates") def test_get(y: Int, m: Int, d: Int): Unit = {
@@ -1560,7 +1560,7 @@ import org.threeten.bp.temporal.TemporalUnit
     doTest_comparisons_LocalDate(LocalDate.of(Year.MIN_VALUE, 1, 1), LocalDate.of(Year.MIN_VALUE, 12, 31), LocalDate.of(-1, 1, 1), LocalDate.of(-1, 12, 31), LocalDate.of(0, 1, 1), LocalDate.of(0, 12, 31), LocalDate.of(1, 1, 1), LocalDate.of(1, 12, 31), LocalDate.of(2006, 1, 1), LocalDate.of(2006, 12, 31), LocalDate.of(2007, 1, 1), LocalDate.of(2007, 12, 31), LocalDate.of(2008, 1, 1), LocalDate.of(2008, 2, 29), LocalDate.of(2008, 12, 31), LocalDate.of(Year.MAX_VALUE, 1, 1), LocalDate.of(Year.MAX_VALUE, 12, 31))
   }
 
-  private[bp] def doTest_comparisons_LocalDate(localDates: LocalDate*): Unit = {
+  private def doTest_comparisons_LocalDate(localDates: LocalDate*): Unit = {
     {
       var i: Int = 0
       while (i < localDates.length) {

@@ -59,29 +59,6 @@ import org.threeten.bp.temporal.TemporalUnit
 import org.threeten.bp.temporal.ValueRange
 import org.threeten.bp.zone.ZoneRules
 
-/**
-  * A date-time with an offset from UTC/Greenwich in the ISO-8601 calendar system,
-  * such as {@code 2007-12-03T10:15:30+01:00}.
-  * <p>
-  * {@code OffsetDateTime} is an immutable representation of a date-time with an offset.
-  * This class stores all date and time fields, to a precision of nanoseconds,
-  * as well as the offset from UTC/Greenwich. For example, the value
-  * "2nd October 2007 at 13:45.30.123456789 +02:00" can be stored in an {@code OffsetDateTime}.
-  * <p>
-  * {@code OffsetDateTime}, {@link ZonedDateTime} and {@link Instant} all store an instant
-  * on the time-line to nanosecond precision.
-  * {@code Instant} is the simplest, simply representing the instant.
-  * {@code OffsetDateTime} adds to the instant the offset from UTC/Greenwich, which allows
-  * the local date-time to be obtained.
-  * {@code ZonedDateTime} adds full time-zone rules.
-  * <p>
-  * It is intended that {@code ZonedDateTime} or {@code Instant} is used to model data
-  * in simpler applications. This class may be used when modeling date-time concepts in
-  * more detail, or when communicating to a database or in a network protocol.
-  *
-  * <h3>Specification for implementors</h3>
-  * This class is immutable and thread-safe.
-  */
 @SerialVersionUID(2287754244819255394L)
 object OffsetDateTime {
   /**
@@ -109,7 +86,6 @@ object OffsetDateTime {
     * only compares the underlying instant.
     *
     * @return a comparator that compares in time-line order
-    *
     * @see #isAfter
     * @see #isBefore
     * @see #isEqual
@@ -322,13 +298,35 @@ object OffsetDateTime {
 }
 
 /**
+  * A date-time with an offset from UTC/Greenwich in the ISO-8601 calendar system,
+  * such as {@code 2007-12-03T10:15:30+01:00}.
+  * <p>
+  * {@code OffsetDateTime} is an immutable representation of a date-time with an offset.
+  * This class stores all date and time fields, to a precision of nanoseconds,
+  * as well as the offset from UTC/Greenwich. For example, the value
+  * "2nd October 2007 at 13:45.30.123456789 +02:00" can be stored in an {@code OffsetDateTime}.
+  * <p>
+  * {@code OffsetDateTime}, {@link ZonedDateTime} and {@link Instant} all store an instant
+  * on the time-line to nanosecond precision.
+  * {@code Instant} is the simplest, simply representing the instant.
+  * {@code OffsetDateTime} adds to the instant the offset from UTC/Greenwich, which allows
+  * the local date-time to be obtained.
+  * {@code ZonedDateTime} adds full time-zone rules.
+  * <p>
+  * It is intended that {@code ZonedDateTime} or {@code Instant} is used to model data
+  * in simpler applications. This class may be used when modeling date-time concepts in
+  * more detail, or when communicating to a database or in a network protocol.
+  *
+  * <h3>Specification for implementors</h3>
+  * This class is immutable and thread-safe.
+  *
   * Constructor.
   *
   * @param dateTime  the local date-time, not null
   * @param offset  the zone offset, not null
   */
 @SerialVersionUID(2287754244819255394L)
-final class OffsetDateTime private(private val dateTime: LocalDateTime, private val offset: ZoneOffset) extends Temporal with TemporalAdjuster with Comparable[OffsetDateTime] with Serializable {
+final class OffsetDateTime private(private val dateTime: LocalDateTime, private val offset: ZoneOffset) extends Temporal with TemporalAdjuster with Ordered[OffsetDateTime] with Serializable {
     Objects.requireNonNull(dateTime, "dateTime")
     Objects.requireNonNull(offset, "offset")
 
@@ -463,14 +461,13 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
   override def get(field: TemporalField): Int = {
     if (field.isInstanceOf[ChronoField]) {
       field.asInstanceOf[ChronoField] match {
-        case INSTANT_SECONDS =>
-          throw new DateTimeException("Field too large for an int: " + field)
-        case OFFSET_SECONDS =>
-          return getOffset.getTotalSeconds
+        case INSTANT_SECONDS => throw new DateTimeException(s"Field too large for an int: $field")
+        case OFFSET_SECONDS  => getOffset.getTotalSeconds
+        case _               => dateTime.get(field)
       }
-      return dateTime.get(field)
+    } else {
+      super.get(field)
     }
-    super.get(field)
   }
 
   /**
@@ -498,14 +495,13 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
   def getLong(field: TemporalField): Long = {
     if (field.isInstanceOf[ChronoField]) {
       field.asInstanceOf[ChronoField] match {
-        case INSTANT_SECONDS =>
-          return toEpochSecond
-        case OFFSET_SECONDS =>
-          return getOffset.getTotalSeconds
+        case INSTANT_SECONDS => toEpochSecond
+        case OFFSET_SECONDS  => getOffset.getTotalSeconds
+        case _               => dateTime.getLong(field)
       }
-      return dateTime.getLong(field)
+    } else {
+      field.getFrom(this)
     }
-    field.getFrom(this)
   }
 
   /**
@@ -764,14 +760,14 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     if (field.isInstanceOf[ChronoField]) {
       val f: ChronoField = field.asInstanceOf[ChronoField]
       f match {
-        case INSTANT_SECONDS =>
-          return OffsetDateTime.ofInstant(Instant.ofEpochSecond(newValue, getNano), offset)
-        case OFFSET_SECONDS =>
-          return `with`(dateTime, ZoneOffset.ofTotalSeconds(f.checkValidIntValue(newValue)))
+        case INSTANT_SECONDS => OffsetDateTime.ofInstant(Instant.ofEpochSecond(newValue, getNano), offset)
+        case OFFSET_SECONDS  => `with`(dateTime, ZoneOffset.ofTotalSeconds(f.checkValidIntValue(newValue)))
+        case _               => `with`(dateTime.`with`(field, newValue), offset)
+
       }
-      return `with`(dateTime.`with`(field, newValue), offset)
+    } else {
+      field.adjustInto(this, newValue)
     }
-    field.adjustInto(this, newValue)
   }
 
   /**
@@ -1488,7 +1484,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     * @param other  the other date-time to compare to, not null
     * @return the comparator value, negative if less, positive if greater
     */
-  def compareTo(other: OffsetDateTime): Int = {
+  def compare(other: OffsetDateTime): Int = {
     if (getOffset == other.getOffset) {
       return toLocalDateTime.compareTo(other.toLocalDateTime)
     }
@@ -1606,6 +1602,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
 
   /**
     * Defend against malicious streams.
+    *
     * @return never
     * @throws InvalidObjectException always
     */

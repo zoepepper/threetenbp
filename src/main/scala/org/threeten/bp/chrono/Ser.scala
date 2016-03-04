@@ -40,28 +40,8 @@ import java.io.StreamCorruptedException
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalDateTime
 
-/**
-  * The shared serialization delegate for this package.
-  *
-  * <h4>Implementation notes</h4>
-  * This class wraps the object being serialized, and takes a byte representing the type of the class to
-  * be serialized.  This byte can also be used for versioning the serialization format.  In this case another
-  * byte flag would be used in order to specify an alternative version of the type format.
-  * For example {@code JAPANESE_DATE_TYPE_VERSION_2 = 21}.
-  * <p>
-  * In order to serialise the object it writes its byte and then calls back to the appropriate class where
-  * the serialisation is performed.  In order to deserialise the object it read in the type byte, switching
-  * in order to select which class to call back into.
-  * <p>
-  * The serialisation format is determined on a per class basis.  In the case of field based classes each
-  * of the fields is written out with an appropriate size format in descending order of the field's size.  For
-  * example in the case of {@link LocalDate} year is written before month.  Composite classes, such as
-  * {@link LocalDateTime} are serialised as one object.
-  * <p>
-  * This class is mutable and should be created once per serialization.
-  */
 @SerialVersionUID(7857518227608961174L)
-object Ser {
+private object Ser {
   private[chrono] val JAPANESE_DATE_TYPE: Byte = 1
   private[chrono] val JAPANESE_ERA_TYPE: Byte = 2
   private[chrono] val HIJRAH_DATE_TYPE: Byte = 3
@@ -144,6 +124,25 @@ object Ser {
 }
 
 /**
+  * The shared serialization delegate for this package.
+  *
+  * <h4>Implementation notes</h4>
+  * This class wraps the object being serialized, and takes a byte representing the type of the class to
+  * be serialized.  This byte can also be used for versioning the serialization format.  In this case another
+  * byte flag would be used in order to specify an alternative version of the type format.
+  * For example {@code JAPANESE_DATE_TYPE_VERSION_2 = 21}.
+  * <p>
+  * In order to serialise the object it writes its byte and then calls back to the appropriate class where
+  * the serialisation is performed.  In order to deserialise the object it read in the type byte, switching
+  * in order to select which class to call back into.
+  * <p>
+  * The serialisation format is determined on a per class basis.  In the case of field based classes each
+  * of the fields is written out with an appropriate size format in descending order of the field's size.  For
+  * example in the case of {@link LocalDate} year is written before month.  Composite classes, such as
+  * {@link LocalDateTime} are serialised as one object.
+  * <p>
+  * This class is mutable and should be created once per serialization.
+  *
   * Creates an instance for serialization.
   *
   * @param type  the type being serialized

@@ -55,41 +55,10 @@ import org.threeten.bp.temporal.TemporalQuery
 import org.threeten.bp.temporal.UnsupportedTemporalTypeException
 import org.threeten.bp.temporal.ValueRange
 
-/**
-  * A month-day in the ISO-8601 calendar system, such as {@code --12-03}.
-  * <p>
-  * {@code MonthDay} is an immutable date-time object that represents the combination
-  * of a year and month. Any field that can be derived from a month and day, such as
-  * quarter-of-year, can be obtained.
-  * <p>
-  * This class does not store or represent a year, time or time-zone.
-  * For example, the value "December 3rd" can be stored in a {@code MonthDay}.
-  * <p>
-  * Since a {@code MonthDay} does not possess a year, the leap day of
-  * February 29th is considered valid.
-  * <p>
-  * This class implements {@link TemporalAccessor} rather than {@link Temporal}.
-  * This is because it is not possible to define whether February 29th is valid or not
-  * without external information, preventing the implementation of plus/minus.
-  * Related to this, {@code MonthDay} only provides access to query and set the fields
-  * {@code MONTH_OF_YEAR} and {@code DAY_OF_MONTH}.
-  * <p>
-  * The ISO-8601 calendar system is the modern civil calendar system used today
-  * in most of the world. It is equivalent to the proleptic Gregorian calendar
-  * system, in which today's rules for leap years are applied for all time.
-  * For most applications written today, the ISO-8601 rules are entirely suitable.
-  * However, any application that makes use of historical dates, and requires them
-  * to be accurate will find the ISO-8601 approach unsuitable.
-  *
-  * <h3>Specification for implementors</h3>
-  * This class is immutable and thread-safe.
-  */
 @SerialVersionUID(-939150713474957432L)
 object MonthDay {
 
-  /**
-    * Parser.
-    */
+  /** Parser. */
   private val PARSER: DateTimeFormatter = new DateTimeFormatterBuilder().appendLiteral("--").appendValue(MONTH_OF_YEAR, 2).appendLiteral('-').appendValue(DAY_OF_MONTH, 2).toFormatter
 
   /**
@@ -206,9 +175,8 @@ object MonthDay {
       of(_temporal.get(MONTH_OF_YEAR), _temporal.get(DAY_OF_MONTH))
     }
     catch {
-      case ex: DateTimeException => {
-        throw new DateTimeException("Unable to obtain MonthDay from TemporalAccessor: " + _temporal + ", type " + _temporal.getClass.getName)
-      }
+      case ex: DateTimeException =>
+        throw new DateTimeException(s"Unable to obtain MonthDay from TemporalAccessor: ${_temporal}, type ${_temporal.getClass.getName}")
     }
   }
 
@@ -247,14 +215,41 @@ object MonthDay {
   }
 }
 
-/**
+/** A month-day in the ISO-8601 calendar system, such as {@code --12-03}.
+  * <p>
+  * {@code MonthDay} is an immutable date-time object that represents the combination
+  * of a year and month. Any field that can be derived from a month and day, such as
+  * quarter-of-year, can be obtained.
+  * <p>
+  * This class does not store or represent a year, time or time-zone.
+  * For example, the value "December 3rd" can be stored in a {@code MonthDay}.
+  * <p>
+  * Since a {@code MonthDay} does not possess a year, the leap day of
+  * February 29th is considered valid.
+  * <p>
+  * This class implements {@link TemporalAccessor} rather than {@link Temporal}.
+  * This is because it is not possible to define whether February 29th is valid or not
+  * without external information, preventing the implementation of plus/minus.
+  * Related to this, {@code MonthDay} only provides access to query and set the fields
+  * {@code MONTH_OF_YEAR} and {@code DAY_OF_MONTH}.
+  * <p>
+  * The ISO-8601 calendar system is the modern civil calendar system used today
+  * in most of the world. It is equivalent to the proleptic Gregorian calendar
+  * system, in which today's rules for leap years are applied for all time.
+  * For most applications written today, the ISO-8601 rules are entirely suitable.
+  * However, any application that makes use of historical dates, and requires them
+  * to be accurate will find the ISO-8601 approach unsuitable.
+  *
+  * <h3>Specification for implementors</h3>
+  * This class is immutable and thread-safe.
+  *
   * Constructor, previously validated.
   *
   * @param month  the month-of-year to represent, validated from 1 to 12
   * @param day  the day-of-month to represent, validated from 1 to 29-31
   */
 @SerialVersionUID(-939150713474957432L)
-final class MonthDay private (private val month: Int, private val day: Int) extends TemporalAccessor with TemporalAdjuster with Comparable[MonthDay] with Serializable {
+final class MonthDay private (private val month: Int, private val day: Int) extends TemporalAccessor with TemporalAdjuster with Ordered[MonthDay] with Serializable {
 
   /**
     * Checks if the specified field is supported.
@@ -370,7 +365,7 @@ final class MonthDay private (private val month: Int, private val day: Int) exte
         field1 match {
           case DAY_OF_MONTH  => day
           case MONTH_OF_YEAR => month
-          case _             => throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
+          case _             => throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
         }
       case _ => field.getFrom(this)
     }
@@ -559,11 +554,10 @@ final class MonthDay private (private val month: Int, private val day: Int) exte
     * @param other  the other month-day to compare to, not null
     * @return the comparator value, negative if less, positive if greater
     */
-  def compareTo(other: MonthDay): Int = {
+  def compare(other: MonthDay): Int = {
     var cmp: Int = month - other.month
-    if (cmp == 0) {
+    if (cmp == 0)
       cmp = day - other.day
-    }
     cmp
   }
 

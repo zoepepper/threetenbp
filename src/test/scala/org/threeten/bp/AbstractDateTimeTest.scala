@@ -33,7 +33,6 @@ package org.threeten.bp
 
 import org.scalatest.testng.TestNGSuite
 import org.testng.Assert.assertEquals
-import org.testng.Assert.fail
 import org.testng.annotations.Test
 import org.threeten.bp.temporal.TemporalAccessor
 import org.threeten.bp.temporal.TemporalField

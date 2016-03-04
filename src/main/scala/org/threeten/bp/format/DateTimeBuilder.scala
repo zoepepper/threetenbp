@@ -113,7 +113,7 @@ final class DateTimeBuilder() extends TemporalAccessor with Cloneable {
     addFieldValue(field, value)
   }
 
-  private def getFieldValue0(field: TemporalField): Long = {
+  private def getFieldValue0(field: TemporalField): java.lang.Long = {
     fieldValues.get(field)
   }
 

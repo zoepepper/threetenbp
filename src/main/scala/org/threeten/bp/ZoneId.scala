@@ -46,8 +46,7 @@ import org.threeten.bp.zone.ZoneRules
 import org.threeten.bp.zone.ZoneRulesException
 import org.threeten.bp.zone.ZoneRulesProvider
 
-/**
-  * A time-zone ID, such as {@code Europe/Paris}.
+/** A time-zone ID, such as {@code Europe/Paris}.
   * <p>
   * A {@code ZoneId} is used to identify the rules used to convert between
   * an {@link Instant} and a {@link LocalDateTime}.

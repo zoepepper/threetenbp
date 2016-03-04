@@ -62,20 +62,6 @@ import org.threeten.bp.temporal.UnsupportedTemporalTypeException
 import org.threeten.bp.temporal.ValueRange
 import org.threeten.bp.zone.ZoneRules
 
-/**
-  * A time with an offset from UTC/Greenwich in the ISO-8601 calendar system,
-  * such as {@code 10:15:30+01:00}.
-  * <p>
-  * {@code OffsetTime} is an immutable date-time object that represents a time, often
-  * viewed as hour-minute-second-offset.
-  * This class stores all time fields, to a precision of nanoseconds,
-  * as well as a zone offset.
-  * For example, the value "13:45.30.123456789+02:00" can be stored
-  * in an {@code OffsetTime}.
-  *
-  * <h3>Specification for implementors</h3>
-  * This class is immutable and thread-safe.
-  */
 @SerialVersionUID(7264499704384272492L)
 object OffsetTime {
   /**
@@ -265,14 +251,26 @@ object OffsetTime {
   }
 }
 
-/**
+/** A time with an offset from UTC/Greenwich in the ISO-8601 calendar system,
+  * such as {@code 10:15:30+01:00}.
+  * <p>
+  * {@code OffsetTime} is an immutable date-time object that represents a time, often
+  * viewed as hour-minute-second-offset.
+  * This class stores all time fields, to a precision of nanoseconds,
+  * as well as a zone offset.
+  * For example, the value "13:45.30.123456789+02:00" can be stored
+  * in an {@code OffsetTime}.
+  *
+  * <h3>Specification for implementors</h3>
+  * This class is immutable and thread-safe.
+  *
   * Constructor.
   *
   * @param time  the local time, not null
   * @param offset  the zone offset, not null
   */
 @SerialVersionUID(7264499704384272492L)
-final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffset) extends TemporalAccessor with Temporal with TemporalAdjuster with Comparable[OffsetTime] with Serializable {
+final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffset) extends TemporalAccessor with Temporal with TemporalAdjuster with Ordered[OffsetTime] with Serializable {
   Objects.requireNonNull(time, "time")
   Objects.requireNonNull(offset, "offset")
 
@@ -582,16 +580,17 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     * @throws DateTimeException if the field cannot be set
     * @throws ArithmeticException if numeric overflow occurs
     */
-  def `with`(field: TemporalField, newValue: Long): OffsetTime = {
+  def `with`(field: TemporalField, newValue: Long): OffsetTime =
     if (field.isInstanceOf[ChronoField]) {
       if (field eq OFFSET_SECONDS) {
         val f: ChronoField = field.asInstanceOf[ChronoField]
-        return `with`(time, ZoneOffset.ofTotalSeconds(f.checkValidIntValue(newValue)))
+        `with`(time, ZoneOffset.ofTotalSeconds(f.checkValidIntValue(newValue)))
+      } else {
+        `with`(time.`with`(field, newValue), offset)
       }
-      return `with`(time.`with`(field, newValue), offset)
+    } else {
+      field.adjustInto(this, newValue)
     }
-    field.adjustInto(this, newValue)
-  }
 
   /**
     * Returns a copy of this {@code OffsetTime} with the hour-of-day value altered.
@@ -630,9 +629,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     * @return an { @code OffsetTime} based on this time with the requested second, not null
     * @throws DateTimeException if the second value is invalid
     */
-  def withSecond(second: Int): OffsetTime = {
-    `with`(time.withSecond(second), offset)
-  }
+  def withSecond(second: Int): OffsetTime = `with`(time.withSecond(second), offset)
 
   /**
     * Returns a copy of this {@code OffsetTime} with the nano-of-second value altered.
@@ -964,24 +961,19 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
       val nanosUntil: Long = end.toEpochNano - toEpochNano
       import ChronoUnit._
       unit.asInstanceOf[ChronoUnit] match {
-        case NANOS =>
-          return nanosUntil
-        case MICROS =>
-          return nanosUntil / 1000
-        case MILLIS =>
-          return nanosUntil / 1000000
-        case SECONDS =>
-          return nanosUntil / NANOS_PER_SECOND
-        case MINUTES =>
-          return nanosUntil / NANOS_PER_MINUTE
-        case HOURS =>
-          return nanosUntil / NANOS_PER_HOUR
-        case HALF_DAYS =>
-          return nanosUntil / (12 * NANOS_PER_HOUR)
+        case NANOS     => nanosUntil
+        case MICROS    => nanosUntil / 1000
+        case MILLIS    => nanosUntil / 1000000
+        case SECONDS   => nanosUntil / NANOS_PER_SECOND
+        case MINUTES   => nanosUntil / NANOS_PER_MINUTE
+        case HOURS     => nanosUntil / NANOS_PER_HOUR
+        case HALF_DAYS => nanosUntil / (12 * NANOS_PER_HOUR)
+        case _         => throw new UnsupportedTemporalTypeException(s"Unsupported unit: $unit")
+
       }
-      throw new UnsupportedTemporalTypeException("Unsupported unit: " + unit)
+    } else {
+      unit.between(this, end)
     }
-    unit.between(this, end)
   }
 
   /**
@@ -1043,14 +1035,13 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     * @return the comparator value, negative if less, positive if greater
     * @throws NullPointerException if { @code other} is null
     */
-  def compareTo(other: OffsetTime): Int =
+  def compare(other: OffsetTime): Int =
     if (offset == other.offset)
       time.compareTo(other.time)
     else {
       var compare: Int = java.lang.Long.compare(toEpochNano, other.toEpochNano)
-      if (compare == 0) {
+      if (compare == 0)
         compare = time.compareTo(other.time)
-      }
       compare
     }
 
@@ -1156,6 +1147,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
 
   /**
     * Defend against malicious streams.
+    *
     * @return never
     * @throws InvalidObjectException always
     */

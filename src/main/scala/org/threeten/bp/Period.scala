@@ -102,9 +102,7 @@ object Period {
     * @param years  the number of years, positive or negative
     * @return the period of years, not null
     */
-  def ofYears(years: Int): Period = {
-    create(years, 0, 0)
-  }
+  def ofYears(years: Int): Period = create(years, 0, 0)
 
   /**
     * Obtains a {@code Period} representing a number of months.
@@ -284,7 +282,7 @@ object Period {
         }
         catch {
           case ex: NumberFormatException =>
-            throw new DateTimeParseException("Text cannot be parsed to a Period", text, 0).initCause(ex).asInstanceOf[DateTimeParseException]
+            throw new DateTimeParseException("Text cannot be parsed to a Period", text, 0, ex)
         }
       }
     }
@@ -301,7 +299,7 @@ object Period {
     }
     catch {
       case ex: ArithmeticException =>
-        throw new DateTimeParseException("Text cannot be parsed to a Period", text, 0).initCause(ex).asInstanceOf[DateTimeParseException]
+        throw new DateTimeParseException("Text cannot be parsed to a Period", text, 0, ex)
     }
   }
 
@@ -328,7 +326,7 @@ object Period {
   * @param days  the amount
   */
 @SerialVersionUID(-8290556941213247973L)
-final class Period( private val years: Int,  private val months: Int, private val days: Int) extends ChronoPeriod with Serializable {
+final class Period private(private val years: Int, private val months: Int, private val days: Int) extends ChronoPeriod with Serializable {
 
   /**
     * Resolves singletons.

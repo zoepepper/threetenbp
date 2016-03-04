@@ -34,11 +34,8 @@ package org.threeten.bp
 import org.testng.Assert.assertEquals
 import org.testng.Assert.assertSame
 import org.testng.Assert.assertTrue
-import org.testng.Assert.fail
 import org.threeten.bp.temporal.ChronoField.OFFSET_SECONDS
-import java.util.ArrayList
 import java.util.Arrays
-import java.util.List
 import org.testng.annotations.Test
 import org.threeten.bp.temporal.ChronoField
 import org.threeten.bp.temporal.JulianFields
@@ -79,9 +76,8 @@ import org.threeten.bp.temporal.TemporalQueries
 
   @Test
   @throws(classOf[Exception])
-  def test_serialization_format(): Unit = {
+  def test_serialization_format(): Unit =
     AbstractTest.assertEqualsSerialisedForm(ZoneOffset.ofHoursMinutes(1, 30))
-  }
 
   @Test def test_constant_UTC(): Unit = {
     val test: ZoneOffset = ZoneOffset.UTC
@@ -101,41 +97,26 @@ import org.threeten.bp.temporal.TemporalQueries
   @Test def test_factory_string_UTC(): Unit = {
     val values: Array[String] = Array[String]("Z", "+0", "+00", "+0000", "+00:00", "+000000", "+00:00:00", "-00", "-0000", "-00:00", "-000000", "-00:00:00")
 
-    {
-      var i: Int = 0
-      while (i < values.length) {
-        {
-          val test: ZoneOffset = ZoneOffset.of(values(i))
-          assertSame(test, ZoneOffset.UTC)
-        }
-        {
-          i += 1
-          i - 1
-        }
-      }
+    var i: Int = 0
+    while (i < values.length) {
+      val test: ZoneOffset = ZoneOffset.of(values(i))
+      assertSame(test, ZoneOffset.UTC)
+      i += 1
     }
   }
 
   @Test def test_factory_string_invalid(): Unit = {
     val values: Array[String] = Array[String]("", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "ZZ", "0", "+0:00", "+00:0", "+0:0", "+000", "+00000", "+0:00:00", "+00:0:00", "+00:00:0", "+0:0:0", "+0:0:00", "+00:0:0", "+0:00:0", "1", "+01_00", "+01;00", "+01@00", "+01:AA", "+19", "+19:00", "+18:01", "+18:00:01", "+1801", "+180001", "-0:00", "-00:0", "-0:0", "-000", "-00000", "-0:00:00", "-00:0:00", "-00:00:0", "-0:0:0", "-0:0:00", "-00:0:0", "-0:00:0", "-19", "-19:00", "-18:01", "-18:00:01", "-1801", "-180001", "-01_00", "-01;00", "-01@00", "-01:AA", "@01:00")
 
-    {
-      var i: Int = 0
-      while (i < values.length) {
-        {
-          try {
-            ZoneOffset.of(values(i))
-            fail("Should have failed:" + values(i))
-          }
-          catch {
-            case ex: DateTimeException =>
-          }
-        }
-        {
-          i += 1
-          i - 1
-        }
+    var i: Int = 0
+    while (i < values.length) {
+      try {
+        ZoneOffset.of(values(i))
+        fail("Should have failed:" + values(i))
+      } catch {
+        case ex: DateTimeException =>
       }
+      i += 1
     }
   }
 
@@ -144,67 +125,40 @@ import org.threeten.bp.temporal.TemporalQueries
   }
 
   @Test def test_factory_string_singleDigitHours(): Unit = {
-    {
-      var i: Int = -9
-      while (i <= 9) {
-        {
-          val str: String = (if (i < 0) "-" else "+") + Math.abs(i)
-          val test: ZoneOffset = ZoneOffset.of(str)
-          doTestOffset(test, i, 0, 0)
-        }
-        {
-          i += 1
-          i - 1
-        }
-      }
+    var i: Int = -9
+    while (i <= 9) {
+      val str: String = (if (i < 0) "-" else "+") + Math.abs(i)
+      val test: ZoneOffset = ZoneOffset.of(str)
+      doTestOffset(test, i, 0, 0)
+      i += 1
     }
   }
 
   @Test def test_factory_string_hours(): Unit = {
-    {
-      var i: Int = -18
-      while (i <= 18) {
-        {
-          val str: String = (if (i < 0) "-" else "+") + Integer.toString(Math.abs(i) + 100).substring(1)
-          val test: ZoneOffset = ZoneOffset.of(str)
-          doTestOffset(test, i, 0, 0)
-        }
-        {
-          i += 1
-          i - 1
-        }
-      }
+    var i: Int = -18
+    while (i <= 18) {
+      val str: String = (if (i < 0) "-" else "+") + Integer.toString(Math.abs(i) + 100).substring(1)
+      val test: ZoneOffset = ZoneOffset.of(str)
+      doTestOffset(test, i, 0, 0)
+      i += 1
     }
   }
 
   @Test def test_factory_string_hours_minutes_noColon(): Unit = {
-    {
-      var i: Int = -17
-      while (i <= 17) {
-        {
-          {
-            var j: Int = -59
-            while (j <= 59) {
-              {
-                if ((i < 0 && j <= 0) || (i > 0 && j >= 0) || i == 0) {
-                  val str: String = (if (i < 0 || j < 0) "-" else "+") + Integer.toString(Math.abs(i) + 100).substring(1) + Integer.toString(Math.abs(j) + 100).substring(1)
-                  val test: ZoneOffset = ZoneOffset.of(str)
-                  doTestOffset(test, i, j, 0)
-                }
-              }
-              {
-                j += 1
-                j - 1
-              }
-            }
-          }
+    var i: Int = -17
+    while (i <= 17) {
+      var j: Int = -59
+      while (j <= 59) {
+        if ((i < 0 && j <= 0) || (i > 0 && j >= 0) || i == 0) {
+          val str: String = (if (i < 0 || j < 0) "-" else "+") + Integer.toString(Math.abs(i) + 100).substring(1) + Integer.toString(Math.abs(j) + 100).substring(1)
+          val test: ZoneOffset = ZoneOffset.of(str)
+          doTestOffset(test, i, j, 0)
         }
-        {
-          i += 1
-          i - 1
-        }
+        j += 1
       }
+      i += 1
     }
+
     val test1: ZoneOffset = ZoneOffset.of("-1800")
     doTestOffset(test1, -18, 0, 0)
     val test2: ZoneOffset = ZoneOffset.of("+1800")
@@ -212,33 +166,20 @@ import org.threeten.bp.temporal.TemporalQueries
   }
 
   @Test def test_factory_string_hours_minutes_colon(): Unit = {
-    {
-      var i: Int = -17
-      while (i <= 17) {
-        {
-          {
-            var j: Int = -59
-            while (j <= 59) {
-              {
-                if ((i < 0 && j <= 0) || (i > 0 && j >= 0) || i == 0) {
-                  val str: String = (if (i < 0 || j < 0) "-" else "+") + Integer.toString(Math.abs(i) + 100).substring(1) + ":" + Integer.toString(Math.abs(j) + 100).substring(1)
-                  val test: ZoneOffset = ZoneOffset.of(str)
-                  doTestOffset(test, i, j, 0)
-                }
-              }
-              {
-                j += 1
-                j - 1
-              }
-            }
-          }
+    var i: Int = -17
+    while (i <= 17) {
+      var j: Int = -59
+      while (j <= 59) {
+        if ((i < 0 && j <= 0) || (i > 0 && j >= 0) || i == 0) {
+          val str: String = (if (i < 0 || j < 0) "-" else "+") + Integer.toString(Math.abs(i) + 100).substring(1) + ":" + Integer.toString(Math.abs(j) + 100).substring(1)
+          val test: ZoneOffset = ZoneOffset.of(str)
+          doTestOffset(test, i, j, 0)
         }
-        {
-          i += 1
-          i - 1
-        }
+        j += 1
       }
+      i += 1
     }
+
     val test1: ZoneOffset = ZoneOffset.of("-18:00")
     doTestOffset(test1, -18, 0, 0)
     val test2: ZoneOffset = ZoneOffset.of("+18:00")
@@ -246,44 +187,24 @@ import org.threeten.bp.temporal.TemporalQueries
   }
 
   @Test def test_factory_string_hours_minutes_seconds_noColon(): Unit = {
-    {
-      var i: Int = -17
-      while (i <= 17) {
-        {
-          {
-            var j: Int = -59
-            while (j <= 59) {
-              {
-                {
-                  var k: Int = -59
-                  while (k <= 59) {
-                    {
-                      if ((i < 0 && j <= 0 && k <= 0) || (i > 0 && j >= 0 && k >= 0) || (i == 0 && ((j < 0 && k <= 0) || (j > 0 && k >= 0) || j == 0))) {
-                        val str: String = (if (i < 0 || j < 0 || k < 0) "-" else "+") + Integer.toString(Math.abs(i) + 100).substring(1) + Integer.toString(Math.abs(j) + 100).substring(1) + Integer.toString(Math.abs(k) + 100).substring(1)
-                        val test: ZoneOffset = ZoneOffset.of(str)
-                        doTestOffset(test, i, j, k)
-                      }
-                    }
-                    {
-                      k += 1
-                      k - 1
-                    }
-                  }
-                }
-              }
-              {
-                j += 1
-                j - 1
-              }
-            }
+    var i: Int = -17
+    while (i <= 17) {
+      var j: Int = -59
+      while (j <= 59) {
+        var k: Int = -59
+        while (k <= 59) {
+          if ((i < 0 && j <= 0 && k <= 0) || (i > 0 && j >= 0 && k >= 0) || (i == 0 && ((j < 0 && k <= 0) || (j > 0 && k >= 0) || j == 0))) {
+            val str: String = (if (i < 0 || j < 0 || k < 0) "-" else "+") + Integer.toString(Math.abs(i) + 100).substring(1) + Integer.toString(Math.abs(j) + 100).substring(1) + Integer.toString(Math.abs(k) + 100).substring(1)
+            val test: ZoneOffset = ZoneOffset.of(str)
+            doTestOffset(test, i, j, k)
           }
+          k += 1
         }
-        {
-          i += 1
-          i - 1
-        }
+        j += 1
       }
+      i += 1
     }
+
     val test1: ZoneOffset = ZoneOffset.of("-180000")
     doTestOffset(test1, -18, 0, 0)
     val test2: ZoneOffset = ZoneOffset.of("+180000")
@@ -291,44 +212,24 @@ import org.threeten.bp.temporal.TemporalQueries
   }
 
   @Test def test_factory_string_hours_minutes_seconds_colon(): Unit = {
-    {
-      var i: Int = -17
-      while (i <= 17) {
-        {
-          {
-            var j: Int = -59
-            while (j <= 59) {
-              {
-                {
-                  var k: Int = -59
-                  while (k <= 59) {
-                    {
-                      if ((i < 0 && j <= 0 && k <= 0) || (i > 0 && j >= 0 && k >= 0) || (i == 0 && ((j < 0 && k <= 0) || (j > 0 && k >= 0) || j == 0))) {
-                        val str: String = (if (i < 0 || j < 0 || k < 0) "-" else "+") + Integer.toString(Math.abs(i) + 100).substring(1) + ":" + Integer.toString(Math.abs(j) + 100).substring(1) + ":" + Integer.toString(Math.abs(k) + 100).substring(1)
-                        val test: ZoneOffset = ZoneOffset.of(str)
-                        doTestOffset(test, i, j, k)
-                      }
-                    }
-                    {
-                      k += 1
-                      k - 1
-                    }
-                  }
-                }
-              }
-              {
-                j += 1
-                j - 1
-              }
-            }
+    var i: Int = -17
+    while (i <= 17) {
+      var j: Int = -59
+      while (j <= 59) {
+        var k: Int = -59
+        while (k <= 59) {
+          if ((i < 0 && j <= 0 && k <= 0) || (i > 0 && j >= 0 && k >= 0) || (i == 0 && ((j < 0 && k <= 0) || (j > 0 && k >= 0) || j == 0))) {
+            val str: String = (if (i < 0 || j < 0 || k < 0) "-" else "+") + Integer.toString(Math.abs(i) + 100).substring(1) + ":" + Integer.toString(Math.abs(j) + 100).substring(1) + ":" + Integer.toString(Math.abs(k) + 100).substring(1)
+            val test: ZoneOffset = ZoneOffset.of(str)
+            doTestOffset(test, i, j, k)
           }
+          k += 1
         }
-        {
-          i += 1
-          i - 1
-        }
+        j += 1
       }
+      i += 1
     }
+
     val test1: ZoneOffset = ZoneOffset.of("-18:00:00")
     doTestOffset(test1, -18, 0, 0)
     val test2: ZoneOffset = ZoneOffset.of("+18:00:00")
@@ -336,161 +237,105 @@ import org.threeten.bp.temporal.TemporalQueries
   }
 
   @Test def test_factory_int_hours(): Unit = {
-    {
-      var i: Int = -18
-      while (i <= 18) {
-        {
-          val test: ZoneOffset = ZoneOffset.ofHours(i)
-          doTestOffset(test, i, 0, 0)
-        }
-        {
-          i += 1
-          i - 1
-        }
-      }
+    var i: Int = -18
+    while (i <= 18) {
+      val test: ZoneOffset = ZoneOffset.ofHours(i)
+      doTestOffset(test, i, 0, 0)
+      i += 1
     }
   }
 
-  @Test(expectedExceptions = Array(classOf[DateTimeException])) def test_factory_int_hours_tooBig(): Unit = {
+  @Test(expectedExceptions = Array(classOf[DateTimeException])) def test_factory_int_hours_tooBig(): Unit =
     ZoneOffset.ofHours(19)
-  }
 
-  @Test(expectedExceptions = Array(classOf[DateTimeException])) def test_factory_int_hours_tooSmall(): Unit = {
+  @Test(expectedExceptions = Array(classOf[DateTimeException])) def test_factory_int_hours_tooSmall(): Unit =
     ZoneOffset.ofHours(-19)
-  }
 
   @Test def test_factory_int_hours_minutes(): Unit = {
-    {
-      var i: Int = -17
-      while (i <= 17) {
-        {
-          {
-            var j: Int = -59
-            while (j <= 59) {
-              {
-                if ((i < 0 && j <= 0) || (i > 0 && j >= 0) || i == 0) {
-                  val test: ZoneOffset = ZoneOffset.ofHoursMinutes(i, j)
-                  doTestOffset(test, i, j, 0)
-                }
-              }
-              {
-                j += 1
-                j - 1
-              }
-            }
-          }
+    var i: Int = -17
+    while (i <= 17) {
+      var j: Int = -59
+      while (j <= 59) {
+        if ((i < 0 && j <= 0) || (i > 0 && j >= 0) || i == 0) {
+          val test: ZoneOffset = ZoneOffset.ofHoursMinutes(i, j)
+          doTestOffset(test, i, j, 0)
         }
-        {
-          i += 1
-          i - 1
-        }
+        j += 1
       }
+      i += 1
     }
+
     val test1: ZoneOffset = ZoneOffset.ofHoursMinutes(-18, 0)
     doTestOffset(test1, -18, 0, 0)
     val test2: ZoneOffset = ZoneOffset.ofHoursMinutes(18, 0)
     doTestOffset(test2, 18, 0, 0)
   }
 
-  @Test(expectedExceptions = Array(classOf[DateTimeException])) def test_factory_int_hours_minutes_tooBig(): Unit = {
+  @Test(expectedExceptions = Array(classOf[DateTimeException])) def test_factory_int_hours_minutes_tooBig(): Unit =
     ZoneOffset.ofHoursMinutes(19, 0)
-  }
 
-  @Test(expectedExceptions = Array(classOf[DateTimeException])) def test_factory_int_hours_minutes_tooSmall(): Unit = {
+  @Test(expectedExceptions = Array(classOf[DateTimeException])) def test_factory_int_hours_minutes_tooSmall(): Unit =
     ZoneOffset.ofHoursMinutes(-19, 0)
-  }
 
   @Test def test_factory_int_hours_minutes_seconds(): Unit = {
-    {
-      var i: Int = -17
-      while (i <= 17) {
-        {
-          {
-            var j: Int = -59
-            while (j <= 59) {
-              {
-                {
-                  var k: Int = -59
-                  while (k <= 59) {
-                    {
-                      if ((i < 0 && j <= 0 && k <= 0) || (i > 0 && j >= 0 && k >= 0) || (i == 0 && ((j < 0 && k <= 0) || (j > 0 && k >= 0) || j == 0))) {
-                        val test: ZoneOffset = ZoneOffset.ofHoursMinutesSeconds(i, j, k)
-                        doTestOffset(test, i, j, k)
-                      }
-                    }
-                    {
-                      k += 1
-                      k - 1
-                    }
-                  }
-                }
-              }
-              {
-                j += 1
-                j - 1
-              }
-            }
+    var i: Int = -17
+    while (i <= 17) {
+      var j: Int = -59
+      while (j <= 59) {
+        var k: Int = -59
+        while (k <= 59) {
+          if ((i < 0 && j <= 0 && k <= 0) || (i > 0 && j >= 0 && k >= 0) || (i == 0 && ((j < 0 && k <= 0) || (j > 0 && k >= 0) || j == 0))) {
+            val test: ZoneOffset = ZoneOffset.ofHoursMinutesSeconds(i, j, k)
+            doTestOffset(test, i, j, k)
           }
+          k += 1
         }
-        {
-          i += 1
-          i - 1
-        }
+        j += 1
       }
+      i += 1
     }
+
     val test1: ZoneOffset = ZoneOffset.ofHoursMinutesSeconds(-18, 0, 0)
     doTestOffset(test1, -18, 0, 0)
     val test2: ZoneOffset = ZoneOffset.ofHoursMinutesSeconds(18, 0, 0)
     doTestOffset(test2, 18, 0, 0)
   }
 
-  @Test(expectedExceptions = Array(classOf[DateTimeException])) def test_factory_int_hours_minutes_seconds_plusHoursMinusMinutes(): Unit = {
+  @Test(expectedExceptions = Array(classOf[DateTimeException])) def test_factory_int_hours_minutes_seconds_plusHoursMinusMinutes(): Unit =
     ZoneOffset.ofHoursMinutesSeconds(1, -1, 0)
-  }
 
-  @Test(expectedExceptions = Array(classOf[DateTimeException])) def test_factory_int_hours_minutes_seconds_plusHoursMinusSeconds(): Unit = {
+  @Test(expectedExceptions = Array(classOf[DateTimeException])) def test_factory_int_hours_minutes_seconds_plusHoursMinusSeconds(): Unit =
     ZoneOffset.ofHoursMinutesSeconds(1, 0, -1)
-  }
 
-  @Test(expectedExceptions = Array(classOf[DateTimeException])) def test_factory_int_hours_minutes_seconds_minusHoursPlusMinutes(): Unit = {
+  @Test(expectedExceptions = Array(classOf[DateTimeException])) def test_factory_int_hours_minutes_seconds_minusHoursPlusMinutes(): Unit =
     ZoneOffset.ofHoursMinutesSeconds(-1, 1, 0)
-  }
 
-  @Test(expectedExceptions = Array(classOf[DateTimeException])) def test_factory_int_hours_minutes_seconds_minusHoursPlusSeconds(): Unit = {
+  @Test(expectedExceptions = Array(classOf[DateTimeException])) def test_factory_int_hours_minutes_seconds_minusHoursPlusSeconds(): Unit =
     ZoneOffset.ofHoursMinutesSeconds(-1, 0, 1)
-  }
 
-  @Test(expectedExceptions = Array(classOf[DateTimeException])) def test_factory_int_hours_minutes_seconds_zeroHoursMinusMinutesPlusSeconds(): Unit = {
+  @Test(expectedExceptions = Array(classOf[DateTimeException])) def test_factory_int_hours_minutes_seconds_zeroHoursMinusMinutesPlusSeconds(): Unit =
     ZoneOffset.ofHoursMinutesSeconds(0, -1, 1)
-  }
 
-  @Test(expectedExceptions = Array(classOf[DateTimeException])) def test_factory_int_hours_minutes_seconds_zeroHoursPlusMinutesMinusSeconds(): Unit = {
+  @Test(expectedExceptions = Array(classOf[DateTimeException])) def test_factory_int_hours_minutes_seconds_zeroHoursPlusMinutesMinusSeconds(): Unit =
     ZoneOffset.ofHoursMinutesSeconds(0, 1, -1)
-  }
 
-  @Test(expectedExceptions = Array(classOf[DateTimeException])) def test_factory_int_hours_minutes_seconds_minutesTooLarge(): Unit = {
+  @Test(expectedExceptions = Array(classOf[DateTimeException])) def test_factory_int_hours_minutes_seconds_minutesTooLarge(): Unit =
     ZoneOffset.ofHoursMinutesSeconds(0, 60, 0)
-  }
 
-  @Test(expectedExceptions = Array(classOf[DateTimeException])) def test_factory_int_hours_minutes_seconds_minutesTooSmall(): Unit = {
+  @Test(expectedExceptions = Array(classOf[DateTimeException])) def test_factory_int_hours_minutes_seconds_minutesTooSmall(): Unit =
     ZoneOffset.ofHoursMinutesSeconds(0, -60, 0)
-  }
 
-  @Test(expectedExceptions = Array(classOf[DateTimeException])) def test_factory_int_hours_minutes_seconds_secondsTooLarge(): Unit = {
+  @Test(expectedExceptions = Array(classOf[DateTimeException])) def test_factory_int_hours_minutes_seconds_secondsTooLarge(): Unit =
     ZoneOffset.ofHoursMinutesSeconds(0, 0, 60)
-  }
 
-  @Test(expectedExceptions = Array(classOf[DateTimeException])) def test_factory_int_hours_minutes_seconds_secondsTooSmall(): Unit = {
+  @Test(expectedExceptions = Array(classOf[DateTimeException])) def test_factory_int_hours_minutes_seconds_secondsTooSmall(): Unit =
     ZoneOffset.ofHoursMinutesSeconds(0, 0, 60)
-  }
 
-  @Test(expectedExceptions = Array(classOf[DateTimeException])) def test_factory_int_hours_minutes_seconds_hoursTooBig(): Unit = {
+  @Test(expectedExceptions = Array(classOf[DateTimeException])) def test_factory_int_hours_minutes_seconds_hoursTooBig(): Unit =
     ZoneOffset.ofHoursMinutesSeconds(19, 0, 0)
-  }
 
-  @Test(expectedExceptions = Array(classOf[DateTimeException])) def test_factory_int_hours_minutes_seconds_hoursTooSmall(): Unit = {
+  @Test(expectedExceptions = Array(classOf[DateTimeException])) def test_factory_int_hours_minutes_seconds_hoursTooSmall(): Unit =
     ZoneOffset.ofHoursMinutesSeconds(-19, 0, 0)
-  }
 
   @Test def test_factory_ofTotalSeconds(): Unit = {
     assertEquals(ZoneOffset.ofTotalSeconds(60 * 60 + 1), ZoneOffset.ofHoursMinutesSeconds(1, 0, 1))
@@ -498,26 +343,22 @@ import org.threeten.bp.temporal.TemporalQueries
     assertEquals(ZoneOffset.ofTotalSeconds(-18 * 60 * 60), ZoneOffset.ofHours(-18))
   }
 
-  @Test(expectedExceptions = Array(classOf[DateTimeException])) def test_factory_ofTotalSeconds_tooLarge(): Unit = {
+  @Test(expectedExceptions = Array(classOf[DateTimeException])) def test_factory_ofTotalSeconds_tooLarge(): Unit =
     ZoneOffset.ofTotalSeconds(18 * 60 * 60 + 1)
-  }
 
-  @Test(expectedExceptions = Array(classOf[DateTimeException])) def test_factory_ofTotalSeconds_tooSmall(): Unit = {
+  @Test(expectedExceptions = Array(classOf[DateTimeException])) def test_factory_ofTotalSeconds_tooSmall(): Unit =
     ZoneOffset.ofTotalSeconds(-18 * 60 * 60 - 1)
-  }
 
   @Test def test_factory_TemporalAccessor(): Unit = {
     assertEquals(ZoneOffset.from(OffsetTime.of(LocalTime.of(12, 30), ZoneOffset.ofHours(6))), ZoneOffset.ofHours(6))
     assertEquals(ZoneOffset.from(ZonedDateTime.of(LocalDateTime.of(LocalDate.of(2007, 7, 15), LocalTime.of(17, 30)), ZoneOffset.ofHours(2))), ZoneOffset.ofHours(2))
   }
 
-  @Test(expectedExceptions = Array(classOf[DateTimeException])) def test_factory_TemporalAccessor_invalid_noDerive(): Unit = {
+  @Test(expectedExceptions = Array(classOf[DateTimeException])) def test_factory_TemporalAccessor_invalid_noDerive(): Unit =
     ZoneOffset.from(LocalTime.of(12, 30))
-  }
 
-  @Test(expectedExceptions = Array(classOf[NullPointerException])) def test_factory_TemporalAccessor_null(): Unit = {
+  @Test(expectedExceptions = Array(classOf[NullPointerException])) def test_factory_TemporalAccessor_null(): Unit =
     ZoneOffset.from(null.asInstanceOf[TemporalAccessor])
-  }
 
   @Test def test_getTotalSeconds(): Unit = {
     val offset: ZoneOffset = ZoneOffset.ofTotalSeconds(60 * 60 + 1)
@@ -612,9 +453,8 @@ import org.threeten.bp.temporal.TemporalQueries
   private def doTestOffset(offset: ZoneOffset, hours: Int, minutes: Int, seconds: Int): Unit = {
     assertEquals(offset.getTotalSeconds, hours * 60 * 60 + minutes * 60 + seconds)
     var id: String = null
-    if (hours == 0 && minutes == 0 && seconds == 0) {
+    if (hours == 0 && minutes == 0 && seconds == 0)
       id = "Z"
-    }
     else {
       var str: String = if (hours < 0 || minutes < 0 || seconds < 0) "-" else "+"
       str += Integer.toString(Math.abs(hours) + 100).substring(1)
@@ -630,9 +470,8 @@ import org.threeten.bp.temporal.TemporalQueries
     assertEquals(offset, ZoneOffset.ofHoursMinutesSeconds(hours, minutes, seconds))
     if (seconds == 0) {
       assertEquals(offset, ZoneOffset.ofHoursMinutes(hours, minutes))
-      if (minutes == 0) {
+      if (minutes == 0)
         assertEquals(offset, ZoneOffset.ofHours(hours))
-      }
     }
     assertEquals(ZoneOffset.of(id), offset)
     assertEquals(offset.toString, id)

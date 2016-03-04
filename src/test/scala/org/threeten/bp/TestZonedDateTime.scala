@@ -303,7 +303,7 @@ import org.threeten.bp.temporal.TemporalQuery
     }
   }
 
-  private[bp] def check(test: ZonedDateTime, y: Int, m: Int, d: Int, h: Int, min: Int, s: Int, n: Int, offset: ZoneOffset, zone: ZoneId): Unit = {
+  private def check(test: ZonedDateTime, y: Int, m: Int, d: Int, h: Int, min: Int, s: Int, n: Int, offset: ZoneOffset, zone: ZoneId): Unit = {
     assertEquals(test.getYear, y)
     assertEquals(test.getMonth.getValue, m)
     assertEquals(test.getDayOfMonth, d)

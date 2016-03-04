@@ -39,28 +39,6 @@ import org.threeten.bp.temporal.TemporalAmount
 import org.threeten.bp.temporal.TemporalUnit
 import org.threeten.bp.temporal.UnsupportedTemporalTypeException
 
-/**
-  * A date-based amount of time, such as '3 years, 4 months and 5 days' in an
-  * arbitrary chronology, intended for advanced globalization use cases.
-  * <p>
-  * This interface models a date-based amount of time in a calendar system.
-  * While most calendar systems use years, months and days, some do not.
-  * Therefore, this interface operates solely in terms of a set of supported
-  * units that are defined by the {@code Chronology}.
-  * The set of supported units is fixed for a given chronology.
-  * The amount of a supported unit may be set to zero.
-  * <p>
-  * The period is modeled as a directed amount of time, meaning that individual
-  * parts of the period may be negative.
-  *
-  * <h3>Specification for implementors</h3>
-  * This abstract class must be implemented with care to ensure other classes operate correctly.
-  * All implementations that can be instantiated must be final, immutable and thread-safe.
-  * Subclasses should be Serializable wherever possible.
-  * <p>
-  * In JDK 8, this is an interface with default methods.
-  * Since there are no default methods in JDK 7, an abstract class is used.
-  */
 object ChronoPeriod {
   /**
     * Obtains a {@code ChronoPeriod} consisting of amount of time between two dates.
@@ -88,7 +66,25 @@ object ChronoPeriod {
   }
 }
 
-abstract class ChronoPeriod extends TemporalAmount {
+/** A date-based amount of time, such as '3 years, 4 months and 5 days' in an
+  * arbitrary chronology, intended for advanced globalization use cases.
+  * <p>
+  * This interface models a date-based amount of time in a calendar system.
+  * While most calendar systems use years, months and days, some do not.
+  * Therefore, this interface operates solely in terms of a set of supported
+  * units that are defined by the {@code Chronology}.
+  * The set of supported units is fixed for a given chronology.
+  * The amount of a supported unit may be set to zero.
+  * <p>
+  * The period is modeled as a directed amount of time, meaning that individual
+  * parts of the period may be negative.
+  *
+  * <h3>Specification for implementors</h3>
+  * This abstract class must be implemented with care to ensure other classes operate correctly.
+  * All implementations that can be instantiated must be final, immutable and thread-safe.
+  * Subclasses should be Serializable wherever possible.
+  */
+trait ChronoPeriod extends TemporalAmount {
   /**
     * Gets the value of the requested unit.
     * <p>
@@ -138,9 +134,8 @@ abstract class ChronoPeriod extends TemporalAmount {
   def isZero: Boolean = {
     import scala.collection.JavaConversions._
     for (unit <- getUnits) {
-      if (get(unit) != 0) {
+      if (get(unit) != 0)
         return false
-      }
     }
     true
   }
@@ -153,9 +148,8 @@ abstract class ChronoPeriod extends TemporalAmount {
   def isNegative: Boolean = {
     import scala.collection.JavaConversions._
     for (unit <- getUnits) {
-      if (get(unit) < 0) {
+      if (get(unit) < 0)
         return true
-      }
     }
     false
   }
@@ -218,9 +212,7 @@ abstract class ChronoPeriod extends TemporalAmount {
     * @throws ArithmeticException if numeric overflow occurs, which only happens if
     *                             one of the units has the value { @code Long.MIN_VALUE}
     */
-  def negated: ChronoPeriod = {
-    return multipliedBy(-1)
-  }
+  def negated: ChronoPeriod = multipliedBy(-1)
 
   /**
     * Returns a copy of this period with the amounts of each unit normalized.

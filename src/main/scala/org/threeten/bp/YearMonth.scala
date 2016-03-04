@@ -242,7 +242,7 @@ object YearMonth {
   * @param month  the month-of-year to represent, validated from 1 (January) to 12 (December)
   */
 @SerialVersionUID(4183400860270640070L)
-final class YearMonth private(private val year: Int, private val month: Int) extends TemporalAccessor with Temporal with TemporalAdjuster with Comparable[YearMonth] with Serializable {
+final class YearMonth private(private val year: Int, private val month: Int) extends TemporalAccessor with Temporal with TemporalAdjuster with Ordered[YearMonth] with Serializable {
 
   /**
     * Returns a copy of this year-month with the new year and month, checking
@@ -899,11 +899,10 @@ final class YearMonth private(private val year: Int, private val month: Int) ext
     * @param other  the other year-month to compare to, not null
     * @return the comparator value, negative if less, positive if greater
     */
-  def compareTo(other: YearMonth): Int = {
-    var cmp: Int = (year - other.year)
-    if (cmp == 0) {
-      cmp = (month - other.month)
-    }
+  def compare(other: YearMonth): Int = {
+    var cmp: Int = year - other.year
+    if (cmp == 0)
+      cmp = month - other.month
     cmp
   }
 

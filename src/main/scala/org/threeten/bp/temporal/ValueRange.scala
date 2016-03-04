@@ -65,12 +65,11 @@ object ValueRange {
     * @return the ValueRange for min, max, not null
     * @throws IllegalArgumentException if the minimum is greater than the maximum
     */
-  def of(min: Long, max: Long): ValueRange = {
-    if (min > max) {
+  def of(min: Long, max: Long): ValueRange =
+    if (min > max)
       throw new IllegalArgumentException("Minimum value must be less than maximum value")
-    }
-    return new ValueRange(min, min, max, max)
-  }
+    else
+      new ValueRange(min, min, max, max)
 
   /**
     * Obtains a variable value range.
@@ -86,9 +85,7 @@ object ValueRange {
     *                                  the minimum is greater than the smallest maximum,
     *                                  or the smallest maximum is greater than the largest maximum
     */
-  def of(min: Long, maxSmallest: Long, maxLargest: Long): ValueRange = {
-    return of(min, min, maxSmallest, maxLargest)
-  }
+  def of(min: Long, maxSmallest: Long, maxLargest: Long): ValueRange = of(min, min, maxSmallest, maxLargest)
 
   /**
     * Obtains a fully variable value range.
@@ -106,16 +103,13 @@ object ValueRange {
     *                                  or the largest minimum is greater than the largest maximum
     */
   def of(minSmallest: Long, minLargest: Long, maxSmallest: Long, maxLargest: Long): ValueRange = {
-    if (minSmallest > minLargest) {
+    if (minSmallest > minLargest)
       throw new IllegalArgumentException("Smallest minimum value must be less than largest minimum value")
-    }
-    if (maxSmallest > maxLargest) {
+    if (maxSmallest > maxLargest)
       throw new IllegalArgumentException("Smallest maximum value must be less than largest maximum value")
-    }
-    if (minLargest > maxLargest) {
+    if (minLargest > maxLargest)
       throw new IllegalArgumentException("Minimum value must be less than maximum value")
-    }
-    return new ValueRange(minSmallest, minLargest, maxSmallest, maxLargest)
+    new ValueRange(minSmallest, minLargest, maxSmallest, maxLargest)
   }
 }
 
@@ -139,9 +133,7 @@ final class ValueRange private(private val minSmallest: Long, private val minLar
     *
     * @return true if the set of values is fixed
     */
-  def isFixed: Boolean = {
-    return minSmallest == minLargest && maxSmallest == maxLargest
-  }
+  def isFixed: Boolean = minSmallest == minLargest && maxSmallest == maxLargest
 
   /**
     * Gets the minimum value that the field can take.
@@ -151,9 +143,7 @@ final class ValueRange private(private val minSmallest: Long, private val minLar
     *
     * @return the minimum value for this field
     */
-  def getMinimum: Long = {
-    return minSmallest
-  }
+  def getMinimum: Long = minSmallest
 
   /**
     * Gets the largest possible minimum value that the field can take.
@@ -163,9 +153,7 @@ final class ValueRange private(private val minSmallest: Long, private val minLar
     *
     * @return the largest possible minimum value for this field
     */
-  def getLargestMinimum: Long = {
-    return minLargest
-  }
+  def getLargestMinimum: Long = minLargest
 
   /**
     * Gets the smallest possible maximum value that the field can take.
@@ -175,9 +163,7 @@ final class ValueRange private(private val minSmallest: Long, private val minLar
     *
     * @return the smallest possible maximum value for this field
     */
-  def getSmallestMaximum: Long = {
-    return maxSmallest
-  }
+  def getSmallestMaximum: Long = maxSmallest
 
   /**
     * Gets the maximum value that the field can take.
@@ -187,9 +173,7 @@ final class ValueRange private(private val minSmallest: Long, private val minLar
     *
     * @return the maximum value for this field
     */
-  def getMaximum: Long = {
-    return maxLargest
-  }
+  def getMaximum: Long = maxLargest
 
   /**
     * Checks if all values in the range fit in an {@code int}.
@@ -203,9 +187,7 @@ final class ValueRange private(private val minSmallest: Long, private val minLar
     *
     * @return true if a valid value always fits in an { @code int}
     */
-  def isIntValue: Boolean = {
-    return getMinimum >= Integer.MIN_VALUE && getMaximum <= Integer.MAX_VALUE
-  }
+  def isIntValue: Boolean = getMinimum >= Int.MinValue && getMaximum <= Int.MaxValue
 
   /**
     * Checks if the value is within the valid range.
@@ -215,9 +197,7 @@ final class ValueRange private(private val minSmallest: Long, private val minLar
     * @param value  the value to check
     * @return true if the value is valid
     */
-  def isValidValue(value: Long): Boolean = {
-    return (value >= getMinimum && value <= getMaximum)
-  }
+  def isValidValue(value: Long): Boolean = value >= getMinimum && value <= getMaximum
 
   /**
     * Checks if the value is within the valid range and that all values
@@ -228,9 +208,7 @@ final class ValueRange private(private val minSmallest: Long, private val minLar
     * @param value  the value to check
     * @return true if the value is valid and fits in an { @code int}
     */
-  def isValidIntValue(value: Long): Boolean = {
-    return isIntValue && isValidValue(value)
-  }
+  def isValidIntValue(value: Long): Boolean = isIntValue && isValidValue(value)
 
   /**
     * Checks that the specified value is valid.
@@ -243,17 +221,14 @@ final class ValueRange private(private val minSmallest: Long, private val minLar
     * @return the value that was passed in
     * @see #isValidValue(long)
     */
-  def checkValidValue(value: Long, field: TemporalField): Long = {
-    if (isValidValue(value) == false) {
-      if (field != null) {
-        throw new DateTimeException("Invalid value for " + field + " (valid values " + this + "): " + value)
-      }
-      else {
-        throw new DateTimeException("Invalid value (valid values " + this + "): " + value)
-      }
-    }
-    return value
-  }
+  def checkValidValue(value: Long, field: TemporalField): Long =
+    if (!isValidValue(value))
+      if (field != null)
+        throw new DateTimeException(s"Invalid value for $field (valid values $this): $value")
+      else
+        throw new DateTimeException(s"Invalid value (valid values $this): $value")
+    else
+      value
 
   /**
     * Checks that the specified value is valid and fits in an {@code int}.
@@ -267,12 +242,11 @@ final class ValueRange private(private val minSmallest: Long, private val minLar
     * @return the value that was passed in
     * @see #isValidIntValue(long)
     */
-  def checkValidIntValue(value: Long, field: TemporalField): Int = {
-    if (isValidIntValue(value) == false) {
-      throw new DateTimeException("Invalid int value for " + field + ": " + value)
-    }
-    return value.toInt
-  }
+  def checkValidIntValue(value: Long, field: TemporalField): Int =
+    if (!isValidIntValue(value))
+      throw new DateTimeException(s"Invalid int value for $field: $value")
+    else
+      value.toInt
 
   /**
     * Checks if this range is equal to another range.
@@ -284,13 +258,13 @@ final class ValueRange private(private val minSmallest: Long, private val minLar
     * @param obj  the object to check, null returns false
     * @return true if this is equal to the other range
     */
-  override def equals(obj: Any): Boolean = {
+  override def equals(obj: Any): Boolean =
     if (obj.isInstanceOf[ValueRange]) {
       val other: ValueRange = obj.asInstanceOf[ValueRange]
-      return (this eq other) || (minSmallest == other.minSmallest && minLargest == other.minLargest && maxSmallest == other.maxSmallest && maxLargest == other.maxLargest)
+      (this eq other) || (minSmallest == other.minSmallest && minLargest == other.minLargest && maxSmallest == other.maxSmallest && maxLargest == other.maxLargest)
+    } else {
+      false
     }
-    return false
-  }
 
   /**
     * A hash code for this range.
@@ -299,7 +273,7 @@ final class ValueRange private(private val minSmallest: Long, private val minLar
     */
   override def hashCode: Int = {
     val hash: Long = minSmallest + minLargest << 16 + minLargest >> 48 + maxSmallest << 32 + maxSmallest >> 32 + maxLargest << 48 + maxLargest >> 16
-    return (hash ^ (hash >>> 32)).toInt
+    (hash ^ (hash >>> 32)).toInt
   }
 
   /**
@@ -314,13 +288,11 @@ final class ValueRange private(private val minSmallest: Long, private val minLar
   override def toString: String = {
     val buf: StringBuilder = new StringBuilder
     buf.append(minSmallest)
-    if (minSmallest != minLargest) {
+    if (minSmallest != minLargest)
       buf.append('/').append(minLargest)
-    }
     buf.append(" - ").append(maxSmallest)
-    if (maxSmallest != maxLargest) {
+    if (maxSmallest != maxLargest)
       buf.append('/').append(maxLargest)
-    }
-    return buf.toString
+    buf.toString
   }
 }

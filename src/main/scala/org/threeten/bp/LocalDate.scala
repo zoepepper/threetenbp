@@ -72,30 +72,6 @@ import org.threeten.bp.temporal.ValueRange
 import org.threeten.bp.zone.ZoneOffsetTransition
 import org.threeten.bp.zone.ZoneRules
 
-/**
-  * A date without a time-zone in the ISO-8601 calendar system,
-  * such as {@code 2007-12-03}.
-  * <p>
-  * {@code LocalDate} is an immutable date-time object that represents a date,
-  * often viewed as year-month-day. Other date fields, such as day-of-year,
-  * day-of-week and week-of-year, can also be accessed.
-  * For example, the value "2nd October 2007" can be stored in a {@code LocalDate}.
-  * <p>
-  * This class does not store or represent a time or time-zone.
-  * Instead, it is a description of the date, as used for birthdays.
-  * It cannot represent an instant on the time-line without additional information
-  * such as an offset or time-zone.
-  * <p>
-  * The ISO-8601 calendar system is the modern civil calendar system used today
-  * in most of the world. It is equivalent to the proleptic Gregorian calendar
-  * system, in which today's rules for leap years are applied for all time.
-  * For most applications written today, the ISO-8601 rules are entirely suitable.
-  * However, any application that makes use of historical dates, and requires them
-  * to be accurate will find the ISO-8601 approach unsuitable.
-  *
-  * <h3>Specification for implementors</h3>
-  * This class is immutable and thread-safe.
-  */
 @SerialVersionUID(2942565459149668126L)
 object LocalDate {
   /**
@@ -220,7 +196,7 @@ object LocalDate {
     DAY_OF_YEAR.checkValidValue(dayOfYear)
     val leap: Boolean = IsoChronology.INSTANCE.isLeapYear(year)
     if (dayOfYear == 366 && !leap) {
-      throw new DateTimeException("Invalid date 'DayOfYear 366' as '" + year + "' is not a leap year")
+      throw new DateTimeException(s"Invalid date 'DayOfYear 366' as '$year' is not a leap year")
     }
     var moy: Month = Month.of((dayOfYear - 1) / 31 + 1)
     val monthEnd: Int = moy.firstDayOfYear(leap) + moy.length(leap) - 1
@@ -285,7 +261,7 @@ object LocalDate {
   def from(temporal: TemporalAccessor): LocalDate = {
     val date: LocalDate = temporal.query(TemporalQueries.localDate)
     if (date == null) {
-      throw new DateTimeException("Unable to obtain LocalDate from TemporalAccessor: " + temporal + ", type " + temporal.getClass.getName)
+      throw new DateTimeException(s"Unable to obtain LocalDate from TemporalAccessor: $temporal, type ${temporal.getClass.getName}")
     }
     date
   }
@@ -368,7 +344,29 @@ object LocalDate {
   }
 }
 
-/**
+/** A date without a time-zone in the ISO-8601 calendar system,
+  * such as {@code 2007-12-03}.
+  * <p>
+  * {@code LocalDate} is an immutable date-time object that represents a date,
+  * often viewed as year-month-day. Other date fields, such as day-of-year,
+  * day-of-week and week-of-year, can also be accessed.
+  * For example, the value "2nd October 2007" can be stored in a {@code LocalDate}.
+  * <p>
+  * This class does not store or represent a time or time-zone.
+  * Instead, it is a description of the date, as used for birthdays.
+  * It cannot represent an instant on the time-line without additional information
+  * such as an offset or time-zone.
+  * <p>
+  * The ISO-8601 calendar system is the modern civil calendar system used today
+  * in most of the world. It is equivalent to the proleptic Gregorian calendar
+  * system, in which today's rules for leap years are applied for all time.
+  * For most applications written today, the ISO-8601 rules are entirely suitable.
+  * However, any application that makes use of historical dates, and requires them
+  * to be accurate will find the ISO-8601 approach unsuitable.
+  *
+  * <h3>Specification for implementors</h3>
+  * This class is immutable and thread-safe.
+  *
   * Constructor, previously validated.
   *
   * @param year  the year to represent, from MIN_YEAR to MAX_YEAR
@@ -534,34 +532,20 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
 
   private def get0(field: TemporalField): Int = {
     field.asInstanceOf[ChronoField] match {
-      case DAY_OF_WEEK =>
-        return getDayOfWeek.getValue
-      case ALIGNED_DAY_OF_WEEK_IN_MONTH =>
-        return ((day - 1) % 7) + 1
-      case ALIGNED_DAY_OF_WEEK_IN_YEAR =>
-        return ((getDayOfYear - 1) % 7) + 1
-      case DAY_OF_MONTH =>
-        return day
-      case DAY_OF_YEAR =>
-        return getDayOfYear
-      case EPOCH_DAY =>
-        throw new DateTimeException("Field too large for an int: " + field)
-      case ALIGNED_WEEK_OF_MONTH =>
-        return ((day - 1) / 7) + 1
-      case ALIGNED_WEEK_OF_YEAR =>
-        return ((getDayOfYear - 1) / 7) + 1
-      case MONTH_OF_YEAR =>
-        return month
-      case PROLEPTIC_MONTH =>
-        throw new DateTimeException("Field too large for an int: " + field)
-      case YEAR_OF_ERA =>
-        return if (year >= 1) year else 1 - year
-      case YEAR =>
-        return year
-      case ERA =>
-        return if (year >= 1) 1 else 0
-      case _ =>
-        throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
+      case DAY_OF_WEEK                  => getDayOfWeek.getValue
+      case ALIGNED_DAY_OF_WEEK_IN_MONTH => ((day - 1) % 7) + 1
+      case ALIGNED_DAY_OF_WEEK_IN_YEAR  => ((getDayOfYear - 1) % 7) + 1
+      case DAY_OF_MONTH                 => day
+      case DAY_OF_YEAR                  => getDayOfYear
+      case EPOCH_DAY                    => throw new DateTimeException("Field too large for an int: " + field)
+      case ALIGNED_WEEK_OF_MONTH        => ((day - 1) / 7) + 1
+      case ALIGNED_WEEK_OF_YEAR         => ((getDayOfYear - 1) / 7) + 1
+      case MONTH_OF_YEAR                => month
+      case PROLEPTIC_MONTH              => throw new DateTimeException("Field too large for an int: " + field)
+      case YEAR_OF_ERA                  => if (year >= 1) year else 1 - year
+      case YEAR                         => year
+      case ERA                          => if (year >= 1) 1 else 0
+      case _                            => throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
     }
   }
 
@@ -702,12 +686,9 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
     */
   def lengthOfMonth: Int =
     month match {
-      case 2 =>
-        if (isLeapYear) 29 else 28
-      case 4| 6 | 9 | 11 =>
-        30
-      case _ =>
-        31
+      case 2             => if (isLeapYear) 29 else 28
+      case 4| 6 | 9 | 11 => 30
+      case _             => 31
     }
 
   /**
@@ -868,37 +849,24 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
       val f: ChronoField = field.asInstanceOf[ChronoField]
       f.checkValidValue(newValue)
       f match {
-        case DAY_OF_WEEK =>
-          return plusDays(newValue - getDayOfWeek.getValue)
-        case ALIGNED_DAY_OF_WEEK_IN_MONTH =>
-          return plusDays(newValue - getLong(ALIGNED_DAY_OF_WEEK_IN_MONTH))
-        case ALIGNED_DAY_OF_WEEK_IN_YEAR =>
-          return plusDays(newValue - getLong(ALIGNED_DAY_OF_WEEK_IN_YEAR))
-        case DAY_OF_MONTH =>
-          return withDayOfMonth(newValue.toInt)
-        case DAY_OF_YEAR =>
-          return withDayOfYear(newValue.toInt)
-        case EPOCH_DAY =>
-          return LocalDate.ofEpochDay(newValue)
-        case ALIGNED_WEEK_OF_MONTH =>
-          return plusWeeks(newValue - getLong(ALIGNED_WEEK_OF_MONTH))
-        case ALIGNED_WEEK_OF_YEAR =>
-          return plusWeeks(newValue - getLong(ALIGNED_WEEK_OF_YEAR))
-        case MONTH_OF_YEAR =>
-          return withMonth(newValue.toInt)
-        case PROLEPTIC_MONTH =>
-          return plusMonths(newValue - getLong(PROLEPTIC_MONTH))
-        case YEAR_OF_ERA =>
-          return withYear((if (year >= 1) newValue else 1 - newValue).toInt)
-        case YEAR =>
-          return withYear(newValue.toInt)
-        case ERA =>
-          return if (getLong(ERA) == newValue) this else withYear(1 - year)
-        case _ =>
-          throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
+        case DAY_OF_WEEK                  => plusDays(newValue - getDayOfWeek.getValue)
+        case ALIGNED_DAY_OF_WEEK_IN_MONTH => plusDays(newValue - getLong(ALIGNED_DAY_OF_WEEK_IN_MONTH))
+        case ALIGNED_DAY_OF_WEEK_IN_YEAR  => plusDays(newValue - getLong(ALIGNED_DAY_OF_WEEK_IN_YEAR))
+        case DAY_OF_MONTH                 => withDayOfMonth(newValue.toInt)
+        case DAY_OF_YEAR                  => withDayOfYear(newValue.toInt)
+        case EPOCH_DAY                    => LocalDate.ofEpochDay(newValue)
+        case ALIGNED_WEEK_OF_MONTH        => plusWeeks(newValue - getLong(ALIGNED_WEEK_OF_MONTH))
+        case ALIGNED_WEEK_OF_YEAR         => plusWeeks(newValue - getLong(ALIGNED_WEEK_OF_YEAR))
+        case MONTH_OF_YEAR                => withMonth(newValue.toInt)
+        case PROLEPTIC_MONTH              => plusMonths(newValue - getLong(PROLEPTIC_MONTH))
+        case YEAR_OF_ERA                  => withYear((if (year >= 1) newValue else 1 - newValue).toInt)
+        case YEAR                         => withYear(newValue.toInt)
+        case ERA                          => if (getLong(ERA) == newValue) this else withYear(1 - year)
+        case _                            => throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
       }
+    } else {
+      field.adjustInto(this, newValue)
     }
-    field.adjustInto(this, newValue)
   }
 
   /**
@@ -1009,27 +977,19 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
       val f: ChronoUnit = unit.asInstanceOf[ChronoUnit]
       import ChronoUnit._
       f match {
-        case DAYS =>
-          return plusDays(amountToAdd)
-        case WEEKS =>
-          return plusWeeks(amountToAdd)
-        case MONTHS =>
-          return plusMonths(amountToAdd)
-        case YEARS =>
-          return plusYears(amountToAdd)
-        case DECADES =>
-          return plusYears(Math.multiplyExact(amountToAdd, 10))
-        case CENTURIES =>
-          return plusYears(Math.multiplyExact(amountToAdd, 100))
-        case MILLENNIA =>
-          return plusYears(Math.multiplyExact(amountToAdd, 1000))
-        case ERAS =>
-          return `with`(ERA, Math.addExact(getLong(ERA), amountToAdd))
-        case _ =>
-          throw new UnsupportedTemporalTypeException("Unsupported unit: " + unit)
+        case DAYS      => plusDays(amountToAdd)
+        case WEEKS     => plusWeeks(amountToAdd)
+        case MONTHS    => plusMonths(amountToAdd)
+        case YEARS     => plusYears(amountToAdd)
+        case DECADES   => plusYears(Math.multiplyExact(amountToAdd, 10))
+        case CENTURIES => plusYears(Math.multiplyExact(amountToAdd, 100))
+        case MILLENNIA => plusYears(Math.multiplyExact(amountToAdd, 1000))
+        case ERAS      => `with`(ERA, Math.addExact(getLong(ERA), amountToAdd))
+        case _         => throw new UnsupportedTemporalTypeException("Unsupported unit: " + unit)
       }
+    } else {
+      unit.addTo(this, amountToAdd)
     }
-    unit.addTo(this, amountToAdd)
   }
 
   /**
@@ -1053,9 +1013,8 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
     * @throws DateTimeException if the result exceeds the supported date range
     */
   def plusYears(yearsToAdd: Long): LocalDate = {
-    if (yearsToAdd == 0) {
+    if (yearsToAdd == 0)
       return this
-    }
     val newYear: Int = YEAR.checkValidIntValue(year + yearsToAdd)
     LocalDate.resolvePreviousValid(newYear, month, day)
   }
@@ -1081,9 +1040,8 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
     * @throws DateTimeException if the result exceeds the supported date range
     */
   def plusMonths(monthsToAdd: Long): LocalDate = {
-    if (monthsToAdd == 0) {
+    if (monthsToAdd == 0)
       return this
-    }
     val monthCount: Long = year * 12L + (month - 1)
     val calcMonths: Long = monthCount + monthsToAdd
     val newYear: Int = YEAR.checkValidIntValue(Math.floorDiv(calcMonths, 12))
@@ -1106,9 +1064,8 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
     * @return a { @code LocalDate} based on this date with the weeks added, not null
     * @throws DateTimeException if the result exceeds the supported date range
     */
-  def plusWeeks(weeksToAdd: Long): LocalDate = {
+  def plusWeeks(weeksToAdd: Long): LocalDate =
     plusDays(Math.multiplyExact(weeksToAdd, 7))
-  }
 
   /**
     * Returns a copy of this {@code LocalDate} with the specified number of days added.
@@ -1126,9 +1083,8 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
     * @throws DateTimeException if the result exceeds the supported date range
     */
   def plusDays(daysToAdd: Long): LocalDate = {
-    if (daysToAdd == 0) {
+    if (daysToAdd == 0)
       return this
-    }
     val mjDay: Long = Math.addExact(toEpochDay, daysToAdd)
     LocalDate.ofEpochDay(mjDay)
   }
@@ -1149,9 +1105,8 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
     * @throws DateTimeException if the subtraction cannot be made
     * @throws ArithmeticException if numeric overflow occurs
     */
-  override def minus(amount: TemporalAmount): LocalDate = {
+  override def minus(amount: TemporalAmount): LocalDate =
     amount.subtractFrom(this).asInstanceOf[LocalDate]
-  }
 
   /**
     * Returns a copy of this date with the specified period subtracted.
@@ -1356,26 +1311,20 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
     if (unit.isInstanceOf[ChronoUnit]) {
       import ChronoUnit._
       unit.asInstanceOf[ChronoUnit] match {
-        case DAYS =>
-          return daysUntil(end)
-        case WEEKS =>
-          return daysUntil(end) / 7
-        case MONTHS =>
-          return monthsUntil(end)
-        case YEARS =>
-          return monthsUntil(end) / 12
-        case DECADES =>
-          return monthsUntil(end) / 120
-        case CENTURIES =>
-          return monthsUntil(end) / 1200
-        case MILLENNIA =>
-          return monthsUntil(end) / 12000
-        case ERAS =>
-          return end.getLong(ERA) - getLong(ERA)
+        case DAYS      => daysUntil(end)
+        case WEEKS     => daysUntil(end) / 7
+        case MONTHS    => monthsUntil(end)
+        case YEARS     => monthsUntil(end) / 12
+        case DECADES   => monthsUntil(end) / 120
+        case CENTURIES => monthsUntil(end) / 1200
+        case MILLENNIA => monthsUntil(end) / 12000
+        case ERAS      => end.getLong(ERA) - getLong(ERA)
+        case _         => throw new UnsupportedTemporalTypeException(s"Unsupported unit: $unit")
       }
-      throw new UnsupportedTemporalTypeException("Unsupported unit: " + unit)
+
+    } else {
+      unit.between(this, end)
     }
-    unit.between(this, end)
   }
 
   private[bp] def daysUntil(end: LocalDate): Long = end.toEpochDay - toEpochDay
@@ -1738,17 +1687,14 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
     val absYear: Int = Math.abs(yearValue)
     val buf: StringBuilder = new StringBuilder(10)
     if (absYear < 1000) {
-      if (yearValue < 0) {
+      if (yearValue < 0)
         buf.append(yearValue - 10000).deleteCharAt(1)
-      }
-      else {
+      else
         buf.append(yearValue + 10000).deleteCharAt(0)
-      }
     }
     else {
-      if (yearValue > 9999) {
+      if (yearValue > 9999)
         buf.append('+')
-      }
       buf.append(yearValue)
     }
     buf.append(if (monthValue < 10) "-0" else "-").append(monthValue).append(if (dayValue < 10) "-0" else "-").append(dayValue).toString
@@ -1770,6 +1716,7 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
 
   /**
     * Defend against malicious streams.
+    *
     * @return never
     * @throws InvalidObjectException always
     */

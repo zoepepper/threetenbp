@@ -33,8 +33,7 @@ package org.threeten.bp.temporal
 
 import org.threeten.bp.DateTimeException
 
-/**
-  * Framework-level interface defining an amount of time,
+/** Framework-level interface defining an amount of time,
   * such as "6 hours", "8 days" or "2 years and 3 months".
   * <p>
   * This is the base interface type for amounts of time.
@@ -61,15 +60,13 @@ import org.threeten.bp.DateTimeException
   * however immutability is strongly recommended.
   */
 trait TemporalAmount {
-  /**
-    * Gets the list of units, from largest to smallest, that fully define this amount.
+  /** Gets the list of units, from largest to smallest, that fully define this amount.
     *
     * @return the list of units.
     */
   def getUnits: java.util.List[TemporalUnit]
 
-  /**
-    * Gets the amount associated with the specified unit.
+  /** Gets the amount associated with the specified unit.
     *
     * @param unit  the unit to get, not null
     * @return the amount of the unit
@@ -77,8 +74,7 @@ trait TemporalAmount {
     */
   def get(unit: TemporalUnit): Long
 
-  /**
-    * Adds to the specified temporal object.
+  /** Adds to the specified temporal object.
     * <p>
     * This adds to the specified temporal object using the logic
     * encapsulated in the implementing class.
@@ -119,8 +115,7 @@ trait TemporalAmount {
     */
   def addTo(temporal: Temporal): Temporal
 
-  /**
-    * Subtracts this object from the specified temporal object.
+  /** Subtracts this object from the specified temporal object.
     * <p>
     * This adds to the specified temporal object using the logic
     * encapsulated in the implementing class.

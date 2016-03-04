@@ -44,33 +44,12 @@ import org.threeten.bp.zone.ZoneRulesException
 import org.threeten.bp.zone.ZoneRulesProvider
 import scala.annotation.meta.field
 
-/**
-  * A geographical region where the same time-zone rules apply.
-  * <p>
-  * Time-zone information is categorized as a set of rules defining when and
-  * how the offset from UTC/Greenwich changes. These rules are accessed using
-  * identifiers based on geographical regions, such as countries or states.
-  * The most common region classification is the Time Zone Database (TZDB),
-  * which defines regions such as 'Europe/Paris' and 'Asia/Tokyo'.
-  * <p>
-  * The region identifier, modeled by this class, is distinct from the
-  * underlying rules, modeled by {@link ZoneRules}.
-  * The rules are defined by governments and change frequently.
-  * By contrast, the region identifier is well-defined and long-lived.
-  * This separation also allows rules to be shared between regions if appropriate.
-  *
-  * <h3>Specification for implementors</h3>
-  * This class is immutable and thread-safe.
-  */
 @SerialVersionUID(8386373296231747096L)
-object ZoneRegion {
-  /**
-    * The regex pattern for region IDs.
-    */
+private object ZoneRegion {
+  /** The regex pattern for region IDs. */
   private val PATTERN: Pattern = Pattern.compile("[A-Za-z][A-Za-z0-9~/._+-]+")
 
-  /**
-    * Obtains an instance of {@code ZoneRegion} from an identifier without checking
+  /** Obtains an instance of {@code ZoneRegion} from an identifier without checking
     * if the time-zone has available rules.
     * <p>
     * This method parses the ID and applies any appropriate normalization.
@@ -109,8 +88,7 @@ object ZoneRegion {
     ofId(zoneId, false)
   }
 
-  /**
-    * Obtains an instance of {@code ZoneId} from an identifier.
+  /** Obtains an instance of {@code ZoneId} from an identifier.
     *
     * @param zoneId  the time-zone ID, not null
     * @param checkAvailable  whether to check if the zone ID is available
@@ -144,8 +122,22 @@ object ZoneRegion {
   }
 }
 
-/**
-  * Constructor.
+/** A geographical region where the same time-zone rules apply.
+  * <p>
+  * Time-zone information is categorized as a set of rules defining when and
+  * how the offset from UTC/Greenwich changes. These rules are accessed using
+  * identifiers based on geographical regions, such as countries or states.
+  * The most common region classification is the Time Zone Database (TZDB),
+  * which defines regions such as 'Europe/Paris' and 'Asia/Tokyo'.
+  * <p>
+  * The region identifier, modeled by this class, is distinct from the
+  * underlying rules, modeled by {@link ZoneRules}.
+  * The rules are defined by governments and change frequently.
+  * By contrast, the region identifier is well-defined and long-lived.
+  * This separation also allows rules to be shared between regions if appropriate.
+  *
+  * <h3>Specification for implementors</h3>
+  * This class is immutable and thread-safe.
   *
   * @param id  the time-zone ID, not null
   * @param rules  the rules, null for lazy lookup
@@ -159,8 +151,8 @@ final class ZoneRegion private[bp](private val id: String, @(transient @field) p
 
   private def writeReplace: AnyRef = new Ser(Ser.ZONE_REGION_TYPE, this)
 
-  /**
-    * Defend against malicious streams.
+  /** Defend against malicious streams.
+    *
     * @return never
     * @throws InvalidObjectException always
     */

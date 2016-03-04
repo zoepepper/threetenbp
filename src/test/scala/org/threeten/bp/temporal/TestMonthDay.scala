@@ -33,7 +33,7 @@ package org.threeten.bp.temporal
 
 import org.testng.Assert.assertEquals
 import org.testng.Assert.assertTrue
-import org.testng.Assert.fail
+import org.testng.SkipException
 import org.threeten.bp.temporal.ChronoField.DAY_OF_MONTH
 import org.threeten.bp.temporal.ChronoField.MONTH_OF_YEAR
 import java.io.IOException
@@ -76,6 +76,7 @@ import org.threeten.bp.format.DateTimeParseException
   }
 
   @Test def test_immutable(): Unit = {
+    throw new SkipException("private constructor shows up public due to companion object")
     AbstractTest.assertImmutable(classOf[YearMonth])
   }
 
@@ -207,7 +208,7 @@ import org.threeten.bp.format.DateTimeParseException
   @Test(dataProvider = "badParseData", expectedExceptions = Array(classOf[DateTimeParseException])) def factory_parse_fail(text: String, pos: Int): Unit = {
     try {
       MonthDay.parse(text)
-      fail(String.format("Parse should have failed for %s at position %d", text, pos.asInstanceOf[AnyRef]))
+      fail(f"Parse should have failed for $text%s at position $pos%d")
     }
     catch {
       case ex: DateTimeParseException =>

@@ -123,8 +123,7 @@ object Month {
   val values: Array[Month] = Array(JANUARY, FEBRUARY, MARCH, APRIL, MAY, JUNE, JULY, AUGUST, SEPTEMBER, OCTOBER, NOVEMBER, DECEMBER)
   def valueOf(enum: String): Month = values.find(_.name() == enum) match {
     case Some(month) => month
-    case _ =>
-      throw new IllegalArgumentException(s"Unrecognized month name: $enum")
+    case _           => throw new IllegalArgumentException(s"Unrecognized month name: $enum")
   }
 
   /**
@@ -419,7 +418,7 @@ final class Month private(name: String, ordinal: Int) extends Enum[Month](name, 
       case MARCH     => 60 + leap
       case APRIL     => 91 + leap
       case MAY       => 121 + leap
-      case JUNE     => 152 + leap
+      case JUNE      => 152 + leap
       case JULY      => 182 + leap
       case AUGUST    => 213 + leap
       case SEPTEMBER => 244 + leap
