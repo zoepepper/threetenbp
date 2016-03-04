@@ -18,6 +18,10 @@
 /*.dic
 /.idea
 *.iml
+.ensime
+.ensime_cache/
+/project/project/
+/project/target/
 
 /src/*/
 !/src/changes/
