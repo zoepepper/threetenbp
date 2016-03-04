@@ -588,12 +588,10 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     */
   def getLong(field: TemporalField): Long = {
     if (field.isInstanceOf[ChronoField]) {
-      if (field eq NANO_OF_DAY) {
+      if (field eq NANO_OF_DAY)
         return toNanoOfDay
-      }
-      if (field eq MICRO_OF_DAY) {
+      if (field eq MICRO_OF_DAY)
         return toNanoOfDay / 1000
-      }
       return get0(field)
     }
     field.getFrom(this)
@@ -602,39 +600,22 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
   private def get0(field: TemporalField): Int = {
     import ChronoField._
     field.asInstanceOf[ChronoField] match {
-      case NANO_OF_SECOND =>
-        return nano
-      case NANO_OF_DAY =>
-        throw new DateTimeException("Field too large for an int: " + field)
-      case MICRO_OF_SECOND =>
-        return nano / 1000
-      case MICRO_OF_DAY =>
-        throw new DateTimeException("Field too large for an int: " + field)
-      case MILLI_OF_SECOND =>
-        return nano / 1000000
-      case MILLI_OF_DAY =>
-        return (toNanoOfDay / 1000000).toInt
-      case SECOND_OF_MINUTE =>
-        return second
-      case SECOND_OF_DAY =>
-        return toSecondOfDay
-      case MINUTE_OF_HOUR =>
-        return minute
-      case MINUTE_OF_DAY =>
-        return hour * 60 + minute
-      case HOUR_OF_AMPM =>
-        return hour % 12
-      case CLOCK_HOUR_OF_AMPM =>
-        val ham: Int = hour % 12
-        return if (ham % 12 == 0) 12 else ham
-      case HOUR_OF_DAY =>
-        return hour
-      case CLOCK_HOUR_OF_DAY =>
-        return if (hour == 0) 24 else hour
-      case AMPM_OF_DAY =>
-        return hour / 12
-      case _ =>
-        throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
+      case NANO_OF_SECOND     => nano
+      case NANO_OF_DAY        => throw new DateTimeException(s"Field too large for an int: $field")
+      case MICRO_OF_SECOND    => nano / 1000
+      case MICRO_OF_DAY       => throw new DateTimeException(s"Field too large for an int: $field")
+      case MILLI_OF_SECOND    => nano / 1000000
+      case MILLI_OF_DAY       => (toNanoOfDay / 1000000).toInt
+      case SECOND_OF_MINUTE   => second
+      case SECOND_OF_DAY      => toSecondOfDay
+      case MINUTE_OF_HOUR     => minute
+      case MINUTE_OF_DAY      => hour * 60 + minute
+      case HOUR_OF_AMPM       => hour % 12
+      case CLOCK_HOUR_OF_AMPM => val ham: Int = hour % 12; if (ham % 12 == 0) 12 else ham
+      case HOUR_OF_DAY        => hour
+      case CLOCK_HOUR_OF_DAY  => if (hour == 0) 24 else hour
+      case AMPM_OF_DAY        => hour / 12
+      case _                  => throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
     }
   }
 
@@ -788,37 +769,22 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
       f.checkValidValue(newValue)
       import ChronoField._
       f match {
-        case NANO_OF_SECOND =>
-          withNano(newValue.toInt)
-        case NANO_OF_DAY =>
-          LocalTime.ofNanoOfDay(newValue)
-        case MICRO_OF_SECOND =>
-          withNano(newValue.toInt * 1000)
-        case MICRO_OF_DAY =>
-          LocalTime.ofNanoOfDay(newValue * 1000)
-        case MILLI_OF_SECOND =>
-          withNano(newValue.toInt * 1000000)
-        case MILLI_OF_DAY =>
-          LocalTime.ofNanoOfDay(newValue * 1000000)
-        case SECOND_OF_MINUTE =>
-          withSecond(newValue.toInt)
-        case SECOND_OF_DAY =>
-          plusSeconds(newValue - toSecondOfDay)
-        case MINUTE_OF_HOUR =>
-          withMinute(newValue.toInt)
-        case MINUTE_OF_DAY =>
-          plusMinutes(newValue - (hour * 60 + minute))
-        case HOUR_OF_AMPM =>
-          plusHours(newValue - (hour % 12))
-        case CLOCK_HOUR_OF_AMPM =>
-          plusHours((if (newValue == 12) 0 else newValue) - (hour % 12))
-        case HOUR_OF_DAY =>
-          withHour(newValue.toInt)
-        case CLOCK_HOUR_OF_DAY =>
-          withHour((if (newValue == 24) 0 else newValue).toInt)
-        case AMPM_OF_DAY =>
-          plusHours((newValue - (hour / 12)) * 12)
-        case _ => throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
+        case NANO_OF_SECOND     => withNano(newValue.toInt)
+        case NANO_OF_DAY        => LocalTime.ofNanoOfDay(newValue)
+        case MICRO_OF_SECOND    => withNano(newValue.toInt * 1000)
+        case MICRO_OF_DAY       => LocalTime.ofNanoOfDay(newValue * 1000)
+        case MILLI_OF_SECOND    => withNano(newValue.toInt * 1000000)
+        case MILLI_OF_DAY       => LocalTime.ofNanoOfDay(newValue * 1000000)
+        case SECOND_OF_MINUTE   => withSecond(newValue.toInt)
+        case SECOND_OF_DAY      => plusSeconds(newValue - toSecondOfDay)
+        case MINUTE_OF_HOUR     => withMinute(newValue.toInt)
+        case MINUTE_OF_DAY      => plusMinutes(newValue - (hour * 60 + minute))
+        case HOUR_OF_AMPM       => plusHours(newValue - (hour % 12))
+        case CLOCK_HOUR_OF_AMPM => plusHours((if (newValue == 12) 0 else newValue) - (hour % 12))
+        case HOUR_OF_DAY        => withHour(newValue.toInt)
+        case CLOCK_HOUR_OF_DAY  => withHour((if (newValue == 24) 0 else newValue).toInt)
+        case AMPM_OF_DAY        => plusHours((newValue - (hour / 12)) * 12)
+        case _                  => throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
       }
 
     } else {
@@ -964,25 +930,18 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
       val f: ChronoUnit = unit.asInstanceOf[ChronoUnit]
       import ChronoUnit._
       f match {
-        case NANOS =>
-          return plusNanos(amountToAdd)
-        case MICROS =>
-          return plusNanos((amountToAdd % LocalTime.MICROS_PER_DAY) * 1000)
-        case MILLIS =>
-          return plusNanos((amountToAdd % LocalTime.MILLIS_PER_DAY) * 1000000)
-        case SECONDS =>
-          return plusSeconds(amountToAdd)
-        case MINUTES =>
-          return plusMinutes(amountToAdd)
-        case HOURS =>
-          return plusHours(amountToAdd)
-        case HALF_DAYS =>
-          return plusHours((amountToAdd % 2) * 12)
-        case _ =>
-          throw new UnsupportedTemporalTypeException("Unsupported unit: " + unit)
+        case NANOS     => plusNanos(amountToAdd)
+        case MICROS    => plusNanos((amountToAdd % LocalTime.MICROS_PER_DAY) * 1000)
+        case MILLIS    => plusNanos((amountToAdd % LocalTime.MILLIS_PER_DAY) * 1000000)
+        case SECONDS   => plusSeconds(amountToAdd)
+        case MINUTES   => plusMinutes(amountToAdd)
+        case HOURS     => plusHours(amountToAdd)
+        case HALF_DAYS => plusHours((amountToAdd % 2) * 12)
+        case _         => throw new UnsupportedTemporalTypeException(s"Unsupported unit: $unit")
       }
+    } else {
+      unit.addTo(this, amountToAdd)
     }
-    unit.addTo(this, amountToAdd)
   }
 
   /**
@@ -997,9 +956,8 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     * @return a { @code LocalTime} based on this time with the hours added, not null
     */
   def plusHours(hoursToAdd: Long): LocalTime = {
-    if (hoursToAdd == 0) {
+    if (hoursToAdd == 0)
       return this
-    }
     val newHour: Int = ((hoursToAdd % LocalTime.HOURS_PER_DAY).toInt + hour + LocalTime.HOURS_PER_DAY) % LocalTime.HOURS_PER_DAY
     LocalTime.create(newHour, minute, second, nano)
   }
@@ -1016,14 +974,12 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     * @return a { @code LocalTime} based on this time with the minutes added, not null
     */
   def plusMinutes(minutesToAdd: Long): LocalTime = {
-    if (minutesToAdd == 0) {
+    if (minutesToAdd == 0)
       return this
-    }
     val mofd: Int = hour * LocalTime.MINUTES_PER_HOUR + minute
     val newMofd: Int = ((minutesToAdd % LocalTime.MINUTES_PER_DAY).toInt + mofd + LocalTime.MINUTES_PER_DAY) % LocalTime.MINUTES_PER_DAY
-    if (mofd == newMofd) {
+    if (mofd == newMofd)
       return this
-    }
     val newHour: Int = newMofd / LocalTime.MINUTES_PER_HOUR
     val newMinute: Int = newMofd % LocalTime.MINUTES_PER_HOUR
     LocalTime.create(newHour, newMinute, second, nano)
@@ -1041,14 +997,12 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     * @return a { @code LocalTime} based on this time with the seconds added, not null
     */
   def plusSeconds(secondstoAdd: Long): LocalTime = {
-    if (secondstoAdd == 0) {
+    if (secondstoAdd == 0)
       return this
-    }
     val sofd: Int = hour * LocalTime.SECONDS_PER_HOUR + minute * LocalTime.SECONDS_PER_MINUTE + second
     val newSofd: Int = ((secondstoAdd % LocalTime.SECONDS_PER_DAY).toInt + sofd + LocalTime.SECONDS_PER_DAY) % LocalTime.SECONDS_PER_DAY
-    if (sofd == newSofd) {
+    if (sofd == newSofd)
       return this
-    }
     val newHour: Int = newSofd / LocalTime.SECONDS_PER_HOUR
     val newMinute: Int = (newSofd / LocalTime.SECONDS_PER_MINUTE) % LocalTime.MINUTES_PER_HOUR
     val newSecond: Int = newSofd % LocalTime.SECONDS_PER_MINUTE
@@ -1154,9 +1108,8 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     * @param secondsToSubtract  the seconds to subtract, may be negative
     * @return a { @code LocalTime} based on this time with the seconds subtracted, not null
     */
-  def minusSeconds(secondsToSubtract: Long): LocalTime = {
+  def minusSeconds(secondsToSubtract: Long): LocalTime =
     plusSeconds(-(secondsToSubtract % LocalTime.SECONDS_PER_DAY))
-  }
 
   /**
     * Returns a copy of this {@code LocalTime} with the specified period in nanoseconds subtracted.
@@ -1169,9 +1122,8 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     * @param nanosToSubtract  the nanos to subtract, may be negative
     * @return a { @code LocalTime} based on this time with the nanoseconds subtracted, not null
     */
-  def minusNanos(nanosToSubtract: Long): LocalTime = {
+  def minusNanos(nanosToSubtract: Long): LocalTime =
     plusNanos(-(nanosToSubtract % LocalTime.NANOS_PER_DAY))
-  }
 
   /**
     * Queries this time using the specified query.
@@ -1225,9 +1177,8 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     * @throws DateTimeException if unable to make the adjustment
     * @throws ArithmeticException if numeric overflow occurs
     */
-  def adjustInto(temporal: Temporal): Temporal = {
+  def adjustInto(temporal: Temporal): Temporal =
     temporal.`with`(NANO_OF_DAY, toNanoOfDay)
-  }
 
   /**
     * Calculates the period between this time and another time in
@@ -1278,24 +1229,18 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
       val nanosUntil: Long = end.toNanoOfDay - toNanoOfDay
       import ChronoUnit._
       unit.asInstanceOf[ChronoUnit] match {
-        case NANOS =>
-          return nanosUntil
-        case MICROS =>
-          return nanosUntil / 1000
-        case MILLIS =>
-          return nanosUntil / 1000000
-        case SECONDS =>
-          return nanosUntil / LocalTime.NANOS_PER_SECOND
-        case MINUTES =>
-          return nanosUntil / LocalTime.NANOS_PER_MINUTE
-        case HOURS =>
-          return nanosUntil / LocalTime.NANOS_PER_HOUR
-        case HALF_DAYS =>
-          return nanosUntil / (12 * LocalTime.NANOS_PER_HOUR)
+        case NANOS     => nanosUntil
+        case MICROS    => nanosUntil / 1000
+        case MILLIS    => nanosUntil / 1000000
+        case SECONDS   => nanosUntil / LocalTime.NANOS_PER_SECOND
+        case MINUTES   => nanosUntil / LocalTime.NANOS_PER_MINUTE
+        case HOURS     => nanosUntil / LocalTime.NANOS_PER_HOUR
+        case HALF_DAYS => nanosUntil / (12 * LocalTime.NANOS_PER_HOUR)
+        case _         => throw new UnsupportedTemporalTypeException(s"Unsupported unit: $unit")
       }
-      throw new UnsupportedTemporalTypeException("Unsupported unit: " + unit)
+    } else {
+      unit.between(this, end)
     }
-    unit.between(this, end)
   }
 
   /**
@@ -1489,6 +1434,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
 
   /**
     * Defend against malicious streams.
+    *
     * @return never
     * @throws InvalidObjectException always
     */
