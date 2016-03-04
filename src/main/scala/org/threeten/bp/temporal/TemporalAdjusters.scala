@@ -38,7 +38,7 @@ import org.threeten.bp.temporal.ChronoField.DAY_OF_YEAR
 import org.threeten.bp.temporal.ChronoUnit.DAYS
 import org.threeten.bp.temporal.ChronoUnit.MONTHS
 import org.threeten.bp.temporal.ChronoUnit.YEARS
-import org.threeten.bp.DayOfWeek
+import org.threeten.bp.{LocalDate, DayOfWeek}
 
 /** Common implementations of {@code TemporalAdjuster}.
   * <p>
@@ -68,9 +68,21 @@ import org.threeten.bp.DayOfWeek
   * This is a thread-safe utility class.
   * All returned adjusters are immutable and thread-safe.
   * <p>
-  * The JDK 8 ofDateAdjuster(UnaryOperator) method is not backported.
   */
 object TemporalAdjusters {
+
+  // "The JDK 8 ofDateAdjuster(UnaryOperator) method is not backported."
+  // !!! FIXME: I made something up based on the name ...
+  // someone needs to describe the behaviour of the OpenJDK method, and someone else needs to implement it (just to be save)
+  def ofDateAdjuster(localDateAdjuster: LocalDate => LocalDate): TemporalAdjuster = {
+    Objects.requireNonNull(localDateAdjuster, "localDateAdjuster")
+    new TemporalAdjuster {
+      def adjustInto(temporal: Temporal): Temporal = {
+        temporal.`with`(localDateAdjuster(LocalDate.from(temporal)))
+      }
+    }
+  }
+
   /** Returns the "first day of month" adjuster, which returns a new date set to
     * the first day of the current month.
     * <p>
