@@ -35,7 +35,6 @@ import org.scalatest.testng.TestNGSuite
 import org.testng.Assert.assertEquals
 import org.testng.Assert.assertFalse
 import org.testng.Assert.assertTrue
-import org.testng.Assert.fail
 import org.testng.Assert
 import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
@@ -58,25 +57,20 @@ import org.threeten.bp.temporal.TemporalAdjusters
     Assert.assertEquals(test, c)
   }
 
-  @DataProvider(name = "samples") private[chrono] def data_samples: Array[Array[AnyRef]] = {
+  @DataProvider(name = "samples") private[chrono] def data_samples: Array[Array[AnyRef]] =
     Array[Array[AnyRef]](Array(JapaneseChronology.INSTANCE.date(1890, 3, 3), LocalDate.of(1890, 3, 3)), Array(JapaneseChronology.INSTANCE.date(1890, 10, 28), LocalDate.of(1890, 10, 28)), Array(JapaneseChronology.INSTANCE.date(1890, 10, 29), LocalDate.of(1890, 10, 29)))
-  }
 
-  @Test(dataProvider = "samples") def test_toLocalDate(jdate: ChronoLocalDate, iso: LocalDate): Unit = {
+  @Test(dataProvider = "samples") def test_toLocalDate(jdate: ChronoLocalDate, iso: LocalDate): Unit =
     assertEquals(LocalDate.from(jdate), iso)
-  }
 
-  @Test(dataProvider = "samples") def test_fromCalendrical(jdate: ChronoLocalDate, iso: LocalDate): Unit = {
+  @Test(dataProvider = "samples") def test_fromCalendrical(jdate: ChronoLocalDate, iso: LocalDate): Unit =
     assertEquals(JapaneseChronology.INSTANCE.date(iso), jdate)
-  }
 
-  @DataProvider(name = "badDates") private[chrono] def data_badDates: Array[Array[Int]] = {
-    Array[Array[Int]](Array(1728, 0, 0), Array(1890, 0, 0), Array(1890, -1, 1), Array(1890, 0, 1), Array(1890, 14, 1), Array(1890, 15, 1), Array(1890, 1, -1), Array(1890, 1, 0), Array(1890, 1, 32), Array(1890, 12, -1), Array(1890, 12, 0), Array(1890, 12, 32))
-  }
+  @DataProvider(name = "badDates") private[chrono] def data_badDates: Array[Array[_ <: AnyRef]] =
+    Array[Array[_ <: AnyRef]](Array[Integer](1728, 0, 0), Array[Integer](1890, 0, 0), Array[Integer](1890, -1, 1), Array[Integer](1890, 0, 1), Array[Integer](1890, 14, 1), Array[Integer](1890, 15, 1), Array[Integer](1890, 1, -1), Array[Integer](1890, 1, 0), Array[Integer](1890, 1, 32), Array[Integer](1890, 12, -1), Array[Integer](1890, 12, 0), Array[Integer](1890, 12, 32))
 
-  @Test(dataProvider = "badDates", expectedExceptions = Array(classOf[DateTimeException])) def test_badDates(year: Int, month: Int, dom: Int): Unit = {
+  @Test(dataProvider = "badDates", expectedExceptions = Array(classOf[DateTimeException])) def test_badDates(year: Int, month: Int, dom: Int): Unit =
     JapaneseChronology.INSTANCE.date(year, month, dom)
-  }
 
   @Test def test_adjust1(): Unit = {
     val base: ChronoLocalDate = JapaneseChronology.INSTANCE.date(1890, 10, 29)
@@ -127,30 +121,24 @@ import org.threeten.bp.temporal.TemporalAdjusters
 
   @Test def test_Japanese_badEras(): Unit = {
     val badEras: Array[Int] = Array(-1000, -998, -997, -2, 3, 4, 1000)
-    for (badEra <- badEras) {
+    for (badEra <- badEras)
       try {
         val era: Era = JapaneseChronology.INSTANCE.eraOf(badEra)
-        fail("JapaneseChrono.eraOf returned " + era + " + for invalid eraValue " + badEra)
-      }
-      catch {
+        fail(s"JapaneseChrono.eraOf returned $era + for invalid eraValue $badEra")
+      } catch {
         case ex: DateTimeException =>
       }
-    }
   }
 
-  @DataProvider(name = "toString") private[chrono] def data_toString: Array[Array[AnyRef]] = {
+  @DataProvider(name = "toString") private[chrono] def data_toString: Array[Array[AnyRef]] =
     Array[Array[AnyRef]](Array(JapaneseChronology.INSTANCE.date(1873, 9, 8), "Japanese Meiji 6-09-08"), Array(JapaneseChronology.INSTANCE.date(1912, 7, 29), "Japanese Meiji 45-07-29"), Array(JapaneseChronology.INSTANCE.date(1912, 7, 30), "Japanese Taisho 1-07-30"), Array(JapaneseChronology.INSTANCE.date(1926, 12, 24), "Japanese Taisho 15-12-24"), Array(JapaneseChronology.INSTANCE.date(1926, 12, 25), "Japanese Showa 1-12-25"), Array(JapaneseChronology.INSTANCE.date(1989, 1, 7), "Japanese Showa 64-01-07"), Array(JapaneseChronology.INSTANCE.date(1989, 1, 8), "Japanese Heisei 1-01-08"), Array(JapaneseChronology.INSTANCE.date(2012, 12, 6), "Japanese Heisei 24-12-06"))
-  }
 
-  @Test(dataProvider = "toString") def test_toString(jdate: ChronoLocalDate, expected: String): Unit = {
+  @Test(dataProvider = "toString") def test_toString(jdate: ChronoLocalDate, expected: String): Unit =
     assertEquals(jdate.toString, expected)
-  }
 
-  @Test def test_equals_true(): Unit = {
+  @Test def test_equals_true(): Unit =
     assertTrue(JapaneseChronology.INSTANCE == JapaneseChronology.INSTANCE)
-  }
 
-  @Test def test_equals_false(): Unit = {
+  @Test def test_equals_false(): Unit =
     assertFalse(JapaneseChronology.INSTANCE == IsoChronology.INSTANCE)
-  }
 }

@@ -32,7 +32,7 @@
 package org.threeten.bp.temporal
 
 import org.testng.Assert.assertEquals
-import org.testng.Assert.fail
+import org.testng.SkipException
 import org.threeten.bp.temporal.ChronoField.ERA
 import org.threeten.bp.temporal.ChronoField.YEAR
 import org.threeten.bp.temporal.ChronoField.YEAR_OF_ERA
@@ -77,6 +77,7 @@ import org.threeten.bp.format.DateTimeParseException
   }
 
   @Test def test_immutable(): Unit = {
+    throw new SkipException("private constructor shows up public due to companion object")
     AbstractTest.assertImmutable(classOf[Year])
   }
 

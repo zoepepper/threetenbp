@@ -2224,11 +2224,11 @@ import org.threeten.bp.temporal.TemporalUnit
     test_comparisons_LocalDateTime(LocalDate.of(Year.MIN_VALUE, 1, 1), LocalDate.of(Year.MIN_VALUE, 12, 31), LocalDate.of(-1, 1, 1), LocalDate.of(-1, 12, 31), LocalDate.of(0, 1, 1), LocalDate.of(0, 12, 31), LocalDate.of(1, 1, 1), LocalDate.of(1, 12, 31), LocalDate.of(2008, 1, 1), LocalDate.of(2008, 2, 29), LocalDate.of(2008, 12, 31), LocalDate.of(Year.MAX_VALUE, 1, 1), LocalDate.of(Year.MAX_VALUE, 12, 31))
   }
 
-  private[bp] def test_comparisons_LocalDateTime(localDates: LocalDate*): Unit = {
+  private def test_comparisons_LocalDateTime(localDates: LocalDate*): Unit = {
     test_comparisons_LocalDateTime(localDates.toArray, LocalTime.MIDNIGHT, LocalTime.of(0, 0, 0, 999999999), LocalTime.of(0, 0, 59, 0), LocalTime.of(0, 0, 59, 999999999), LocalTime.of(0, 59, 0, 0), LocalTime.of(0, 59, 59, 999999999), LocalTime.NOON, LocalTime.of(12, 0, 0, 999999999), LocalTime.of(12, 0, 59, 0), LocalTime.of(12, 0, 59, 999999999), LocalTime.of(12, 59, 0, 0), LocalTime.of(12, 59, 59, 999999999), LocalTime.of(23, 0, 0, 0), LocalTime.of(23, 0, 0, 999999999), LocalTime.of(23, 0, 59, 0), LocalTime.of(23, 0, 59, 999999999), LocalTime.of(23, 59, 0, 0), LocalTime.of(23, 59, 59, 999999999))
   }
 
-  private[bp] def test_comparisons_LocalDateTime(localDates: Array[LocalDate], localTimes: LocalTime*): Unit = {
+  private def test_comparisons_LocalDateTime(localDates: Array[LocalDate], localTimes: LocalTime*): Unit = {
     val localDateTimes: Array[LocalDateTime] = new Array[LocalDateTime](localDates.length * localTimes.length)
     var i: Int = 0
     for (localDate <- localDates) {
@@ -2242,7 +2242,7 @@ import org.threeten.bp.temporal.TemporalUnit
     doTest_comparisons_LocalDateTime(localDateTimes)
   }
 
-  private[bp] def doTest_comparisons_LocalDateTime(localDateTimes: Array[LocalDateTime]): Unit = {
+  private def doTest_comparisons_LocalDateTime(localDateTimes: Array[LocalDateTime]): Unit = {
     var i: Int = 0
     while (i < localDateTimes.length) {
       val a: LocalDateTime = localDateTimes(i)

@@ -43,6 +43,8 @@ import org.threeten.bp.chrono.IsoChronology
 import org.threeten.bp.temporal.TemporalAccessor
 import org.threeten.bp.temporal.TemporalField
 
+import scala.annotation.meta.setter
+
 /**
   * Abstract PrinterParser test.
   */
@@ -54,9 +56,13 @@ import org.threeten.bp.temporal.TemporalField
 }
 
 @Test class AbstractTestPrinterParser extends TestNGSuite {
+  @(Test @setter)(enabled = false)
   protected var printEmptyContext: DateTimePrintContext = null
+  @(Test @setter)(enabled = false)
   protected var printContext: DateTimePrintContext = null
+  @(Test @setter)(enabled = false)
   protected var parseContext: DateTimeParseContext = null
+  @(Test @setter)(enabled = false)
   protected var buf: java.lang.StringBuilder = null
 
   @BeforeMethod def setUp(): Unit = {

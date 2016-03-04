@@ -31,7 +31,6 @@
  */
 package org.threeten.bp
 
-import org.junit.Ignore
 import org.testng.Assert.assertEquals
 import org.testng.Assert.assertSame
 import org.testng.Assert.assertTrue
@@ -40,6 +39,7 @@ import java.io.ByteArrayOutputStream
 import java.io.ObjectInputStream
 import java.io.ObjectOutputStream
 import java.io.Serializable
+import org.testng.SkipException
 import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
 
@@ -81,7 +81,8 @@ import org.testng.annotations.Test
     }
   }
 
-  @Test(enabled = false) def test_immutable(): Unit = {
+  @Test def test_immutable(): Unit = {
+    throw new SkipException("private constructor shows up public due to companion object")
     AbstractTest.assertImmutable(classOf[Period])
   }
 

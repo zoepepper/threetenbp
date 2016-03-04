@@ -91,10 +91,10 @@ import org.threeten.bp.temporal.UnsupportedTemporalTypeException
   */
 @Test object TestLocalTime {
   private val INVALID_UNITS: Array[TemporalUnit] =  {
-    // FIXME: Following line workarounds the test with the invalid units but the actual fix should be done in the ChronoUnit class
-    //ChronoUnit.values.filter(unit => unit.ordinal() >= WEEKS.ordinal() && unit.ordinal() <= FOREVER.ordinal()).asInstanceOf[Array[TemporalUnit]]
-    val set: java.util.EnumSet[ChronoUnit] = EnumSet.range(WEEKS, FOREVER)
-    set.toArray(new Array[TemporalUnit](set.size)).asInstanceOf[Array[TemporalUnit]]
+    //val set: java.util.EnumSet[ChronoUnit] = EnumSet.range(WEEKS, FOREVER)
+    //set.toArray(new Array[TemporalUnit](set.size)).asInstanceOf[Array[TemporalUnit]]
+    // We can't use the code above, because ChronoUnit is not an enum (yet), because we can't define enums in Scala (yet).
+    ChronoUnit.values.filter(unit => unit.ordinal >= WEEKS.ordinal && unit.ordinal <= FOREVER.ordinal).asInstanceOf[Array[TemporalUnit]]
   }
 }
 
@@ -547,8 +547,8 @@ import org.threeten.bp.temporal.UnsupportedTemporalTypeException
     TEST_12_30_40_987654321.query(null)
   }
 
-  @DataProvider(name = "sampleTimes") private[bp] def provider_sampleTimes: Array[Array[Int]] = {
-    Array[Array[Int]](Array(0, 0, 0, 0), Array(0, 0, 0, 1), Array(0, 0, 1, 0), Array(0, 0, 1, 1), Array(0, 1, 0, 0), Array(0, 1, 0, 1), Array(0, 1, 1, 0), Array(0, 1, 1, 1), Array(1, 0, 0, 0), Array(1, 0, 0, 1), Array(1, 0, 1, 0), Array(1, 0, 1, 1), Array(1, 1, 0, 0), Array(1, 1, 0, 1), Array(1, 1, 1, 0), Array(1, 1, 1, 1))
+  @DataProvider(name = "sampleTimes") private[bp] def provider_sampleTimes: Array[Array[_ <: AnyRef]] = {
+    Array[Array[_ <: AnyRef]](Array[Integer](0, 0, 0, 0), Array[Integer](0, 0, 0, 1), Array[Integer](0, 0, 1, 0), Array[Integer](0, 0, 1, 1), Array[Integer](0, 1, 0, 0), Array[Integer](0, 1, 0, 1), Array[Integer](0, 1, 1, 0), Array[Integer](0, 1, 1, 1), Array[Integer](1, 0, 0, 0), Array[Integer](1, 0, 0, 1), Array[Integer](1, 0, 1, 0), Array[Integer](1, 0, 1, 1), Array[Integer](1, 1, 0, 0), Array[Integer](1, 1, 0, 1), Array[Integer](1, 1, 1, 0), Array[Integer](1, 1, 1, 1))
   }
 
   @Test(dataProvider = "sampleTimes") def test_get(h: Int, m: Int, s: Int, ns: Int): Unit = {
@@ -727,7 +727,7 @@ import org.threeten.bp.temporal.UnsupportedTemporalTypeException
     TEST_12_30_40_987654321.withNano(1000000000)
   }
 
-  private[bp] var NINETY_MINS: TemporalUnit = new TemporalUnit() {
+  private val NINETY_MINS: TemporalUnit = new TemporalUnit() {
     override def toString: String = {
       "NinetyMins"
     }
@@ -760,7 +760,7 @@ import org.threeten.bp.temporal.UnsupportedTemporalTypeException
       throw new UnsupportedOperationException
     }
   }
-  private[bp] var NINETY_FIVE_MINS: TemporalUnit = new TemporalUnit() {
+  private val NINETY_FIVE_MINS: TemporalUnit = new TemporalUnit() {
     override def toString: String = {
       "NinetyFiveMins"
     }
@@ -1639,8 +1639,8 @@ import org.threeten.bp.temporal.UnsupportedTemporalTypeException
     }
   }
 
-  @DataProvider(name = "minusNanos_fromZero") private[bp] def minusNanos_fromZero: java.util.Iterator[Array[Long]] = {
-    new java.util.Iterator[Array[Long]]() {
+  @DataProvider(name = "minusNanos_fromZero") private[bp] def minusNanos_fromZero: java.util.Iterator[Array[_ <: AnyRef]] = {
+    new java.util.Iterator[Array[_ <: AnyRef]]() {
       private[bp] var delta: Long = 7500000000L
       private[bp] var i: Long = 3660 * 1000000000L
       private[bp] var hour: Int = 22
@@ -1650,8 +1650,8 @@ import org.threeten.bp.temporal.UnsupportedTemporalTypeException
 
       def hasNext: Boolean = i >= -3660 * 1000000000L
 
-      def next: Array[Long] = {
-        val ret: Array[Long] = Array[Long](i, hour, min, sec, nanos.toInt)
+      def next: Array[_ <: AnyRef] = {
+        val ret: Array[_ <: AnyRef] = Array(i: java.lang.Long, hour: Integer, min: Integer, sec: Integer, nanos.toInt: Integer)
         i -= delta
         nanos += delta
         if (nanos >= 1000000000L) {
@@ -1795,7 +1795,7 @@ import org.threeten.bp.temporal.UnsupportedTemporalTypeException
     doTest_comparisons_LocalTime(LocalTime.MIDNIGHT, LocalTime.of(0, 0, 0, 999999999), LocalTime.of(0, 0, 59, 0), LocalTime.of(0, 0, 59, 999999999), LocalTime.of(0, 59, 0, 0), LocalTime.of(0, 59, 0, 999999999), LocalTime.of(0, 59, 59, 0), LocalTime.of(0, 59, 59, 999999999), LocalTime.NOON, LocalTime.of(12, 0, 0, 999999999), LocalTime.of(12, 0, 59, 0), LocalTime.of(12, 0, 59, 999999999), LocalTime.of(12, 59, 0, 0), LocalTime.of(12, 59, 0, 999999999), LocalTime.of(12, 59, 59, 0), LocalTime.of(12, 59, 59, 999999999), LocalTime.of(23, 0, 0, 0), LocalTime.of(23, 0, 0, 999999999), LocalTime.of(23, 0, 59, 0), LocalTime.of(23, 0, 59, 999999999), LocalTime.of(23, 59, 0, 0), LocalTime.of(23, 59, 0, 999999999), LocalTime.of(23, 59, 59, 0), LocalTime.of(23, 59, 59, 999999999))
   }
 
-  private[bp] def doTest_comparisons_LocalTime(localTimes: LocalTime*): Unit = {
+  private def doTest_comparisons_LocalTime(localTimes: LocalTime*): Unit = {
     var i: Int = 0
     while (i < localTimes.length) {
       val a: LocalTime = localTimes(i)

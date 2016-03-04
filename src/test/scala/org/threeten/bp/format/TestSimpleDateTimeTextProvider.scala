@@ -46,9 +46,9 @@ import org.threeten.bp.temporal.TemporalField
   * Test SimpleDateTimeTextProvider.
   */
 @Test class TestSimpleDateTimeTextProvider extends TestNGSuite {
-  private[format] var enUS: Locale = new Locale("en", "US")
-  private[format] var ptBR: Locale = new Locale("pt", "BR")
-  private[format] var frFR: Locale = new Locale("fr", "FR")
+  private val enUS: Locale = new Locale("en", "US")
+  private val ptBR: Locale = new Locale("pt", "BR")
+  private val frFR: Locale = new Locale("fr", "FR")
 
   @BeforeMethod def setUp(): Unit = {}
 

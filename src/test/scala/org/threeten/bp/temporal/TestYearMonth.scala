@@ -33,7 +33,7 @@ package org.threeten.bp.temporal
 
 import org.testng.Assert.assertEquals
 import org.testng.Assert.assertTrue
-import org.testng.Assert.fail
+import org.testng.SkipException
 import org.threeten.bp.temporal.ChronoField.ERA
 import org.threeten.bp.temporal.ChronoField.MONTH_OF_YEAR
 import org.threeten.bp.temporal.ChronoField.PROLEPTIC_MONTH
@@ -78,7 +78,8 @@ import org.threeten.bp.format.DateTimeParseException
     list
   }
 
-  @Test(enabled = false) def test_immutable(): Unit = {
+  @Test def test_immutable(): Unit = {
+    throw new SkipException("private constructor shows up public due to companion object")
     AbstractTest.assertImmutable(classOf[YearMonth])
   }
 
@@ -96,7 +97,7 @@ import org.threeten.bp.format.DateTimeParseException
     AbstractTest.assertEqualsSerialisedForm(YearMonth.of(2012, 9))
   }
 
-  private[temporal] def check(test: YearMonth, y: Int, m: Int): Unit = {
+  private def check(test: YearMonth, y: Int, m: Int): Unit = {
     assertEquals(test.getYear, y)
     assertEquals(test.getMonth.getValue, m)
   }
@@ -664,7 +665,7 @@ import org.threeten.bp.format.DateTimeParseException
     doTest_comparisons_YearMonth(YearMonth.of(-1, 1), YearMonth.of(0, 1), YearMonth.of(0, 12), YearMonth.of(1, 1), YearMonth.of(1, 2), YearMonth.of(1, 12), YearMonth.of(2008, 1), YearMonth.of(2008, 6), YearMonth.of(2008, 12))
   }
 
-  private[temporal] def doTest_comparisons_YearMonth(localDates: YearMonth*): Unit = {
+  private def doTest_comparisons_YearMonth(localDates: YearMonth*): Unit = {
     var i: Int = 0
     while (i < localDates.length) {
       val a: YearMonth = localDates(i)

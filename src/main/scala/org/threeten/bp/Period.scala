@@ -328,7 +328,7 @@ object Period {
   * @param days  the amount
   */
 @SerialVersionUID(-8290556941213247973L)
-final class Period( private val years: Int,  private val months: Int, private val days: Int) extends ChronoPeriod with Serializable {
+final class Period private(private val years: Int, private val months: Int, private val days: Int) extends ChronoPeriod with Serializable {
 
   /**
     * Resolves singletons.
