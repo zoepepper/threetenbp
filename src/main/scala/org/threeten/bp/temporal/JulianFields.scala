@@ -177,7 +177,7 @@ object JulianFields {
 
     def rangeRefinedBy(temporal: TemporalAccessor): ValueRange =
       if (!isSupportedBy(temporal))
-        throw new UnsupportedTemporalTypeException("Unsupported field: " + this)
+        throw new UnsupportedTemporalTypeException(s"Unsupported field: $this")
       else
         range
 
@@ -185,7 +185,7 @@ object JulianFields {
 
     def adjustInto[R <: Temporal](dateTime: R, newValue: Long): R =
       if (!range.isValidValue(newValue))
-        throw new DateTimeException("Invalid value: " + name + " " + newValue)
+        throw new DateTimeException(s"Invalid value: $name $newValue")
       else
         dateTime.`with`(EPOCH_DAY, Math.subtractExact(newValue, offset)).asInstanceOf[R]
 

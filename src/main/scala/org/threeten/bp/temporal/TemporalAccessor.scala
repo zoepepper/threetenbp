@@ -33,8 +33,7 @@ package org.threeten.bp.temporal
 
 import org.threeten.bp.DateTimeException
 
-/**
-  * Framework-level interface defining read-only access to a temporal object,
+/** Framework-level interface defining read-only access to a temporal object,
   * such as a date, time, offset or some combination of these.
   * <p>
   * This is the base interface type for date, time and offset objects.
@@ -67,8 +66,7 @@ import org.threeten.bp.DateTimeException
   * however immutability is strongly recommended.
   */
 trait TemporalAccessor {
-  /**
-    * Checks if the specified field is supported.
+  /** Checks if the specified field is supported.
     * <p>
     * This checks if the date-time can be queried for the specified field.
     * If false, then calling the {@link #range(TemporalField) range} and {@link #get(TemporalField) get}
@@ -89,8 +87,7 @@ trait TemporalAccessor {
     */
   def isSupported(field: TemporalField): Boolean
 
-  /**
-    * Gets the range of valid values for the specified field.
+  /** Gets the range of valid values for the specified field.
     * <p>
     * All fields can be expressed as a {@code long} integer.
     * This method returns an object that describes the valid range for that value.
@@ -126,8 +123,7 @@ trait TemporalAccessor {
     else
       field.rangeRefinedBy(this)
 
-  /**
-    * Gets the value of the specified field as an {@code int}.
+  /** Gets the value of the specified field as an {@code int}.
     * <p>
     * This queries the date-time for the value for the specified field.
     * The returned value will always be within the valid range of values for the field.
@@ -155,8 +151,7 @@ trait TemporalAccessor {
     */
   def get(field: TemporalField): Int = range(field).checkValidIntValue(getLong(field), field)
 
-  /**
-    * Gets the value of the specified field as a {@code long}.
+  /** Gets the value of the specified field as a {@code long}.
     * <p>
     * This queries the date-time for the value for the specified field.
     * The returned value may be outside the valid range of values for the field.
@@ -181,8 +176,7 @@ trait TemporalAccessor {
     */
   def getLong(field: TemporalField): Long
 
-  /**
-    * Queries this date-time.
+  /** Queries this date-time.
     * <p>
     * This queries this date-time using the specified query strategy object.
     * <p>

@@ -582,16 +582,17 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     * @throws DateTimeException if the field cannot be set
     * @throws ArithmeticException if numeric overflow occurs
     */
-  def `with`(field: TemporalField, newValue: Long): OffsetTime = {
+  def `with`(field: TemporalField, newValue: Long): OffsetTime =
     if (field.isInstanceOf[ChronoField]) {
       if (field eq OFFSET_SECONDS) {
         val f: ChronoField = field.asInstanceOf[ChronoField]
-        return `with`(time, ZoneOffset.ofTotalSeconds(f.checkValidIntValue(newValue)))
+        `with`(time, ZoneOffset.ofTotalSeconds(f.checkValidIntValue(newValue)))
+      } else {
+        `with`(time.`with`(field, newValue), offset)
       }
-      return `with`(time.`with`(field, newValue), offset)
+    } else {
+      field.adjustInto(this, newValue)
     }
-    field.adjustInto(this, newValue)
-  }
 
   /**
     * Returns a copy of this {@code OffsetTime} with the hour-of-day value altered.
@@ -630,9 +631,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     * @return an { @code OffsetTime} based on this time with the requested second, not null
     * @throws DateTimeException if the second value is invalid
     */
-  def withSecond(second: Int): OffsetTime = {
-    `with`(time.withSecond(second), offset)
-  }
+  def withSecond(second: Int): OffsetTime = `with`(time.withSecond(second), offset)
 
   /**
     * Returns a copy of this {@code OffsetTime} with the nano-of-second value altered.
@@ -1043,9 +1042,8 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
       time.compareTo(other.time)
     else {
       var compare: Int = java.lang.Long.compare(toEpochNano, other.toEpochNano)
-      if (compare == 0) {
+      if (compare == 0)
         compare = time.compareTo(other.time)
-      }
       compare
     }
 
@@ -1151,6 +1149,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
 
   /**
     * Defend against malicious streams.
+    *
     * @return never
     * @throws InvalidObjectException always
     */

@@ -316,7 +316,7 @@ object Clock {
 
     override def hashCode: Int = zone.hashCode + 1
 
-    override def toString: String = "SystemClock[" + zone + "]"
+    override def toString: String = s"SystemClock[$zone]"
   }
 
   /**
@@ -343,7 +343,7 @@ object Clock {
 
     override def hashCode: Int = instant.hashCode ^ zone.hashCode
 
-    override def toString: String = "FixedClock[" + instant + "," + zone + "]"
+    override def toString: String = s"FixedClock[$instant,$zone]"
   }
 
   /**
@@ -370,7 +370,7 @@ object Clock {
 
     override def hashCode: Int = baseClock.hashCode ^ offset.hashCode
 
-    override def toString: String = "OffsetClock[" + baseClock + "," + offset + "]"
+    override def toString: String = s"OffsetClock[$baseClock,$offset]"
   }
 
   /**
@@ -409,7 +409,7 @@ object Clock {
 
     override def hashCode: Int = baseClock.hashCode ^ (tickNanos ^ (tickNanos >>> 32)).toInt
 
-    override def toString: String = "TickClock[" + baseClock + "," + Duration.ofNanos(tickNanos) + "]"
+    override def toString: String = s"TickClock[$baseClock,${Duration.ofNanos(tickNanos)}]"
   }
 
 }

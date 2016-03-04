@@ -131,7 +131,7 @@ object DateTimeUtils {
   def toTimeZone(zoneId: ZoneId): TimeZone = {
     var tzid: String = zoneId.getId
     if (tzid.startsWith("+") || tzid.startsWith("-"))
-      tzid = "GMT" + tzid
+      tzid = s"GMT$tzid"
     else if (tzid == "Z")
       tzid = "UTC"
     TimeZone.getTimeZone(tzid)

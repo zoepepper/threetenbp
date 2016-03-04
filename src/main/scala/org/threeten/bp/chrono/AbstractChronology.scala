@@ -31,8 +31,7 @@
  */
 package org.threeten.bp.chrono
 
-/**
-  * An abstract implementation of {@code Chronology}.
+/** An abstract implementation of {@code Chronology}.
   *
   * <h3>Specification for implementors</h3>
   * This class must be implemented with care to ensure other classes operate correctly.

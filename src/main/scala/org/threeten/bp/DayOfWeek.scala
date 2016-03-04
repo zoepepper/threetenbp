@@ -134,7 +134,7 @@ object DayOfWeek {
     */
   def of(dayOfWeek: Int): DayOfWeek =
     if (dayOfWeek < 1 || dayOfWeek > 7)
-      throw new DateTimeException("Invalid value for DayOfWeek: " + dayOfWeek)
+      throw new DateTimeException(s"Invalid value for DayOfWeek: $dayOfWeek")
     else
       ENUMS(dayOfWeek - 1)
 
@@ -159,7 +159,7 @@ object DayOfWeek {
     try of(temporal.get(DAY_OF_WEEK))
     catch {
       case ex: DateTimeException =>
-        throw new DateTimeException("Unable to obtain DayOfWeek from TemporalAccessor: " + temporal + ", type " + temporal.getClass.getName, ex)
+        throw new DateTimeException(s"Unable to obtain DayOfWeek from TemporalAccessor: $temporal, type ${temporal.getClass.getName}", ex)
     }
   }
 }
@@ -240,7 +240,7 @@ final class DayOfWeek(name: String, ordinal: Int) extends Enum[DayOfWeek](name, 
     if (field eq DAY_OF_WEEK)
       field.range
     else if (field.isInstanceOf[ChronoField])
-      throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
+      throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
     else
       field.rangeRefinedBy(this)
 
@@ -299,7 +299,7 @@ final class DayOfWeek(name: String, ordinal: Int) extends Enum[DayOfWeek](name, 
     if (field eq DAY_OF_WEEK)
       getValue
     else if (field.isInstanceOf[ChronoField])
-      throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
+      throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
     else
       field.getFrom(this)
 

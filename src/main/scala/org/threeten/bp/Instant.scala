@@ -306,7 +306,7 @@ object Instant {
     }
     catch {
       case ex: DateTimeException => {
-        throw new DateTimeException("Unable to obtain Instant from TemporalAccessor: " + temporal + ", type " + temporal.getClass.getName, ex)
+        throw new DateTimeException(s"Unable to obtain Instant from TemporalAccessor: $temporal, type ${temporal.getClass.getName}", ex)
       }
     }
   }
@@ -454,7 +454,7 @@ final class Instant private(private val seconds: Long, private val nanos: Int) e
         case INSTANT_SECONDS =>
           INSTANT_SECONDS.checkValidIntValue(seconds)
         case _ =>
-          throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
+          throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
       }
     }
     range(field).checkValidIntValue(field.getFrom(this), field)
@@ -494,7 +494,7 @@ final class Instant private(private val seconds: Long, private val nanos: Int) e
         case INSTANT_SECONDS =>
           return seconds
         case _ =>
-          throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
+          throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
       }
     }
     field.getFrom(this)
@@ -601,7 +601,7 @@ final class Instant private(private val seconds: Long, private val nanos: Int) e
         case INSTANT_SECONDS =>
           return if (newValue != seconds) Instant.create(newValue, nanos) else this
       }
-      throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
+      throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
     }
     field.adjustInto(this, newValue)
   }
@@ -677,7 +677,7 @@ final class Instant private(private val seconds: Long, private val nanos: Int) e
         case DAYS =>
           return plusSeconds(Math.multiplyExact(amountToAdd, SECONDS_PER_DAY))
       }
-      throw new UnsupportedTemporalTypeException("Unsupported unit: " + unit)
+      throw new UnsupportedTemporalTypeException(s"Unsupported unit: $unit")
     }
     unit.addTo(this, amountToAdd)
   }
@@ -922,7 +922,7 @@ final class Instant private(private val seconds: Long, private val nanos: Int) e
         case DAYS =>
           return secondsUntil(end) / SECONDS_PER_DAY
       }
-      throw new UnsupportedTemporalTypeException("Unsupported unit: " + unit)
+      throw new UnsupportedTemporalTypeException(s"Unsupported unit: $unit")
     }
     unit.between(this, end)
   }

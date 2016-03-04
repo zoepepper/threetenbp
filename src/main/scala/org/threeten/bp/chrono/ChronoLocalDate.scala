@@ -53,8 +53,63 @@ import org.threeten.bp.temporal.TemporalQueries
 import org.threeten.bp.temporal.TemporalQuery
 import org.threeten.bp.temporal.TemporalUnit
 
-/**
-  * A date without time-of-day or time-zone in an arbitrary chronology, intended
+object ChronoLocalDate {
+  /**
+    * Gets a comparator that compares {@code ChronoLocalDate} in
+    * time-line order ignoring the chronology.
+    * <p>
+    * This comparator differs from the comparison in {@link #compareTo} in that it
+    * only compares the underlying date and not the chronology.
+    * This allows dates in different calendar systems to be compared based
+    * on the position of the date on the local time-line.
+    * The underlying comparison is equivalent to comparing the epoch-day.
+    *
+    * @return a comparator that compares in time-line order ignoring the chronology
+    * @see #isAfter
+    * @see #isBefore
+    * @see #isEqual
+    */
+  def timeLineOrder: Comparator[ChronoLocalDate] = DATE_COMPARATOR
+
+  private val DATE_COMPARATOR: Comparator[ChronoLocalDate] =
+    (date1: ChronoLocalDate, date2: ChronoLocalDate) => java.lang.Long.compare(date1.toEpochDay, date2.toEpochDay)
+
+  /**
+    * Obtains an instance of {@code ChronoLocalDate} from a temporal object.
+    * <p>
+    * This obtains a local date based on the specified temporal.
+    * A {@code TemporalAccessor} represents an arbitrary set of date and time information,
+    * which this factory converts to an instance of {@code ChronoLocalDate}.
+    * <p>
+    * The conversion extracts and combines the chronology and the date
+    * from the temporal object. The behavior is equivalent to using
+    * {@link Chronology#date(TemporalAccessor)} with the extracted chronology.
+    * Implementations are permitted to perform optimizations such as accessing
+    * those fields that are equivalent to the relevant objects.
+    * <p>
+    * This method matches the signature of the functional interface {@link TemporalQuery}
+    * allowing it to be used as a query via method reference, {@code ChronoLocalDate::from}.
+    *
+    * @param temporal  the temporal object to convert, not null
+    * @return the date, not null
+    * @throws DateTimeException if unable to convert to a { @code ChronoLocalDate}
+    * @see Chronology#date(TemporalAccessor)
+    */
+  def from(temporal: TemporalAccessor): ChronoLocalDate = {
+    var _temporal = temporal
+    Objects.requireNonNull(_temporal, "temporal")
+    if (_temporal.isInstanceOf[ChronoLocalDate]) {
+      return _temporal.asInstanceOf[ChronoLocalDate]
+    }
+    val chrono: Chronology = _temporal.query(TemporalQueries.chronology)
+    if (chrono == null) {
+      throw new DateTimeException("No Chronology found to create ChronoLocalDate: " + _temporal.getClass)
+    }
+    chrono.date(_temporal)
+  }
+}
+
+/** A date without time-of-day or time-zone in an arbitrary chronology, intended
   * for advanced globalization use cases.
   * <p>
   * <b>Most applications should declare method signatures, fields and variables
@@ -210,67 +265,8 @@ import org.threeten.bp.temporal.TemporalUnit
   * <p>
   * Additional calendar systems may be added to the system.
   * See {@link Chronology} for more details.
-  * <p>
-  * In JDK 8, this is an interface with default methods.
-  * Since there are no default methods in JDK 7, an abstract class is used.
   */
-object ChronoLocalDate {
-  /**
-    * Gets a comparator that compares {@code ChronoLocalDate} in
-    * time-line order ignoring the chronology.
-    * <p>
-    * This comparator differs from the comparison in {@link #compareTo} in that it
-    * only compares the underlying date and not the chronology.
-    * This allows dates in different calendar systems to be compared based
-    * on the position of the date on the local time-line.
-    * The underlying comparison is equivalent to comparing the epoch-day.
-    *
-    * @return a comparator that compares in time-line order ignoring the chronology
-    * @see #isAfter
-    * @see #isBefore
-    * @see #isEqual
-    */
-  def timeLineOrder: Comparator[ChronoLocalDate] = DATE_COMPARATOR
-
-  private val DATE_COMPARATOR: Comparator[ChronoLocalDate] =
-    (date1: ChronoLocalDate, date2: ChronoLocalDate) => java.lang.Long.compare(date1.toEpochDay, date2.toEpochDay)
-
-  /**
-    * Obtains an instance of {@code ChronoLocalDate} from a temporal object.
-    * <p>
-    * This obtains a local date based on the specified temporal.
-    * A {@code TemporalAccessor} represents an arbitrary set of date and time information,
-    * which this factory converts to an instance of {@code ChronoLocalDate}.
-    * <p>
-    * The conversion extracts and combines the chronology and the date
-    * from the temporal object. The behavior is equivalent to using
-    * {@link Chronology#date(TemporalAccessor)} with the extracted chronology.
-    * Implementations are permitted to perform optimizations such as accessing
-    * those fields that are equivalent to the relevant objects.
-    * <p>
-    * This method matches the signature of the functional interface {@link TemporalQuery}
-    * allowing it to be used as a query via method reference, {@code ChronoLocalDate::from}.
-    *
-    * @param temporal  the temporal object to convert, not null
-    * @return the date, not null
-    * @throws DateTimeException if unable to convert to a { @code ChronoLocalDate}
-    * @see Chronology#date(TemporalAccessor)
-    */
-  def from(temporal: TemporalAccessor): ChronoLocalDate = {
-    var _temporal = temporal
-    Objects.requireNonNull(_temporal, "temporal")
-    if (_temporal.isInstanceOf[ChronoLocalDate]) {
-      return _temporal.asInstanceOf[ChronoLocalDate]
-    }
-    val chrono: Chronology = _temporal.query(TemporalQueries.chronology)
-    if (chrono == null) {
-      throw new DateTimeException("No Chronology found to create ChronoLocalDate: " + _temporal.getClass)
-    }
-    chrono.date(_temporal)
-  }
-}
-
-abstract class ChronoLocalDate extends Temporal with TemporalAdjuster with Comparable[ChronoLocalDate] {
+trait ChronoLocalDate extends Temporal with TemporalAdjuster with Comparable[ChronoLocalDate] {
   /**
     * Gets the chronology of this date.
     * <p>

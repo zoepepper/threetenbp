@@ -33,8 +33,7 @@ package org.threeten.bp.temporal
 
 import org.threeten.bp.DateTimeException
 
-/**
-  * Framework-level interface defining read-write access to a temporal object,
+/** Framework-level interface defining read-write access to a temporal object,
   * such as a date, time, offset or some combination of these.
   * <p>
   * This is the base interface type for date, time and offset objects that
@@ -94,8 +93,7 @@ import org.threeten.bp.DateTimeException
   * All implementations must be {@link Comparable}.
   */
 trait Temporal extends TemporalAccessor {
-  /**
-    * Checks if the specified unit is supported.
+  /** Checks if the specified unit is supported.
     * <p>
     * This checks if the date-time can be queried for the specified unit.
     * If false, then calling the {@link #plus(TemporalAmount) plus} and {@link #minus(TemporalAmount) minus}
@@ -116,8 +114,7 @@ trait Temporal extends TemporalAccessor {
     */
   def isSupported(unit: TemporalUnit): Boolean
 
-  /**
-    * Returns an adjusted object of the same type as this object with the adjustment made.
+  /** Returns an adjusted object of the same type as this object with the adjustment made.
     * <p>
     * This adjusts this date-time according to the rules of the specified adjuster.
     * A simple adjuster might simply set the one of the fields, such as the year field.
@@ -146,8 +143,7 @@ trait Temporal extends TemporalAccessor {
     */
   def `with`(adjuster: TemporalAdjuster): Temporal = adjuster.adjustInto(this)
 
-  /**
-    * Returns an object of the same type as this object with the specified field altered.
+  /** Returns an object of the same type as this object with the specified field altered.
     * <p>
     * This returns a new object based on this one with the value for the specified field changed.
     * For example, on a {@code LocalDate}, this could be used to set the year, month or day-of-month.
@@ -179,8 +175,7 @@ trait Temporal extends TemporalAccessor {
     */
   def `with`(field: TemporalField, newValue: Long): Temporal
 
-  /**
-    * Returns an object of the same type as this object with an amount added.
+  /** Returns an object of the same type as this object with an amount added.
     * <p>
     * This adjusts this temporal, adding according to the rules of the specified amount.
     * The amount is typically a {@link Period} but may be any other type implementing
@@ -208,8 +203,7 @@ trait Temporal extends TemporalAccessor {
     */
   def plus(amount: TemporalAmount): Temporal = amount.addTo(this)
 
-  /**
-    * Returns an object of the same type as this object with the specified period added.
+  /** Returns an object of the same type as this object with the specified period added.
     * <p>
     * This method returns a new object based on this one with the specified period added.
     * For example, on a {@code LocalDate}, this could be used to add a number of years, months or days.
@@ -245,8 +239,7 @@ trait Temporal extends TemporalAccessor {
     */
   def plus(amountToAdd: Long, unit: TemporalUnit): Temporal
 
-  /**
-    * Returns an object of the same type as this object with an amount subtracted.
+  /** Returns an object of the same type as this object with an amount subtracted.
     * <p>
     * This adjusts this temporal, subtracting according to the rules of the specified amount.
     * The amount is typically a {@link Period} but may be any other type implementing
@@ -274,8 +267,7 @@ trait Temporal extends TemporalAccessor {
     */
   def minus(amount: TemporalAmount): Temporal = amount.subtractFrom(this)
 
-  /**
-    * Returns an object of the same type as this object with the specified period subtracted.
+  /** Returns an object of the same type as this object with the specified period subtracted.
     * <p>
     * This method returns a new object based on this one with the specified period subtracted.
     * For example, on a {@code LocalDate}, this could be used to subtract a number of years, months or days.
@@ -306,8 +298,7 @@ trait Temporal extends TemporalAccessor {
   def minus(amountToSubtract: Long, unit: TemporalUnit): Temporal =
     if (amountToSubtract == Long.MinValue) plus(Long.MaxValue, unit).plus(1, unit) else plus(-amountToSubtract, unit)
 
-  /**
-    * Calculates the period between this temporal and another temporal in
+  /** Calculates the period between this temporal and another temporal in
     * terms of the specified unit.
     * <p>
     * This calculates the period between two temporals in terms of a single unit.

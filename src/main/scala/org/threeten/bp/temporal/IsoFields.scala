@@ -50,8 +50,7 @@ import org.threeten.bp.chrono.Chronology
 import org.threeten.bp.chrono.IsoChronology
 import org.threeten.bp.format.ResolverStyle
 
-/**
-  * Fields and units specific to the ISO-8601 calendar system,
+/** Fields and units specific to the ISO-8601 calendar system,
   * including quarter-of-year and week-based-year.
   * <p>
   * This class defines fields and units that are specific to the ISO calendar system.
@@ -118,8 +117,7 @@ import org.threeten.bp.format.ResolverStyle
   * This class is immutable and thread-safe.
   */
 object IsoFields {
-  /**
-    * The field that represents the day-of-quarter.
+  /** The field that represents the day-of-quarter.
     * <p>
     * This field allows the day-of-quarter value to be queried and set.
     * The day-of-quarter has values from 1 to 90 in Q1 of a standard year, from 1 to 91
@@ -135,8 +133,7 @@ object IsoFields {
     * This unit is an immutable and thread-safe singleton.
     */
   val DAY_OF_QUARTER: TemporalField = Field.DAY_OF_QUARTER
-  /**
-    * The field that represents the quarter-of-year.
+  /** The field that represents the quarter-of-year.
     * <p>
     * This field allows the quarter-of-year value to be queried and set.
     * The quarter-of-year has values from 1 to 4.
@@ -146,24 +143,21 @@ object IsoFields {
     * This unit is an immutable and thread-safe singleton.
     */
   val QUARTER_OF_YEAR: TemporalField = Field.QUARTER_OF_YEAR
-  /**
-    * The field that represents the week-of-week-based-year.
+  /** The field that represents the week-of-week-based-year.
     * <p>
     * This field allows the week of the week-based-year value to be queried and set.
     * <p>
     * This unit is an immutable and thread-safe singleton.
     */
   val WEEK_OF_WEEK_BASED_YEAR: TemporalField = Field.WEEK_OF_WEEK_BASED_YEAR
-  /**
-    * The field that represents the week-based-year.
+  /** The field that represents the week-based-year.
     * <p>
     * This field allows the week-based-year value to be queried and set.
     * <p>
     * This unit is an immutable and thread-safe singleton.
     */
   val WEEK_BASED_YEAR: TemporalField = Field.WEEK_BASED_YEAR
-  /**
-    * The unit that represents week-based-years for the purpose of addition and subtraction.
+  /** The unit that represents week-based-years for the purpose of addition and subtraction.
     * <p>
     * This allows a number of week-based-years to be added to, or subtracted from, a date.
     * The unit is equal to either 52 or 53 weeks.
@@ -177,8 +171,7 @@ object IsoFields {
     * This unit is an immutable and thread-safe singleton.
     */
   val WEEK_BASED_YEARS: TemporalUnit = Unit.WEEK_BASED_YEARS
-  /**
-    * Unit that represents the concept of a quarter-year.
+  /** Unit that represents the concept of a quarter-year.
     * For the ISO calendar system, it is equal to 3 months.
     * The estimated duration of a quarter-year is one quarter of {@code 365.2425 Days}.
     * <p>
@@ -186,9 +179,7 @@ object IsoFields {
     */
   val QUARTER_YEARS: TemporalUnit = Unit.QUARTER_YEARS
 
-  /**
-    * Implementation of the field.
-    */
+  /** Implementation of the field. */
   private object Field {
     val DAY_OF_QUARTER: Field = new Field("DAY_OF_QUARTER", 0) {
       override def toString: String = "DayOfQuarter"
@@ -451,9 +442,7 @@ object IsoFields {
     def isTimeBased: Boolean = false
   }
 
-  /**
-    * Implementation of the period unit.
-    */
+  /** Implementation of the period unit. */
   private object Unit {
     val WEEK_BASED_YEARS = new Unit("WeekBasedYears", 0, Duration.ofSeconds(31556952L))
     val QUARTER_YEARS    = new Unit("QuarterYears", 1, Duration.ofSeconds(31556952L / 4))

@@ -35,8 +35,7 @@ import java.util.Locale
 import org.threeten.bp.DateTimeException
 import org.threeten.bp.format.ResolverStyle
 
-/**
-  * A field of date-time, such as month-of-year or hour-of-minute.
+/** A field of date-time, such as month-of-year or hour-of-minute.
   * <p>
   * Date and time is expressed using fields which partition the time-line into something
   * meaningful for humans. Implementations of this interface represent those fields.
@@ -57,8 +56,7 @@ import org.threeten.bp.format.ResolverStyle
   * An enum is as effective implementation choice.
   */
 trait TemporalField {
-  /**
-    * Gets the unit that the field is measured in.
+  /** Gets the unit that the field is measured in.
     * <p>
     * The unit of the field is the period that varies within the range.
     * For example, in the field 'MonthOfYear', the unit is 'Months'.
@@ -68,8 +66,7 @@ trait TemporalField {
     */
   def getBaseUnit: TemporalUnit
 
-  /**
-    * Gets the range that the field is bound by.
+  /** Gets the range that the field is bound by.
     * <p>
     * The range of the field is the period that the field varies within.
     * For example, in the field 'MonthOfYear', the range is 'Years'.
@@ -82,8 +79,7 @@ trait TemporalField {
     */
   def getRangeUnit: TemporalUnit
 
-  /**
-    * Gets the range of valid values for the field.
+  /** Gets the range of valid values for the field.
     * <p>
     * All fields can be expressed as a {@code long} integer.
     * This method returns an object that describes the valid range for that value.
@@ -97,8 +93,7 @@ trait TemporalField {
     */
   def range: ValueRange
 
-  /**
-    * Checks if this field is date-based.
+  /** Checks if this field is date-based.
     * <p>
     * A date-based field can be derived from epoch-day
     *
@@ -106,8 +101,7 @@ trait TemporalField {
     */
   def isDateBased: Boolean
 
-  /**
-    * Checks if this field is time-based.
+  /** Checks if this field is time-based.
     * <p>
     * A time-based field can be derived from nano-of-day
     *
@@ -115,8 +109,7 @@ trait TemporalField {
     */
   def isTimeBased: Boolean
 
-  /**
-    * Checks if this field is supported by the temporal object.
+  /** Checks if this field is supported by the temporal object.
     * <p>
     * This determines whether the temporal accessor supports this field.
     * If this returns false, the the temporal cannot be queried for this field.
@@ -140,8 +133,7 @@ trait TemporalField {
     */
   def isSupportedBy(temporal: TemporalAccessor): Boolean
 
-  /**
-    * Get the range of valid values for this field using the temporal object to
+  /** Get the range of valid values for this field using the temporal object to
     * refine the result.
     * <p>
     * This uses the temporal object to find the range of valid values for the field.
@@ -172,8 +164,7 @@ trait TemporalField {
     */
   def rangeRefinedBy(temporal: TemporalAccessor): ValueRange
 
-  /**
-    * Gets the value of this field from the specified temporal object.
+  /** Gets the value of this field from the specified temporal object.
     * <p>
     * This queries the temporal object for the value of this field.
     * <p>
@@ -199,8 +190,7 @@ trait TemporalField {
     */
   def getFrom(temporal: TemporalAccessor): Long
 
-  /**
-    * Gets the display name for the field in the requested locale.
+  /** Gets the display name for the field in the requested locale.
     * <p>
     * If there is no display name for the locale then a suitable default must be returned.
     * <p>
@@ -212,8 +202,7 @@ trait TemporalField {
     */
   def getDisplayName(locale: Locale): String
 
-  /**
-    * Returns a copy of the specified temporal object with the value of this field set.
+  /** Returns a copy of the specified temporal object with the value of this field set.
     * <p>
     * This returns a new temporal object based on the specified one with the value for
     * this field changed. For example, on a {@code LocalDate}, this could be used to
@@ -253,8 +242,7 @@ trait TemporalField {
     */
   def adjustInto[R <: Temporal](temporal: R, newValue: Long): R
 
-  /**
-    * Resolves the date/time information in the builder
+  /** Resolves the date/time information in the builder
     * <p>
     * This method is invoked during the resolve of the builder.
     * Implementations should combine the associated field with others to form

@@ -40,8 +40,7 @@ import org.threeten.bp.ZoneId
 import org.threeten.bp.ZoneOffset
 import org.threeten.bp.chrono.Chronology
 
-/**
-  * Common implementations of {@code TemporalQuery}.
+/** Common implementations of {@code TemporalQuery}.
   * <p>
   * This class provides common implementations of {@link TemporalQuery}.
   * These queries are primarily used as optimizations, allowing the internals
@@ -66,8 +65,7 @@ import org.threeten.bp.chrono.Chronology
   * All returned adjusters are immutable and thread-safe.
   */
 object TemporalQueries {
-  /**
-    * A strict query for the {@code ZoneId}.
+  /** A strict query for the {@code ZoneId}.
     * <p>
     * This queries a {@code TemporalAccessor} for the zone.
     * The zone is only returned if the date-time conceptually contains a {@code ZoneId}.
@@ -105,8 +103,7 @@ object TemporalQueries {
     def queryFrom(temporal: TemporalAccessor): ZoneId = temporal.query(this)
   }
 
-  /**
-    * A query for the {@code Chronology}.
+  /** A query for the {@code Chronology}.
     * <p>
     * This queries a {@code TemporalAccessor} for the chronology.
     * If the target {@code TemporalAccessor} represents a date, or part of a date,
@@ -146,8 +143,7 @@ object TemporalQueries {
     def queryFrom(temporal: TemporalAccessor): Chronology = temporal.query(this)
   }
 
-  /**
-    * A query for the smallest supported unit.
+  /** A query for the smallest supported unit.
     * <p>
     * This queries a {@code TemporalAccessor} for the time precision.
     * If the target {@code TemporalAccessor} represents a consistent or complete date-time,
@@ -185,8 +181,7 @@ object TemporalQueries {
     def queryFrom(temporal: TemporalAccessor): TemporalUnit = temporal.query(this)
   }
 
-  /**
-    * A lenient query for the {@code ZoneId}, falling back to the {@code ZoneOffset}.
+  /** A lenient query for the {@code ZoneId}, falling back to the {@code ZoneOffset}.
     * <p>
     * This queries a {@code TemporalAccessor} for the zone.
     * It first tries to obtain the zone, using {@link #zoneId()}.
@@ -213,8 +208,7 @@ object TemporalQueries {
     }
   }
 
-  /**
-    * A query for {@code ZoneOffset} returning null if not found.
+  /** A query for {@code ZoneOffset} returning null if not found.
     * <p>
     * This returns a {@code TemporalQuery} that can be used to query a temporal
     * object for the offset. The query will return null if the temporal
@@ -235,8 +229,7 @@ object TemporalQueries {
         null
   }
 
-  /**
-    * A query for {@code LocalDate} returning null if not found.
+  /** A query for {@code LocalDate} returning null if not found.
     * <p>
     * This returns a {@code TemporalQuery} that can be used to query a temporal
     * object for the local date. The query will return null if the temporal
@@ -257,8 +250,7 @@ object TemporalQueries {
         null
   }
 
-  /**
-    * A query for {@code LocalTime} returning null if not found.
+  /** A query for {@code LocalTime} returning null if not found.
     * <p>
     * This returns a {@code TemporalQuery} that can be used to query a temporal
     * object for the local time. The query will return null if the temporal
@@ -279,8 +271,3 @@ object TemporalQueries {
         null
   }
 }
-
-/**
-  * Private constructor since this is a utility class.
-  */
-final class TemporalQueries private()

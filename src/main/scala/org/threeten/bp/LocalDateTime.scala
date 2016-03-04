@@ -65,33 +65,6 @@ import org.threeten.bp.temporal.UnsupportedTemporalTypeException
 import org.threeten.bp.temporal.ValueRange
 import org.threeten.bp.zone.ZoneRules
 
-/**
- * A date-time without a time-zone in the ISO-8601 calendar system,
- * such as {@code 2007-12-03T10:15:30}.
- * <p>
- * {@code LocalDateTime} is an immutable date-time object that represents a date-time,
- * often viewed as year-month-day-hour-minute-second. Other date and time fields,
- * such as day-of-year, day-of-week and week-of-year, can also be accessed.
- * Time is represented to nanosecond precision.
- * For example, the value "2nd October 2007 at 13:45.30.123456789" can be
- * stored in a {@code LocalDateTime}.
- * <p>
- * This class does not store or represent a time-zone.
- * Instead, it is a description of the date, as used for birthdays, combined with
- * the local time as seen on a wall clock.
- * It cannot represent an instant on the time-line without additional information
- * such as an offset or time-zone.
- * <p>
- * The ISO-8601 calendar system is the modern civil calendar system used today
- * in most of the world. It is equivalent to the proleptic Gregorian calendar
- * system, in which today's rules for leap years are applied for all time.
- * For most applications written today, the ISO-8601 rules are entirely suitable.
- * However, any application that makes use of historical dates, and requires them
- * to be accurate will find the ISO-8601 approach unsuitable.
- *
- * <h3>Specification for implementors</h3>
- * This class is immutable and thread-safe.
- */
 @SerialVersionUID(6207766400415563566L)
 object LocalDateTime {
   /**
@@ -416,34 +389,31 @@ object LocalDateTime {
 }
 
 /**
-  * A date-time without a time-zone in an arbitrary chronology, intended
-  * for advanced globalization use cases.
+  * A date-time without a time-zone in the ISO-8601 calendar system,
+  * such as {@code 2007-12-03T10:15:30}.
   * <p>
-  * <b>Most applications should declare method signatures, fields and variables
-  * as {@link LocalDateTime}, not this interface.</b>
+  * {@code LocalDateTime} is an immutable date-time object that represents a date-time,
+  * often viewed as year-month-day-hour-minute-second. Other date and time fields,
+  * such as day-of-year, day-of-week and week-of-year, can also be accessed.
+  * Time is represented to nanosecond precision.
+  * For example, the value "2nd October 2007 at 13:45.30.123456789" can be
+  * stored in a {@code LocalDateTime}.
   * <p>
-  * A {@code ChronoLocalDateTime} is the abstract representation of a local date-time
-  * where the {@code Chronology chronology}, or calendar system, is pluggable.
-  * The date-time is defined in terms of fields expressed by {@link TemporalField},
-  * where most common implementations are defined in {@link ChronoField}.
-  * The chronology defines how the calendar system operates and the meaning of
-  * the standard fields.
-  *
-  * <h4>When to use this interface</h4>
-  * The design of the API encourages the use of {@code LocalDateTime} rather than this
-  * interface, even in the case where the application needs to deal with multiple
-  * calendar systems. The rationale for this is explored in detail in {@link ChronoLocalDate}.
+  * This class does not store or represent a time-zone.
+  * Instead, it is a description of the date, as used for birthdays, combined with
+  * the local time as seen on a wall clock.
+  * It cannot represent an instant on the time-line without additional information
+  * such as an offset or time-zone.
   * <p>
-  * Ensure that the discussion in {@code ChronoLocalDate} has been read and understood
-  * before using this interface.
+  * The ISO-8601 calendar system is the modern civil calendar system used today
+  * in most of the world. It is equivalent to the proleptic Gregorian calendar
+  * system, in which today's rules for leap years are applied for all time.
+  * For most applications written today, the ISO-8601 rules are entirely suitable.
+  * However, any application that makes use of historical dates, and requires them
+  * to be accurate will find the ISO-8601 approach unsuitable.
   *
   * <h3>Specification for implementors</h3>
-  * This interface must be implemented with care to ensure other classes operate correctly.
-  * All implementations that can be instantiated must be final, immutable and thread-safe.
-  * Subclasses should be Serializable wherever possible.
-  * <p>
-  * In JDK 8, this is an interface with default methods.
-  * Since there are no default methods in JDK 7, an abstract class is used.
+  * This class is immutable and thread-safe.
   *
   * Constructor.
   *
@@ -1548,9 +1518,8 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
 
   private def compareTo0(other: LocalDateTime): Int = {
     var cmp: Int = date.compareTo0(other.toLocalDate)
-    if (cmp == 0) {
+    if (cmp == 0)
       cmp = time.compareTo(other.toLocalTime)
-    }
     cmp
   }
 

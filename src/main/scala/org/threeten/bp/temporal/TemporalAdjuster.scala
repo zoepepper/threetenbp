@@ -33,8 +33,7 @@ package org.threeten.bp.temporal
 
 import org.threeten.bp.DateTimeException
 
-/**
-  * Strategy for adjusting a temporal object.
+/** Strategy for adjusting a temporal object.
   * <p>
   * Adjusters are a key tool for modifying temporal objects.
   * They exist to externalize the process of adjustment, permitting different
@@ -62,8 +61,7 @@ import org.threeten.bp.DateTimeException
   * however immutability is strongly recommended.
   */
 trait TemporalAdjuster {
-  /**
-    * Adjusts the specified temporal object.
+  /** Adjusts the specified temporal object.
     * <p>
     * This adjusts the specified temporal object using the logic
     * encapsulated in the implementing class.

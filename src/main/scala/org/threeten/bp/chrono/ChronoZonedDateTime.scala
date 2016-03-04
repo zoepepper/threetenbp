@@ -55,8 +55,7 @@ import org.threeten.bp.temporal.UnsupportedTemporalTypeException
 import org.threeten.bp.temporal.ValueRange
 
 object ChronoZonedDateTime {
-  /**
-    * Gets a comparator that compares {@code ChronoZonedDateTime} in
+  /** Gets a comparator that compares {@code ChronoZonedDateTime} in
     * time-line order ignoring the chronology.
     * <p>
     * This comparator differs from the comparison in {@link #compareTo} in that it
@@ -80,8 +79,7 @@ object ChronoZonedDateTime {
       cmp
     }
 
-  /**
-    * Obtains an instance of {@code ChronoZonedDateTime} from a temporal object.
+  /** Obtains an instance of {@code ChronoZonedDateTime} from a temporal object.
     * <p>
     * This creates a zoned date-time based on the specified temporal.
     * A {@code TemporalAccessor} represents an arbitrary set of date and time information,
@@ -114,8 +112,7 @@ object ChronoZonedDateTime {
   }
 }
 
-/**
-  * A date-time with a time-zone in an arbitrary chronology,
+/** A date-time with a time-zone in an arbitrary chronology,
   * intended for advanced globalization use cases.
   * <p>
   * <b>Most applications should declare method signatures, fields and variables
@@ -140,13 +137,10 @@ object ChronoZonedDateTime {
   * This interface must be implemented with care to ensure other classes operate correctly.
   * All implementations that can be instantiated must be final, immutable and thread-safe.
   * Subclasses should be Serializable wherever possible.
-  * <p>
-  * In JDK 8, this is an interface with default methods.
-  * Since there are no default methods in JDK 7, an abstract class is used.
   *
   * @tparam D the date type
   */
-abstract class ChronoZonedDateTime[D <: ChronoLocalDate] extends Temporal with Comparable[ChronoZonedDateTime[_]] {
+trait ChronoZonedDateTime[D <: ChronoLocalDate] extends Temporal with Comparable[ChronoZonedDateTime[_]] {
   override def range(field: TemporalField): ValueRange =
     field match {
       case INSTANT_SECONDS | OFFSET_SECONDS => field.range
@@ -170,8 +164,7 @@ abstract class ChronoZonedDateTime[D <: ChronoLocalDate] extends Temporal with C
       case _                   => field.getFrom(this)
     }
 
-  /**
-    * Gets the local date part of this date-time.
+  /** Gets the local date part of this date-time.
     * <p>
     * This returns a local date with the same year, month and day
     * as this date-time.
@@ -180,8 +173,7 @@ abstract class ChronoZonedDateTime[D <: ChronoLocalDate] extends Temporal with C
     */
   def toLocalDate: D = toLocalDateTime.toLocalDate
 
-  /**
-    * Gets the local time part of this date-time.
+  /** Gets the local time part of this date-time.
     * <p>
     * This returns a local time with the same hour, minute, second and
     * nanosecond as this date-time.
@@ -190,8 +182,7 @@ abstract class ChronoZonedDateTime[D <: ChronoLocalDate] extends Temporal with C
     */
   def toLocalTime: LocalTime = toLocalDateTime.toLocalTime
 
-  /**
-    * Gets the local date-time part of this date-time.
+  /** Gets the local date-time part of this date-time.
     * <p>
     * This returns a local date with the same year, month and day
     * as this date-time.
@@ -200,8 +191,7 @@ abstract class ChronoZonedDateTime[D <: ChronoLocalDate] extends Temporal with C
     */
   def toLocalDateTime: ChronoLocalDateTime[D]
 
-  /**
-    * Gets the chronology of this date-time.
+  /** Gets the chronology of this date-time.
     * <p>
     * The {@code Chronology} represents the calendar system in use.
     * The era and other fields in {@link ChronoField} are defined by the chronology.
@@ -210,8 +200,7 @@ abstract class ChronoZonedDateTime[D <: ChronoLocalDate] extends Temporal with C
     */
   def getChronology: Chronology = toLocalDate.getChronology
 
-  /**
-    * Gets the zone offset, such as '+01:00'.
+  /** Gets the zone offset, such as '+01:00'.
     * <p>
     * This is the offset of the local date-time from UTC/Greenwich.
     *
@@ -219,8 +208,7 @@ abstract class ChronoZonedDateTime[D <: ChronoLocalDate] extends Temporal with C
     */
   def getOffset: ZoneOffset
 
-  /**
-    * Gets the zone ID, such as 'Europe/Paris'.
+  /** Gets the zone ID, such as 'Europe/Paris'.
     * <p>
     * This returns the stored time-zone id used to determine the time-zone rules.
     *
@@ -228,8 +216,7 @@ abstract class ChronoZonedDateTime[D <: ChronoLocalDate] extends Temporal with C
     */
   def getZone: ZoneId
 
-  /**
-    * Returns a copy of this date-time changing the zone offset to the
+  /** Returns a copy of this date-time changing the zone offset to the
     * earlier of the two valid offsets at a local time-line overlap.
     * <p>
     * This method only has any effect when the local time-line overlaps, such as
@@ -248,8 +235,7 @@ abstract class ChronoZonedDateTime[D <: ChronoLocalDate] extends Temporal with C
     */
   def withEarlierOffsetAtOverlap: ChronoZonedDateTime[D]
 
-  /**
-    * Returns a copy of this date-time changing the zone offset to the
+  /** Returns a copy of this date-time changing the zone offset to the
     * later of the two valid offsets at a local time-line overlap.
     * <p>
     * This method only has any effect when the local time-line overlaps, such as
@@ -268,8 +254,7 @@ abstract class ChronoZonedDateTime[D <: ChronoLocalDate] extends Temporal with C
     */
   def withLaterOffsetAtOverlap: ChronoZonedDateTime[D]
 
-  /**
-    * Returns a copy of this ZonedDateTime with a different time-zone,
+  /** Returns a copy of this ZonedDateTime with a different time-zone,
     * retaining the local date-time if possible.
     * <p>
     * This method changes the time-zone and retains the local date-time.
@@ -285,8 +270,7 @@ abstract class ChronoZonedDateTime[D <: ChronoLocalDate] extends Temporal with C
     */
   def withZoneSameLocal(zoneId: ZoneId): ChronoZonedDateTime[D]
 
-  /**
-    * Returns a copy of this date-time with a different time-zone,
+  /** Returns a copy of this date-time with a different time-zone,
     * retaining the instant.
     * <p>
     * This method changes the time-zone and retains the instant.
@@ -336,8 +320,7 @@ abstract class ChronoZonedDateTime[D <: ChronoLocalDate] extends Temporal with C
     else
       super.query(query)
 
-  /**
-    * Outputs this date-time as a {@code String} using the formatter.
+  /** Outputs this date-time as a {@code String} using the formatter.
     *
     * @param formatter  the formatter to use, not null
     * @return the formatted date-time string, not null
@@ -348,8 +331,7 @@ abstract class ChronoZonedDateTime[D <: ChronoLocalDate] extends Temporal with C
     formatter.format(this)
   }
 
-  /**
-    * Converts this date-time to an {@code Instant}.
+  /** Converts this date-time to an {@code Instant}.
     * <p>
     * This returns an {@code Instant} representing the same point on the
     * time-line as this date-time. The calculation combines the
@@ -360,8 +342,7 @@ abstract class ChronoZonedDateTime[D <: ChronoLocalDate] extends Temporal with C
     */
   def toInstant: Instant = Instant.ofEpochSecond(toEpochSecond, toLocalTime.getNano)
 
-  /**
-    * Converts this date-time to the number of seconds from the epoch
+  /** Converts this date-time to the number of seconds from the epoch
     * of 1970-01-01T00:00:00Z.
     * <p>
     * This uses the {@linkplain #toLocalDateTime() local date-time} and
@@ -378,8 +359,7 @@ abstract class ChronoZonedDateTime[D <: ChronoLocalDate] extends Temporal with C
     secs
   }
 
-  /**
-    * Compares this date-time to another date-time, including the chronology.
+  /** Compares this date-time to another date-time, including the chronology.
     * <p>
     * The comparison is based first on the instant, then on the local date-time,
     * then on the zone ID, then on the chronology.
@@ -407,8 +387,7 @@ abstract class ChronoZonedDateTime[D <: ChronoLocalDate] extends Temporal with C
     cmp
   }
 
-  /**
-    * Checks if the instant of this date-time is after that of the specified date-time.
+  /** Checks if the instant of this date-time is after that of the specified date-time.
     * <p>
     * This method differs from the comparison in {@link #compareTo} in that it
     * only compares the instant of the date-time. This is equivalent to using
@@ -423,8 +402,7 @@ abstract class ChronoZonedDateTime[D <: ChronoLocalDate] extends Temporal with C
     thisEpochSec > otherEpochSec || (thisEpochSec == otherEpochSec && toLocalTime.getNano > other.toLocalTime.getNano)
   }
 
-  /**
-    * Checks if the instant of this date-time is before that of the specified date-time.
+  /** Checks if the instant of this date-time is before that of the specified date-time.
     * <p>
     * This method differs from the comparison in {@link #compareTo} in that it
     * only compares the instant of the date-time. This is equivalent to using
@@ -439,8 +417,7 @@ abstract class ChronoZonedDateTime[D <: ChronoLocalDate] extends Temporal with C
     thisEpochSec < otherEpochSec || (thisEpochSec == otherEpochSec && toLocalTime.getNano < other.toLocalTime.getNano)
   }
 
-  /**
-    * Checks if the instant of this date-time is equal to that of the specified date-time.
+  /** Checks if the instant of this date-time is equal to that of the specified date-time.
     * <p>
     * This method differs from the comparison in {@link #compareTo} and {@link #equals}
     * in that it only compares the instant of the date-time. This is equivalent to using
@@ -452,8 +429,7 @@ abstract class ChronoZonedDateTime[D <: ChronoLocalDate] extends Temporal with C
   def isEqual(other: ChronoZonedDateTime[_]): Boolean =
     toEpochSecond == other.toEpochSecond && toLocalTime.getNano == other.toLocalTime.getNano
 
-  /**
-    * Checks if this date-time is equal to another date-time.
+  /** Checks if this date-time is equal to another date-time.
     * <p>
     * The comparison is based on the offset date-time and the zone.
     * To compare for the same instant on the time-line, use {@link #compareTo}.
@@ -464,20 +440,17 @@ abstract class ChronoZonedDateTime[D <: ChronoLocalDate] extends Temporal with C
     */
   override def equals(obj: Any): Boolean =
     obj match {
-      case other: ChronoZonedDateTime[_] =>
-        (this eq other) || (compareTo(other) == 0)
-      case _ => false
+      case other: ChronoZonedDateTime[_] => (this eq other) || (compareTo(other) == 0)
+      case _                             => false
     }
 
-  /**
-    * A hash code for this date-time.
+  /** A hash code for this date-time.
     *
     * @return a suitable hash code
     */
   override def hashCode: Int = toLocalDateTime.hashCode ^ getOffset.hashCode ^ Integer.rotateLeft(getZone.hashCode, 3)
 
-  /**
-    * Outputs this date-time as a {@code String}.
+  /** Outputs this date-time as a {@code String}.
     * <p>
     * The output will include the full zoned date-time and the chronology ID.
     *
@@ -485,9 +458,8 @@ abstract class ChronoZonedDateTime[D <: ChronoLocalDate] extends Temporal with C
     */
   override def toString: String = {
     var str: String = toLocalDateTime.toString + getOffset.toString
-    if (getOffset ne getZone) {
+    if (getOffset ne getZone)
       str += '[' + getZone.toString + ']'
-    }
     str
   }
 }

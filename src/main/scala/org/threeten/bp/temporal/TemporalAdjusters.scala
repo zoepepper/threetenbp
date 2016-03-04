@@ -40,8 +40,7 @@ import org.threeten.bp.temporal.ChronoUnit.MONTHS
 import org.threeten.bp.temporal.ChronoUnit.YEARS
 import org.threeten.bp.DayOfWeek
 
-/**
-  * Common implementations of {@code TemporalAdjuster}.
+/** Common implementations of {@code TemporalAdjuster}.
   * <p>
   * This class provides common implementations of {@link TemporalAdjuster}.
   * They are especially useful to document the intent of business logic and
@@ -72,8 +71,7 @@ import org.threeten.bp.DayOfWeek
   * The JDK 8 ofDateAdjuster(UnaryOperator) method is not backported.
   */
 object TemporalAdjusters {
-  /**
-    * Returns the "first day of month" adjuster, which returns a new date set to
+  /** Returns the "first day of month" adjuster, which returns a new date set to
     * the first day of the current month.
     * <p>
     * The ISO calendar system behaves as follows:<br>
@@ -90,8 +88,7 @@ object TemporalAdjusters {
     */
   def firstDayOfMonth: TemporalAdjuster = Impl.FIRST_DAY_OF_MONTH
 
-  /**
-    * Returns the "last day of month" adjuster, which returns a new date set to
+  /** Returns the "last day of month" adjuster, which returns a new date set to
     * the last day of the current month.
     * <p>
     * The ISO calendar system behaves as follows:<br>
@@ -111,8 +108,7 @@ object TemporalAdjusters {
     */
   def lastDayOfMonth: TemporalAdjuster = Impl.LAST_DAY_OF_MONTH
 
-  /**
-    * Returns the "first day of next month" adjuster, which returns a new date set to
+  /** Returns the "first day of next month" adjuster, which returns a new date set to
     * the first day of the next month.
     * <p>
     * The ISO calendar system behaves as follows:<br>
@@ -129,8 +125,7 @@ object TemporalAdjusters {
     */
   def firstDayOfNextMonth: TemporalAdjuster = Impl.FIRST_DAY_OF_NEXT_MONTH
 
-  /**
-    * Returns the "first day of year" adjuster, which returns a new date set to
+  /** Returns the "first day of year" adjuster, which returns a new date set to
     * the first day of the current year.
     * <p>
     * The ISO calendar system behaves as follows:<br>
@@ -147,8 +142,7 @@ object TemporalAdjusters {
     */
   def firstDayOfYear: TemporalAdjuster = Impl.FIRST_DAY_OF_YEAR
 
-  /**
-    * Returns the "last day of year" adjuster, which returns a new date set to
+  /** Returns the "last day of year" adjuster, which returns a new date set to
     * the last day of the current year.
     * <p>
     * The ISO calendar system behaves as follows:<br>
@@ -166,8 +160,7 @@ object TemporalAdjusters {
     */
   def lastDayOfYear: TemporalAdjuster = Impl.LAST_DAY_OF_YEAR
 
-  /**
-    * Returns the "first day of next year" adjuster, which returns a new date set to
+  /** Returns the "first day of next year" adjuster, which returns a new date set to
     * the first day of the next year.
     * <p>
     * The ISO calendar system behaves as follows:<br>
@@ -183,9 +176,7 @@ object TemporalAdjusters {
     */
   def firstDayOfNextYear: TemporalAdjuster = Impl.FIRST_DAY_OF_NEXT_YEAR
 
-  /**
-    * Enum implementing the adjusters.
-    */
+  /** Enum implementing the adjusters. */
   private[TemporalAdjusters] object Impl {
     /** First day of month adjuster. */
     val FIRST_DAY_OF_MONTH: TemporalAdjusters.Impl = new TemporalAdjusters.Impl(0)
@@ -205,25 +196,17 @@ object TemporalAdjusters {
 
     def adjustInto(temporal: Temporal): Temporal =
       ordinal match {
-        case 0 =>
-          temporal.`with`(DAY_OF_MONTH, 1)
-        case 1 =>
-          temporal.`with`(DAY_OF_MONTH, temporal.range(DAY_OF_MONTH).getMaximum)
-        case 2 =>
-          temporal.`with`(DAY_OF_MONTH, 1).plus(1, MONTHS)
-        case 3 =>
-          temporal.`with`(DAY_OF_YEAR, 1)
-        case 4 =>
-          temporal.`with`(DAY_OF_YEAR, temporal.range(DAY_OF_YEAR).getMaximum)
-        case 5 =>
-          temporal.`with`(DAY_OF_YEAR, 1).plus(1, YEARS)
-        case _ =>
-          throw new IllegalStateException("Unreachable")
+        case 0 => temporal.`with`(DAY_OF_MONTH, 1)
+        case 1 => temporal.`with`(DAY_OF_MONTH, temporal.range(DAY_OF_MONTH).getMaximum)
+        case 2 => temporal.`with`(DAY_OF_MONTH, 1).plus(1, MONTHS)
+        case 3 => temporal.`with`(DAY_OF_YEAR, 1)
+        case 4 => temporal.`with`(DAY_OF_YEAR, temporal.range(DAY_OF_YEAR).getMaximum)
+        case 5 => temporal.`with`(DAY_OF_YEAR, 1).plus(1, YEARS)
+        case _ => throw new IllegalStateException("Unreachable")
       }
   }
 
-  /**
-    * Returns the first in month adjuster, which returns a new date
+  /** Returns the first in month adjuster, which returns a new date
     * in the same month with the first matching day-of-week.
     * This is used for expressions like 'first Tuesday in March'.
     * <p>
@@ -243,8 +226,7 @@ object TemporalAdjusters {
     new TemporalAdjusters.DayOfWeekInMonth(1, dayOfWeek)
   }
 
-  /**
-    * Returns the last in month adjuster, which returns a new date
+  /** Returns the last in month adjuster, which returns a new date
     * in the same month with the last matching day-of-week.
     * This is used for expressions like 'last Tuesday in March'.
     * <p>
@@ -264,8 +246,7 @@ object TemporalAdjusters {
     new TemporalAdjusters.DayOfWeekInMonth(-1, dayOfWeek)
   }
 
-  /**
-    * Returns the day-of-week in month adjuster, which returns a new date
+  /** Returns the day-of-week in month adjuster, which returns a new date
     * in the same month with the ordinal day-of-week.
     * This is used for expressions like the 'second Tuesday in March'.
     * <p>
@@ -301,9 +282,7 @@ object TemporalAdjusters {
     new TemporalAdjusters.DayOfWeekInMonth(ordinal, dayOfWeek)
   }
 
-  /**
-    * Class implementing day-of-week in month adjuster.
-    */
+  /** Class implementing day-of-week in month adjuster. */
   private[temporal] final class DayOfWeekInMonth private[temporal](private val ordinal: Int, dow: DayOfWeek) extends TemporalAdjuster {
     /** The day-of-week value, from 1 to 7. */
     private val dowValue: Int = dow.getValue
@@ -327,8 +306,7 @@ object TemporalAdjusters {
     }
   }
 
-  /**
-    * Returns the next day-of-week adjuster, which adjusts the date to the
+  /** Returns the next day-of-week adjuster, which adjusts the date to the
     * first occurrence of the specified day-of-week after the date being adjusted.
     * <p>
     * The ISO calendar system behaves as follows:<br>
@@ -345,8 +323,7 @@ object TemporalAdjusters {
     */
   def next(dayOfWeek: DayOfWeek): TemporalAdjuster = new TemporalAdjusters.RelativeDayOfWeek(2, dayOfWeek)
 
-  /**
-    * Returns the next-or-same day-of-week adjuster, which adjusts the date to the
+  /** Returns the next-or-same day-of-week adjuster, which adjusts the date to the
     * first occurrence of the specified day-of-week after the date being adjusted
     * unless it is already on that day in which case the same object is returned.
     * <p>
@@ -364,8 +341,7 @@ object TemporalAdjusters {
     */
   def nextOrSame(dayOfWeek: DayOfWeek): TemporalAdjuster = new TemporalAdjusters.RelativeDayOfWeek(0, dayOfWeek)
 
-  /**
-    * Returns the previous day-of-week adjuster, which adjusts the date to the
+  /** Returns the previous day-of-week adjuster, which adjusts the date to the
     * first occurrence of the specified day-of-week before the date being adjusted.
     * <p>
     * The ISO calendar system behaves as follows:<br>
@@ -382,8 +358,7 @@ object TemporalAdjusters {
     */
   def previous(dayOfWeek: DayOfWeek): TemporalAdjuster = new TemporalAdjusters.RelativeDayOfWeek(3, dayOfWeek)
 
-  /**
-    * Returns the previous-or-same day-of-week adjuster, which adjusts the date to the
+  /** Returns the previous-or-same day-of-week adjuster, which adjusts the date to the
     * first occurrence of the specified day-of-week before the date being adjusted
     * unless it is already on that day in which case the same object is returned.
     * <p>
@@ -401,9 +376,7 @@ object TemporalAdjusters {
     */
   def previousOrSame(dayOfWeek: DayOfWeek): TemporalAdjuster = new TemporalAdjusters.RelativeDayOfWeek(1, dayOfWeek)
 
-  /**
-    * Implementation of next, previous or current day-of-week.
-    */
+  /** Implementation of next, previous or current day-of-week. */
   private[temporal] final class RelativeDayOfWeek private[temporal](private val relative: Int, dayOfWeek: DayOfWeek) extends TemporalAdjuster {
     Objects.requireNonNull(dayOfWeek, "dayOfWeek")
 

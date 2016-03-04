@@ -493,19 +493,13 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     * @param field  the field to check, null returns false
     * @return true if the field is supported on this time, false if not
     */
-  def isSupported(field: TemporalField): Boolean = {
-    if (field.isInstanceOf[ChronoField]) {
-      return field.isTimeBased
-    }
-    field != null && field.isSupportedBy(this)
-  }
+  def isSupported(field: TemporalField): Boolean =
+    if (field.isInstanceOf[ChronoField]) field.isTimeBased
+    else field != null && field.isSupportedBy(this)
 
-  def isSupported(unit: TemporalUnit): Boolean = {
-    if (unit.isInstanceOf[ChronoUnit]) {
-      return unit.isTimeBased
-    }
-    unit != null && unit.isSupportedBy(this)
-  }
+  def isSupported(unit: TemporalUnit): Boolean =
+    if (unit.isInstanceOf[ChronoUnit]) unit.isTimeBased
+    else unit != null && unit.isSupportedBy(this)
 
   /**
     * Gets the range of valid values for the specified field.
@@ -529,9 +523,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     * @return the range of valid values for the field, not null
     * @throws DateTimeException if the range for the field cannot be obtained
     */
-  override def range(field: TemporalField): ValueRange = {
-    super.range(field)
-  }
+  override def range(field: TemporalField): ValueRange = super.range(field)
 
   /**
     * Gets the value of the specified field from this time as an {@code int}.
@@ -557,12 +549,9 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     * @throws DateTimeException if a value for the field cannot be obtained
     * @throws ArithmeticException if numeric overflow occurs
     */
-  override def get(field: TemporalField): Int = {
-    if (field.isInstanceOf[ChronoField]) {
-      return get0(field)
-    }
-    super.get(field)
-  }
+  override def get(field: TemporalField): Int =
+    if (field.isInstanceOf[ChronoField]) get0(field)
+    else super.get(field)
 
   /**
     * Gets the value of the specified field from this time as a {@code long}.
