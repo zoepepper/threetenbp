@@ -86,10 +86,6 @@ import org.threeten.bp.zone.ZoneRules
   */
 @SerialVersionUID(2357656521762053153L)
 object ZoneOffset {
-  /**
-    * Simulate JDK 8 method reference ZoneOffset::from.
-    */
-  val FROM: TemporalQuery[ZoneOffset] = (temporal: TemporalAccessor) => ZoneOffset.from(temporal)
 
   /** Cache of time-zone offset by offset in seconds. */
   private val SECONDS_CACHE: ConcurrentMap[Integer, ZoneOffset] = new ConcurrentHashMap[Integer, ZoneOffset](16, 0.75f, 4)
