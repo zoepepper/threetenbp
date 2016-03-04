@@ -569,9 +569,8 @@ object DateTimeFormatter {
     * @throws IllegalArgumentException if the pattern is invalid
     * @see DateTimeFormatterBuilder#appendPattern(String)
     */
-  def ofPattern(pattern: String): DateTimeFormatter = {
+  def ofPattern(pattern: String): DateTimeFormatter =
     new DateTimeFormatterBuilder().appendPattern(pattern).toFormatter
-  }
 
   /**
     * Creates a formatter using the specified pattern.
@@ -590,9 +589,8 @@ object DateTimeFormatter {
     * @throws IllegalArgumentException if the pattern is invalid
     * @see DateTimeFormatterBuilder#appendPattern(String)
     */
-  def ofPattern(pattern: String, locale: Locale): DateTimeFormatter = {
+  def ofPattern(pattern: String, locale: Locale): DateTimeFormatter =
     new DateTimeFormatterBuilder().appendPattern(pattern).toFormatter(locale)
-  }
 
   /**
     * Returns a locale specific date format.
@@ -730,11 +728,10 @@ object DateTimeFormatter {
     */
   def parsedExcessDays: TemporalQuery[Period] = PARSED_EXCESS_DAYS
 
-  private val PARSED_EXCESS_DAYS: TemporalQuery[Period] =
-    (temporal: TemporalAccessor) => temporal match {
-      case builder: DateTimeBuilder => builder.excessDays
-      case _ => Period.ZERO
-    }
+  private val PARSED_EXCESS_DAYS: TemporalQuery[Period] = {
+    case builder: DateTimeBuilder => builder.excessDays
+    case _ => Period.ZERO
+  }
 
   /**
     * A query that provides access to whether a leap-second was parsed.
@@ -768,11 +765,10 @@ object DateTimeFormatter {
     */
   def parsedLeapSecond: TemporalQuery[Boolean] = PARSED_LEAP_SECOND
 
-  private val PARSED_LEAP_SECOND: TemporalQuery[Boolean] =
-    {
-      case builder: DateTimeBuilder => builder.leapSecond
-      case _ => false
-    }
+  private val PARSED_LEAP_SECOND: TemporalQuery[Boolean] = {
+    case builder: DateTimeBuilder => builder.leapSecond
+    case _ => false
+  }
 
   /**
     * Implements the classic Java Format API.
@@ -817,9 +813,7 @@ object DateTimeFormatter {
     def parseObject(text: String, pos: ParsePosition): AnyRef = {
       Objects.requireNonNull(text, "text")
       var unresolved: DateTimeParseContext#Parsed = null
-      try {
-        unresolved = formatter.parseUnresolved0(text, pos)
-      }
+      try unresolved = formatter.parseUnresolved0(text, pos)
       catch {
         case ex: IndexOutOfBoundsException =>
           if (pos.getErrorIndex < 0)
@@ -1093,13 +1087,11 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
     * @return a formatter based on this formatter with the requested resolver style, not null
     */
   def withResolverFields(resolverFields: TemporalField*): DateTimeFormatter = {
-    if (resolverFields == null) {
+    if (resolverFields == null)
       return new DateTimeFormatter(printerParser, locale, decimalStyle, resolverStyle, null, chrono, zone)
-    }
     var fields: java.util.Set[TemporalField] = new java.util.HashSet[TemporalField](Arrays.asList(resolverFields: _*))
-    if (Objects.equals(this.resolverFields, fields)) {
+    if (Objects.equals(this.resolverFields, fields))
       return this
-    }
     fields = Collections.unmodifiableSet(fields)
     new DateTimeFormatter(printerParser, locale, decimalStyle, resolverStyle, fields, chrono, zone)
   }
@@ -1145,12 +1137,10 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
     */
   def withResolverFields(resolverFields: java.util.Set[TemporalField]): DateTimeFormatter = {
     var _resolverFields = resolverFields
-    if (_resolverFields == null) {
+    if (_resolverFields == null)
       return new DateTimeFormatter(printerParser, locale, decimalStyle, resolverStyle, null, chrono, zone)
-    }
-    if (Objects.equals(this.resolverFields, _resolverFields)) {
+    if (Objects.equals(this.resolverFields, _resolverFields))
       return this
-    }
     _resolverFields = Collections.unmodifiableSet(new java.util.HashSet[TemporalField](_resolverFields))
     new DateTimeFormatter(printerParser, locale, decimalStyle, resolverStyle, _resolverFields, chrono, zone)
   }
@@ -1220,13 +1210,10 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
     */
   def parse(text: CharSequence): TemporalAccessor = {
     Objects.requireNonNull(text, "text")
-    try
-      parseToBuilder(text, null).resolve(resolverStyle, resolverFields)
+    try parseToBuilder(text, null).resolve(resolverStyle, resolverFields)
     catch {
-      case ex: DateTimeParseException =>
-        throw ex
-      case ex: RuntimeException =>
-        throw createError(text, ex)
+      case ex: DateTimeParseException => throw ex
+      case ex: RuntimeException       => throw createError(text, ex)
     }
   }
 
@@ -1263,16 +1250,11 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
   def parse(text: CharSequence, position: ParsePosition): TemporalAccessor = {
     Objects.requireNonNull(text, "text")
     Objects.requireNonNull(position, "position")
-    try {
-      parseToBuilder(text, position).resolve(resolverStyle, resolverFields)
-    }
+    try parseToBuilder(text, position).resolve(resolverStyle, resolverFields)
     catch {
-      case ex: DateTimeParseException =>
-        throw ex
-      case ex: IndexOutOfBoundsException =>
-        throw ex
-      case ex: RuntimeException =>
-        throw createError(text, ex)
+      case ex: DateTimeParseException    => throw ex
+      case ex: IndexOutOfBoundsException => throw ex
+      case ex: RuntimeException          => throw createError(text, ex)
     }
   }
 
@@ -1345,9 +1327,7 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
     try {
       val builder: DateTimeBuilder = parseToBuilder(text, null).resolve(resolverStyle, resolverFields)
       for (tpe <- types) {
-        try {
-          return builder.build(tpe).asInstanceOf[TemporalAccessor]
-        }
+        try return builder.build(tpe).asInstanceOf[TemporalAccessor]
         catch {
           case ex: RuntimeException =>
         }
@@ -1355,21 +1335,17 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
       throw new DateTimeException("Unable to convert parsed text to any specified type: " + types.mkString("[", ", ", "]"))
     }
     catch {
-      case ex: DateTimeParseException =>
-        throw ex
-      case ex: RuntimeException =>
-        throw createError(text, ex)
+      case ex: DateTimeParseException => throw ex
+      case ex: RuntimeException       => throw createError(text, ex)
     }
   }
 
   private def createError(text: CharSequence, ex: RuntimeException): DateTimeParseException = {
     var abbr: String = ""
-    if (text.length > 64) {
+    if (text.length > 64)
       abbr = text.subSequence(0, 64).toString + "..."
-    }
-    else {
+    else
       abbr = text.toString
-    }
     new DateTimeParseException("Text '" + abbr + "' could not be parsed: " + ex.getMessage, text, 0, ex)
   }
 
@@ -1391,18 +1367,14 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
     val result: DateTimeParseContext#Parsed = parseUnresolved0(text, pos)
     if (result == null || pos.getErrorIndex >= 0 || (position == null && pos.getIndex < text.length)) {
       var abbr: String = ""
-      if (text.length > 64) {
+      if (text.length > 64)
         abbr = text.subSequence(0, 64).toString + "..."
-      }
-      else {
+      else
         abbr = text.toString
-      }
-      if (pos.getErrorIndex >= 0) {
+      if (pos.getErrorIndex >= 0)
         throw new DateTimeParseException("Text '" + abbr + "' could not be parsed at index " + pos.getErrorIndex, text, pos.getErrorIndex)
-      }
-      else {
+      else
         throw new DateTimeParseException("Text '" + abbr + "' could not be parsed, unparsed text found at index " + pos.getIndex, text, pos.getIndex)
-      }
     }
     result.toBuilder
   }
@@ -1446,9 +1418,8 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
     * @throws DateTimeException if some problem occurs during parsing
     * @throws IndexOutOfBoundsException if the position is invalid
     */
-  def parseUnresolved(text: CharSequence, position: ParsePosition): TemporalAccessor = {
+  def parseUnresolved(text: CharSequence, position: ParsePosition): TemporalAccessor =
     parseUnresolved0(text, position)
-  }
 
   private def parseUnresolved0(text: CharSequence, position: ParsePosition): DateTimeParseContext#Parsed = {
     Objects.requireNonNull(text, "text")
