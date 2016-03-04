@@ -789,39 +789,41 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
       import ChronoField._
       f match {
         case NANO_OF_SECOND =>
-          return withNano(newValue.toInt)
+          withNano(newValue.toInt)
         case NANO_OF_DAY =>
-          return LocalTime.ofNanoOfDay(newValue)
+          LocalTime.ofNanoOfDay(newValue)
         case MICRO_OF_SECOND =>
-          return withNano(newValue.toInt * 1000)
+          withNano(newValue.toInt * 1000)
         case MICRO_OF_DAY =>
-          return LocalTime.ofNanoOfDay(newValue * 1000)
+          LocalTime.ofNanoOfDay(newValue * 1000)
         case MILLI_OF_SECOND =>
-          return withNano(newValue.toInt * 1000000)
+          withNano(newValue.toInt * 1000000)
         case MILLI_OF_DAY =>
-          return LocalTime.ofNanoOfDay(newValue * 1000000)
+          LocalTime.ofNanoOfDay(newValue * 1000000)
         case SECOND_OF_MINUTE =>
-          return withSecond(newValue.toInt)
+          withSecond(newValue.toInt)
         case SECOND_OF_DAY =>
-          return plusSeconds(newValue - toSecondOfDay)
+          plusSeconds(newValue - toSecondOfDay)
         case MINUTE_OF_HOUR =>
-          return withMinute(newValue.toInt)
+          withMinute(newValue.toInt)
         case MINUTE_OF_DAY =>
-          return plusMinutes(newValue - (hour * 60 + minute))
+          plusMinutes(newValue - (hour * 60 + minute))
         case HOUR_OF_AMPM =>
-          return plusHours(newValue - (hour % 12))
+          plusHours(newValue - (hour % 12))
         case CLOCK_HOUR_OF_AMPM =>
-          return plusHours((if (newValue == 12) 0 else newValue) - (hour % 12))
+          plusHours((if (newValue == 12) 0 else newValue) - (hour % 12))
         case HOUR_OF_DAY =>
-          return withHour(newValue.toInt)
+          withHour(newValue.toInt)
         case CLOCK_HOUR_OF_DAY =>
-          return withHour((if (newValue == 24) 0 else newValue).toInt)
+          withHour((if (newValue == 24) 0 else newValue).toInt)
         case AMPM_OF_DAY =>
-          return plusHours((newValue - (hour / 12)) * 12)
+          plusHours((newValue - (hour / 12)) * 12)
+        case _ => throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
       }
-      throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
+
+    } else {
+      field.adjustInto(this, newValue)
     }
-    field.adjustInto(this, newValue)
   }
 
   /**
