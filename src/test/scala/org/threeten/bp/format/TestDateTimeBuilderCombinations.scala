@@ -60,11 +60,17 @@ import org.threeten.bp.temporal.TemporalQuery
   */
 object TestDateTimeBuilderCombinations {
   private val PARIS: ZoneId = ZoneId.of("Europe/Paris")
+
+  private val localDateFrom = new TemporalQuery[LocalDate]() {
+    def queryFrom(temporal: TemporalAccessor): LocalDate = LocalDate.from(temporal)
+  }
 }
 
 class TestDateTimeBuilderCombinations extends TestNGSuite {
+  import TestDateTimeBuilderCombinations.localDateFrom
+
   @DataProvider(name = "combine") private[format] def data_combine: Array[Array[Any]] = {
-    Array[Array[Any]](Array(YEAR, 2012, MONTH_OF_YEAR, 6, DAY_OF_MONTH, 3, null, null, LocalDate.from _, LocalDate.of(2012, 6, 3)), Array(PROLEPTIC_MONTH, 2012 * 12 + 6 - 1, DAY_OF_MONTH, 3, null, null, null, null, LocalDate.from _, LocalDate.of(2012, 6, 3)), Array(YEAR, 2012, ALIGNED_WEEK_OF_YEAR, 6, DAY_OF_WEEK, 3, null, null, LocalDate.from _, LocalDate.of(2012, 2, 8)), Array(YEAR, 2012, DAY_OF_YEAR, 155, null, null, null, null, LocalDate.from _, LocalDate.of(2012, 6, 3)), Array(EPOCH_DAY, 12, null, null, null, null, null, null, LocalDate.from _, LocalDate.of(1970, 1, 13)))
+    Array[Array[Any]](Array(YEAR, 2012, MONTH_OF_YEAR, 6, DAY_OF_MONTH, 3, null, null, localDateFrom, LocalDate.of(2012, 6, 3)), Array(PROLEPTIC_MONTH, 2012 * 12 + 6 - 1, DAY_OF_MONTH, 3, null, null, null, null, localDateFrom, LocalDate.of(2012, 6, 3)), Array(YEAR, 2012, ALIGNED_WEEK_OF_YEAR, 6, DAY_OF_WEEK, 3, null, null, localDateFrom, LocalDate.of(2012, 2, 8)), Array(YEAR, 2012, DAY_OF_YEAR, 155, null, null, null, null, localDateFrom, LocalDate.of(2012, 6, 3)), Array(EPOCH_DAY, 12, null, null, null, null, null, null, localDateFrom, LocalDate.of(1970, 1, 13)))
   }
 
   @Test(dataProvider = "combine") def test_derive(field1: TemporalField, value1: Number, field2: TemporalField, value2: Number, field3: TemporalField, value3: Number, field4: TemporalField, value4: Number, query: TemporalQuery[Any], expectedVal: AnyRef): Unit = {
