@@ -51,7 +51,7 @@ import java.lang.reflect.Modifier
   * Base test class.
   */
 object AbstractTest extends TestNGSuite {
-  private val SERIALISATION_DATA_FOLDER: String = "src/test/resources/"
+  private val SERIALISATION_DATA_FOLDER: String = "jvm/src/test/resources/"
 
   def isIsoLeap(year: Long): Boolean =
     if (year % 4 != 0)
