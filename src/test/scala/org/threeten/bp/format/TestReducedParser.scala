@@ -73,7 +73,7 @@ import org.threeten.bp.temporal.TemporalQueries
   @Test(dataProvider = "Parse") def test_parse(pp: DateTimeFormatterBuilder.ReducedPrinterParser, input: String, pos: Int, parseLen: Int, parseVal: Integer): Unit = {
     val newPos: Int = pp.parse(parseContext, input, pos)
     assertEquals(newPos, parseLen)
-    assertParsed(YEAR, if (parseVal != null) parseVal.asInstanceOf[Long] else null)
+    assertParsed(YEAR, if (parseVal != null) parseVal.toLong else null)
   }
 
   @DataProvider(name = "ParseLenient") private[format] def provider_parseLenient: Array[Array[Any]] = {
@@ -84,7 +84,7 @@ import org.threeten.bp.temporal.TemporalQueries
     parseContext.setStrict(false)
     val newPos: Int = pp.parse(parseContext, input, pos)
     assertEquals(newPos, parseLen)
-    assertParsed(YEAR, if (parseVal != null) parseVal.asInstanceOf[Long] else null)
+    assertParsed(YEAR, if (parseVal != null) parseVal.toLong else null)
   }
 
   private def assertParsed(field: TemporalField, value: java.lang.Long): Unit = {
