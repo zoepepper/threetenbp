@@ -865,6 +865,11 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
                                               private val chrono: Chronology,
                                               private val zone: ZoneId) {
 
+  Objects.requireNonNull(printerParser, "printerParser")
+  Objects.requireNonNull(locale, "locale")
+  Objects.requireNonNull(decimalStyle, "decimalStyle")
+  Objects.requireNonNull(resolverStyle, "resolverStyle")
+
   /**
     * Gets the locale to be used during formatting.
     * <p>
