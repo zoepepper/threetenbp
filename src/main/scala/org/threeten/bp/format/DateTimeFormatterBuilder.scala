@@ -855,7 +855,7 @@ object DateTimeFormatterBuilder {
       var pos: Int = _position
       scala.util.control.Breaks.breakable {
         while (pos < maxEndPos) {
-          val ch: Char = text.charAt(pos - 1)
+          val ch: Char = text.charAt(pos)
           pos += 1
           val digit: Int = context.getSymbols.convertToDigit(ch)
           if (digit < 0) {
