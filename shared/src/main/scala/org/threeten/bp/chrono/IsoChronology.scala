@@ -97,9 +97,7 @@ object IsoChronology {
   val INSTANCE: IsoChronology = new IsoChronology
 }
 
-/**
-  * Restricted constructor.
-  */
+/** @constructor Restricted constructor. */
 @SerialVersionUID(-1440403870442975015L)
 final class IsoChronology private() extends Chronology with Serializable {
 

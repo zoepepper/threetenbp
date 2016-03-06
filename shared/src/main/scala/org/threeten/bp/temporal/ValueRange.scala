@@ -113,8 +113,7 @@ object ValueRange {
   }
 }
 
-/**
-  * Restrictive constructor.
+/** @constructor Restrictive constructor.
   *
   * @param minSmallest  the smallest minimum value
   * @param minLargest  the largest minimum value

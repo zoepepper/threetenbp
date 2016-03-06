@@ -180,9 +180,7 @@ object Ser {
 @SerialVersionUID(-8885321777449118786L)
 final class Ser private[zone](private var `type`: Byte, private var `object`: AnyRef) extends Externalizable {
 
-  /**
-    * Constructor for deserialization.
-    */
+  /** @constructor Constructor for deserialization. */
   def this() {
     this(0, null)
   }

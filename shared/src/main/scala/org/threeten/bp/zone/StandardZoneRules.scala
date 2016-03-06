@@ -46,15 +46,6 @@ import org.threeten.bp.LocalDateTime
 import org.threeten.bp.Year
 import org.threeten.bp.ZoneOffset
 
-
-/**
-  * The rules describing how the zone offset varies through the year and historically.
-  * <p>
-  * This class is used by the TZDB time-zone rules.
-  *
-  * <h3>Specification for implementors</h3>
-  * This class is immutable and thread-safe.
-  */
 @SerialVersionUID(3044319355680032515L)
 object StandardZoneRules {
   /**
@@ -185,7 +176,14 @@ object StandardZoneRules {
   }
 }
 
-/** Utility constructor.
+/** The rules describing how the zone offset varies through the year and historically.
+  * <p>
+  * This class is used by the TZDB time-zone rules.
+  *
+  * <h3>Specification for implementors</h3>
+  * This class is immutable and thread-safe.
+  *
+  * @constructor Utility constructor.
   *
   * @param standardTransitions  the standard transitions, not null
   * @param standardOffsets  the standard offsets, not null
@@ -220,8 +218,7 @@ final class StandardZoneRules private(private val standardTransitions: Array[Lon
                          lastRules: java.util.List[ZoneOffsetTransitionRule]) {
   }*/
 
-  /**
-    * Constructor.
+  /** @constructor
     *
     * @param standardTransitions  the standard transitions, not null
     * @param standardOffsets  the standard offsets, not null

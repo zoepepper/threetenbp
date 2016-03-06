@@ -374,9 +374,7 @@ object ZoneId {
   }
 }
 
-/**
-  * Constructor only accessible within the package.
-  */
+/** Constructor only accessible within the package. */
 @SerialVersionUID(8352817235686L)
 abstract class ZoneId private[bp]() extends Serializable {
   if ((getClass ne classOf[ZoneOffset]) && (getClass ne classOf[ZoneRegion]))

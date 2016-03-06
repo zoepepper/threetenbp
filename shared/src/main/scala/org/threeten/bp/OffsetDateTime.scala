@@ -320,7 +320,7 @@ object OffsetDateTime {
   * <h3>Specification for implementors</h3>
   * This class is immutable and thread-safe.
   *
-  * Constructor.
+  * @constructor
   *
   * @param dateTime  the local date-time, not null
   * @param offset  the zone offset, not null

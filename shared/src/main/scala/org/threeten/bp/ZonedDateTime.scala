@@ -519,7 +519,7 @@ object ZonedDateTime {
   * <p>
   * This class is immutable and thread-safe.
   *
-  * Constructor.
+  * @constructor
   *
   * @param dateTime  the date-time, validated as not null
   * @param offset  the zone offset, validated as not null

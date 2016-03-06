@@ -94,10 +94,9 @@ object ZoneRules {
     new ZoneRules.Fixed(offset)
   }
 
-  /**
-    * Fixed time-zone.
+  /** Fixed time-zone.
     *
-    * Constructor.
+    * @constructor
     *
     * @param offset  the offset, not null
     */
@@ -144,9 +143,7 @@ object ZoneRules {
 
 }
 
-/**
-  * Restricted constructor.
-  */
+/** @constructor Restricted constructor. */
 abstract class ZoneRules private[zone]() {
 
 

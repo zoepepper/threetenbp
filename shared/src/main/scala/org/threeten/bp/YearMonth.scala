@@ -236,7 +236,7 @@ object YearMonth {
 }
 
 /**
-  * Constructor.
+  * @constructor
   *
   * @param year  the year to represent, validated from MIN_YEAR to MAX_YEAR
   * @param month  the month-of-year to represent, validated from 1 (January) to 12 (December)

@@ -55,28 +55,6 @@ import org.threeten.bp.temporal.TemporalUnit
 import org.threeten.bp.temporal.UnsupportedTemporalTypeException
 import org.threeten.bp.temporal.ValueRange
 
-/**
-  * A date in the Japanese Imperial calendar system.
-  * <p>
-  * This date operates using the {@linkplain JapaneseChronology Japanese Imperial calendar}.
-  * This calendar system is primarily used in Japan.
-  * <p>
-  * The Japanese Imperial calendar system is the same as the ISO calendar system
-  * apart from the era-based year numbering. The proleptic-year is defined to be
-  * equal to the ISO proleptic-year.
-  * <p>
-  * Japan introduced the Gregorian calendar starting with Meiji 6.
-  * Only Meiji and later eras are supported.
-  * <p>
-  * For example, the Japanese year "Heisei 24" corresponds to ISO year "2012".<br>
-  * Calling {@code japaneseDate.get(YEAR_OF_ERA)} will return 24.<br>
-  * Calling {@code japaneseDate.get(YEAR)} will return 2012.<br>
-  * Calling {@code japaneseDate.get(ERA)} will return 2, corresponding to
-  * {@code JapaneseChEra.HEISEI}.<br>
-  *
-  * <h3>Specification for implementors</h3>
-  * This class is immutable and thread-safe.
-  */
 @SerialVersionUID(-305327627230580483L)
 object JapaneseDate {
   /**
@@ -246,8 +224,30 @@ object JapaneseDate {
   }
 }
 
-/**
-  * Constructs a {@code JapaneseDate}. This constructor does NOT validate the given parameters,
+/** A date in the Japanese Imperial calendar system.
+  * <p>
+  * This date operates using the {@linkplain JapaneseChronology Japanese Imperial calendar}.
+  * This calendar system is primarily used in Japan.
+  * <p>
+  * The Japanese Imperial calendar system is the same as the ISO calendar system
+  * apart from the era-based year numbering. The proleptic-year is defined to be
+  * equal to the ISO proleptic-year.
+  * <p>
+  * Japan introduced the Gregorian calendar starting with Meiji 6.
+  * Only Meiji and later eras are supported.
+  * <p>
+  * For example, the Japanese year "Heisei 24" corresponds to ISO year "2012".<br>
+  * Calling {@code japaneseDate.get(YEAR_OF_ERA)} will return 24.<br>
+  * Calling {@code japaneseDate.get(YEAR)} will return 2012.<br>
+  * Calling {@code japaneseDate.get(ERA)} will return 2, corresponding to
+  * {@code JapaneseChEra.HEISEI}.<br>
+  *
+  * <h3>Specification for implementors</h3>
+  * This class is immutable and thread-safe.
+  *
+  * @constructor Constructs a {@code JapaneseDate}.
+  *
+  * This constructor does NOT validate the given parameters,
   * and {@code era} and {@code year} must agree with {@code isoDate}.
   *
   * @param era  the era, validated not null

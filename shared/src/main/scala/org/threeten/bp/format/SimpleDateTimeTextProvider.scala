@@ -88,7 +88,7 @@ object SimpleDateTimeTextProvider {
     * <p>
     * This class is immutable and thread-safe.
     *
-    * Constructor.
+    * @constructor
     *
     * @param valueTextMap  the map of values to text to store, assigned and not altered, not null
     */

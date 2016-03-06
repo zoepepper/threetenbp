@@ -132,7 +132,7 @@ object ChronoZonedDateTimeImpl {
   *
   * @tparam D the date type
   *
-  * Constructor.
+  * @constructor
   *
   * @param dateTime  the date-time, not null
   * @param offset  the zone offset, not null

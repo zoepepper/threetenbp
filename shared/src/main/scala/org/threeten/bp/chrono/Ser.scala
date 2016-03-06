@@ -143,7 +143,7 @@ private object Ser {
   * <p>
   * This class is mutable and should be created once per serialization.
   *
-  * Creates an instance for serialization.
+  * @constructor Creates an instance for serialization.
   *
   * @param type  the type being serialized
   * @param object  the object being serialized
@@ -151,9 +151,7 @@ private object Ser {
 @SerialVersionUID(7857518227608961174L)
 final class Ser private[chrono](private var `type`: Byte, private var `object`: AnyRef) extends Externalizable {
 
-  /**
-    * Constructor for deserialization.
-    */
+  /** @constructor Constructor for deserialization. */
   def this() {
     this(0, null)
   }

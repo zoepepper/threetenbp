@@ -123,7 +123,7 @@ private object Ser {
   * <p>
   * This class is mutable and should be created once per serialization.
   *
-  * Creates an instance for serialization.
+  * @constructor Creates an instance for serialization.
   *
   * @param type  the type being serialized
   * @param object  the object being serialized

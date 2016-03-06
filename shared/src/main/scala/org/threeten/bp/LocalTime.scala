@@ -433,7 +433,7 @@ object LocalTime {
   * <h3>Specification for implementors</h3>
   * This class is immutable and thread-safe.
   *
-  * Constructor, previously validated.
+  * @constructor Constructor, previously validated.
   *
   * @param _hour  the hour-of-day to represent, validated from 0 to 23
   * @param _minute  the minute-of-hour to represent, validated from 0 to 59

@@ -108,8 +108,7 @@ object DecimalStyle {
   }
 }
 
-/**
-  * Restricted constructor.
+/** @constructor Restricted constructor.
   *
   * @param zeroDigit  the character to use for the digit of zero
   * @param positiveSign  the character to use for the positive sign

@@ -199,9 +199,7 @@ object HijrahChronology {
   }
 }
 
-/**
-  * Restrictive constructor.
-  */
+/** @constructor Restrictive constructor. */
 @SerialVersionUID(3127340209035924785L)
 final class HijrahChronology private() extends Chronology with Serializable {
 

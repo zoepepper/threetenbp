@@ -243,7 +243,7 @@ object MonthDay {
   * <h3>Specification for implementors</h3>
   * This class is immutable and thread-safe.
   *
-  * Constructor, previously validated.
+  * @constructor Constructor, previously validated.
   *
   * @param month  the month-of-year to represent, validated from 1 to 12
   * @param day  the day-of-month to represent, validated from 1 to 29-31

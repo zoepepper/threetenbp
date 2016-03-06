@@ -367,7 +367,7 @@ object LocalDate {
   * <h3>Specification for implementors</h3>
   * This class is immutable and thread-safe.
   *
-  * Constructor, previously validated.
+  * @constructor Constructor, previously validated.
   *
   * @param year  the year to represent, from MIN_YEAR to MAX_YEAR
   * @param monthOfYear  the month-of-year to represent, not null

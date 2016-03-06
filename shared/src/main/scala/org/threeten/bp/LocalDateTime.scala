@@ -415,7 +415,7 @@ object LocalDateTime {
   * <h3>Specification for implementors</h3>
   * This class is immutable and thread-safe.
   *
-  * Constructor.
+  * @constructor
   *
   * @param date  the date part of the date-time, validated not null
   * @param time  the time part of the date-time, validated not null

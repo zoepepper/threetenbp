@@ -57,37 +57,6 @@ import org.threeten.bp.temporal.TemporalAccessor
 import org.threeten.bp.temporal.TemporalField
 import org.threeten.bp.temporal.TemporalQuery
 
-/**
-  * Formatter for printing and parsing date-time objects.
-  * <p>
-  * This class provides the main application entry point for printing and parsing.
-  * Common instances of {@code DateTimeFormatter} are provided:
-  * <p><ul>
-  * <li>Using pattern letters, such as {@code yyyy-MMM-dd}
-  * <li>Using localized styles, such as {@code long} or {@code medium}
-  * <li>Using predefined constants, such as {@link #ISO_LOCAL_DATE}
-  * </ul><p>
-  * <p>
-  * For more complex formatters, a {@link DateTimeFormatterBuilder builder} is provided.
-  * <p>
-  * In most cases, it is not necessary to use this class directly when formatting.
-  * The main date-time classes provide two methods - one for formatting,
-  * {@code format(DateTimeFormatter formatter)}, and one for parsing,
-  * For example:
-  * <pre>
-  * String text = date.format(formatter);
-  * LocalDate date = LocalDate.parse(text, formatter);
-  * </pre>
-  * Some aspects of printing and parsing are dependent on the locale.
-  * The locale can be changed using the {@link #withLocale(Locale)} method
-  * which returns a new formatter in the requested locale.
-  * <p>
-  * Some applications may need to use the older {@link Format} class for formatting.
-  * The {@link #toFormat()} method returns an implementation of the old API.
-  *
-  * <h3>Specification for implementors</h3>
-  * This class is immutable and thread-safe.
-  */
 object DateTimeFormatter {
   /**
     * Returns the ISO date formatter that prints/parses a date without an offset,
@@ -840,8 +809,37 @@ object DateTimeFormatter {
   }
 }
 
-/**
-  * Constructor.
+/** Formatter for printing and parsing date-time objects.
+  * <p>
+  * This class provides the main application entry point for printing and parsing.
+  * Common instances of {@code DateTimeFormatter} are provided:
+  * <p><ul>
+  * <li>Using pattern letters, such as {@code yyyy-MMM-dd}
+  * <li>Using localized styles, such as {@code long} or {@code medium}
+  * <li>Using predefined constants, such as {@link #ISO_LOCAL_DATE}
+  * </ul><p>
+  * <p>
+  * For more complex formatters, a {@link DateTimeFormatterBuilder builder} is provided.
+  * <p>
+  * In most cases, it is not necessary to use this class directly when formatting.
+  * The main date-time classes provide two methods - one for formatting,
+  * {@code format(DateTimeFormatter formatter)}, and one for parsing,
+  * For example:
+  * <pre>
+  * String text = date.format(formatter);
+  * LocalDate date = LocalDate.parse(text, formatter);
+  * </pre>
+  * Some aspects of printing and parsing are dependent on the locale.
+  * The locale can be changed using the {@link #withLocale(Locale)} method
+  * which returns a new formatter in the requested locale.
+  * <p>
+  * Some applications may need to use the older {@link Format} class for formatting.
+  * The {@link #toFormat()} method returns an implementation of the old API.
+  *
+  * <h3>Specification for implementors</h3>
+  * This class is immutable and thread-safe.
+  *
+  * @constructor
   *
   * @param printerParser  the printer/parser to use, not null
   * @param locale  the locale to use, not null

@@ -490,25 +490,27 @@ final class ChronoField private(name: String,
                                 ordinal: Int,
                                 private val baseUnit: TemporalUnit,
                                 private val rangeUnit: TemporalUnit,
-                                /**
-                                  * Gets the range of valid values for the field.
-                                  * <p>
-                                  * All fields can be expressed as a {@code long} integer.
-                                  * This method returns an object that describes the valid range for that value.
-                                  * <p>
-                                  * This method returns the range of the field in the ISO-8601 calendar system.
-                                  * This range may be incorrect for other calendar systems.
-                                  * Use {@link Chronology#range(ChronoField)} to access the correct range
-                                  * for a different calendar system.
-                                  * <p>
-                                  * Note that the result only describes the minimum and maximum valid values
-                                  * and it is important not to read too much into them. For example, there
-                                  * could be values within the range that are invalid for the field.
-                                  *
-                                  * @return the range of valid values for the field, not null
-                                  */
-                                val range: ValueRange)
+                                private val _range: ValueRange)
   extends Enum[ChronoField](name, ordinal) with TemporalField {
+
+  /**
+    * Gets the range of valid values for the field.
+    * <p>
+    * All fields can be expressed as a {@code long} integer.
+    * This method returns an object that describes the valid range for that value.
+    * <p>
+    * This method returns the range of the field in the ISO-8601 calendar system.
+    * This range may be incorrect for other calendar systems.
+    * Use {@link Chronology#range(ChronoField)} to access the correct range
+    * for a different calendar system.
+    * <p>
+    * Note that the result only describes the minimum and maximum valid values
+    * and it is important not to read too much into them. For example, there
+    * could be values within the range that are invalid for the field.
+    *
+    * @return the range of valid values for the field, not null
+    */
+  def range = _range
 
   def getBaseUnit: TemporalUnit = baseUnit
 
@@ -542,7 +544,7 @@ final class ChronoField private(name: String,
     * @param value  the value to check
     * @return the value that was passed in
     */
-  def checkValidValue(value: Long): Long = range.checkValidValue(value, this)
+  def checkValidValue(value: Long): Long = _range.checkValidValue(value, this)
 
   /**
     * Checks that the specified value is valid and fits in an {@code int}.
@@ -559,7 +561,7 @@ final class ChronoField private(name: String,
     * @param value  the value to check
     * @return the value that was passed in
     */
-  def checkValidIntValue(value: Long): Int = range.checkValidIntValue(value, this)
+  def checkValidIntValue(value: Long): Int = _range.checkValidIntValue(value, this)
 
   def isSupportedBy(temporal: TemporalAccessor): Boolean = temporal.isSupported(this)
 

@@ -135,7 +135,7 @@ object ChronoLocalDateTimeImpl {
   *
   * @tparam D the date type
   *
-  * Constructor.
+  * @constructor
   *
   * @param date  the date part of the date-time, not null
   * @param time  the time part of the date-time, not null

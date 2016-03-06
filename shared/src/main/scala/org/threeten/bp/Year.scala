@@ -254,7 +254,7 @@ object Year {
   * <h3>Specification for implementors</h3>
   * This class is immutable and thread-safe.
   *
-  * Constructor.
+  * @constructor
   *
   * @param year  the year to represent
   */

@@ -341,12 +341,11 @@ class ZoneRulesBuilder() {
     deduplicateMap.get(`object`).asInstanceOf[T]
   }
 
-  /**
-    * A definition of a window in the time-line.
+  /** A definition of a window in the time-line.
     * The window will have one standard offset and will either have a
     * fixed DST savings or a set of rules.
     *
-    * Constructor.
+    * @constructor
     *
     * @param standardOffset  the standard offset applicable during the window, not null
     * @param windowEnd  the end of the window, relative to the time definition, null if forever
@@ -500,10 +499,9 @@ class ZoneRulesBuilder() {
     }
   }
 
-  /**
-    * A definition of the way a local time can be converted to an offset time.
+  /** A definition of the way a local time can be converted to an offset time.
     *
-    * Constructor.
+    * @constructor
     *
     * @param year  the year
     * @param month  the month, not null

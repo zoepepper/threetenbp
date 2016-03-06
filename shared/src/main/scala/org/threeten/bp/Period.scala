@@ -319,7 +319,7 @@ object Period {
 }
 
 /**
-  * Constructor.
+  * @constructor
   *
   * @param years  the amount
   * @param months  the amount

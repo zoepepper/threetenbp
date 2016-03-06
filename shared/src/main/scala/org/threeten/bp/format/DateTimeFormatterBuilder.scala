@@ -303,7 +303,7 @@ object DateTimeFormatterBuilder {
 
   /** Pads the output to a fixed width.
     *
-    * Constructor.
+    * @constructor
     *
     * @param printerParser  the printer, not null
     * @param padWidth  the width to pad to, 1 or greater
@@ -450,7 +450,7 @@ object DateTimeFormatterBuilder {
     private[format] val EXCEED_POINTS: Array[Int] = Array[Int](0, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000)
   }
 
-    /** Constructor.
+    /** @constructor
       *
       * @param field  the field to print, not null
       * @param minWidth  the minimum field width, from 1 to 19
@@ -465,7 +465,7 @@ object DateTimeFormatterBuilder {
                                                             private[format] val signStyle: SignStyle,
                                                             private[format] val subsequentWidth: Int) extends DateTimePrinterParser {
 
-    /** Constructor.
+    /** @constructor
       *
       * @param field  the field to print, not null
       * @param minWidth  the minimum field width, from 1 to 19
@@ -682,7 +682,7 @@ object DateTimeFormatterBuilder {
     private[format] val BASE_DATE: LocalDate = LocalDate.of(2000, 1, 1)
   }
 
-    /** Constructor.
+    /** @constructor
       *
       * @param field  the field to print, validated not null
       * @param minWidth  the field width, from 1 to 10
@@ -778,8 +778,7 @@ object DateTimeFormatterBuilder {
 
   /** Prints and parses a numeric date-time field with optional padding.
     *
-    *
-    * Constructor.
+    * @constructor
     *
     * @param field  the field to output, not null
     * @param minWidth  the minimum width to output, from 0 to 9
@@ -929,7 +928,7 @@ object DateTimeFormatterBuilder {
 
   /** Prints or parses field text.
     *
-    * Constructor.
+    * @constructor
     *
     * @param field  the field to output, not null
     * @param textStyle  the text style, not null
@@ -1127,7 +1126,7 @@ object DateTimeFormatterBuilder {
     private[format] val INSTANCE_ID: OffsetIdPrinterParser = new OffsetIdPrinterParser("Z", "+HH:MM:ss")
   }
 
-    /** Constructor.
+    /** @constructor
       *
       * @param noOffsetText  the text to use for UTC, not null
       * @param pattern  the pattern
@@ -1446,7 +1445,7 @@ object DateTimeFormatterBuilder {
       * substring is no longer found, at which point the matched text is checked
       * against the real time-zones.
       *
-      * Constructor.
+      * @constructor
       *
       * @param length  The length of the substring this node of the tree contains.
       *                Subtrees will have a longer length.
@@ -1680,7 +1679,7 @@ object DateTimeFormatterBuilder {
 
   /** Prints or parses a localized pattern.
     *
-    * Constructor.
+    * @constructor
     *
     * @param dateStyle  the date style to use, may be null
     * @param timeStyle  the time style to use, may be null
