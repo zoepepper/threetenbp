@@ -68,12 +68,6 @@ object Chronology {
     * Map of available calendars by calendar type.
     */
   private val CHRONOS_BY_TYPE: ConcurrentHashMap[String, Chronology] = new ConcurrentHashMap[String, Chronology]
-  /**
-    * Access JDK 7 method if on JDK 7.
-    */
-  private val LOCALE_METHOD: Method =
-    try classOf[Locale].getMethod("getUnicodeLocaleType", classOf[String])
-    catch { case ex: Throwable => null }
 
   /**
     * Obtains an instance of {@code Chronology} from a temporal object.
@@ -140,24 +134,13 @@ object Chronology {
   def ofLocale(locale: Locale): Chronology = {
     init()
     Objects.requireNonNull(locale, "locale")
-    var `type`: String = "iso"
-    if (LOCALE_METHOD != null)
-      try {
-        `type` = LOCALE_METHOD.invoke(locale, "ca").asInstanceOf[String]
-      }
-      catch {
-        case ex: IllegalArgumentException =>
-        case ex: IllegalAccessException =>
-        case ex: InvocationTargetException =>
-      }
-    else if (locale == JapaneseChronology.LOCALE)
-      `type` = "japanese"
-    if (`type` == null || ("iso" == `type`) || ("iso8601" == `type`))
+    val localeType: String = locale.getUnicodeLocaleType("ca")
+    if (localeType == null || ("iso" == localeType) || ("iso8601" == localeType))
       IsoChronology.INSTANCE
     else {
-      val chrono: Chronology = CHRONOS_BY_TYPE.get(`type`)
+      val chrono: Chronology = CHRONOS_BY_TYPE.get(localeType)
       if (chrono == null)
-        throw new DateTimeException("Unknown calendar system: " + `type`)
+        throw new DateTimeException(s"Unknown calendar system: $localeType")
       chrono
     }
   }
