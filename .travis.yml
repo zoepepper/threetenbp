@@ -1,11 +1,28 @@
 # This file enables the Travis continuous integration system, which
-# automatically builds and tests the project for each GitHub commit or 
+# automatically builds and tests the project for each GitHub commit or
 # pull request on three separate JDKs.
 #
 # For more information, see https://travis-ci.org
 
-language: java
+language: scala
 
-jdk: 
-  - oraclejdk7
-  - openjdk6
+jdk:
+  - oraclejdk8
+
+scala:
+  - 2.11.7
+
+cache:
+  directories:
+    - $HOME/.ivy2
+    - $HOME/.m2
+    - $HOME/.coursier
+
+env:
+  - COURSIER_NO_TERM=1
+
+script:
+  - sbt clean coverage test &&
+    sbt coverageAggregate
+after_success:
+  - sbt coveralls

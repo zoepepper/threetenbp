@@ -6,6 +6,8 @@ This project ports the original reference implementation (before it was contribu
 This GitHub repository is a fork of that originally used to create JSR-310.
 That repository used the same BSD 3-clause license as this repository.
 
+[![Build Status](https://travis-ci.org/soc/threetenbp.svg?branch=master)](https://travis-ci.org/soc/threetenbp)
+
 #### Building
 This project builds using sbt.
 Run `sbt test` to run the test suite.

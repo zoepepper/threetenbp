@@ -107,19 +107,20 @@ object ZoneOffset {
   def of(offsetId: String): ZoneOffset = {
     var _offsetId = offsetId
     Objects.requireNonNull(_offsetId, "offsetId")
+
+    // "Z" is always in the cache
     val offset: ZoneOffset = ID_CACHE.get(_offsetId)
     if (offset != null)
       return offset
     var hours: Int = 0
     var minutes: Int = 0
     var seconds: Int = 0
-    /*
-    if (_offsetId.length == 2) // ALSO NOT RIGHT
+
+    // If we get a two character code such as "-9", pad the digits to "-09" and parse normally
+    if (_offsetId.length == 2)
       _offsetId = _offsetId.charAt(0) + "0" + _offsetId.charAt(1)
-    */
+
     _offsetId.length match {
-      case 2 => /// !!! FIXME FALLTHROUGH ???
-        _offsetId = _offsetId.charAt(0) + "0" + _offsetId.charAt(1)
       case 3 =>
         hours = parseNumber(_offsetId, 1, false)
         minutes = 0

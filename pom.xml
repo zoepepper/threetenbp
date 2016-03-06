@@ -83,8 +83,8 @@
 
   <!-- ==================================================================== -->
   <build>
-    <sourceDirectory>src/main/scala</sourceDirectory>
-    <testSourceDirectory>src/test/scala</testSourceDirectory>
+    <sourceDirectory>shared/src/main/scala</sourceDirectory>
+    <testSourceDirectory>shared/src/test/scala</testSourceDirectory>
     <resources>
       <resource>
         <targetPath>META-INF</targetPath>
