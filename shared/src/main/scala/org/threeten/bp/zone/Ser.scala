@@ -41,8 +41,7 @@ import java.io.ObjectOutput
 import java.io.StreamCorruptedException
 import org.threeten.bp.ZoneOffset
 
-/**
-  * The shared serialization delegate for this package.
+/** The shared serialization delegate for this package.
   *
   * <h4>Implementation notes</h4>
   * This class is mutable and should be created once per serialization.
@@ -98,8 +97,7 @@ object Ser {
     }
   }
 
-  /**
-    * Writes the state to the stream.
+  /** Writes the state to the stream.
     *
     * @param offset  the offset, not null
     * @param out  the output stream, not null
@@ -115,8 +113,7 @@ object Ser {
     }
   }
 
-  /**
-    * Reads the state from the stream.
+  /** Reads the state from the stream.
     *
     * @param in  the input stream, not null
     * @return the created object, not null
@@ -128,8 +125,7 @@ object Ser {
     if (offsetByte == 127) ZoneOffset.ofTotalSeconds(in.readInt) else ZoneOffset.ofTotalSeconds(offsetByte * 900)
   }
 
-  /**
-    * Writes the state to the stream.
+  /** Writes the state to the stream.
     *
     * @param epochSec  the epoch seconds, not null
     * @param out  the output stream, not null
@@ -149,8 +145,7 @@ object Ser {
     }
   }
 
-  /**
-    * Reads the state from the stream.
+  /** Reads the state from the stream.
     *
     * @param in  the input stream, not null
     * @return the epoch seconds, not null
@@ -171,8 +166,7 @@ object Ser {
   }
 }
 
-/**
-  * Creates an instance for serialization.
+/** Creates an instance for serialization.
   *
   * @param type  the type being serialized
   * @param object  the object being serialized
@@ -185,16 +179,14 @@ final class Ser private[zone](private var `type`: Byte, private var `object`: An
     this(0, null)
   }
 
-  /**
-    * Implements the {@code Externalizable} interface to write the object.
+  /** Implements the {@code Externalizable} interface to write the object.
     *
     * @param out  the data stream to write to, not null
     */
   @throws[IOException]
   def writeExternal(out: ObjectOutput): Unit = Ser.writeInternal(`type`, `object`, out)
 
-  /**
-    * Implements the {@code Externalizable} interface to read the object.
+  /** Implements the {@code Externalizable} interface to read the object.
     *
     * @param in  the data to read, not null
     */
@@ -205,8 +197,7 @@ final class Ser private[zone](private var `type`: Byte, private var `object`: An
     `object` = Ser.readInternal(`type`, in)
   }
 
-  /**
-    * Returns the object that will replace this one.
+  /** Returns the object that will replace this one.
     *
     * @return the read object, should never be null
     */

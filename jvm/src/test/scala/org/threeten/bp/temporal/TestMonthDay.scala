@@ -46,9 +46,7 @@ import org.threeten.bp.chrono.IsoChronology
 import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.format.DateTimeParseException
 
-/**
-  * Test MonthDay.
-  */
+/** Test MonthDay. */
 @Test class TestMonthDay extends AbstractDateTimeTest {
   private var TEST_07_15: MonthDay = null
 

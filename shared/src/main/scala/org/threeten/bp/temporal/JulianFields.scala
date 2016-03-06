@@ -39,8 +39,7 @@ import org.threeten.bp.DateTimeException
 import org.threeten.bp.chrono.Chronology
 import org.threeten.bp.format.ResolverStyle
 
-/**
-  * A set of date fields that provide access to Julian Days.
+/** A set of date fields that provide access to Julian Days.
   *
   * The Julian Day is a standard way of expressing date and time commonly used in the scientific community.
   * It is expressed as a decimal number of whole days where days start at midday.
@@ -50,8 +49,7 @@ import org.threeten.bp.format.ResolverStyle
   * This is an immutable and thread-safe class.
   */
 object JulianFields {
-  /**
-    * Julian Day field.
+  /** Julian Day field.
     *
     * This is an integer-based version of the Julian Day Number.
     * Julian Day is a well-known system that represents the count of whole days since day 0,
@@ -90,8 +88,7 @@ object JulianFields {
     * regardless of the offset or time-zone.
     */
   val JULIAN_DAY: TemporalField = Field.JULIAN_DAY
-  /**
-    * Modified Julian Day field.
+  /** Modified Julian Day field.
     *
     * This is an integer-based version of the Modified Julian Day Number.
     * Modified Julian Day (MJD) is a well-known system that counts days continuously.
@@ -125,8 +122,7 @@ object JulianFields {
     * regardless of the offset or time-zone.
     */
   val MODIFIED_JULIAN_DAY: TemporalField = Field.MODIFIED_JULIAN_DAY
-  /**
-    * Rata Die field.
+  /** Rata Die field.
     *
     * Rata Die counts whole days continuously starting day 1 at midnight at the beginning of 0001-01-01 (ISO).
     * The field always refers to the local date-time, ignoring the offset or zone.
@@ -140,23 +136,16 @@ object JulianFields {
     */
   val RATA_DIE: TemporalField = Field.RATA_DIE
 
-  /**
-    * Hidden implementation.
+  /** Hidden implementation.
     */
   private object Field {
-    /**
-      * Julian Day field.
-      */
+    /** Julian Day field. */
     // 719163L + 1721425L = 2440588L
     val JULIAN_DAY          = new Field("JulianDay", 0, DAYS, FOREVER, 2440588L)
-    /**
-      * Modified Julian Day field.
-      */
+    /** Modified Julian Day field. */
     // 719163L - 678576L = 40587L
     val MODIFIED_JULIAN_DAY = new Field("ModifiedJulianDay", 1, DAYS, FOREVER, 40587L)
-    /**
-      * Rata Die field.
-      */
+    /** Rata Die field. */
     val RATA_DIE            = new Field("RataDie", 2, DAYS, FOREVER, 719163L)
   }
 

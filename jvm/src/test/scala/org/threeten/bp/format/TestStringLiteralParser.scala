@@ -37,9 +37,7 @@ import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
 import org.threeten.bp.temporal.TemporalQueries
 
-/**
-  * Test StringLiteralPrinterParser.
-  */
+/** Test StringLiteralPrinterParser. */
 @Test class TestStringLiteralParser extends AbstractTestPrinterParser {
   @DataProvider(name = "success") private[format] def data_success: Array[Array[Any]] = {
     Array[Array[Any]](Array(new DateTimeFormatterBuilder.StringLiteralPrinterParser("hello"), true, "hello", 0, 5), Array(new DateTimeFormatterBuilder.StringLiteralPrinterParser("hello"), true, "helloOTHER", 0, 5), Array(new DateTimeFormatterBuilder.StringLiteralPrinterParser("hello"), true, "OTHERhelloOTHER", 5, 10), Array(new DateTimeFormatterBuilder.StringLiteralPrinterParser("hello"), true, "OTHERhello", 5, 10), Array(new DateTimeFormatterBuilder.StringLiteralPrinterParser("hello"), true, "", 0, ~0), Array(new DateTimeFormatterBuilder.StringLiteralPrinterParser("hello"), true, "a", 1, ~1), Array(new DateTimeFormatterBuilder.StringLiteralPrinterParser("hello"), true, "HELLO", 0, ~0), Array(new DateTimeFormatterBuilder.StringLiteralPrinterParser("hello"), true, "hlloo", 0, ~0), Array(new DateTimeFormatterBuilder.StringLiteralPrinterParser("hello"), true, "OTHERhllooOTHER", 5, ~5), Array(new DateTimeFormatterBuilder.StringLiteralPrinterParser("hello"), true, "OTHERhlloo", 5, ~5), Array(new DateTimeFormatterBuilder.StringLiteralPrinterParser("hello"), true, "h", 0, ~0), Array(new DateTimeFormatterBuilder.StringLiteralPrinterParser("hello"), true, "OTHERh", 5, ~5), Array(new DateTimeFormatterBuilder.StringLiteralPrinterParser("hello"), false, "hello", 0, 5), Array(new DateTimeFormatterBuilder.StringLiteralPrinterParser("hello"), false, "HELLO", 0, 5), Array(new DateTimeFormatterBuilder.StringLiteralPrinterParser("hello"), false, "HelLo", 0, 5), Array(new DateTimeFormatterBuilder.StringLiteralPrinterParser("hello"), false, "HelLO", 0, 5))

@@ -52,8 +52,7 @@ import org.threeten.bp.temporal.TemporalField
 import org.threeten.bp.temporal.TemporalQueries
 import org.threeten.bp.temporal.TemporalQuery
 
-/**
-  * Builder that can holds date and time fields and related date and time objects.
+/** Builder that can holds date and time fields and related date and time objects.
   *
   * The builder is used to hold onto different elements of date and time.
   * It is designed as two separate maps:
@@ -71,37 +70,29 @@ import org.threeten.bp.temporal.TemporalQuery
   * Creates an empty instance of the builder.
   */
 final class DateTimeBuilder() extends TemporalAccessor with Cloneable {
-  /**
-    * The map of other fields.
+  /** The map of other fields.
     */
   private[format] val fieldValues: java.util.Map[TemporalField, java.lang.Long] = new java.util.HashMap[TemporalField, java.lang.Long]
-  /**
-    * The chronology.
+  /** The chronology.
     */
   private[format] var chrono: Chronology = null
-  /**
-    * The zone.
+  /** The zone.
     */
   private[format] var zone: ZoneId = null
-  /**
-    * The date.
+  /** The date.
     */
   private[format] var date: ChronoLocalDate = null
-  /**
-    * The time.
+  /** The time.
     */
   private[format] var time: LocalTime = null
-  /**
-    * The leap second flag.
+  /** The leap second flag.
     */
   private[format] var leapSecond: Boolean = false
-  /**
-    * The excess days.
+  /** The excess days.
     */
   private[format] var excessDays: Period = null
 
-  /**
-    * Creates a new instance of the builder with a single field-value.
+  /** Creates a new instance of the builder with a single field-value.
     *
     * This is equivalent to using {@link #addFieldValue(TemporalField, long)} on an empty builder.
     *
@@ -117,8 +108,7 @@ final class DateTimeBuilder() extends TemporalAccessor with Cloneable {
     fieldValues.get(field)
   }
 
-  /**
-    * Adds a field-value pair to the builder.
+  /** Adds a field-value pair to the builder.
     *
     * This adds a field to the builder.
     * If the field is not already present, then the field-value pair is added to the map.
@@ -149,8 +139,7 @@ final class DateTimeBuilder() extends TemporalAccessor with Cloneable {
 
   private[format] def addObject(time: LocalTime): Unit = this.time = time
 
-  /**
-    * Resolves the builder, evaluating the date and time.
+  /** Resolves the builder, evaluating the date and time.
     *
     * This examines the contents of the builder and resolves it to produce the best
     * available date and time, throwing an exception if a problem occurs.
@@ -545,8 +534,7 @@ final class DateTimeBuilder() extends TemporalAccessor with Cloneable {
     }
   }
 
-  /**
-    * Builds the specified type from the values in this builder.
+  /** Builds the specified type from the values in this builder.
     *
     * This attempts to build the specified type from this builder.
     * If the builder cannot return the type, an exception is thrown.

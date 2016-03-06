@@ -31,8 +31,7 @@
  */
 package org.threeten.bp.format
 
-/**
-  * Enumeration of the style of text formatting and parsing.
+/** Enumeration of the style of text formatting and parsing.
   *
   * Text styles define three sizes for the formatted text - 'full', 'short' and 'narrow'.
   * Each of these three sizes is available in both 'standard' and 'stand-alone' variations.
@@ -63,22 +62,19 @@ object TextStyle {
 }
 
 final class TextStyle(name: String, ordinal: Int) extends Enum[TextStyle](name, ordinal) {
-  /**
-    * Checks if the style is stand-alone.
+  /** Checks if the style is stand-alone.
     *
     * @return true if the style is stand-alone
     */
   def isStandalone: Boolean = (ordinal & 1) == 1
 
-  /**
-    * Converts the style to the equivalent stand-alone style.
+  /** Converts the style to the equivalent stand-alone style.
     *
     * @return the matching stand-alone style
     */
   def asStandalone: TextStyle = TextStyle.values(ordinal | 1)
 
-  /**
-    * Converts the style to the equivalent normal style.
+  /** Converts the style to the equivalent normal style.
     *
     * @return the matching normal style
     */

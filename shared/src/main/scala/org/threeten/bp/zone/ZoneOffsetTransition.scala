@@ -41,8 +41,7 @@ import org.threeten.bp.Instant
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.ZoneOffset
 
-/**
-  * A transition between two offsets caused by a discontinuity in the local time-line.
+/** A transition between two offsets caused by a discontinuity in the local time-line.
   *
   * A transition between two offsets is normally the result of a daylight savings cutover.
   * The discontinuity is normally a gap in spring and an overlap in autumn.
@@ -61,8 +60,7 @@ import org.threeten.bp.ZoneOffset
   */
 @SerialVersionUID(-6946044323557704546L)
 object ZoneOffsetTransition {
-  /**
-    * Obtains an instance defining a transition between two offsets.
+  /** Obtains an instance defining a transition between two offsets.
     *
     * Applications should normally obtain an instance from {@link ZoneRules}.
     * This factory is only intended for use when creating {@link ZoneRules}.
@@ -86,8 +84,7 @@ object ZoneOffsetTransition {
     new ZoneOffsetTransition(transition, offsetBefore, offsetAfter)
   }
 
-  /**
-    * Reads the state from the stream.
+  /** Reads the state from the stream.
     *
     * @param in  the input stream, not null
     * @return the created object, not null
@@ -105,8 +102,7 @@ object ZoneOffsetTransition {
   }
 }
 
-/**
-  * Creates an instance defining a transition between two offsets.
+/** Creates an instance defining a transition between two offsets.
   *
   * @param transition  the transition date-time with the offset before the transition, not null
   * @param offsetBefore  the offset before the transition, not null
@@ -117,8 +113,7 @@ final class ZoneOffsetTransition private[zone](private val transition: LocalDate
                                                private val offsetBefore: ZoneOffset,
                                                private val offsetAfter: ZoneOffset) extends Ordered[ZoneOffsetTransition] with Serializable {
 
-  /**
-    * Creates an instance from epoch-second and offsets.
+  /** Creates an instance from epoch-second and offsets.
     *
     * @param epochSecond  the transition epoch-second
     * @param offsetBefore  the offset before the transition, not null
@@ -128,15 +123,13 @@ final class ZoneOffsetTransition private[zone](private val transition: LocalDate
     this(LocalDateTime.ofEpochSecond(epochSecond, 0, offsetBefore), offsetBefore, offsetAfter)
   }
 
-  /**
-    * Uses a serialization delegate.
+  /** Uses a serialization delegate.
     *
     * @return the replacing object, not null
     */
   private def writeReplace: AnyRef = new Ser(Ser.ZOT, this)
 
-  /**
-    * Writes the state to the stream.
+  /** Writes the state to the stream.
     *
     * @param out  the output stream, not null
     * @throws IOException if an error occurs
@@ -148,8 +141,7 @@ final class ZoneOffsetTransition private[zone](private val transition: LocalDate
     Ser.writeOffset(offsetAfter, out)
   }
 
-  /**
-    * Gets the transition instant.
+  /** Gets the transition instant.
     *
     * This is the instant of the discontinuity, which is defined as the first
     * instant that the 'after' offset applies.
@@ -161,15 +153,13 @@ final class ZoneOffsetTransition private[zone](private val transition: LocalDate
     */
   def getInstant: Instant = transition.toInstant(offsetBefore)
 
-  /**
-    * Gets the transition instant as an epoch second.
+  /** Gets the transition instant as an epoch second.
     *
     * @return the transition epoch second
     */
   def toEpochSecond: Long = transition.toEpochSecond(offsetBefore)
 
-  /**
-    * Gets the local transition date-time, as would be expressed with the 'before' offset.
+  /** Gets the local transition date-time, as would be expressed with the 'before' offset.
     *
     * This is the date-time where the discontinuity begins expressed with the 'before' offset.
     * At this instant, the 'after' offset is actually used, therefore the combination of this
@@ -182,8 +172,7 @@ final class ZoneOffsetTransition private[zone](private val transition: LocalDate
     */
   def getDateTimeBefore: LocalDateTime = transition
 
-  /**
-    * Gets the local transition date-time, as would be expressed with the 'after' offset.
+  /** Gets the local transition date-time, as would be expressed with the 'after' offset.
     *
     * This is the first date-time after the discontinuity, when the new offset applies.
     *
@@ -194,8 +183,7 @@ final class ZoneOffsetTransition private[zone](private val transition: LocalDate
     */
   def getDateTimeAfter: LocalDateTime = transition.plusSeconds(getDurationSeconds)
 
-  /**
-    * Gets the offset before the transition.
+  /** Gets the offset before the transition.
     *
     * This is the offset in use before the instant of the transition.
     *
@@ -203,8 +191,7 @@ final class ZoneOffsetTransition private[zone](private val transition: LocalDate
     */
   def getOffsetBefore: ZoneOffset = offsetBefore
 
-  /**
-    * Gets the offset after the transition.
+  /** Gets the offset after the transition.
     *
     * This is the offset in use on and after the instant of the transition.
     *
@@ -212,8 +199,7 @@ final class ZoneOffsetTransition private[zone](private val transition: LocalDate
     */
   def getOffsetAfter: ZoneOffset = offsetAfter
 
-  /**
-    * Gets the duration of the transition.
+  /** Gets the duration of the transition.
     *
     * In most cases, the transition duration is one hour, however this is not always the case.
     * The duration will be positive for a gap and negative for an overlap.
@@ -223,15 +209,13 @@ final class ZoneOffsetTransition private[zone](private val transition: LocalDate
     */
   def getDuration: Duration = Duration.ofSeconds(getDurationSeconds)
 
-  /**
-    * Gets the duration of the transition in seconds.
+  /** Gets the duration of the transition in seconds.
     *
     * @return the duration in seconds
     */
   private def getDurationSeconds: Int = getOffsetAfter.getTotalSeconds - getOffsetBefore.getTotalSeconds
 
-  /**
-    * Does this transition represent a gap in the local time-line.
+  /** Does this transition represent a gap in the local time-line.
     *
     * Gaps occur where there are local date-times that simply do not not exist.
     * An example would be when the offset changes from {@code +01:00} to {@code +02:00}.
@@ -241,8 +225,7 @@ final class ZoneOffsetTransition private[zone](private val transition: LocalDate
     */
   def isGap: Boolean = getOffsetAfter.getTotalSeconds > getOffsetBefore.getTotalSeconds
 
-  /**
-    * Does this transition represent a gap in the local time-line.
+  /** Does this transition represent a gap in the local time-line.
     *
     * Overlaps occur where there are local date-times that exist twice.
     * An example would be when the offset changes from {@code +02:00} to {@code +01:00}.
@@ -252,8 +235,7 @@ final class ZoneOffsetTransition private[zone](private val transition: LocalDate
     */
   def isOverlap: Boolean = getOffsetAfter.getTotalSeconds < getOffsetBefore.getTotalSeconds
 
-  /**
-    * Checks if the specified offset is valid during this transition.
+  /** Checks if the specified offset is valid during this transition.
     *
     * This checks to see if the given offset will be valid at some point in the transition.
     * A gap will always return false.
@@ -265,8 +247,7 @@ final class ZoneOffsetTransition private[zone](private val transition: LocalDate
   def isValidOffset(offset: ZoneOffset): Boolean =
     if (isGap) false else (getOffsetBefore == offset) || (getOffsetAfter == offset)
 
-  /**
-    * Gets the valid offsets during this transition.
+  /** Gets the valid offsets during this transition.
     *
     * A gap will return an empty list, while an overlap will return both offsets.
     *
@@ -278,8 +259,7 @@ final class ZoneOffsetTransition private[zone](private val transition: LocalDate
     else
       Arrays.asList(getOffsetBefore, getOffsetAfter)
 
-  /**
-    * Compares this transition to another based on the transition instant.
+  /** Compares this transition to another based on the transition instant.
     *
     * This compares the instants of each transition.
     * The offsets are ignored, making this order inconsistent with equals.
@@ -289,8 +269,7 @@ final class ZoneOffsetTransition private[zone](private val transition: LocalDate
     */
   def compare(transition: ZoneOffsetTransition): Int = this.getInstant.compareTo(transition.getInstant)
 
-  /**
-    * Checks if this object equals another.
+  /** Checks if this object equals another.
     *
     * The entire state of the object is compared.
     *
@@ -303,15 +282,13 @@ final class ZoneOffsetTransition private[zone](private val transition: LocalDate
       case _ => false
     }
 
-  /**
-    * Returns a suitable hash code.
+  /** Returns a suitable hash code.
     *
     * @return the hash code
     */
   override def hashCode: Int = transition.hashCode ^ offsetBefore.hashCode ^ Integer.rotateLeft(offsetAfter.hashCode, 16)
 
-  /**
-    * Returns a string describing this object.
+  /** Returns a string describing this object.
     *
     * @return a string for debugging, not null
     */

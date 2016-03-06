@@ -31,8 +31,7 @@
  */
 package org.threeten.bp.format
 
-/**
-  * Enumeration of the style of a localized date, time or date-time formatter.
+/** Enumeration of the style of a localized date, time or date-time formatter.
   *
   * These styles are used when obtaining a date-time style from configuration.
   * See {@link DateTimeFormatter} and {@link DateTimeFormatterBuilder} for usage.
@@ -41,23 +40,19 @@ package org.threeten.bp.format
   * This is an immutable and thread-safe enum.
   */
 object FormatStyle {
-  /**
-    * Full text style, with the most detail.
+  /** Full text style, with the most detail.
     * For example, the format might be 'Tuesday, April 12, 1952 AD' or '3:30:42pm PST'.
     */
   val FULL = new FormatStyle("FULL", 0)
-  /**
-    * Long text style, with lots of detail.
+  /** Long text style, with lots of detail.
     * For example, the format might be 'January 12, 1952'.
     */
   val LONG = new FormatStyle("LONG", 1)
-  /**
-    * Medium text style, with some detail.
+  /** Medium text style, with some detail.
     * For example, the format might be 'Jan 12, 1952'.
     */
   val MEDIUM = new FormatStyle("MEDIUM", 2)
-  /**
-    * Short text style, typically numeric.
+  /** Short text style, typically numeric.
     * For example, the format might be '12.13.52' or '3:30pm'.
     */
   val SHORT = new FormatStyle("SHORT", 3)

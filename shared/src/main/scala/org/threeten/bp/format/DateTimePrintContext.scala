@@ -48,8 +48,7 @@ import org.threeten.bp.temporal.TemporalQueries
 import org.threeten.bp.temporal.TemporalQuery
 import org.threeten.bp.temporal.ValueRange
 
-/**
-  * Context object used during date and time printing.
+/** Context object used during date and time printing.
   *
   * This class provides a single wrapper to items used in the print.
   *
@@ -141,13 +140,11 @@ object DateTimePrintContext {
 }
 
 final class DateTimePrintContext private[format](private var temporal: TemporalAccessor, private var locale: Locale, private var symbols: DecimalStyle) {
-  /**
-    * Whether the current formatter is optional.
+  /** Whether the current formatter is optional.
     */
   private var optional: Int = 0
 
-  /**
-    * Creates a new instance of the context.
+  /** Creates a new instance of the context.
     *
     * @param temporal  the temporal object being output, not null
     * @param formatter  the formatter controlling the print, not null
@@ -156,15 +153,13 @@ final class DateTimePrintContext private[format](private var temporal: TemporalA
     this(DateTimePrintContext.adjust(temporal, formatter), formatter.getLocale, formatter.getDecimalStyle)
   }
 
-  /**
-    * Gets the temporal object being output.
+  /** Gets the temporal object being output.
     *
     * @return the temporal object, not null
     */
   private[format] def getTemporal: TemporalAccessor = temporal
 
-  /**
-    * Gets the locale.
+  /** Gets the locale.
     *
     * This locale is used to control localization in the print output except
     * where localization is controlled by the symbols.
@@ -173,8 +168,7 @@ final class DateTimePrintContext private[format](private var temporal: TemporalA
     */
   private[format] def getLocale: Locale = locale
 
-  /**
-    * Gets the formatting symbols.
+  /** Gets the formatting symbols.
     *
     * The symbols control the localization of numeric output.
     *
@@ -182,18 +176,15 @@ final class DateTimePrintContext private[format](private var temporal: TemporalA
     */
   private[format] def getSymbols: DecimalStyle = symbols
 
-  /**
-    * Starts the printing of an optional segment of the input.
+  /** Starts the printing of an optional segment of the input.
     */
   private[format] def startOptional(): Unit = this.optional += 1
 
-  /**
-    * Ends the printing of an optional segment of the input.
+  /** Ends the printing of an optional segment of the input.
     */
   private[format] def endOptional(): Unit = this.optional -= 1
 
-  /**
-    * Gets a value using a query.
+  /** Gets a value using a query.
     *
     * @param query  the query to use, not null
     * @return the result, null if not found and optional is true
@@ -207,8 +198,7 @@ final class DateTimePrintContext private[format](private var temporal: TemporalA
       result
   }
 
-  /**
-    * Gets the value of the specified field.
+  /** Gets the value of the specified field.
     *
     * This will return the value for the specified field.
     *
@@ -223,15 +213,13 @@ final class DateTimePrintContext private[format](private var temporal: TemporalA
     }
   }
 
-  /**
-    * Returns a string version of the context for debugging.
+  /** Returns a string version of the context for debugging.
     *
     * @return a string representation of the context, not null
     */
   override def toString: String = temporal.toString
 
-  /**
-    * Sets the date-time being output.
+  /** Sets the date-time being output.
     *
     * @param temporal  the date-time object, not null
     */
@@ -240,8 +228,7 @@ final class DateTimePrintContext private[format](private var temporal: TemporalA
     this.temporal = temporal
   }
 
-  /**
-    * Sets the locale.
+  /** Sets the locale.
     *
     * This locale is used to control localization in the print output except
     * where localization is controlled by the symbols.

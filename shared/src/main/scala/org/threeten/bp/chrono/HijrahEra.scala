@@ -48,8 +48,7 @@ import org.threeten.bp.temporal.TemporalQuery
 import org.threeten.bp.temporal.UnsupportedTemporalTypeException
 import org.threeten.bp.temporal.ValueRange
 
-/**
-  * An era in the Hijrah calendar system.
+/** An era in the Hijrah calendar system.
   *
   * The Hijrah calendar system has two eras.
   * The date {@code 0001-01-01 (Hijrah)} is {@code 622-06-19 (ISO)}.
@@ -61,20 +60,17 @@ import org.threeten.bp.temporal.ValueRange
   * This is an immutable and thread-safe enum.
   */
 object HijrahEra {
-  /**
-    * The singleton instance for the era before the current one, 'Before Anno Hegirae',
+  /** The singleton instance for the era before the current one, 'Before Anno Hegirae',
     * which has the value 0.
     */
   val BEFORE_AH = new HijrahEra("BEFORE_AH", 0)
-  /**
-    * The singleton instance for the current era, 'Anno Hegirae', which has the value 1.
+  /** The singleton instance for the current era, 'Anno Hegirae', which has the value 1.
     */
   val AH        = new HijrahEra("AH", 1)
 
   val values: Array[HijrahEra] = Array(BEFORE_AH, AH)
 
-  /**
-    * Obtains an instance of {@code HijrahEra} from a value.
+  /** Obtains an instance of {@code HijrahEra} from a value.
     *
     * The current era (from ISO date 622-06-19 onwards) has the value 1
     * The previous era has the value 0.
@@ -98,8 +94,7 @@ object HijrahEra {
 }
 
 final class HijrahEra(name: String, ordinal: Int) extends Enum[HijrahEra](name, ordinal) with Era {
-  /**
-    * Gets the era numeric value.
+  /** Gets the era numeric value.
     *
     * The current era (from ISO date 622-06-19 onwards) has the value 1.
     * The previous era has the value 0.
@@ -150,8 +145,7 @@ final class HijrahEra(name: String, ordinal: Int) extends Enum[HijrahEra](name, 
   override def getDisplayName(style: TextStyle, locale: Locale): String =
     new DateTimeFormatterBuilder().appendText(ERA, style).toFormatter(locale).format(this)
 
-  /**
-    * Returns the proleptic year from this era and year of era.
+  /** Returns the proleptic year from this era and year of era.
     *
     * @param yearOfEra the year of Era
     * @return the computed prolepticYear

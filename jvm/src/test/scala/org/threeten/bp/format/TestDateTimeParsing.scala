@@ -50,9 +50,7 @@ import org.threeten.bp.temporal.TemporalAccessor
 import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
 
-/**
-  * Test parsing of edge cases.
-  */
+/** Test parsing of edge cases. */
 @Test object TestDateTimeParsing {
   private val PARIS: ZoneId = ZoneId.of("Europe/Paris")
   private val OFFSET_0230: ZoneOffset = ZoneOffset.ofHoursMinutes(2, 30)

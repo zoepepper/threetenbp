@@ -55,9 +55,7 @@ import org.threeten.bp.ZoneOffset
 import org.threeten.bp.ZonedDateTime
 import org.threeten.bp.zone.ZoneOffsetTransitionRule.TimeDefinition
 
-/**
-  * Test ZoneRules.
-  */
+/** Test ZoneRules. */
 @Test object TestStandardZoneRules {
   private val OFFSET_ZERO: ZoneOffset = ZoneOffset.ofHours(0)
   private val OFFSET_PONE: ZoneOffset = ZoneOffset.ofHours(1)

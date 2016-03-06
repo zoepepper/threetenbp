@@ -62,8 +62,7 @@ import org.threeten.bp.temporal.TemporalAccessor
 import org.threeten.bp.temporal.TemporalField
 import org.threeten.bp.temporal.ValueRange
 
-/**
-  * The Japanese Imperial calendar system.
+/** The Japanese Imperial calendar system.
   *
   * This chronology defines the rules of the Japanese Imperial calendar system.
   * This calendar system is primarily used in Japan.
@@ -93,39 +92,27 @@ import org.threeten.bp.temporal.ValueRange
 @SerialVersionUID(459996390165777884L)
 object JapaneseChronology {
   private[chrono] val LOCALE: Locale = new Locale("ja", "JP", "JP")
-  /**
-    * Singleton instance for Japanese chronology.
-    */
+  /** Singleton instance for Japanese chronology. */
   val INSTANCE: JapaneseChronology = new JapaneseChronology
-  /**
-    * Fallback language for the era names.
-    */
+  /** Fallback language for the era names. */
   private val FALLBACK_LANGUAGE: String = "en"
-  /**
-    * Language that has the era names.
-    */
+  /** Language that has the era names. */
   private val TARGET_LANGUAGE: String = "ja"
-  /**
-    * Narrow names for eras.
-    */
+  /** Narrow names for eras. */
   private val ERA_NARROW_NAMES: java.util.Map[String, Array[String]] = {
     val names = new java.util.HashMap[String, Array[String]]
     names.put(FALLBACK_LANGUAGE, Array[String]("Unknown", "K", "M", "T", "S", "H"))
     names.put(TARGET_LANGUAGE, Array[String]("Unknown", "K", "M", "T", "S", "H"))
     names
   }
-  /**
-    * Short names for eras.
-    */
+  /** Short names for eras. */
   private val ERA_SHORT_NAMES: java.util.Map[String, Array[String]] = {
     val names = new java.util.HashMap[String, Array[String]]
     names.put(FALLBACK_LANGUAGE, Array[String]("Unknown", "K", "M", "T", "S", "H"))
     names.put(TARGET_LANGUAGE, Array[String]("Unknown", "\u6176", "\u660e", "\u5927", "\u662d", "\u5e73"))
     names
   }
-  /**
-    * Full names for eras.
-    */
+  /** Full names for eras. */
   private val ERA_FULL_NAMES: java.util.Map[String, Array[String]] = {
     val names = new java.util.HashMap[String, Array[String]]
     names.put(FALLBACK_LANGUAGE, Array[String]("Unknown", "Keio", "Meiji", "Taisho", "Showa", "Heisei"))
@@ -138,15 +125,13 @@ object JapaneseChronology {
 @SerialVersionUID(459996390165777884L)
 final class JapaneseChronology private() extends Chronology with Serializable {
 
-  /**
-    * Resolve singleton.
+  /** Resolve singleton.
     *
     * @return the singleton instance, not null
     */
   private def readResolve: AnyRef = JapaneseChronology.INSTANCE
 
-  /**
-    * Gets the ID of the chronology - 'Japanese'.
+  /** Gets the ID of the chronology - 'Japanese'.
     *
     * The ID uniquely identifies the {@code Chronology}.
     * It can be used to lookup the {@code Chronology} using {@link #of(String)}.
@@ -156,8 +141,7 @@ final class JapaneseChronology private() extends Chronology with Serializable {
     */
   def getId: String = "Japanese"
 
-  /**
-    * Gets the calendar type of the underlying calendar system - 'japanese'.
+  /** Gets the calendar type of the underlying calendar system - 'japanese'.
     *
     * The calendar type is an identifier defined by the
     * <em>Unicode Locale Data Markup Language (LDML)</em> specification.
@@ -179,8 +163,7 @@ final class JapaneseChronology private() extends Chronology with Serializable {
   def date(prolepticYear: Int, month: Int, dayOfMonth: Int): JapaneseDate =
     new JapaneseDate(LocalDate.of(prolepticYear, month, dayOfMonth))
 
-  /**
-    * Obtains a local date in Japanese calendar system from the
+  /** Obtains a local date in Japanese calendar system from the
     * era, year-of-era and day-of-year fields.
     *
     * The day-of-year in this factory is expressed relative to the start of the year-of-era.
@@ -207,8 +190,7 @@ final class JapaneseChronology private() extends Chronology with Serializable {
     else
       JapaneseDate.ofYearDay(era.asInstanceOf[JapaneseEra], yearOfEra, dayOfYear)
 
-  /**
-    * Obtains a local date in Japanese calendar system from the
+  /** Obtains a local date in Japanese calendar system from the
     * proleptic-year and day-of-year fields.
     *
     * The day-of-year in this factory is expressed relative to the start of the proleptic year.
@@ -251,8 +233,7 @@ final class JapaneseChronology private() extends Chronology with Serializable {
     super.dateNow(clock).asInstanceOf[JapaneseDate]
   }
 
-  /**
-    * Checks if the specified year is a leap year.
+  /** Checks if the specified year is a leap year.
     *
     * Japanese calendar leap years occur exactly in line with ISO leap years.
     * This method does not validate the year passed in, and only has a
@@ -274,8 +255,7 @@ final class JapaneseChronology private() extends Chronology with Serializable {
     isoYear
   }
 
-  /**
-    * Returns the calendar system era object from the given numeric value.
+  /** Returns the calendar system era object from the given numeric value.
     *
     * See the description of each Era for the numeric values of:
     * {@link JapaneseEra#HEISEI}, {@link JapaneseEra#SHOWA},{@link JapaneseEra#TAISHO},

@@ -33,9 +33,7 @@ package org.threeten.bp.temporal
 
 import org.threeten.bp.DateTimeException
 
-/**
-  * Mock simple date-time with one field-value.
-  */
+/** Mock simple date-time with one field-value. */
 final class MockFieldValue(private val field: TemporalField, private val value: Long) extends TemporalAccessor {
 
   def isSupported(field: TemporalField): Boolean = field != null && (field == this.field)

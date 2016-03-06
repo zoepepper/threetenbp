@@ -41,9 +41,7 @@ import java.util.GregorianCalendar
 import java.util.TimeZone
 import org.testng.annotations.Test
 
-/**
-  * Test.
-  */
+/** Test. */
 @Test object TestDateTimeUtils {
   private val PARIS: ZoneId = ZoneId.of("Europe/Paris")
   private val PARIS_TZ: TimeZone = TimeZone.getTimeZone("Europe/Paris")

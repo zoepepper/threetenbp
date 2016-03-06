@@ -40,8 +40,7 @@ import org.threeten.bp.temporal.Temporal
 import org.threeten.bp.temporal.TemporalAdjuster
 import org.threeten.bp.temporal.TemporalUnit
 
-/**
-  * A date expressed in terms of a standard year-month-day calendar system.
+/** A date expressed in terms of a standard year-month-day calendar system.
   *
   * This class is used by applications seeking to handle dates in non-ISO calendar systems.
   * For example, the Japanese, Minguo, Thai Buddhist and others.
@@ -134,8 +133,7 @@ abstract class ChronoDateImpl[D <: ChronoLocalDate] private[chrono]() extends Ch
     getChronology.ensureChronoLocalDate(unit.addTo(this, amountToAdd)).asInstanceOf[ChronoDateImpl[D]]
   }
 
-  /**
-    * Returns a copy of this date with the specified period in years added.
+  /** Returns a copy of this date with the specified period in years added.
     *
     * This adds the specified period in years to the date.
     * In some cases, adding years can cause the resulting date to become invalid.
@@ -150,8 +148,7 @@ abstract class ChronoDateImpl[D <: ChronoLocalDate] private[chrono]() extends Ch
     */
   private[chrono] def plusYears(yearsToAdd: Long): ChronoDateImpl[D]
 
-  /**
-    * Returns a copy of this date with the specified period in months added.
+  /** Returns a copy of this date with the specified period in months added.
     *
     * This adds the specified period in months to the date.
     * In some cases, adding months can cause the resulting date to become invalid.
@@ -166,8 +163,7 @@ abstract class ChronoDateImpl[D <: ChronoLocalDate] private[chrono]() extends Ch
     */
   private[chrono] def plusMonths(monthsToAdd: Long): ChronoDateImpl[D]
 
-  /**
-    * Returns a copy of this date with the specified period in weeks added.
+  /** Returns a copy of this date with the specified period in weeks added.
     *
     * This adds the specified period in weeks to the date.
     * In some cases, adding weeks can cause the resulting date to become invalid.
@@ -183,8 +179,7 @@ abstract class ChronoDateImpl[D <: ChronoLocalDate] private[chrono]() extends Ch
     */
   private[chrono] def plusWeeks(weeksToAdd: Long): ChronoDateImpl[D] = plusDays(Math.multiplyExact(weeksToAdd, 7))
 
-  /**
-    * Returns a copy of this date with the specified number of days added.
+  /** Returns a copy of this date with the specified number of days added.
     *
     * This adds the specified period in days to the date.
     *
@@ -196,8 +191,7 @@ abstract class ChronoDateImpl[D <: ChronoLocalDate] private[chrono]() extends Ch
     */
   private[chrono] def plusDays(daysToAdd: Long): ChronoDateImpl[D]
 
-  /**
-    * Returns a copy of this date with the specified period in years subtracted.
+  /** Returns a copy of this date with the specified period in years subtracted.
     *
     * This subtracts the specified period in years to the date.
     * In some cases, subtracting years can cause the resulting date to become invalid.
@@ -216,8 +210,7 @@ abstract class ChronoDateImpl[D <: ChronoLocalDate] private[chrono]() extends Ch
     if (yearsToSubtract == Long.MinValue) plusYears(Long.MaxValue).plusYears(1)
     else plusYears(-yearsToSubtract)
 
-  /**
-    * Returns a copy of this date with the specified period in months subtracted.
+  /** Returns a copy of this date with the specified period in months subtracted.
     *
     * This subtracts the specified period in months to the date.
     * In some cases, subtracting months can cause the resulting date to become invalid.
@@ -236,8 +229,7 @@ abstract class ChronoDateImpl[D <: ChronoLocalDate] private[chrono]() extends Ch
     if (monthsToSubtract == Long.MinValue) plusMonths(Long.MaxValue).plusMonths(1)
     else plusMonths(-monthsToSubtract)
 
-  /**
-    * Returns a copy of this date with the specified period in weeks subtracted.
+  /** Returns a copy of this date with the specified period in weeks subtracted.
     *
     * This subtracts the specified period in weeks to the date.
     * In some cases, subtracting weeks can cause the resulting date to become invalid.
@@ -255,8 +247,7 @@ abstract class ChronoDateImpl[D <: ChronoLocalDate] private[chrono]() extends Ch
     if (weeksToSubtract == Long.MinValue) plusWeeks(Long.MaxValue).plusWeeks(1)
     else plusWeeks(-weeksToSubtract)
 
-  /**
-    * Returns a copy of this date with the specified number of days subtracted.
+  /** Returns a copy of this date with the specified number of days subtracted.
     *
     * This subtracts the specified period in days to the date.
     *

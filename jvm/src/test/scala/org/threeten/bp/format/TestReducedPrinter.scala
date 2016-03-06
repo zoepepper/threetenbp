@@ -40,9 +40,7 @@ import org.threeten.bp.DateTimeException
 import org.threeten.bp.LocalDate
 import org.threeten.bp.temporal.MockFieldValue
 
-/**
-  * Test ReducedPrinterParser.
-  */
+/** Test ReducedPrinterParser. */
 @Test class TestReducedPrinter extends AbstractTestPrinterParser {
   @Test(expectedExceptions = Array(classOf[DateTimeException]))
   @throws(classOf[Exception])

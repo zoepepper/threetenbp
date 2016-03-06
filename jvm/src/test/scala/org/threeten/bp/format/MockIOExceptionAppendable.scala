@@ -33,9 +33,7 @@ package org.threeten.bp.format
 
 import java.io.IOException
 
-/**
-  * Mock Appendable that throws IOException.
-  */
+/** Mock Appendable that throws IOException. */
 class MockIOExceptionAppendable extends Appendable {
   @throws(classOf[IOException])
   def append(csq: CharSequence): Appendable = {

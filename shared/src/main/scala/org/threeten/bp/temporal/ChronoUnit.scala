@@ -89,8 +89,7 @@ object ChronoUnit {
     * equivalent at midday.
     */
   val DAYS      = new ChronoUnit("Days",       7, Duration.ofSeconds(86400))
-  /**
-    * Unit that represents the concept of a week.
+  /** Unit that represents the concept of a week.
     * For the ISO calendar system, it is equal to 7 days.
     *
     * When used with other calendar systems it must correspond to an integral number of days.

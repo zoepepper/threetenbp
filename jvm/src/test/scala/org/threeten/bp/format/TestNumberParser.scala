@@ -40,9 +40,7 @@ import org.testng.annotations.Test
 import org.threeten.bp.temporal.TemporalField
 import org.threeten.bp.temporal.TemporalQueries
 
-/**
-  * Test NumberPrinterParser.
-  */
+/** Test NumberPrinterParser. */
 @Test class TestNumberParser extends AbstractTestPrinterParser {
   @DataProvider(name = "error") private[format] def data_error: Array[Array[Any]] = {
     Array[Array[Any]](Array(new DateTimeFormatterBuilder.NumberPrinterParser(DAY_OF_MONTH, 1, 2, SignStyle.NEVER), "12", -1, classOf[IndexOutOfBoundsException]), Array(new DateTimeFormatterBuilder.NumberPrinterParser(DAY_OF_MONTH, 1, 2, SignStyle.NEVER), "12", 3, classOf[IndexOutOfBoundsException]))

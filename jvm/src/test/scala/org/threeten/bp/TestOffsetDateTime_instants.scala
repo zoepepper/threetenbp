@@ -34,9 +34,7 @@ package org.threeten.bp
 import org.testng.Assert.assertEquals
 import org.testng.annotations.Test
 
-/**
-  * Test OffsetDateTime creation.
-  */
+/** Test OffsetDateTime creation. */
 @Test object TestOffsetDateTime_instants {
   private val OFFSET_PONE: ZoneOffset = ZoneOffset.ofHours(1)
   private val OFFSET_MAX: ZoneOffset = ZoneOffset.ofHours(18)

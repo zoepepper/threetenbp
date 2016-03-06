@@ -43,9 +43,7 @@ import org.threeten.bp.LocalDate
 import org.threeten.bp.temporal.MockFieldValue
 import org.threeten.bp.temporal.TemporalField
 
-/**
-  * Test TextPrinterParser.
-  */
+/** Test TextPrinterParser. */
 @Test object TestTextPrinter {
   private val PROVIDER: DateTimeTextProvider = DateTimeTextProvider.getInstance
 }

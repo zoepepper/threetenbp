@@ -43,9 +43,7 @@ import org.threeten.bp.temporal.TemporalAccessor
 import org.threeten.bp.temporal.TemporalField
 import org.threeten.bp.temporal.TemporalQueries
 
-/**
-  * Test ZoneOffset.
-  */
+/** Test ZoneOffset. */
 @Test class TestZoneOffset extends AbstractDateTimeTest {
   protected def samples: java.util.List[TemporalAccessor] = {
     val array: Array[TemporalAccessor] = Array(ZoneOffset.ofHours(1), ZoneOffset.ofHoursMinutesSeconds(-5, -6, -30))

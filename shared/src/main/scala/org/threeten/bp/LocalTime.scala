@@ -64,9 +64,7 @@ import org.threeten.bp.temporal.ValueRange
 @SerialVersionUID(6414437269572265201L)
 object LocalTime {
 
-  /**
-    * Constants for the local time of each hour.
-    */
+  /** Constants for the local time of each hour. */
   private val HOURS: Array[LocalTime] = {
     val hours = new Array[LocalTime](24)
     var i: Int = 0
@@ -77,76 +75,45 @@ object LocalTime {
     hours
   }
 
-  /**
-    * The minimum supported {@code LocalTime}, '00:00'.
+  /** The minimum supported {@code LocalTime}, '00:00'.
     * This is the time of midnight at the start of the day.
     */
   val MIN: LocalTime = HOURS(0)
-  /**
-    * The maximum supported {@code LocalTime}, '23:59:59.999999999'.
+  /** The maximum supported {@code LocalTime}, '23:59:59.999999999'.
     * This is the time just before midnight at the end of the day.
     */
   val MAX: LocalTime = new LocalTime(23, 59, 59, 999999999)
-  /**
-    * The time of midnight at the start of the day, '00:00'.
-    */
+  /** The time of midnight at the start of the day, '00:00'. */
   val MIDNIGHT: LocalTime = HOURS(0)
-  /**
-    * The time of noon in the middle of the day, '12:00'.
-    */
+  /** The time of noon in the middle of the day, '12:00'. */
   val NOON: LocalTime = HOURS(12)
 
-  /**
-    * Hours per day.
-    */
-  private[bp] val HOURS_PER_DAY: Int = 24
-  /**
-    * Minutes per hour.
-    */
-  private[bp] val MINUTES_PER_HOUR: Int = 60
-  /**
-    * Minutes per day.
-    */
-  private[bp] val MINUTES_PER_DAY: Int = MINUTES_PER_HOUR * HOURS_PER_DAY
-  /**
-    * Seconds per minute.
-    */
+  /** Hours per day. */
+  private[bp] val HOURS_PER_DAY: Int      = 24
+  /** Minutes per hour. */
+  private[bp] val MINUTES_PER_HOUR: Int   = 60
+  /** Minutes per day. */
+  private[bp] val MINUTES_PER_DAY: Int    = MINUTES_PER_HOUR * HOURS_PER_DAY
+  /** Seconds per minute. */
   private[bp] val SECONDS_PER_MINUTE: Int = 60
-  /**
-    * Seconds per hour.
-    */
-  private[bp] val SECONDS_PER_HOUR: Int = SECONDS_PER_MINUTE * MINUTES_PER_HOUR
-  /**
-    * Seconds per day.
-    */
-  private[bp] val SECONDS_PER_DAY: Int = SECONDS_PER_HOUR * HOURS_PER_DAY
-  /**
-    * Milliseconds per day.
-    */
-  private[bp] val MILLIS_PER_DAY: Long = SECONDS_PER_DAY * 1000L
-  /**
-    * Microseconds per day.
-    */
-  private[bp] val MICROS_PER_DAY: Long = SECONDS_PER_DAY * 1000000L
-  /**
-    * Nanos per second.
-    */
-  private[bp] val NANOS_PER_SECOND: Long = 1000000000L
-  /**
-    * Nanos per minute.
-    */
-  private[bp] val NANOS_PER_MINUTE: Long = NANOS_PER_SECOND * SECONDS_PER_MINUTE
-  /**
-    * Nanos per hour.
-    */
-  private[bp] val NANOS_PER_HOUR: Long = NANOS_PER_MINUTE * MINUTES_PER_HOUR
-  /**
-    * Nanos per day.
-    */
-  private[bp] val NANOS_PER_DAY: Long = NANOS_PER_HOUR * HOURS_PER_DAY
+  /** Seconds per hour. */
+  private[bp] val SECONDS_PER_HOUR: Int   = SECONDS_PER_MINUTE * MINUTES_PER_HOUR
+  /** Seconds per day. */
+  private[bp] val SECONDS_PER_DAY: Int    = SECONDS_PER_HOUR * HOURS_PER_DAY
+  /** Milliseconds per day. */
+  private[bp] val MILLIS_PER_DAY: Long    = SECONDS_PER_DAY * 1000L
+  /** Microseconds per day. */
+  private[bp] val MICROS_PER_DAY: Long    = SECONDS_PER_DAY * 1000000L
+  /** Nanos per second. */
+  private[bp] val NANOS_PER_SECOND: Long  = 1000000000L
+  /** Nanos per minute. */
+  private[bp] val NANOS_PER_MINUTE: Long  = NANOS_PER_SECOND * SECONDS_PER_MINUTE
+  /** Nanos per hour. */
+  private[bp] val NANOS_PER_HOUR: Long    = NANOS_PER_MINUTE * MINUTES_PER_HOUR
+  /** Nanos per day. */
+  private[bp] val NANOS_PER_DAY: Long     = NANOS_PER_HOUR * HOURS_PER_DAY
 
-  /**
-    * Obtains the current time from the system clock in the default time-zone.
+  /** Obtains the current time from the system clock in the default time-zone.
     *
     * This will query the {@link Clock#systemDefaultZone() system clock} in the default
     * time-zone to obtain the current time.
@@ -158,8 +125,7 @@ object LocalTime {
     */
   def now: LocalTime = now(Clock.systemDefaultZone)
 
-  /**
-    * Obtains the current time from the system clock in the specified time-zone.
+  /** Obtains the current time from the system clock in the specified time-zone.
     *
     * This will query the {@link Clock#system(ZoneId) system clock} to obtain the current time.
     * Specifying the time-zone avoids dependence on the default time-zone.
@@ -172,8 +138,7 @@ object LocalTime {
     */
   def now(zone: ZoneId): LocalTime = now(Clock.system(zone))
 
-  /**
-    * Obtains the current time from the specified clock.
+  /** Obtains the current time from the specified clock.
     *
     * This will query the specified clock to obtain the current time.
     * Using this method allows the use of an alternate clock for testing.
@@ -194,8 +159,7 @@ object LocalTime {
     LocalTime.ofSecondOfDay(secsOfDay, now.getNano)
   }
 
-  /**
-    * Obtains an instance of {@code LocalTime} from an hour and minute.
+  /** Obtains an instance of {@code LocalTime} from an hour and minute.
     *
     * The second and nanosecond fields will be set to zero by this factory method.
     *
@@ -216,8 +180,7 @@ object LocalTime {
     }
   }
 
-  /**
-    * Obtains an instance of {@code LocalTime} from an hour, minute and second.
+  /** Obtains an instance of {@code LocalTime} from an hour, minute and second.
     *
     * The nanosecond field will be set to zero by this factory method.
     *
@@ -239,8 +202,7 @@ object LocalTime {
     new LocalTime(hour, minute, second, 0)
   }
 
-  /**
-    * Obtains an instance of {@code LocalTime} from an hour, minute, second and nanosecond.
+  /** Obtains an instance of {@code LocalTime} from an hour, minute, second and nanosecond.
     *
     * This factory may return a cached value, but applications must not rely on this.
     *
@@ -259,8 +221,7 @@ object LocalTime {
     create(hour, minute, second, nanoOfSecond)
   }
 
-  /**
-    * Obtains an instance of {@code LocalTime} from a second-of-day value.
+  /** Obtains an instance of {@code LocalTime} from a second-of-day value.
     *
     * This factory may return a cached value, but applications must not rely on this.
     *
@@ -278,8 +239,7 @@ object LocalTime {
     create(hours, minutes, _secondOfDay.toInt, 0)
   }
 
-  /**
-    * Obtains an instance of {@code LocalTime} from a second-of-day value, with
+  /** Obtains an instance of {@code LocalTime} from a second-of-day value, with
     * associated nanos of second.
     *
     * This factory may return a cached value, but applications must not rely on this.
@@ -300,8 +260,7 @@ object LocalTime {
     create(hours, minutes, _secondOfDay.toInt, nanoOfSecond)
   }
 
-  /**
-    * Obtains an instance of {@code LocalTime} from a nanos-of-day value.
+  /** Obtains an instance of {@code LocalTime} from a nanos-of-day value.
     *
     * This factory may return a cached value, but applications must not rely on this.
     *
@@ -321,8 +280,7 @@ object LocalTime {
     create(hours, minutes, seconds, _nanoOfDay.toInt)
   }
 
-  /**
-    * Obtains an instance of {@code LocalTime} from a temporal object.
+  /** Obtains an instance of {@code LocalTime} from a temporal object.
     *
     * A {@code TemporalAccessor} represents some form of date and time information.
     * This factory converts the arbitrary temporal object to an instance of {@code LocalTime}.
@@ -345,8 +303,7 @@ object LocalTime {
       time
   }
 
-  /**
-    * Obtains an instance of {@code LocalTime} from a text string such as {@code 10:15}.
+  /** Obtains an instance of {@code LocalTime} from a text string such as {@code 10:15}.
     *
     * The string must represent a valid time and is parsed using
     * {@link org.threeten.bp.format.DateTimeFormatter#ISO_LOCAL_TIME}.
@@ -357,8 +314,7 @@ object LocalTime {
     */
   def parse(text: CharSequence): LocalTime = parse(text, DateTimeFormatter.ISO_LOCAL_TIME)
 
-  /**
-    * Obtains an instance of {@code LocalTime} from a text string using a specific formatter.
+  /** Obtains an instance of {@code LocalTime} from a text string using a specific formatter.
     *
     * The text is parsed using the formatter, returning a time.
     *
@@ -372,8 +328,7 @@ object LocalTime {
     formatter.parse(text, LocalTime.from)
   }
 
-  /**
-    * Creates a local time from the hour, minute, second and nanosecond fields.
+  /** Creates a local time from the hour, minute, second and nanosecond fields.
     *
     * This factory may return a cached value, but applications must not rely on this.
     *
@@ -442,21 +397,14 @@ object LocalTime {
   */
 @SerialVersionUID(6414437269572265201L)
 final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: Int) extends TemporalAccessor with Temporal with TemporalAdjuster with Ordered[LocalTime] with Serializable {
-  /**
-    * The hour.
-    */
+  /** The hour. */
   private val hour: Byte = _hour.toByte
-  /**
-    * The minute.
-    */
+  /** The minute. */
   private val minute: Byte = _minute.toByte
-  /**
-    * The second.
-    */
+  /** The second. */
   private val second: Byte = _second.toByte
 
-  /**
-    * Checks if the specified field is supported.
+  /** Checks if the specified field is supported.
     *
     * This checks if this time can be queried for the specified field.
     * If false, then calling the {@link #range(TemporalField) range} and
@@ -499,8 +447,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     if (unit.isInstanceOf[ChronoUnit]) unit.isTimeBased
     else unit != null && unit.isSupportedBy(this)
 
-  /**
-    * Gets the range of valid values for the specified field.
+  /** Gets the range of valid values for the specified field.
     *
     * The range object expresses the minimum and maximum valid values for a field.
     * This time is used to enhance the accuracy of the returned range.
@@ -523,8 +470,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     */
   override def range(field: TemporalField): ValueRange = super.range(field)
 
-  /**
-    * Gets the value of the specified field from this time as an {@code int}.
+  /** Gets the value of the specified field from this time as an {@code int}.
     *
     * This queries this time for the value for the specified field.
     * The returned value will always be within the valid range of values for the field.
@@ -551,8 +497,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     if (field.isInstanceOf[ChronoField]) get0(field)
     else super.get(field)
 
-  /**
-    * Gets the value of the specified field from this time as a {@code long}.
+  /** Gets the value of the specified field from this time as a {@code long}.
     *
     * This queries this time for the value for the specified field.
     * If it is not possible to return the value, because the field is not supported
@@ -606,8 +551,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     }
   }
 
-  /**
-    * Gets the hour-of-day field.
+  /** Gets the hour-of-day field.
     *
     * @return the hour-of-day, from 0 to 23
     */
@@ -615,8 +559,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     hour
   }
 
-  /**
-    * Gets the minute-of-hour field.
+  /** Gets the minute-of-hour field.
     *
     * @return the minute-of-hour, from 0 to 59
     */
@@ -624,8 +567,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     minute
   }
 
-  /**
-    * Gets the second-of-minute field.
+  /** Gets the second-of-minute field.
     *
     * @return the second-of-minute, from 0 to 59
     */
@@ -633,8 +575,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     second
   }
 
-  /**
-    * Gets the nano-of-second field.
+  /** Gets the nano-of-second field.
     *
     * @return the nano-of-second, from 0 to 999,999,999
     */
@@ -642,8 +583,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     nano
   }
 
-  /**
-    * Returns an adjusted copy of this time.
+  /** Returns an adjusted copy of this time.
     *
     * This returns a new {@code LocalTime}, based on this one, with the time adjusted.
     * The adjustment takes place using the specified adjuster strategy object.
@@ -669,8 +609,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     else
       adjuster.adjustInto(this).asInstanceOf[LocalTime]
 
-  /**
-    * Returns a copy of this time with the specified field set to a new value.
+  /** Returns a copy of this time with the specified field set to a new value.
     *
     * This returns a new {@code LocalTime}, based on this one, with the value
     * for the specified field changed.
@@ -779,8 +718,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     }
   }
 
-  /**
-    * Returns a copy of this {@code LocalTime} with the hour-of-day value altered.
+  /** Returns a copy of this {@code LocalTime} with the hour-of-day value altered.
     *
     * This instance is immutable and unaffected by this method call.
     *
@@ -796,8 +734,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
       LocalTime.create(hour, minute, second, nano)
     }
 
-  /**
-    * Returns a copy of this {@code LocalTime} with the minute-of-hour value altered.
+  /** Returns a copy of this {@code LocalTime} with the minute-of-hour value altered.
     *
     * This instance is immutable and unaffected by this method call.
     *
@@ -813,8 +750,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
       LocalTime.create(hour, minute, second, nano)
     }
 
-  /**
-    * Returns a copy of this {@code LocalTime} with the second-of-minute value altered.
+  /** Returns a copy of this {@code LocalTime} with the second-of-minute value altered.
     *
     * This instance is immutable and unaffected by this method call.
     *
@@ -830,8 +766,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
       LocalTime.create(hour, minute, second, nano)
     }
 
-  /**
-    * Returns a copy of this {@code LocalTime} with the nano-of-second value altered.
+  /** Returns a copy of this {@code LocalTime} with the nano-of-second value altered.
     *
     * This instance is immutable and unaffected by this method call.
     *
@@ -847,8 +782,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
       LocalTime.create(hour, minute, second, nanoOfSecond)
     }
 
-  /**
-    * Returns a copy of this {@code LocalTime} with the time truncated.
+  /** Returns a copy of this {@code LocalTime} with the time truncated.
     *
     * Truncating the time returns a copy of the original time with fields
     * smaller than the specified unit set to zero.
@@ -879,8 +813,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     LocalTime.ofNanoOfDay((nod / dur) * dur)
   }
 
-  /**
-    * Returns a copy of this date with the specified period added.
+  /** Returns a copy of this date with the specified period added.
     *
     * This method returns a new time based on this time with the specified period added.
     * The amount is typically {@link Period} but may be any other type implementing
@@ -897,8 +830,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     */
   override def plus(amount: TemporalAmount): LocalTime = amount.addTo(this).asInstanceOf[LocalTime]
 
-  /**
-    * Returns a copy of this time with the specified period added.
+  /** Returns a copy of this time with the specified period added.
     *
     * This method returns a new time based on this time with the specified period added.
     * This can be used to add any period that is defined by a unit, for example to add hours, minutes or seconds.
@@ -931,8 +863,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     }
   }
 
-  /**
-    * Returns a copy of this {@code LocalTime} with the specified period in hours added.
+  /** Returns a copy of this {@code LocalTime} with the specified period in hours added.
     *
     * This adds the specified number of hours to this time, returning a new time.
     * The calculation wraps around midnight.
@@ -949,8 +880,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     LocalTime.create(newHour, minute, second, nano)
   }
 
-  /**
-    * Returns a copy of this {@code LocalTime} with the specified period in minutes added.
+  /** Returns a copy of this {@code LocalTime} with the specified period in minutes added.
     *
     * This adds the specified number of minutes to this time, returning a new time.
     * The calculation wraps around midnight.
@@ -972,8 +902,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     LocalTime.create(newHour, newMinute, second, nano)
   }
 
-  /**
-    * Returns a copy of this {@code LocalTime} with the specified period in seconds added.
+  /** Returns a copy of this {@code LocalTime} with the specified period in seconds added.
     *
     * This adds the specified number of seconds to this time, returning a new time.
     * The calculation wraps around midnight.
@@ -996,8 +925,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     LocalTime.create(newHour, newMinute, newSecond, nano)
   }
 
-  /**
-    * Returns a copy of this {@code LocalTime} with the specified period in nanoseconds added.
+  /** Returns a copy of this {@code LocalTime} with the specified period in nanoseconds added.
     *
     * This adds the specified number of nanoseconds to this time, returning a new time.
     * The calculation wraps around midnight.
@@ -1021,8 +949,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     LocalTime.create(newHour, newMinute, newSecond, newNano)
   }
 
-  /**
-    * Returns a copy of this time with the specified period subtracted.
+  /** Returns a copy of this time with the specified period subtracted.
     *
     * This method returns a new time based on this time with the specified period subtracted.
     * The amount is typically {@link Period} but may be any other type implementing
@@ -1039,8 +966,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     */
   override def minus(amount: TemporalAmount): LocalTime = amount.subtractFrom(this).asInstanceOf[LocalTime]
 
-  /**
-    * Returns a copy of this time with the specified period subtracted.
+  /** Returns a copy of this time with the specified period subtracted.
     *
     * This method returns a new time based on this time with the specified period subtracted.
     * This can be used to subtract any period that is defined by a unit, for example to subtract hours, minutes or seconds.
@@ -1058,8 +984,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     if (amountToSubtract == Long.MinValue) plus(Long.MaxValue, unit).plus(1, unit)
     else plus(-amountToSubtract, unit)
 
-  /**
-    * Returns a copy of this {@code LocalTime} with the specified period in hours subtracted.
+  /** Returns a copy of this {@code LocalTime} with the specified period in hours subtracted.
     *
     * This subtracts the specified number of hours from this time, returning a new time.
     * The calculation wraps around midnight.
@@ -1071,8 +996,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     */
   def minusHours(hoursToSubtract: Long): LocalTime = plusHours(-(hoursToSubtract % LocalTime.HOURS_PER_DAY))
 
-  /**
-    * Returns a copy of this {@code LocalTime} with the specified period in minutes subtracted.
+  /** Returns a copy of this {@code LocalTime} with the specified period in minutes subtracted.
     *
     * This subtracts the specified number of minutes from this time, returning a new time.
     * The calculation wraps around midnight.
@@ -1084,8 +1008,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     */
   def minusMinutes(minutesToSubtract: Long): LocalTime = plusMinutes(-(minutesToSubtract % LocalTime.MINUTES_PER_DAY))
 
-  /**
-    * Returns a copy of this {@code LocalTime} with the specified period in seconds subtracted.
+  /** Returns a copy of this {@code LocalTime} with the specified period in seconds subtracted.
     *
     * This subtracts the specified number of seconds from this time, returning a new time.
     * The calculation wraps around midnight.
@@ -1098,8 +1021,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
   def minusSeconds(secondsToSubtract: Long): LocalTime =
     plusSeconds(-(secondsToSubtract % LocalTime.SECONDS_PER_DAY))
 
-  /**
-    * Returns a copy of this {@code LocalTime} with the specified period in nanoseconds subtracted.
+  /** Returns a copy of this {@code LocalTime} with the specified period in nanoseconds subtracted.
     *
     * This subtracts the specified number of nanoseconds from this time, returning a new time.
     * The calculation wraps around midnight.
@@ -1112,8 +1034,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
   def minusNanos(nanosToSubtract: Long): LocalTime =
     plusNanos(-(nanosToSubtract % LocalTime.NANOS_PER_DAY))
 
-  /**
-    * Queries this time using the specified query.
+  /** Queries this time using the specified query.
     *
     * This queries this time using the specified query strategy object.
     * The {@code TemporalQuery} object defines the logic to be used to
@@ -1140,8 +1061,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     else
       query.queryFrom(this)
 
-  /**
-    * Adjusts the specified temporal object to have the same time as this object.
+  /** Adjusts the specified temporal object to have the same time as this object.
     *
     * This returns a temporal object of the same observable type as the input
     * with the time changed to be the same as this.
@@ -1167,8 +1087,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
   def adjustInto(temporal: Temporal): Temporal =
     temporal.`with`(NANO_OF_DAY, toNanoOfDay)
 
-  /**
-    * Calculates the period between this time and another time in
+  /** Calculates the period between this time and another time in
     * terms of the specified unit.
     *
     * This calculates the period between two times in terms of a single unit.
@@ -1230,8 +1149,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     }
   }
 
-  /**
-    * Combines this time with a date to create a {@code LocalDateTime}.
+  /** Combines this time with a date to create a {@code LocalDateTime}.
     *
     * This returns a {@code LocalDateTime} formed from this time at the specified date.
     * All possible combinations of date and time are valid.
@@ -1243,8 +1161,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     LocalDateTime.of(date, this)
   }
 
-  /**
-    * Combines this time with an offset to create an {@code OffsetTime}.
+  /** Combines this time with an offset to create an {@code OffsetTime}.
     *
     * This returns an {@code OffsetTime} formed from this time at the specified offset.
     * All possible combinations of time and offset are valid.
@@ -1256,8 +1173,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     OffsetTime.of(this, offset)
   }
 
-  /**
-    * Extracts the time as seconds of day,
+  /** Extracts the time as seconds of day,
     * from {@code 0} to {@code 24 * 60 * 60 - 1}.
     *
     * @return the second-of-day equivalent to this time
@@ -1269,8 +1185,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     total
   }
 
-  /**
-    * Extracts the time as nanos of day,
+  /** Extracts the time as nanos of day,
     * from {@code 0} to {@code 24 * 60 * 60 * 1,000,000,000 - 1}.
     *
     * @return the nano of day equivalent to this time
@@ -1283,8 +1198,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     total
   }
 
-  /**
-    * Compares this {@code LocalTime} to another time.
+  /** Compares this {@code LocalTime} to another time.
     *
     * The comparison is based on the time-line position of the local times within a day.
     * It is "consistent with equals", as defined by {@link Comparable}.
@@ -1307,8 +1221,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     cmp
   }
 
-  /**
-    * Checks if this {@code LocalTime} is after the specified time.
+  /** Checks if this {@code LocalTime} is after the specified time.
     *
     * The comparison is based on the time-line position of the time within a day.
     *
@@ -1320,8 +1233,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     compareTo(other) > 0
   }
 
-  /**
-    * Checks if this {@code LocalTime} is before the specified time.
+  /** Checks if this {@code LocalTime} is before the specified time.
     *
     * The comparison is based on the time-line position of the time within a day.
     *
@@ -1333,8 +1245,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     compareTo(other) < 0
   }
 
-  /**
-    * Checks if this time is equal to another time.
+  /** Checks if this time is equal to another time.
     *
     * The comparison is based on the time-line position of the time within a day.
     *
@@ -1351,8 +1262,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
       case _                => false
   }
 
-  /**
-    * A hash code for this time.
+  /** A hash code for this time.
     *
     * @return a suitable hash code
     */
@@ -1361,8 +1271,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     (nod ^ (nod >>> 32)).toInt
   }
 
-  /**
-    * Outputs this time as a {@code String}, such as {@code 10:15}.
+  /** Outputs this time as a {@code String}, such as {@code 10:15}.
     *
     * The output will be one of the following ISO-8601 formats:
     *<ul>
@@ -1402,8 +1311,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     buf.toString
   }
 
-  /**
-    * Outputs this time as a {@code String} using the formatter.
+  /** Outputs this time as a {@code String} using the formatter.
     *
     * This time will be passed to the formatter
     * {@link DateTimeFormatter#format(TemporalAccessor) print method}.
@@ -1419,8 +1327,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
 
   private def writeReplace: AnyRef = new Ser(Ser.LOCAL_TIME_TYPE, this)
 
-  /**
-    * Defend against malicious streams.
+  /** Defend against malicious streams.
     *
     * @return never
     * @throws InvalidObjectException always

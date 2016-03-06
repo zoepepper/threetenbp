@@ -45,9 +45,7 @@ import org.threeten.bp.temporal.TemporalField
 
 import scala.annotation.meta.setter
 
-/**
-  * Abstract PrinterParser test.
-  */
+/** Abstract PrinterParser test. */
 @Test object AbstractTestPrinterParser {
   private val EMPTY: TemporalAccessor = new TemporalAccessor() {
     def isSupported(field: TemporalField): Boolean = true

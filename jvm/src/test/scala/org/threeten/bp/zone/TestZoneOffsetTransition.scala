@@ -42,9 +42,7 @@ import org.threeten.bp.LocalDateTime
 import org.threeten.bp.Year
 import org.threeten.bp.ZoneOffset
 
-/**
-  * Test ZoneOffsetTransition.
-  */
+/** Test ZoneOffsetTransition. */
 @Test object TestZoneOffsetTransition extends TestNGSuite {
   private val OFFSET_0100: ZoneOffset = ZoneOffset.ofHours(1)
   private val OFFSET_0200: ZoneOffset = ZoneOffset.ofHours(2)

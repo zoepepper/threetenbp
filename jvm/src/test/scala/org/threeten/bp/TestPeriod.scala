@@ -43,9 +43,7 @@ import org.testng.SkipException
 import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
 
-/**
-  * Test.
-  */
+/** Test. */
 @Test object TestPeriod {
   private def pymd(y: Int, m: Int, d: Int): Period = {
     Period.of(y, m, d)

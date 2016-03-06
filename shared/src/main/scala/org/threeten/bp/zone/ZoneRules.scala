@@ -38,8 +38,7 @@ import org.threeten.bp.Instant
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.ZoneOffset
 
-/**
-  * The rules defining how the zone offset varies for a single time-zone.
+/** The rules defining how the zone offset varies for a single time-zone.
   *
   * The rules model all the historic and future transitions for a time-zone.
   * {@link ZoneOffsetTransition} is used for known transitions, typically historic.
@@ -62,8 +61,7 @@ import org.threeten.bp.ZoneOffset
   * The supplied implementations of this class are immutable and thread-safe.
   */
 object ZoneRules {
-  /**
-    * Obtains an instance of {@code ZoneRules} with full transition rules.
+  /** Obtains an instance of {@code ZoneRules} with full transition rules.
     *
     * @param baseStandardOffset  the standard offset to use before legal rules were set, not null
     * @param baseWallOffset  the wall offset to use before legal rules were set, not null
@@ -81,8 +79,7 @@ object ZoneRules {
     StandardZoneRules(baseStandardOffset, baseWallOffset, standardOffsetTransitionList, transitionList, lastRules)
   }
 
-  /**
-    * Obtains an instance of {@code ZoneRules} that always uses the same offset.
+  /** Obtains an instance of {@code ZoneRules} that always uses the same offset.
     *
     * The returned rules always have the same offset.
     *
@@ -147,15 +144,13 @@ object ZoneRules {
 abstract class ZoneRules private[zone]() {
 
 
-  /**
-    * Checks of the zone rules are fixed, such that the offset never varies.
+  /** Checks of the zone rules are fixed, such that the offset never varies.
     *
     * @return true if the time-zone is fixed and the offset never changes
     */
   def isFixedOffset: Boolean
 
-  /**
-    * Gets the offset applicable at the specified instant in these rules.
+  /** Gets the offset applicable at the specified instant in these rules.
     *
     * The mapping from an instant to an offset is simple, there is only
     * one valid offset for each instant.
@@ -167,8 +162,7 @@ abstract class ZoneRules private[zone]() {
     */
   def getOffset(instant: Instant): ZoneOffset
 
-  /**
-    * Gets a suitable offset for the specified local date-time in these rules.
+  /** Gets a suitable offset for the specified local date-time in these rules.
     *
     * The mapping from a local date-time to an offset is not straightforward.
     * There are three cases:
@@ -197,8 +191,7 @@ abstract class ZoneRules private[zone]() {
     */
   def getOffset(localDateTime: LocalDateTime): ZoneOffset
 
-  /**
-    * Gets the offset applicable at the specified local date-time in these rules.
+  /** Gets the offset applicable at the specified local date-time in these rules.
     *
     * The mapping from a local date-time to an offset is not straightforward.
     * There are three cases:
@@ -241,8 +234,7 @@ abstract class ZoneRules private[zone]() {
     */
   def getValidOffsets(localDateTime: LocalDateTime): java.util.List[ZoneOffset]
 
-  /**
-    * Gets the offset transition applicable at the specified local date-time in these rules.
+  /** Gets the offset transition applicable at the specified local date-time in these rules.
     *
     * The mapping from a local date-time to an offset is not straightforward.
     * There are three cases:
@@ -277,8 +269,7 @@ abstract class ZoneRules private[zone]() {
     */
   def getTransition(localDateTime: LocalDateTime): ZoneOffsetTransition
 
-  /**
-    * Gets the standard offset for the specified instant in this zone.
+  /** Gets the standard offset for the specified instant in this zone.
     *
     * This provides access to historic information on how the standard offset
     * has changed over time.
@@ -291,8 +282,7 @@ abstract class ZoneRules private[zone]() {
     */
   def getStandardOffset(instant: Instant): ZoneOffset
 
-  /**
-    * Gets the amount of daylight savings in use for the specified instant in this zone.
+  /** Gets the amount of daylight savings in use for the specified instant in this zone.
     *
     * This provides access to historic information on how the amount of daylight
     * savings has changed over time.
@@ -306,8 +296,7 @@ abstract class ZoneRules private[zone]() {
     */
   def getDaylightSavings(instant: Instant): Duration
 
-  /**
-    * Checks if the specified instant is in daylight savings.
+  /** Checks if the specified instant is in daylight savings.
     *
     * This checks if the standard and actual offsets are the same at the specified instant.
     *
@@ -317,8 +306,7 @@ abstract class ZoneRules private[zone]() {
     */
   def isDaylightSavings(instant: Instant): Boolean
 
-  /**
-    * Checks if the offset date-time is valid for these rules.
+  /** Checks if the offset date-time is valid for these rules.
     *
     * To be valid, the local date-time must not be in a gap and the offset
     * must match the valid offsets.
@@ -330,8 +318,7 @@ abstract class ZoneRules private[zone]() {
     */
   def isValidOffset(localDateTime: LocalDateTime, offset: ZoneOffset): Boolean
 
-  /**
-    * Gets the next transition after the specified instant.
+  /** Gets the next transition after the specified instant.
     *
     * This returns details of the next transition after the specified instant.
     * For example, if the instant represents a point where "Summer" daylight savings time
@@ -343,8 +330,7 @@ abstract class ZoneRules private[zone]() {
     */
   def nextTransition(instant: Instant): ZoneOffsetTransition
 
-  /**
-    * Gets the previous transition before the specified instant.
+  /** Gets the previous transition before the specified instant.
     *
     * This returns details of the previous transition after the specified instant.
     * For example, if the instant represents a point where "summer" daylight saving time
@@ -356,8 +342,7 @@ abstract class ZoneRules private[zone]() {
     */
   def previousTransition(instant: Instant): ZoneOffsetTransition
 
-  /**
-    * Gets the complete list of fully defined transitions.
+  /** Gets the complete list of fully defined transitions.
     *
     * The complete set of transitions for this rules instance is defined by this method
     * and {@link #getTransitionRules()}. This method returns those transitions that have
@@ -370,8 +355,7 @@ abstract class ZoneRules private[zone]() {
     */
   def getTransitions: java.util.List[ZoneOffsetTransition]
 
-  /**
-    * Gets the list of transition rules for years beyond those defined in the transition list.
+  /** Gets the list of transition rules for years beyond those defined in the transition list.
     *
     * The complete set of transitions for this rules instance is defined by this method
     * and {@link #getTransitions()}. This method returns instances of {@link ZoneOffsetTransitionRule}
@@ -393,8 +377,7 @@ abstract class ZoneRules private[zone]() {
     */
   def getTransitionRules: java.util.List[ZoneOffsetTransitionRule]
 
-  /**
-    * Checks if this set of rules equals another.
+  /** Checks if this set of rules equals another.
     *
     * Two rule sets are equal if they will always result in the same output
     * for any given input instant or local date-time.
@@ -407,8 +390,7 @@ abstract class ZoneRules private[zone]() {
     */
   override def equals(otherRules: Any): Boolean
 
-  /**
-    * Returns a suitable hash code given the definition of {@code #equals}.
+  /** Returns a suitable hash code given the definition of {@code #equals}.
     *
     * @return the hash code
     */

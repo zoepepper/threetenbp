@@ -54,8 +54,7 @@ import org.threeten.bp.temporal.TemporalUnit
 import org.threeten.bp.temporal.UnsupportedTemporalTypeException
 import org.threeten.bp.temporal.ValueRange
 
-/**
-  * A date in the Minguo calendar system.
+/** A date in the Minguo calendar system.
   *
   * This date operates using the {@linkplain MinguoChronology Minguo calendar}.
   * This calendar system is primarily used in the Republic of China, often known as Taiwan.
@@ -66,8 +65,7 @@ import org.threeten.bp.temporal.ValueRange
   */
 @SerialVersionUID(1300372329181994526L)
 object MinguoDate {
-  /**
-    * Obtains the current {@code MinguoDate} from the system clock in the default time-zone.
+  /** Obtains the current {@code MinguoDate} from the system clock in the default time-zone.
     *
     * This will query the {@link Clock#systemDefaultZone() system clock} in the default
     * time-zone to obtain the current date.
@@ -79,8 +77,7 @@ object MinguoDate {
     */
   def now: MinguoDate = now(Clock.systemDefaultZone)
 
-  /**
-    * Obtains the current {@code MinguoDate} from the system clock in the specified time-zone.
+  /** Obtains the current {@code MinguoDate} from the system clock in the specified time-zone.
     *
     * This will query the {@link Clock#system(ZoneId) system clock} to obtain the current date.
     * Specifying the time-zone avoids dependence on the default time-zone.
@@ -93,8 +90,7 @@ object MinguoDate {
     */
   def now(zone: ZoneId): MinguoDate = now(Clock.system(zone))
 
-  /**
-    * Obtains the current {@code MinguoDate} from the specified clock.
+  /** Obtains the current {@code MinguoDate} from the specified clock.
     *
     * This will query the specified clock to obtain the current date - today.
     * Using this method allows the use of an alternate clock for testing.
@@ -106,8 +102,7 @@ object MinguoDate {
     */
   def now(clock: Clock): MinguoDate = new MinguoDate(LocalDate.now(clock))
 
-  /**
-    * Obtains a {@code MinguoDate} representing a date in the Minguo calendar
+  /** Obtains a {@code MinguoDate} representing a date in the Minguo calendar
     * system from the proleptic-year, month-of-year and day-of-month fields.
     *
     * This returns a {@code MinguoDate} with the specified fields.
@@ -123,8 +118,7 @@ object MinguoDate {
   def of(prolepticYear: Int, month: Int, dayOfMonth: Int): MinguoDate =
     MinguoChronology.INSTANCE.date(prolepticYear, month, dayOfMonth)
 
-  /**
-    * Obtains a {@code MinguoDate} from a temporal object.
+  /** Obtains a {@code MinguoDate} from a temporal object.
     *
     * This obtains a date in the Minguo calendar system based on the specified temporal.
     * A {@code TemporalAccessor} represents an arbitrary set of date and time information,
@@ -151,8 +145,7 @@ object MinguoDate {
   }
 }
 
-/**
-  * Creates an instance from an ISO date.
+/** Creates an instance from an ISO date.
   *
   * @param isoDate  the standard local date, validated not null
   */

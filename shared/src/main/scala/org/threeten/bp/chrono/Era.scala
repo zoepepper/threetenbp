@@ -36,8 +36,7 @@ import org.threeten.bp.format.{DateTimeFormatterBuilder, TextStyle}
 import org.threeten.bp.temporal.ChronoField._
 import org.threeten.bp.temporal._
 
-/**
-  * An era of the time-line.
+/** An era of the time-line.
   *
   * Most calendar systems have a single epoch dividing the time-line into two eras.
   * However, some calendar systems, have multiple eras, such as one for the reign
@@ -58,8 +57,7 @@ import org.threeten.bp.temporal._
   * It is recommended to use an enum whenever possible.
   */
 trait Era extends TemporalAccessor with TemporalAdjuster {
-  /**
-    * Gets the numeric value associated with the era as defined by the chronology.
+  /** Gets the numeric value associated with the era as defined by the chronology.
     * Each chronology defines the predefined Eras and methods to list the Eras
     * of the chronology.
     *
@@ -76,8 +74,7 @@ trait Era extends TemporalAccessor with TemporalAdjuster {
     */
   def getValue: Int
 
-  /**
-    * Gets the textual representation of this era.
+  /** Gets the textual representation of this era.
     *
     * This returns the textual name used to identify the era.
     * The parameters control the style of the returned text and the locale.

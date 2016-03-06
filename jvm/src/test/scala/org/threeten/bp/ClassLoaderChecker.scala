@@ -45,8 +45,7 @@ import java.util.regex.Pattern
 import java.util.zip.ZipInputStream
 import org.threeten.bp.temporal.TemporalAccessor
 
-/**
-  * Test Class loading.
+/** Test Class loading.
   * Use "-verbose:class".
   */
 object ClassLoaderChecker {

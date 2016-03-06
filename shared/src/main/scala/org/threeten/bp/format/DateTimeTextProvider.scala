@@ -34,8 +34,7 @@ package org.threeten.bp.format
 import java.util.Locale
 import org.threeten.bp.temporal.TemporalField
 
-/**
-  * The Service Provider Interface (SPI) to be implemented by classes providing
+/** The Service Provider Interface (SPI) to be implemented by classes providing
   * the textual form of a date-time field.
   *
   * <h3>Specification for implementors</h3>
@@ -44,8 +43,7 @@ import org.threeten.bp.temporal.TemporalField
   * Implementations should cache the textual information.
   */
 object DateTimeTextProvider {
-  /**
-    * Gets the provider.
+  /** Gets the provider.
     *
     * @return the provider, not null
     */
@@ -53,15 +51,13 @@ object DateTimeTextProvider {
 }
 
 abstract class DateTimeTextProvider {
-  /**
-    * Gets the available locales.
+  /** Gets the available locales.
     *
     * @return the locales
     */
   def getAvailableLocales: Array[Locale] = throw new UnsupportedOperationException
 
-  /**
-    * Gets the text for the specified field, locale and style
+  /** Gets the text for the specified field, locale and style
     * for the purpose of printing.
     *
     * The text associated with the value is returned.
@@ -76,8 +72,7 @@ abstract class DateTimeTextProvider {
     */
   def getText(field: TemporalField, value: Long, style: TextStyle, locale: Locale): String
 
-  /**
-    * Gets an iterator of text to field for the specified field, locale and style
+  /** Gets an iterator of text to field for the specified field, locale and style
     * for the purpose of parsing.
     *
     * The iterator must be returned in order from the longest text to the shortest.

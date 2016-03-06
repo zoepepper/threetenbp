@@ -67,23 +67,20 @@ import org.threeten.bp.zone.ZoneRules
 
 @SerialVersionUID(6207766400415563566L)
 object LocalDateTime {
-  /**
-    * The minimum supported {@code LocalDateTime}, '-999999999-01-01T00:00:00'.
+  /** The minimum supported {@code LocalDateTime}, '-999999999-01-01T00:00:00'.
     * This is the local date-time of midnight at the start of the minimum date.
     * This combines {@link LocalDate#MIN} and {@link LocalTime#MIN}.
     * This could be used by an application as a "far past" date-time.
     */
   val MIN: LocalDateTime = LocalDateTime.of(LocalDate.MIN, LocalTime.MIN)
-  /**
-    * The maximum supported {@code LocalDateTime}, '+999999999-12-31T23:59:59.999999999'.
+  /** The maximum supported {@code LocalDateTime}, '+999999999-12-31T23:59:59.999999999'.
     * This is the local date-time just before midnight at the end of the maximum date.
     * This combines {@link LocalDate#MAX} and {@link LocalTime#MAX}.
     * This could be used by an application as a "far future" date-time.
     */
   val MAX: LocalDateTime = LocalDateTime.of(LocalDate.MAX, LocalTime.MAX)
 
-  /**
-    * Obtains the current date-time from the system clock in the default time-zone.
+  /** Obtains the current date-time from the system clock in the default time-zone.
     *
     * This will query the {@link Clock#systemDefaultZone() system clock} in the default
     * time-zone to obtain the current date-time.
@@ -95,8 +92,7 @@ object LocalDateTime {
     */
   def now: LocalDateTime = now(Clock.systemDefaultZone)
 
-  /**
-    * Obtains the current date-time from the system clock in the specified time-zone.
+  /** Obtains the current date-time from the system clock in the specified time-zone.
     *
     * This will query the {@link Clock#system(ZoneId) system clock} to obtain the current date-time.
     * Specifying the time-zone avoids dependence on the default time-zone.
@@ -109,8 +105,7 @@ object LocalDateTime {
     */
   def now(zone: ZoneId): LocalDateTime = now(Clock.system(zone))
 
-  /**
-    * Obtains the current date-time from the specified clock.
+  /** Obtains the current date-time from the specified clock.
     *
     * This will query the specified clock to obtain the current date-time.
     * Using this method allows the use of an alternate clock for testing.
@@ -126,8 +121,7 @@ object LocalDateTime {
     ofEpochSecond(now.getEpochSecond, now.getNano, offset)
   }
 
-  /**
-    * Obtains an instance of {@code LocalDateTime} from year, month,
+  /** Obtains an instance of {@code LocalDateTime} from year, month,
     * day, hour and minute, setting the second and nanosecond to zero.
     *
     * The day must be valid for the year and month, otherwise an exception will be thrown.
@@ -148,8 +142,7 @@ object LocalDateTime {
     new LocalDateTime(date, time)
   }
 
-  /**
-    * Obtains an instance of {@code LocalDateTime} from year, month,
+  /** Obtains an instance of {@code LocalDateTime} from year, month,
     * day, hour, minute and second, setting the nanosecond to zero.
     *
     * The day must be valid for the year and month, otherwise an exception will be thrown.
@@ -171,8 +164,7 @@ object LocalDateTime {
     new LocalDateTime(date, time)
   }
 
-  /**
-    * Obtains an instance of {@code LocalDateTime} from year, month,
+  /** Obtains an instance of {@code LocalDateTime} from year, month,
     * day, hour, minute, second and nanosecond.
     *
     * The day must be valid for the year and month, otherwise an exception will be thrown.
@@ -194,8 +186,7 @@ object LocalDateTime {
     new LocalDateTime(date, time)
   }
 
-  /**
-    * Obtains an instance of {@code LocalDateTime} from year, month,
+  /** Obtains an instance of {@code LocalDateTime} from year, month,
     * day, hour and minute, setting the second and nanosecond to zero.
     *
     * The day must be valid for the year and month, otherwise an exception will be thrown.
@@ -216,8 +207,7 @@ object LocalDateTime {
     new LocalDateTime(date, time)
   }
 
-  /**
-    * Obtains an instance of {@code LocalDateTime} from year, month,
+  /** Obtains an instance of {@code LocalDateTime} from year, month,
     * day, hour, minute and second, setting the nanosecond to zero.
     *
     * The day must be valid for the year and month, otherwise an exception will be thrown.
@@ -239,8 +229,7 @@ object LocalDateTime {
     new LocalDateTime(date, time)
   }
 
-  /**
-    * Obtains an instance of {@code LocalDateTime} from year, month,
+  /** Obtains an instance of {@code LocalDateTime} from year, month,
     * day, hour, minute, second and nanosecond.
     *
     * The day must be valid for the year and month, otherwise an exception will be thrown.
@@ -262,8 +251,7 @@ object LocalDateTime {
     new LocalDateTime(date, time)
   }
 
-  /**
-    * Obtains an instance of {@code LocalDateTime} from a date and time.
+  /** Obtains an instance of {@code LocalDateTime} from a date and time.
     *
     * @param date  the local date, not null
     * @param time  the local time, not null
@@ -275,8 +263,7 @@ object LocalDateTime {
     new LocalDateTime(date, time)
   }
 
-  /**
-    * Obtains an instance of {@code LocalDateTime} from an {@code Instant} and zone ID.
+  /** Obtains an instance of {@code LocalDateTime} from an {@code Instant} and zone ID.
     *
     * This creates a local date-time based on the specified instant.
     * First, the offset from UTC/Greenwich is obtained using the zone ID and instant,
@@ -296,8 +283,7 @@ object LocalDateTime {
     ofEpochSecond(instant.getEpochSecond, instant.getNano, offset)
   }
 
-  /**
-    * Obtains an instance of {@code LocalDateTime} using seconds from the
+  /** Obtains an instance of {@code LocalDateTime} using seconds from the
     * epoch of 1970-01-01T00:00:00Z.
     *
     * This allows the {@link ChronoField#INSTANT_SECONDS epoch-second} field
@@ -320,8 +306,7 @@ object LocalDateTime {
     new LocalDateTime(date, time)
   }
 
-  /**
-    * Obtains an instance of {@code LocalDateTime} from a temporal object.
+  /** Obtains an instance of {@code LocalDateTime} from a temporal object.
     *
     * A {@code TemporalAccessor} represents some form of date and time information.
     * This factory converts the arbitrary temporal object to an instance of {@code LocalDateTime}.
@@ -353,8 +338,7 @@ object LocalDateTime {
     }
   }
 
-  /**
-    * Obtains an instance of {@code LocalDateTime} from a text string such as {@code 2007-12-03T10:15:30}.
+  /** Obtains an instance of {@code LocalDateTime} from a text string such as {@code 2007-12-03T10:15:30}.
     *
     * The string must represent a valid date-time and is parsed using
     * {@link org.threeten.bp.format.DateTimeFormatter#ISO_LOCAL_DATE_TIME}.
@@ -365,8 +349,7 @@ object LocalDateTime {
     */
   def parse(text: CharSequence): LocalDateTime = parse(text, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
 
-  /**
-    * Obtains an instance of {@code LocalDateTime} from a text string using a specific formatter.
+  /** Obtains an instance of {@code LocalDateTime} from a text string using a specific formatter.
     *
     * The text is parsed using the formatter, returning a date-time.
     *
@@ -388,8 +371,7 @@ object LocalDateTime {
   }
 }
 
-/**
-  * A date-time without a time-zone in the ISO-8601 calendar system,
+/** A date-time without a time-zone in the ISO-8601 calendar system,
   * such as {@code 2007-12-03T10:15:30}.
   *
   * {@code LocalDateTime} is an immutable date-time object that represents a date-time,
@@ -423,8 +405,7 @@ object LocalDateTime {
 @SerialVersionUID(6207766400415563566L)
 final class LocalDateTime private(private val date: LocalDate, private val time: LocalTime) extends ChronoLocalDateTime[LocalDate] with Temporal with TemporalAdjuster with Serializable {
 
-  /**
-    * Returns a copy of this date-time with the new date and time, checking
+  /** Returns a copy of this date-time with the new date and time, checking
     * to see if a new object is in fact required.
     *
     * @param newDate  the date of the new date-time, not null
@@ -437,8 +418,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     else
       new LocalDateTime(newDate, newTime)
 
-  /**
-    * Checks if the specified field is supported.
+  /** Checks if the specified field is supported.
     *
     * This checks if this date-time can be queried for the specified field.
     * If false, then calling the {@link #range(TemporalField) range} and
@@ -498,8 +478,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     else
       unit != null && unit.isSupportedBy(this)
 
-  /**
-    * Gets the range of valid values for the specified field.
+  /** Gets the range of valid values for the specified field.
     *
     * The range object expresses the minimum and maximum valid values for a field.
     * This date-time is used to enhance the accuracy of the returned range.
@@ -527,8 +506,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     else
       field.rangeRefinedBy(this)
 
-  /**
-    * Gets the value of the specified field from this date-time as an {@code int}.
+  /** Gets the value of the specified field from this date-time as an {@code int}.
     *
     * This queries this date-time for the value for the specified field.
     * The returned value will always be within the valid range of values for the field.
@@ -559,8 +537,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     else
       super.get(field)
 
-  /**
-    * Gets the value of the specified field from this date-time as a {@code long}.
+  /** Gets the value of the specified field from this date-time as a {@code long}.
     *
     * This queries this date-time for the value for the specified field.
     * If it is not possible to return the value, because the field is not supported
@@ -588,8 +565,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     else
       field.getFrom(this)
 
-  /**
-    * Gets the year field.
+  /** Gets the year field.
     *
     * This method returns the primitive {@code int} value for the year.
     *
@@ -600,8 +576,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     */
   def getYear: Int = date.getYear
 
-  /**
-    * Gets the month-of-year field from 1 to 12.
+  /** Gets the month-of-year field from 1 to 12.
     *
     * This method returns the month as an {@code int} from 1 to 12.
     * Application code is frequently clearer if the enum {@link Month}
@@ -612,8 +587,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     */
   def getMonthValue: Int = date.getMonthValue
 
-  /**
-    * Gets the month-of-year field using the {@code Month} enum.
+  /** Gets the month-of-year field using the {@code Month} enum.
     *
     * This method returns the enum {@link Month} for the month.
     * This avoids confusion as to what {@code int} values mean.
@@ -625,8 +599,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     */
   def getMonth: Month = date.getMonth
 
-  /**
-    * Gets the day-of-month field.
+  /** Gets the day-of-month field.
     *
     * This method returns the primitive {@code int} value for the day-of-month.
     *
@@ -634,8 +607,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     */
   def getDayOfMonth: Int = date.getDayOfMonth
 
-  /**
-    * Gets the day-of-year field.
+  /** Gets the day-of-year field.
     *
     * This method returns the primitive {@code int} value for the day-of-year.
     *
@@ -643,8 +615,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     */
   def getDayOfYear: Int = date.getDayOfYear
 
-  /**
-    * Gets the day-of-week field, which is an enum {@code DayOfWeek}.
+  /** Gets the day-of-week field, which is an enum {@code DayOfWeek}.
     *
     * This method returns the enum {@link DayOfWeek} for the day-of-week.
     * This avoids confusion as to what {@code int} values mean.
@@ -658,36 +629,31 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     */
   def getDayOfWeek: DayOfWeek = date.getDayOfWeek
 
-  /**
-    * Gets the hour-of-day field.
+  /** Gets the hour-of-day field.
     *
     * @return the hour-of-day, from 0 to 23
     */
   def getHour: Int = time.getHour
 
-  /**
-    * Gets the minute-of-hour field.
+  /** Gets the minute-of-hour field.
     *
     * @return the minute-of-hour, from 0 to 59
     */
   def getMinute: Int = time.getMinute
 
-  /**
-    * Gets the second-of-minute field.
+  /** Gets the second-of-minute field.
     *
     * @return the second-of-minute, from 0 to 59
     */
   def getSecond: Int = time.getSecond
 
-  /**
-    * Gets the nano-of-second field.
+  /** Gets the nano-of-second field.
     *
     * @return the nano-of-second, from 0 to 999,999,999
     */
   def getNano: Int = time.getNano
 
-  /**
-    * Returns an adjusted copy of this date-time.
+  /** Returns an adjusted copy of this date-time.
     *
     * This returns a new {@code LocalDateTime}, based on this one, with the date-time adjusted.
     * The adjustment takes place using the specified adjuster strategy object.
@@ -738,8 +704,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     else
       adjuster.adjustInto(this).asInstanceOf[LocalDateTime]
 
-  /**
-    * Returns a copy of this date-time with the specified field set to a new value.
+  /** Returns a copy of this date-time with the specified field set to a new value.
     *
     * This returns a new {@code LocalDateTime}, based on this one, with the value
     * for the specified field changed.
@@ -778,8 +743,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     else
       field.adjustInto(this, newValue)
 
-  /**
-    * Returns a copy of this {@code LocalDateTime} with the year altered.
+  /** Returns a copy of this {@code LocalDateTime} with the year altered.
     * The time does not affect the calculation and will be the same in the result.
     * If the day-of-month is invalid for the year, it will be changed to the last valid day of the month.
     *
@@ -791,8 +755,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     */
   def withYear(year: Int): LocalDateTime = `with`(date.withYear(year), time)
 
-  /**
-    * Returns a copy of this {@code LocalDateTime} with the month-of-year altered.
+  /** Returns a copy of this {@code LocalDateTime} with the month-of-year altered.
     * The time does not affect the calculation and will be the same in the result.
     * If the day-of-month is invalid for the year, it will be changed to the last valid day of the month.
     *
@@ -804,8 +767,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     */
   def withMonth(month: Int): LocalDateTime = `with`(date.withMonth(month), time)
 
-  /**
-    * Returns a copy of this {@code LocalDateTime} with the day-of-month altered.
+  /** Returns a copy of this {@code LocalDateTime} with the day-of-month altered.
     * If the resulting {@code LocalDateTime} is invalid, an exception is thrown.
     * The time does not affect the calculation and will be the same in the result.
     *
@@ -818,8 +780,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     */
   def withDayOfMonth(dayOfMonth: Int): LocalDateTime = `with`(date.withDayOfMonth(dayOfMonth), time)
 
-  /**
-    * Returns a copy of this {@code LocalDateTime} with the day-of-year altered.
+  /** Returns a copy of this {@code LocalDateTime} with the day-of-year altered.
     * If the resulting {@code LocalDateTime} is invalid, an exception is thrown.
     *
     * This instance is immutable and unaffected by this method call.
@@ -831,8 +792,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     */
   def withDayOfYear(dayOfYear: Int): LocalDateTime = `with`(date.withDayOfYear(dayOfYear), time)
 
-  /**
-    * Returns a copy of this {@code LocalDateTime} with the hour-of-day value altered.
+  /** Returns a copy of this {@code LocalDateTime} with the hour-of-day value altered.
     *
     * This instance is immutable and unaffected by this method call.
     *
@@ -845,8 +805,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     `with`(date, newTime)
   }
 
-  /**
-    * Returns a copy of this {@code LocalDateTime} with the minute-of-hour value altered.
+  /** Returns a copy of this {@code LocalDateTime} with the minute-of-hour value altered.
     *
     * This instance is immutable and unaffected by this method call.
     *
@@ -859,8 +818,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     `with`(date, newTime)
   }
 
-  /**
-    * Returns a copy of this {@code LocalDateTime} with the second-of-minute value altered.
+  /** Returns a copy of this {@code LocalDateTime} with the second-of-minute value altered.
     *
     * This instance is immutable and unaffected by this method call.
     *
@@ -873,8 +831,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     `with`(date, newTime)
   }
 
-  /**
-    * Returns a copy of this {@code LocalDateTime} with the nano-of-second value altered.
+  /** Returns a copy of this {@code LocalDateTime} with the nano-of-second value altered.
     *
     * This instance is immutable and unaffected by this method call.
     *
@@ -887,8 +844,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     `with`(date, newTime)
   }
 
-  /**
-    * Returns a copy of this {@code LocalDateTime} with the time truncated.
+  /** Returns a copy of this {@code LocalDateTime} with the time truncated.
     *
     * Truncation returns a copy of the original date-time with fields
     * smaller than the specified unit set to zero.
@@ -908,8 +864,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     */
   def truncatedTo(unit: TemporalUnit): LocalDateTime = `with`(date, time.truncatedTo(unit))
 
-  /**
-    * Returns a copy of this date-time with the specified period added.
+  /** Returns a copy of this date-time with the specified period added.
     *
     * This method returns a new date-time based on this time with the specified period added.
     * The amount is typically {@link Period} but may be any other type implementing
@@ -926,8 +881,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     */
   override def plus(amount: TemporalAmount): LocalDateTime = amount.addTo(this).asInstanceOf[LocalDateTime]
 
-  /**
-    * Returns a copy of this date-time with the specified period added.
+  /** Returns a copy of this date-time with the specified period added.
     *
     * This method returns a new date-time based on this date-time with the specified period added.
     * This can be used to add any period that is defined by a unit, for example to add years, months or days.
@@ -967,8 +921,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     unit.addTo(this, amountToAdd)
   }
 
-  /**
-    * Returns a copy of this {@code LocalDateTime} with the specified period in years added.
+  /** Returns a copy of this {@code LocalDateTime} with the specified period in years added.
     *
     * This method adds the specified amount to the years field in three steps:
     * <ol>
@@ -992,8 +945,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     `with`(newDate, time)
   }
 
-  /**
-    * Returns a copy of this {@code LocalDateTime} with the specified period in months added.
+  /** Returns a copy of this {@code LocalDateTime} with the specified period in months added.
     *
     * This method adds the specified amount to the months field in three steps:
     * <ol>
@@ -1017,8 +969,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     `with`(newDate, time)
   }
 
-  /**
-    * Returns a copy of this {@code LocalDateTime} with the specified period in weeks added.
+  /** Returns a copy of this {@code LocalDateTime} with the specified period in weeks added.
     *
     * This method adds the specified amount in weeks to the days field incrementing
     * the month and year fields as necessary to ensure the result remains valid.
@@ -1037,8 +988,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     `with`(newDate, time)
   }
 
-  /**
-    * Returns a copy of this {@code LocalDateTime} with the specified period in days added.
+  /** Returns a copy of this {@code LocalDateTime} with the specified period in days added.
     *
     * This method adds the specified amount to the days field incrementing the
     * month and year fields as necessary to ensure the result remains valid.
@@ -1057,8 +1007,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     `with`(newDate, time)
   }
 
-  /**
-    * Returns a copy of this {@code LocalDateTime} with the specified period in hours added.
+  /** Returns a copy of this {@code LocalDateTime} with the specified period in hours added.
     *
     * This instance is immutable and unaffected by this method call.
     *
@@ -1068,8 +1017,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     */
   def plusHours(hours: Long): LocalDateTime = plusWithOverflow(date, hours, 0, 0, 0, 1)
 
-  /**
-    * Returns a copy of this {@code LocalDateTime} with the specified period in minutes added.
+  /** Returns a copy of this {@code LocalDateTime} with the specified period in minutes added.
     *
     * This instance is immutable and unaffected by this method call.
     *
@@ -1079,8 +1027,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     */
   def plusMinutes(minutes: Long): LocalDateTime = plusWithOverflow(date, 0, minutes, 0, 0, 1)
 
-  /**
-    * Returns a copy of this {@code LocalDateTime} with the specified period in seconds added.
+  /** Returns a copy of this {@code LocalDateTime} with the specified period in seconds added.
     *
     * This instance is immutable and unaffected by this method call.
     *
@@ -1090,8 +1037,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     */
   def plusSeconds(seconds: Long): LocalDateTime = plusWithOverflow(date, 0, 0, seconds, 0, 1)
 
-  /**
-    * Returns a copy of this {@code LocalDateTime} with the specified period in nanoseconds added.
+  /** Returns a copy of this {@code LocalDateTime} with the specified period in nanoseconds added.
     *
     * This instance is immutable and unaffected by this method call.
     *
@@ -1101,8 +1047,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     */
   def plusNanos(nanos: Long): LocalDateTime = plusWithOverflow(date, 0, 0, 0, nanos, 1)
 
-  /**
-    * Returns a copy of this date-time with the specified period subtracted.
+  /** Returns a copy of this date-time with the specified period subtracted.
     *
     * This method returns a new date-time based on this time with the specified period subtracted.
     * The amount is typically {@link Period} but may be any other type implementing
@@ -1119,8 +1064,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     */
   override def minus(amount: TemporalAmount): LocalDateTime = amount.subtractFrom(this).asInstanceOf[LocalDateTime]
 
-  /**
-    * Returns a copy of this date-time with the specified period subtracted.
+  /** Returns a copy of this date-time with the specified period subtracted.
     *
     * This method returns a new date-time based on this date-time with the specified period subtracted.
     * This can be used to subtract any period that is defined by a unit, for example to subtract years, months or days.
@@ -1137,8 +1081,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
   override def minus(amountToSubtract: Long, unit: TemporalUnit): LocalDateTime =
     if (amountToSubtract == Long.MinValue) plus(Long.MaxValue, unit).plus(1, unit) else plus(-amountToSubtract, unit)
 
-  /**
-    * Returns a copy of this {@code LocalDateTime} with the specified period in years subtracted.
+  /** Returns a copy of this {@code LocalDateTime} with the specified period in years subtracted.
     *
     * This method subtracts the specified amount from the years field in three steps:
     * <ol>
@@ -1160,8 +1103,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
   def minusYears(years: Long): LocalDateTime =
     if (years == Long.MinValue) plusYears(Long.MaxValue).plusYears(1) else plusYears(-years)
 
-  /**
-    * Returns a copy of this {@code LocalDateTime} with the specified period in months subtracted.
+  /** Returns a copy of this {@code LocalDateTime} with the specified period in months subtracted.
     *
     * This method subtracts the specified amount from the months field in three steps:
     * <ol>
@@ -1183,8 +1125,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
   def minusMonths(months: Long): LocalDateTime =
     if (months == Long.MinValue) plusMonths(Long.MaxValue).plusMonths(1) else plusMonths(-months)
 
-  /**
-    * Returns a copy of this {@code LocalDateTime} with the specified period in weeks subtracted.
+  /** Returns a copy of this {@code LocalDateTime} with the specified period in weeks subtracted.
     *
     * This method subtracts the specified amount in weeks from the days field decrementing
     * the month and year fields as necessary to ensure the result remains valid.
@@ -1200,8 +1141,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     */
   def minusWeeks(weeks: Long): LocalDateTime = if (weeks == Long.MinValue) plusWeeks(Long.MaxValue).plusWeeks(1) else plusWeeks(-weeks)
 
-  /**
-    * Returns a copy of this {@code LocalDateTime} with the specified period in days subtracted.
+  /** Returns a copy of this {@code LocalDateTime} with the specified period in days subtracted.
     *
     * This method subtracts the specified amount from the days field incrementing the
     * month and year fields as necessary to ensure the result remains valid.
@@ -1218,8 +1158,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
   def minusDays(days: Long): LocalDateTime =
     if (days == Long.MinValue) plusDays(Long.MaxValue).plusDays(1) else plusDays(-days)
 
-  /**
-    * Returns a copy of this {@code LocalDateTime} with the specified period in hours subtracted.
+  /** Returns a copy of this {@code LocalDateTime} with the specified period in hours subtracted.
     *
     * This instance is immutable and unaffected by this method call.
     *
@@ -1229,8 +1168,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     */
   def minusHours(hours: Long): LocalDateTime = plusWithOverflow(date, hours, 0, 0, 0, -1)
 
-  /**
-    * Returns a copy of this {@code LocalDateTime} with the specified period in minutes subtracted.
+  /** Returns a copy of this {@code LocalDateTime} with the specified period in minutes subtracted.
     *
     * This instance is immutable and unaffected by this method call.
     *
@@ -1240,8 +1178,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     */
   def minusMinutes(minutes: Long): LocalDateTime = plusWithOverflow(date, 0, minutes, 0, 0, -1)
 
-  /**
-    * Returns a copy of this {@code LocalDateTime} with the specified period in seconds subtracted.
+  /** Returns a copy of this {@code LocalDateTime} with the specified period in seconds subtracted.
     *
     * This instance is immutable and unaffected by this method call.
     *
@@ -1251,8 +1188,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     */
   def minusSeconds(seconds: Long): LocalDateTime = plusWithOverflow(date, 0, 0, seconds, 0, -1)
 
-  /**
-    * Returns a copy of this {@code LocalDateTime} with the specified period in nanoseconds subtracted.
+  /** Returns a copy of this {@code LocalDateTime} with the specified period in nanoseconds subtracted.
     *
     * This instance is immutable and unaffected by this method call.
     *
@@ -1262,8 +1198,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     */
   def minusNanos(nanos: Long): LocalDateTime = plusWithOverflow(date, 0, 0, 0, nanos, -1)
 
-  /**
-    * Returns a copy of this {@code LocalDateTime} with the specified period added.
+  /** Returns a copy of this {@code LocalDateTime} with the specified period added.
     *
     * This instance is immutable and unaffected by this method call.
     *
@@ -1290,8 +1225,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     `with`(newDate.plusDays(totDays), newTime)
   }
 
-  /**
-    * Queries this date-time using the specified query.
+  /** Queries this date-time using the specified query.
     *
     * This queries this date-time using the specified query strategy object.
     * The {@code TemporalQuery} object defines the logic to be used to
@@ -1314,8 +1248,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     else
       super.query(query)
 
-  /**
-    * Adjusts the specified temporal object to have the same date and time as this object.
+  /** Adjusts the specified temporal object to have the same date and time as this object.
     *
     * This returns a temporal object of the same observable type as the input
     * with the date and time changed to be the same as this.
@@ -1341,8 +1274,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     */
   override def adjustInto(temporal: Temporal): Temporal = super.adjustInto(temporal)
 
-  /**
-    * Calculates the period between this date-time and another date-time in
+  /** Calculates the period between this date-time and another date-time in
     * terms of the specified unit.
     *
     * This calculates the period between two date-times in terms of a single unit.
@@ -1434,8 +1366,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     unit.between(this, end)
   }
 
-  /**
-    * Combines this date-time with an offset to create an {@code OffsetDateTime}.
+  /** Combines this date-time with an offset to create an {@code OffsetDateTime}.
     *
     * This returns an {@code OffsetDateTime} formed from this date-time at the specified offset.
     * All possible combinations of date-time and offset are valid.
@@ -1445,8 +1376,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     */
   def atOffset(offset: ZoneOffset): OffsetDateTime = OffsetDateTime.of(this, offset)
 
-  /**
-    * Combines this date-time with a time-zone to create a {@code ZonedDateTime}.
+  /** Combines this date-time with a time-zone to create a {@code ZonedDateTime}.
     *
     * This returns a {@code ZonedDateTime} formed from this date-time at the
     * specified time-zone. The result will match this date-time as closely as possible.
@@ -1476,8 +1406,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     */
   def atZone(zone: ZoneId): ZonedDateTime = ZonedDateTime.of(this, zone)
 
-  /**
-    * Gets the {@code LocalDate} part of this date-time.
+  /** Gets the {@code LocalDate} part of this date-time.
     *
     * This returns a {@code LocalDate} with the same year, month and day
     * as this date-time.
@@ -1486,8 +1415,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     */
   def toLocalDate: LocalDate = date
 
-  /**
-    * Gets the {@code LocalTime} part of this date-time.
+  /** Gets the {@code LocalTime} part of this date-time.
     *
     * This returns a {@code LocalTime} with the same hour, minute, second and
     * nanosecond as this date-time.
@@ -1496,8 +1424,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     */
   def toLocalTime: LocalTime = time
 
-  /**
-    * Compares this date-time to another date-time.
+  /** Compares this date-time to another date-time.
     *
     * The comparison is primarily based on the date-time, from earliest to latest.
     * It is "consistent with equals", as defined by {@link Comparable}.
@@ -1523,8 +1450,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     cmp
   }
 
-  /**
-    * Checks if this date-time is after the specified date-time.
+  /** Checks if this date-time is after the specified date-time.
     *
     * This checks to see if this date-time represents a point on the
     * local time-line after the other date-time.
@@ -1550,8 +1476,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     else
       super.isAfter(other)
 
-  /**
-    * Checks if this date-time is before the specified date-time.
+  /** Checks if this date-time is before the specified date-time.
     *
     * This checks to see if this date-time represents a point on the
     * local time-line before the other date-time.
@@ -1577,8 +1502,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     else
       super.isBefore(other)
 
-  /**
-    * Checks if this date-time is equal to the specified date-time.
+  /** Checks if this date-time is equal to the specified date-time.
     *
     * This checks to see if this date-time represents the same point on the
     * local time-line as the other date-time.
@@ -1604,8 +1528,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     else
       super.isEqual(other)
 
-  /**
-    * Checks if this date-time is equal to another date-time.
+  /** Checks if this date-time is equal to another date-time.
     *
     * Compares this {@code LocalDateTime} with another ensuring that the date-time is the same.
     * Only objects of type {@code LocalDateTime} are compared, other types return false.
@@ -1619,15 +1542,13 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
       case _                    => false
     }
 
-  /**
-    * A hash code for this date-time.
+  /** A hash code for this date-time.
     *
     * @return a suitable hash code
     */
   override def hashCode: Int = date.hashCode ^ time.hashCode
 
-  /**
-    * Outputs this date-time as a {@code String}, such as {@code 2007-12-03T10:15:30}.
+  /** Outputs this date-time as a {@code String}, such as {@code 2007-12-03T10:15:30}.
     *
     * The output will be one of the following ISO-8601 formats:
     *<ul>
@@ -1644,8 +1565,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     */
   override def toString: String = date.toString + 'T' + time.toString
 
-  /**
-    * Outputs this date-time as a {@code String} using the formatter.
+  /** Outputs this date-time as a {@code String} using the formatter.
     *
     * This date-time will be passed to the formatter
     * {@link DateTimeFormatter#format(TemporalAccessor) print method}.
@@ -1658,8 +1578,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
 
   private def writeReplace: AnyRef = new Ser(Ser.LOCAL_DATE_TIME_TYPE, this)
 
-  /**
-    * Defend against malicious streams.
+  /** Defend against malicious streams.
     * @return never
     * @throws InvalidObjectException always
     */

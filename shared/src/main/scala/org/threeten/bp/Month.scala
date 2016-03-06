@@ -48,8 +48,7 @@ import org.threeten.bp.temporal.TemporalQuery
 import org.threeten.bp.temporal.UnsupportedTemporalTypeException
 import org.threeten.bp.temporal.ValueRange
 
-/**
-  * A month-of-year, such as 'July'.
+/** A month-of-year, such as 'July'.
   *
   * {@code Month} is an enum representing the 12 months of the year -
   * January, February, March, April, May, June, July, August, September, October,
@@ -126,13 +125,11 @@ object Month {
     case _           => throw new IllegalArgumentException(s"Unrecognized month name: $enum")
   }
 
-  /**
-    * Private cache of all the constants.
+  /** Private cache of all the constants.
     */
   private val ENUMS: Array[Month] = Month.values
 
-  /**
-    * Obtains an instance of {@code Month} from an {@code int} value.
+  /** Obtains an instance of {@code Month} from an {@code int} value.
     *
     * {@code Month} is an enum representing the 12 months of the year.
     * This factory allows the enum to be obtained from the {@code int} value.
@@ -148,8 +145,7 @@ object Month {
     else
       ENUMS(month - 1)
 
-  /**
-    * Obtains an instance of {@code Month} from a temporal object.
+  /** Obtains an instance of {@code Month} from a temporal object.
     *
     * A {@code TemporalAccessor} represents some form of date and time information.
     * This factory converts the arbitrary temporal object to an instance of {@code Month}.
@@ -183,8 +179,7 @@ object Month {
 final class Month private(name: String, ordinal: Int) extends Enum[Month](name, ordinal) with TemporalAccessor with TemporalAdjuster {
   import Month._
 
-  /**
-    * Gets the month-of-year {@code int} value.
+  /** Gets the month-of-year {@code int} value.
     *
     * The values are numbered following the ISO-8601 standard,
     * from 1 (January) to 12 (December).
@@ -193,8 +188,7 @@ final class Month private(name: String, ordinal: Int) extends Enum[Month](name, 
     */
   def getValue: Int = ordinal + 1
 
-  /**
-    * Gets the textual representation, such as 'Jan' or 'December'.
+  /** Gets the textual representation, such as 'Jan' or 'December'.
     *
     * This returns the textual name used to identify the month-of-year.
     * The parameters control the length of the returned text and the locale.
@@ -208,8 +202,7 @@ final class Month private(name: String, ordinal: Int) extends Enum[Month](name, 
   def getDisplayName(style: TextStyle, locale: Locale): String =
     new DateTimeFormatterBuilder().appendText(MONTH_OF_YEAR, style).toFormatter(locale).format(this)
 
-  /**
-    * Checks if the specified field is supported.
+  /** Checks if the specified field is supported.
     *
     * This checks if this month-of-year can be queried for the specified field.
     * If false, then calling the {@link #range(TemporalField) range} and
@@ -233,8 +226,7 @@ final class Month private(name: String, ordinal: Int) extends Enum[Month](name, 
     else
       field != null && field.isSupportedBy(this)
 
-  /**
-    * Gets the range of valid values for the specified field.
+  /** Gets the range of valid values for the specified field.
     *
     * The range object expresses the minimum and maximum valid values for a field.
     * This month is used to enhance the accuracy of the returned range.
@@ -262,8 +254,7 @@ final class Month private(name: String, ordinal: Int) extends Enum[Month](name, 
     else
       field.rangeRefinedBy(this)
 
-  /**
-    * Gets the value of the specified field from this month-of-year as an {@code int}.
+  /** Gets the value of the specified field from this month-of-year as an {@code int}.
     *
     * This queries this month for the value for the specified field.
     * The returned value will always be within the valid range of values for the field.
@@ -292,8 +283,7 @@ final class Month private(name: String, ordinal: Int) extends Enum[Month](name, 
     else
       range(field).checkValidIntValue(getLong(field), field)
 
-  /**
-    * Gets the value of the specified field from this month-of-year as a {@code long}.
+  /** Gets the value of the specified field from this month-of-year as a {@code long}.
     *
     * This queries this month for the value for the specified field.
     * If it is not possible to return the value, because the field is not supported
@@ -321,8 +311,7 @@ final class Month private(name: String, ordinal: Int) extends Enum[Month](name, 
     else
       field.getFrom(this)
 
-  /**
-    * Returns the month-of-year that is the specified number of quarters after this one.
+  /** Returns the month-of-year that is the specified number of quarters after this one.
     *
     * The calculation rolls around the end of the year from December to January.
     * The specified period may be negative.
@@ -337,8 +326,7 @@ final class Month private(name: String, ordinal: Int) extends Enum[Month](name, 
     Month.ENUMS((ordinal + (amount + 12)) % 12)
   }
 
-  /**
-    * Returns the month-of-year that is the specified number of months before this one.
+  /** Returns the month-of-year that is the specified number of months before this one.
     *
     * The calculation rolls around the start of the year from January to December.
     * The specified period may be negative.
@@ -350,8 +338,7 @@ final class Month private(name: String, ordinal: Int) extends Enum[Month](name, 
     */
   def minus(months: Long): Month = plus(-(months % 12))
 
-  /**
-    * Gets the length of this month in days.
+  /** Gets the length of this month in days.
     *
     * This takes a flag to determine whether to return the length for a leap year or not.
     *
@@ -369,8 +356,7 @@ final class Month private(name: String, ordinal: Int) extends Enum[Month](name, 
       case _                                   => 31
     }
 
-  /**
-    * Gets the minimum length of this month in days.
+  /** Gets the minimum length of this month in days.
     *
     * February has a minimum length of 28 days.
     * April, June, September and November have 30 days.
@@ -385,8 +371,7 @@ final class Month private(name: String, ordinal: Int) extends Enum[Month](name, 
       case _                                   => 31
     }
 
-  /**
-    * Gets the maximum length of this month in days.
+  /** Gets the maximum length of this month in days.
     *
     * February has a maximum length of 29 days.
     * April, June, September and November have 30 days.
@@ -401,8 +386,7 @@ final class Month private(name: String, ordinal: Int) extends Enum[Month](name, 
       case _                                   => 31
     }
 
-  /**
-    * Gets the day-of-year corresponding to the first day of this month.
+  /** Gets the day-of-year corresponding to the first day of this month.
     *
     * This returns the day-of-year that this month begins on, using the leap
     * year flag to determine the length of February.
@@ -428,8 +412,7 @@ final class Month private(name: String, ordinal: Int) extends Enum[Month](name, 
     }
   }
 
-  /**
-    * Gets the month corresponding to the first month of this quarter.
+  /** Gets the month corresponding to the first month of this quarter.
     *
     * The year can be divided into four quarters.
     * This method returns the first month of the quarter for the base month.
@@ -442,8 +425,7 @@ final class Month private(name: String, ordinal: Int) extends Enum[Month](name, 
     */
   def firstMonthOfQuarter: Month = Month.ENUMS((ordinal / 3) * 3)
 
-  /**
-    * Queries this month-of-year using the specified query.
+  /** Queries this month-of-year using the specified query.
     *
     * This queries this month-of-year using the specified query strategy object.
     * The {@code TemporalQuery} object defines the logic to be used to
@@ -470,8 +452,7 @@ final class Month private(name: String, ordinal: Int) extends Enum[Month](name, 
     else
       query.queryFrom(this)
 
-  /**
-    * Adjusts the specified temporal object to have this month-of-year.
+  /** Adjusts the specified temporal object to have this month-of-year.
     *
     * This returns a temporal object of the same observable type as the input
     * with the month-of-year changed to be the same as this.

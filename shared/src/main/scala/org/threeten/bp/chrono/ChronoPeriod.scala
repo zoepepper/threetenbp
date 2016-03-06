@@ -40,8 +40,7 @@ import org.threeten.bp.temporal.TemporalUnit
 import org.threeten.bp.temporal.UnsupportedTemporalTypeException
 
 object ChronoPeriod {
-  /**
-    * Obtains a {@code ChronoPeriod} consisting of amount of time between two dates.
+  /** Obtains a {@code ChronoPeriod} consisting of amount of time between two dates.
     *
     * The start date is included, but the end date is not.
     * The period is calculated using {@link ChronoLocalDate#until(ChronoLocalDate)}.
@@ -85,8 +84,7 @@ object ChronoPeriod {
   * Subclasses should be Serializable wherever possible.
   */
 trait ChronoPeriod extends TemporalAmount {
-  /**
-    * Gets the value of the requested unit.
+  /** Gets the value of the requested unit.
     *
     * The supported units are chronology specific.
     * They will typically be {@link ChronoUnit#YEARS YEARS},
@@ -100,8 +98,7 @@ trait ChronoPeriod extends TemporalAmount {
     */
   def get(unit: TemporalUnit): Long
 
-  /**
-    * Gets the set of units supported by this period.
+  /** Gets the set of units supported by this period.
     *
     * The supported units are chronology specific.
     * They will typically be {@link ChronoUnit#YEARS YEARS},
@@ -115,8 +112,7 @@ trait ChronoPeriod extends TemporalAmount {
     */
   def getUnits: java.util.List[TemporalUnit]
 
-  /**
-    * Gets the chronology that defines the meaning of the supported units.
+  /** Gets the chronology that defines the meaning of the supported units.
     *
     * The period is defined by the chronology.
     * It controls the supported units and restricts addition/subtraction
@@ -126,8 +122,7 @@ trait ChronoPeriod extends TemporalAmount {
     */
   def getChronology: Chronology
 
-  /**
-    * Checks if all the supported units of this period are zero.
+  /** Checks if all the supported units of this period are zero.
     *
     * @return true if this period is zero-length
     */
@@ -140,8 +135,7 @@ trait ChronoPeriod extends TemporalAmount {
     true
   }
 
-  /**
-    * Checks if any of the supported units of this period are negative.
+  /** Checks if any of the supported units of this period are negative.
     *
     * @return true if any unit of this period is negative
     */
@@ -154,8 +148,7 @@ trait ChronoPeriod extends TemporalAmount {
     false
   }
 
-  /**
-    * Returns a copy of this period with the specified period added.
+  /** Returns a copy of this period with the specified period added.
     *
     * If the specified amount is a {@code ChronoPeriod} then it must have
     * the same chronology as this period. Implementations may choose to
@@ -169,8 +162,7 @@ trait ChronoPeriod extends TemporalAmount {
     */
   def plus(amountToAdd: TemporalAmount): ChronoPeriod
 
-  /**
-    * Returns a copy of this period with the specified period subtracted.
+  /** Returns a copy of this period with the specified period subtracted.
     *
     * If the specified amount is a {@code ChronoPeriod} then it must have
     * the same chronology as this period. Implementations may choose to
@@ -184,8 +176,7 @@ trait ChronoPeriod extends TemporalAmount {
     */
   def minus(amountToSubtract: TemporalAmount): ChronoPeriod
 
-  /**
-    * Returns a new instance with each amount in this period in this period
+  /** Returns a new instance with each amount in this period in this period
     * multiplied by the specified scalar.
     *
     * This returns a period with each supported unit individually multiplied.
@@ -200,8 +191,7 @@ trait ChronoPeriod extends TemporalAmount {
     */
   def multipliedBy(scalar: Int): ChronoPeriod
 
-  /**
-    * Returns a new instance with each amount in this period negated.
+  /** Returns a new instance with each amount in this period negated.
     *
     * This returns a period with each supported unit individually negated.
     * For example, a period of "2 years, -3 months and 4 days" will be
@@ -214,8 +204,7 @@ trait ChronoPeriod extends TemporalAmount {
     */
   def negated: ChronoPeriod = multipliedBy(-1)
 
-  /**
-    * Returns a copy of this period with the amounts of each unit normalized.
+  /** Returns a copy of this period with the amounts of each unit normalized.
     *
     * The process of normalization is specific to each calendar system.
     * For example, in the ISO calendar system, the years and months are
@@ -230,8 +219,7 @@ trait ChronoPeriod extends TemporalAmount {
     */
   def normalized: ChronoPeriod
 
-  /**
-    * Adds this period to the specified temporal object.
+  /** Adds this period to the specified temporal object.
     *
     * This returns a temporal object of the same observable type as the input
     * with this period added.
@@ -256,8 +244,7 @@ trait ChronoPeriod extends TemporalAmount {
     */
   def addTo(temporal: Temporal): Temporal
 
-  /**
-    * Subtracts this period from the specified temporal object.
+  /** Subtracts this period from the specified temporal object.
     *
     * This returns a temporal object of the same observable type as the input
     * with this period subtracted.
@@ -282,8 +269,7 @@ trait ChronoPeriod extends TemporalAmount {
     */
   def subtractFrom(temporal: Temporal): Temporal
 
-  /**
-    * Checks if this period is equal to another period, including the chronology.
+  /** Checks if this period is equal to another period, including the chronology.
     *
     * Compares this period with another ensuring that the type, each amount and
     * the chronology are the same.
@@ -295,15 +281,13 @@ trait ChronoPeriod extends TemporalAmount {
     */
   override def equals(obj: Any): Boolean
 
-  /**
-    * A hash code for this period.
+  /** A hash code for this period.
     *
     * @return a suitable hash code
     */
   override def hashCode: Int
 
-  /**
-    * Outputs this period as a {@code String}.
+  /** Outputs this period as a {@code String}.
     *
     * The output will include the period amounts and chronology.
     *

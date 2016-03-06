@@ -67,9 +67,7 @@ import org.threeten.bp.temporal.TemporalField
 import org.threeten.bp.temporal.TemporalQueries
 import org.threeten.bp.temporal.TemporalQuery
 
-/**
-  * Test DateTimeFormatters.
-  */
+/** Test DateTimeFormatters. */
 @Test object TestDateTimeFormatters {
 
   private[format] class MockAccessor extends TemporalAccessor {

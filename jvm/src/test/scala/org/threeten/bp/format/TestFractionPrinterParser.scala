@@ -42,9 +42,7 @@ import org.threeten.bp.LocalTime
 import org.threeten.bp.temporal.MockFieldValue
 import org.threeten.bp.temporal.TemporalField
 
-/**
-  * Test FractionPrinterParser.
-  */
+/** Test FractionPrinterParser. */
 @Test class TestFractionPrinterParser extends AbstractTestPrinterParser {
   @Test(expectedExceptions = Array(classOf[DateTimeException]))
   @throws(classOf[Exception])

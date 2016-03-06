@@ -34,9 +34,7 @@ package org.threeten.bp.format
 import org.testng.Assert.assertEquals
 import org.testng.annotations.Test
 
-/**
-  * Test StringLiteralPrinterParser.
-  */
+/** Test StringLiteralPrinterParser. */
 @Test class TestStringLiteralPrinter extends AbstractTestPrinterParser {
   @throws(classOf[Exception])
   def test_print_emptyCalendrical(): Unit = {

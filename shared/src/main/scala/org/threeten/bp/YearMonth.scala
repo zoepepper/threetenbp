@@ -68,8 +68,7 @@ import org.threeten.bp.temporal.TemporalUnit
 import org.threeten.bp.temporal.UnsupportedTemporalTypeException
 import org.threeten.bp.temporal.ValueRange
 
-/**
-  * A year-month in the ISO-8601 calendar system, such as {@code 2007-12}.
+/** A year-month in the ISO-8601 calendar system, such as {@code 2007-12}.
   *
   * {@code YearMonth} is an immutable date-time object that represents the combination
   * of a year and month. Any field that can be derived from a year and month, such as
@@ -91,13 +90,10 @@ import org.threeten.bp.temporal.ValueRange
 @SerialVersionUID(4183400860270640070L)
 object YearMonth {
 
-  /**
-    * Parser.
-    */
+  /** Parser. */
   private val PARSER: DateTimeFormatter = new DateTimeFormatterBuilder().appendValue(YEAR, 4, 10, SignStyle.EXCEEDS_PAD).appendLiteral('-').appendValue(MONTH_OF_YEAR, 2).toFormatter
 
-  /**
-    * Obtains the current year-month from the system clock in the default time-zone.
+  /** Obtains the current year-month from the system clock in the default time-zone.
     *
     * This will query the {@link Clock#systemDefaultZone() system clock} in the default
     * time-zone to obtain the current year-month.
@@ -110,8 +106,7 @@ object YearMonth {
     */
   def now: YearMonth = now(Clock.systemDefaultZone)
 
-  /**
-    * Obtains the current year-month from the system clock in the specified time-zone.
+  /** Obtains the current year-month from the system clock in the specified time-zone.
     *
     * This will query the {@link Clock#system(ZoneId) system clock} to obtain the current year-month.
     * Specifying the time-zone avoids dependence on the default time-zone.
@@ -124,8 +119,7 @@ object YearMonth {
     */
   def now(zone: ZoneId): YearMonth = now(Clock.system(zone))
 
-  /**
-    * Obtains the current year-month from the specified clock.
+  /** Obtains the current year-month from the specified clock.
     *
     * This will query the specified clock to obtain the current year-month.
     * Using this method allows the use of an alternate clock for testing.
@@ -139,8 +133,7 @@ object YearMonth {
     YearMonth.of(now.getYear, now.getMonth)
   }
 
-  /**
-    * Obtains an instance of {@code YearMonth} from a year and month.
+  /** Obtains an instance of {@code YearMonth} from a year and month.
     *
     * @param year  the year to represent, from MIN_YEAR to MAX_YEAR
     * @param month  the month-of-year to represent, not null
@@ -152,8 +145,7 @@ object YearMonth {
     of(year, month.getValue)
   }
 
-  /**
-    * Obtains an instance of {@code YearMonth} from a year and month.
+  /** Obtains an instance of {@code YearMonth} from a year and month.
     *
     * @param year  the year to represent, from MIN_YEAR to MAX_YEAR
     * @param month  the month-of-year to represent, from 1 (January) to 12 (December)
@@ -166,8 +158,7 @@ object YearMonth {
     new YearMonth(year, month)
   }
 
-  /**
-    * Obtains an instance of {@code YearMonth} from a temporal object.
+  /** Obtains an instance of {@code YearMonth} from a temporal object.
     *
     * A {@code TemporalAccessor} represents some form of date and time information.
     * This factory converts the arbitrary temporal object to an instance of {@code YearMonth}.
@@ -199,8 +190,7 @@ object YearMonth {
     }
   }
 
-  /**
-    * Obtains an instance of {@code YearMonth} from a text string such as {@code 2007-12}.
+  /** Obtains an instance of {@code YearMonth} from a text string such as {@code 2007-12}.
     *
     * The string must represent a valid year-month.
     * The format must be {@code yyyy-MM}.
@@ -212,8 +202,7 @@ object YearMonth {
     */
   def parse(text: CharSequence): YearMonth = parse(text, PARSER)
 
-  /**
-    * Obtains an instance of {@code YearMonth} from a text string using a specific formatter.
+  /** Obtains an instance of {@code YearMonth} from a text string using a specific formatter.
     *
     * The text is parsed using the formatter, returning a year-month.
     *
@@ -235,8 +224,7 @@ object YearMonth {
   }
 }
 
-/**
-  * @constructor
+/** @constructor
   *
   * @param year  the year to represent, validated from MIN_YEAR to MAX_YEAR
   * @param month  the month-of-year to represent, validated from 1 (January) to 12 (December)
@@ -244,8 +232,7 @@ object YearMonth {
 @SerialVersionUID(4183400860270640070L)
 final class YearMonth private(private val year: Int, private val month: Int) extends TemporalAccessor with Temporal with TemporalAdjuster with Ordered[YearMonth] with Serializable {
 
-  /**
-    * Returns a copy of this year-month with the new year and month, checking
+  /** Returns a copy of this year-month with the new year and month, checking
     * to see if a new object is in fact required.
     *
     * @param newYear  the year to represent, validated from MIN_YEAR to MAX_YEAR
@@ -258,8 +245,7 @@ final class YearMonth private(private val year: Int, private val month: Int) ext
     else
       new YearMonth(newYear, newMonth)
 
-  /**
-    * Checks if the specified field is supported.
+  /** Checks if the specified field is supported.
     *
     * This checks if this year-month can be queried for the specified field.
     * If false, then calling the {@link #range(TemporalField) range} and
@@ -298,8 +284,7 @@ final class YearMonth private(private val year: Int, private val month: Int) ext
     else
       unit != null && unit.isSupportedBy(this)
 
-  /**
-    * Gets the range of valid values for the specified field.
+  /** Gets the range of valid values for the specified field.
     *
     * The range object expresses the minimum and maximum valid values for a field.
     * This year-month is used to enhance the accuracy of the returned range.
@@ -327,8 +312,7 @@ final class YearMonth private(private val year: Int, private val month: Int) ext
     else
       super.range(field)
 
-  /**
-    * Gets the value of the specified field from this year-month as an {@code int}.
+  /** Gets the value of the specified field from this year-month as an {@code int}.
     *
     * This queries this year-month for the value for the specified field.
     * The returned value will always be within the valid range of values for the field.
@@ -353,8 +337,7 @@ final class YearMonth private(private val year: Int, private val month: Int) ext
     */
   override def get(field: TemporalField): Int = range(field).checkValidIntValue(getLong(field), field)
 
-  /**
-    * Gets the value of the specified field from this year-month as a {@code long}.
+  /** Gets the value of the specified field from this year-month as a {@code long}.
     *
     * This queries this year-month for the value for the specified field.
     * If it is not possible to return the value, because the field is not supported
@@ -388,8 +371,7 @@ final class YearMonth private(private val year: Int, private val month: Int) ext
 
   private def getProlepticMonth: Long = (year * 12L) + (month - 1)
 
-  /**
-    * Gets the year field.
+  /** Gets the year field.
     *
     * This method returns the primitive {@code int} value for the year.
     *
@@ -399,8 +381,7 @@ final class YearMonth private(private val year: Int, private val month: Int) ext
     */
   def getYear: Int = year
 
-  /**
-    * Gets the month-of-year field from 1 to 12.
+  /** Gets the month-of-year field from 1 to 12.
     *
     * This method returns the month as an {@code int} from 1 to 12.
     * Application code is frequently clearer if the enum {@link Month}
@@ -411,8 +392,7 @@ final class YearMonth private(private val year: Int, private val month: Int) ext
     */
   def getMonthValue: Int = month
 
-  /**
-    * Gets the month-of-year field using the {@code Month} enum.
+  /** Gets the month-of-year field using the {@code Month} enum.
     *
     * This method returns the enum {@link Month} for the month.
     * This avoids confusion as to what {@code int} values mean.
@@ -423,8 +403,7 @@ final class YearMonth private(private val year: Int, private val month: Int) ext
     */
   def getMonth: Month = Month.of(month)
 
-  /**
-    * Checks if the year is a leap year, according to the ISO proleptic
+  /** Checks if the year is a leap year, according to the ISO proleptic
     * calendar system rules.
     *
     * This method applies the current rules for leap years across the whole time-line.
@@ -443,8 +422,7 @@ final class YearMonth private(private val year: Int, private val month: Int) ext
     */
   def isLeapYear: Boolean = IsoChronology.INSTANCE.isLeapYear(year)
 
-  /**
-    * Checks if the day-of-month is valid for this year-month.
+  /** Checks if the day-of-month is valid for this year-month.
     *
     * This method checks whether this year and month and the input day form
     * a valid date.
@@ -454,8 +432,7 @@ final class YearMonth private(private val year: Int, private val month: Int) ext
     */
   def isValidDay(dayOfMonth: Int): Boolean = dayOfMonth >= 1 && dayOfMonth <= lengthOfMonth
 
-  /**
-    * Returns the length of the month, taking account of the year.
+  /** Returns the length of the month, taking account of the year.
     *
     * This returns the length of the month in days.
     * For example, a date in January would return 31.
@@ -464,8 +441,7 @@ final class YearMonth private(private val year: Int, private val month: Int) ext
     */
   def lengthOfMonth: Int = getMonth.length(isLeapYear)
 
-  /**
-    * Returns the length of the year.
+  /** Returns the length of the year.
     *
     * This returns the length of the year in days, either 365 or 366.
     *
@@ -473,8 +449,7 @@ final class YearMonth private(private val year: Int, private val month: Int) ext
     */
   def lengthOfYear: Int = if (isLeapYear) 366 else 365
 
-  /**
-    * Returns an adjusted copy of this year-month.
+  /** Returns an adjusted copy of this year-month.
     *
     * This returns a new {@code YearMonth}, based on this one, with the year-month adjusted.
     * The adjustment takes place using the specified adjuster strategy object.
@@ -497,8 +472,7 @@ final class YearMonth private(private val year: Int, private val month: Int) ext
     */
   override def `with`(adjuster: TemporalAdjuster): YearMonth = adjuster.adjustInto(this).asInstanceOf[YearMonth]
 
-  /**
-    * Returns a copy of this year-month with the specified field set to a new value.
+  /** Returns a copy of this year-month with the specified field set to a new value.
     *
     * This returns a new {@code YearMonth}, based on this one, with the value
     * for the specified field changed.
@@ -565,8 +539,7 @@ final class YearMonth private(private val year: Int, private val month: Int) ext
     field.adjustInto(this, newValue)
   }
 
-  /**
-    * Returns a copy of this {@code YearMonth} with the year altered.
+  /** Returns a copy of this {@code YearMonth} with the year altered.
     *
     * This instance is immutable and unaffected by this method call.
     *
@@ -579,8 +552,7 @@ final class YearMonth private(private val year: Int, private val month: Int) ext
     `with`(year, month)
   }
 
-  /**
-    * Returns a copy of this {@code YearMonth} with the month-of-year altered.
+  /** Returns a copy of this {@code YearMonth} with the month-of-year altered.
     *
     * This instance is immutable and unaffected by this method call.
     *
@@ -593,8 +565,7 @@ final class YearMonth private(private val year: Int, private val month: Int) ext
     `with`(year, month)
   }
 
-  /**
-    * Returns a copy of this year-month with the specified period added.
+  /** Returns a copy of this year-month with the specified period added.
     *
     * This method returns a new year-month based on this year-month with the specified period added.
     * The adder is typically {@link org.threeten.bp.Period Period} but may be any other type implementing
@@ -611,8 +582,7 @@ final class YearMonth private(private val year: Int, private val month: Int) ext
     */
   override def plus(amount: TemporalAmount): YearMonth = amount.addTo(this).asInstanceOf[YearMonth]
 
-  /**
-    * {@inheritDoc}
+  /** {@inheritDoc}
     * @throws DateTimeException { @inheritDoc}
     * @throws ArithmeticException { @inheritDoc}
     */
@@ -637,8 +607,7 @@ final class YearMonth private(private val year: Int, private val month: Int) ext
     unit.addTo(this, amountToAdd)
   }
 
-  /**
-    * Returns a copy of this year-month with the specified period in years added.
+  /** Returns a copy of this year-month with the specified period in years added.
     *
     * This instance is immutable and unaffected by this method call.
     *
@@ -653,8 +622,7 @@ final class YearMonth private(private val year: Int, private val month: Int) ext
     `with`(newYear, month)
   }
 
-  /**
-    * Returns a copy of this year-month with the specified period in months added.
+  /** Returns a copy of this year-month with the specified period in months added.
     *
     * This instance is immutable and unaffected by this method call.
     *
@@ -672,8 +640,7 @@ final class YearMonth private(private val year: Int, private val month: Int) ext
     `with`(newYear, newMonth)
   }
 
-  /**
-    * Returns a copy of this year-month with the specified period subtracted.
+  /** Returns a copy of this year-month with the specified period subtracted.
     *
     * This method returns a new year-month based on this year-month with the specified period subtracted.
     * The subtractor is typically {@link org.threeten.bp.Period Period} but may be any other type implementing
@@ -690,8 +657,7 @@ final class YearMonth private(private val year: Int, private val month: Int) ext
     */
   override def minus(amount: TemporalAmount): YearMonth = amount.subtractFrom(this).asInstanceOf[YearMonth]
 
-  /**
-    * {@inheritDoc}
+  /** {@inheritDoc}
     * @throws DateTimeException { @inheritDoc}
     * @throws ArithmeticException { @inheritDoc}
     */
@@ -699,8 +665,7 @@ final class YearMonth private(private val year: Int, private val month: Int) ext
     if (amountToSubtract == Long.MinValue) plus(Long.MaxValue, unit).plus(1, unit)
     else plus(-amountToSubtract, unit)
 
-  /**
-    * Returns a copy of this year-month with the specified period in years subtracted.
+  /** Returns a copy of this year-month with the specified period in years subtracted.
     *
     * This instance is immutable and unaffected by this method call.
     *
@@ -712,8 +677,7 @@ final class YearMonth private(private val year: Int, private val month: Int) ext
     if (yearsToSubtract == Long.MinValue) plusYears(Long.MaxValue).plusYears(1)
     else plusYears(-yearsToSubtract)
 
-  /**
-    * Returns a copy of this year-month with the specified period in months subtracted.
+  /** Returns a copy of this year-month with the specified period in months subtracted.
     *
     * This instance is immutable and unaffected by this method call.
     *
@@ -725,8 +689,7 @@ final class YearMonth private(private val year: Int, private val month: Int) ext
     if (monthsToSubtract == Long.MinValue) plusMonths(Long.MaxValue).plusMonths(1)
     else plusMonths(-monthsToSubtract)
 
-  /**
-    * Queries this year-month using the specified query.
+  /** Queries this year-month using the specified query.
     *
     * This queries this year-month using the specified query strategy object.
     * The {@code TemporalQuery} object defines the logic to be used to
@@ -753,8 +716,7 @@ final class YearMonth private(private val year: Int, private val month: Int) ext
     else
       super.query(query)
 
-  /**
-    * Adjusts the specified temporal object to have this year-month.
+  /** Adjusts the specified temporal object to have this year-month.
     *
     * This returns a temporal object of the same observable type as the input
     * with the year and month changed to be the same as this.
@@ -785,8 +747,7 @@ final class YearMonth private(private val year: Int, private val month: Int) ext
     else
       temporal.`with`(PROLEPTIC_MONTH, getProlepticMonth)
 
-  /**
-    * Calculates the period between this year-month and another year-month in
+  /** Calculates the period between this year-month and another year-month in
     * terms of the specified unit.
     *
     * This calculates the period between two year-months in terms of a single unit.
@@ -851,8 +812,7 @@ final class YearMonth private(private val year: Int, private val month: Int) ext
     unit.between(this, end)
   }
 
-  /**
-    * Combines this year-month with a day-of-month to create a {@code LocalDate}.
+  /** Combines this year-month with a day-of-month to create a {@code LocalDate}.
     *
     * This returns a {@code LocalDate} formed from this year-month and the specified day-of-month.
     *
@@ -872,8 +832,7 @@ final class YearMonth private(private val year: Int, private val month: Int) ext
     LocalDate.of(year, month, dayOfMonth)
   }
 
-  /**
-    * Returns a {@code LocalDate} at the end of the month.
+  /** Returns a {@code LocalDate} at the end of the month.
     *
     * This returns a {@code LocalDate} based on this year-month.
     * The day-of-month is set to the last valid day of the month, taking
@@ -890,8 +849,7 @@ final class YearMonth private(private val year: Int, private val month: Int) ext
     LocalDate.of(year, month, lengthOfMonth)
   }
 
-  /**
-    * Compares this year-month to another year-month.
+  /** Compares this year-month to another year-month.
     *
     * The comparison is based first on the value of the year, then on the value of the month.
     * It is "consistent with equals", as defined by {@link Comparable}.
@@ -906,24 +864,21 @@ final class YearMonth private(private val year: Int, private val month: Int) ext
     cmp
   }
 
-  /**
-    * Is this year-month after the specified year-month.
+  /** Is this year-month after the specified year-month.
     *
     * @param other  the other year-month to compare to, not null
     * @return true if this is after the specified year-month
     */
   def isAfter(other: YearMonth): Boolean = compareTo(other) > 0
 
-  /**
-    * Is this year-month before the specified year-month.
+  /** Is this year-month before the specified year-month.
     *
     * @param other  the other year-month to compare to, not null
     * @return true if this point is before the specified year-month
     */
   def isBefore(other: YearMonth): Boolean = compareTo(other) < 0
 
-  /**
-    * Checks if this year-month is equal to another year-month.
+  /** Checks if this year-month is equal to another year-month.
     *
     * The comparison is based on the time-line position of the year-months.
     *
@@ -937,15 +892,13 @@ final class YearMonth private(private val year: Int, private val month: Int) ext
     }
   }
 
-  /**
-    * A hash code for this year-month.
+  /** A hash code for this year-month.
     *
     * @return a suitable hash code
     */
   override def hashCode: Int = year ^ (month << 27)
 
-  /**
-    * Outputs this year-month as a {@code String}, such as {@code 2007-12}.
+  /** Outputs this year-month as a {@code String}, such as {@code 2007-12}.
     *
     * The output will be in the format {@code yyyy-MM}:
     *
@@ -968,8 +921,7 @@ final class YearMonth private(private val year: Int, private val month: Int) ext
     buf.append(if (month < 10) "-0" else "-").append(month).toString
   }
 
-  /**
-    * Outputs this year-month as a {@code String} using the formatter.
+  /** Outputs this year-month as a {@code String} using the formatter.
     *
     * This year-month will be passed to the formatter
     * {@link DateTimeFormatter#format(TemporalAccessor) print method}.
@@ -985,8 +937,7 @@ final class YearMonth private(private val year: Int, private val month: Int) ext
 
   private def writeReplace: AnyRef = new Ser(Ser.YEAR_MONTH_TYPE, this)
 
-  /**
-    * Defend against malicious streams.
+  /** Defend against malicious streams.
     * @return never
     * @throws InvalidObjectException always
     */

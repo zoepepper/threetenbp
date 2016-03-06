@@ -52,8 +52,7 @@ import org.threeten.bp.chrono.ChronoLocalDate
 import org.threeten.bp.chrono.Chronology
 import org.threeten.bp.format.ResolverStyle
 
-/**
-  * Localized definitions of the day-of-week, week-of-month and week-of-year fields.
+/** Localized definitions of the day-of-week, week-of-month and week-of-year fields.
   *
   * A standard week is seven days long, but cultures have different definitions for some
   * other aspects of a week. This class represents the definition of the week, for the
@@ -112,13 +111,11 @@ import org.threeten.bp.format.ResolverStyle
   */
 @SerialVersionUID(-1177360819670808121L)
 object WeekFields {
-  /**
-    * The cache of rules by firstDayOfWeek plus minimalDays.
+  /** The cache of rules by firstDayOfWeek plus minimalDays.
     * Initialized first to be available for definition of ISO, etc.
     */
   private val CACHE: ConcurrentMap[String, WeekFields] = new ConcurrentHashMap[String, WeekFields](4, 0.75f, 2)
-  /**
-    * The ISO-8601 definition, where a week starts on Monday and the first week
+  /** The ISO-8601 definition, where a week starts on Monday and the first week
     * has a minimum of 4 days.
     *
     * The ISO-8601 standard defines a calendar system based on weeks.
@@ -130,8 +127,7 @@ object WeekFields {
     * week-based-year corresponding to the previous calendar year.
     */
   val ISO: WeekFields = new WeekFields(DayOfWeek.MONDAY, 4)
-  /**
-    * The common definition of a week that starts on Sunday.
+  /** The common definition of a week that starts on Sunday.
     *
     * Defined as starting on Sunday and with a minimum of 1 day in the month.
     * This week definition is in use in the US and other European countries.
@@ -139,8 +135,7 @@ object WeekFields {
     */
   val SUNDAY_START: WeekFields = WeekFields.of(DayOfWeek.SUNDAY, 1)
 
-  /**
-    * Obtains an instance of {@code WeekFields} appropriate for a locale.
+  /** Obtains an instance of {@code WeekFields} appropriate for a locale.
     *
     * This will look up appropriate values from the provider of localization data.
     *
@@ -157,8 +152,7 @@ object WeekFields {
     WeekFields.of(dow, minDays)
   }
 
-  /**
-    * Obtains an instance of {@code WeekFields} from the first day-of-week and minimal days.
+  /** Obtains an instance of {@code WeekFields} from the first day-of-week and minimal days.
     *
     * The first day-of-week defines the ISO {@code DayOfWeek} that is day 1 of the week.
     * The minimal number of days in the first week defines how many days must be present
@@ -188,8 +182,7 @@ object WeekFields {
     rules
   }
 
-  /**
-    * Field type that computes DayOfWeek, WeekOfMonth, and WeekOfYear
+  /** Field type that computes DayOfWeek, WeekOfMonth, and WeekOfYear
     * based on a WeekFields.
     * A separate Field instance is required for each different WeekFields;
     * combination of start of week and minimum number of days.
@@ -197,8 +190,7 @@ object WeekFields {
     * and WeekOfYear.
     */
   private[temporal] object ComputedDayOfField {
-    /**
-      * Returns a field to access the day of week,
+    /** Returns a field to access the day of week,
       * computed based on a WeekFields.
       *
       * The WeekDefintion of the first day of the week is used with
@@ -207,32 +199,28 @@ object WeekFields {
     private[temporal] def ofDayOfWeekField(weekDef: WeekFields): WeekFields.ComputedDayOfField =
       new WeekFields.ComputedDayOfField("DayOfWeek", weekDef, ChronoUnit.DAYS, ChronoUnit.WEEKS, DAY_OF_WEEK_RANGE)
 
-    /**
-      * Returns a field to access the week of month,
+    /** Returns a field to access the week of month,
       * computed based on a WeekFields.
       * @see WeekFields#weekOfMonth()
       */
     private[temporal] def ofWeekOfMonthField(weekDef: WeekFields): WeekFields.ComputedDayOfField =
       new WeekFields.ComputedDayOfField("WeekOfMonth", weekDef, ChronoUnit.WEEKS, ChronoUnit.MONTHS, WEEK_OF_MONTH_RANGE)
 
-    /**
-      * Returns a field to access the week of year,
+    /** Returns a field to access the week of year,
       * computed based on a WeekFields.
       * @see WeekFields#weekOfYear()
       */
     private[temporal] def ofWeekOfYearField(weekDef: WeekFields): WeekFields.ComputedDayOfField =
       new WeekFields.ComputedDayOfField("WeekOfYear", weekDef, ChronoUnit.WEEKS, ChronoUnit.YEARS, WEEK_OF_YEAR_RANGE)
 
-    /**
-      * Returns a field to access the week of week-based-year,
+    /** Returns a field to access the week of week-based-year,
       * computed based on a WeekFields.
       * @see WeekFields#weekOfWeekBasedYear()
       */
     private[temporal] def ofWeekOfWeekBasedYearField(weekDef: WeekFields): WeekFields.ComputedDayOfField =
       new WeekFields.ComputedDayOfField("WeekOfWeekBasedYear", weekDef, ChronoUnit.WEEKS, IsoFields.WEEK_BASED_YEARS, WEEK_OF_WEEK_BASED_YEAR_RANGE)
 
-    /**
-      * Returns a field to access the week-based-year,
+    /** Returns a field to access the week-based-year,
       * computed based on a WeekFields.
       * @see WeekFields#weekBasedYear()
       */
@@ -328,8 +316,7 @@ object WeekFields {
       year
     }
 
-    /**
-      * Returns an offset to align week start with a day of month or day of year.
+    /** Returns an offset to align week start with a day of month or day of year.
       *
       * @param day the day; 1 through infinity
       * @param dow the day of the week of that day; 1 through 7
@@ -343,8 +330,7 @@ object WeekFields {
       offset
     }
 
-    /**
-      * Returns the week number computed from the reference day and reference dayOfWeek.
+    /** Returns the week number computed from the reference day and reference dayOfWeek.
       *
       * @param offset the offset to align a date with the start of week
       *               from { @link #startOfWeekOffset}.
@@ -565,8 +551,7 @@ object WeekFields {
 
 }
 
-/**
-  * Creates an instance of the definition.
+/** Creates an instance of the definition.
   *
   * @param firstDayOfWeek  the first day of the week, not null
   * @param minimalDays  the minimal number of days in the first week, from 1 to 7
@@ -578,8 +563,7 @@ final class WeekFields private(private val firstDayOfWeek: DayOfWeek, private va
   if (minimalDays < 1 || minimalDays > 7)
     throw new IllegalArgumentException("Minimal number of days is invalid")
 
-  /**
-    * Returns a field to access the day of week based on this {@code WeekFields}.
+  /** Returns a field to access the day of week based on this {@code WeekFields}.
     *
     * This is similar to {@link ChronoField#DAY_OF_WEEK} but uses values for
     * the day-of-week based on this {@code WeekFields}.
@@ -599,8 +583,7 @@ final class WeekFields private(private val firstDayOfWeek: DayOfWeek, private va
   @transient
   val dayOfWeek: TemporalField = WeekFields.ComputedDayOfField.ofDayOfWeekField(this)
 
-  /**
-    * Returns a field to access the week of month based on this {@code WeekFields}.
+  /** Returns a field to access the week of month based on this {@code WeekFields}.
     *
     * This represents the concept of the count of weeks within the month where weeks
     * start on a fixed day-of-week, such as Monday.
@@ -644,8 +627,7 @@ final class WeekFields private(private val firstDayOfWeek: DayOfWeek, private va
   @transient
   val weekOfMonth: TemporalField = WeekFields.ComputedDayOfField.ofWeekOfMonthField(this)
 
-  /**
-    * Returns a field to access the week of year based on this {@code WeekFields}.
+  /** Returns a field to access the week of year based on this {@code WeekFields}.
     *
     * This represents the concept of the count of weeks within the year where weeks
     * start on a fixed day-of-week, such as Monday.
@@ -688,8 +670,7 @@ final class WeekFields private(private val firstDayOfWeek: DayOfWeek, private va
   @transient
   val weekOfYear: TemporalField = WeekFields.ComputedDayOfField.ofWeekOfYearField(this)
 
-  /**
-    * Returns a field to access the week of a week-based-year based on this {@code WeekFields}.
+  /** Returns a field to access the week of a week-based-year based on this {@code WeekFields}.
     *
     * This represents the concept of the count of weeks within the year where weeks
     * start on a fixed day-of-week, such as Monday and each week belongs to exactly one year.
@@ -737,8 +718,7 @@ final class WeekFields private(private val firstDayOfWeek: DayOfWeek, private va
   @transient
   val weekOfWeekBasedYear: TemporalField = WeekFields.ComputedDayOfField.ofWeekOfWeekBasedYearField(this)
 
-  /**
-    * Returns a field to access the year of a week-based-year based on this {@code WeekFields}.
+  /** Returns a field to access the year of a week-based-year based on this {@code WeekFields}.
     *
     * This represents the concept of the year where weeks start on a fixed day-of-week,
     * such as Monday and each week belongs to exactly one year.
@@ -778,8 +758,7 @@ final class WeekFields private(private val firstDayOfWeek: DayOfWeek, private va
   @transient
   val weekBasedYear: TemporalField = WeekFields.ComputedDayOfField.ofWeekBasedYearField(this)
 
-  /**
-    * Ensure valid singleton.
+  /** Ensure valid singleton.
     *
     * @return the valid week fields instance, not null
     * @throws InvalidObjectException if invalid
@@ -793,8 +772,7 @@ final class WeekFields private(private val firstDayOfWeek: DayOfWeek, private va
     }
   }
 
-  /**
-    * Gets the first day-of-week.
+  /** Gets the first day-of-week.
     *
     * The first day-of-week varies by culture.
     * For example, the US uses Sunday, while France and the ISO-8601 standard use Monday.
@@ -804,8 +782,7 @@ final class WeekFields private(private val firstDayOfWeek: DayOfWeek, private va
     */
   def getFirstDayOfWeek: DayOfWeek = firstDayOfWeek
 
-  /**
-    * Gets the minimal number of days in the first week.
+  /** Gets the minimal number of days in the first week.
     *
     * The number of days considered to define the first week of a month or year
     * varies by culture.
@@ -816,8 +793,7 @@ final class WeekFields private(private val firstDayOfWeek: DayOfWeek, private va
     */
   def getMinimalDaysInFirstWeek: Int = minimalDays
 
-  /**
-    * Checks if this {@code WeekFields} is equal to the specified object.
+  /** Checks if this {@code WeekFields} is equal to the specified object.
     *
     * The comparison is based on the entire state of the rules, which is
     * the first day-of-week and minimal days.
@@ -830,15 +806,13 @@ final class WeekFields private(private val firstDayOfWeek: DayOfWeek, private va
     case _                => false
   }
 
-  /**
-    * A hash code for this {@code WeekFields}.
+  /** A hash code for this {@code WeekFields}.
     *
     * @return a suitable hash code
     */
   override def hashCode: Int = firstDayOfWeek.ordinal * 7 + minimalDays
 
-  /**
-    * A string representation of this {@code WeekFields} instance.
+  /** A string representation of this {@code WeekFields} instance.
     *
     * @return the string representation, not null
     */

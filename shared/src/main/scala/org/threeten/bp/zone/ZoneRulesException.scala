@@ -33,8 +33,7 @@ package org.threeten.bp.zone
 
 import org.threeten.bp.DateTimeException
 
-/**
-  * Thrown to indicate a problem with time-zone configuration.
+/** Thrown to indicate a problem with time-zone configuration.
   *
   * This exception is used to indicate a problems with the configured
   * time-zone rules.
@@ -49,8 +48,7 @@ import org.threeten.bp.DateTimeException
   */
 @SerialVersionUID(-1632418723876261839L)
 class ZoneRulesException(message: String, cause: Throwable) extends DateTimeException(message, cause) {
-  /**
-    * Constructs a new date-time exception with the specified message.
+  /** Constructs a new date-time exception with the specified message.
     *
     * @param message  the message to use for this exception, may be null
     */

@@ -44,8 +44,7 @@ import java.util.concurrent.ConcurrentSkipListMap
 import java.util.concurrent.CopyOnWriteArraySet
 import java.util.concurrent.atomic.AtomicReferenceArray
 
-/**
-  * Loads time-zone rules for 'TZDB'.
+/** Loads time-zone rules for 'TZDB'.
   * <p>
   * This class is public for the service loader to access.
   *
@@ -54,8 +53,7 @@ import java.util.concurrent.atomic.AtomicReferenceArray
   */
 object TzdbZoneRulesProvider {
 
-  /**
-    * A version of the TZDB rules.
+  /** A version of the TZDB rules.
     */
   private[zone] class Version private[zone](private[zone] val versionId: String,
                                             private val regionArray: Array[String],
@@ -92,24 +90,20 @@ object TzdbZoneRulesProvider {
 }
 
 final class TzdbZoneRulesProvider extends ZoneRulesProvider {
-  /**
-    * All the regions that are available.
+  /** All the regions that are available.
     */
   private val regionIds: java.util.Set[String] = new CopyOnWriteArraySet[String]
-  /**
-    * All the versions that are available.
+  /** All the versions that are available.
     */
   private val versions: ConcurrentNavigableMap[String, TzdbZoneRulesProvider.Version] = new ConcurrentSkipListMap[String, TzdbZoneRulesProvider.Version]
-  /**
-    * All the URLs that have been loaded.
+  /** All the URLs that have been loaded.
     * Uses String to avoid equals() on URL.
     */
   private val loadedUrls: java.util.Set[String] = new CopyOnWriteArraySet[String]
 
   /// !!! FIXME
 
-  /**
-    * Creates an instance.
+  /** Creates an instance.
     * Created by the {@code ServiceLoader}.
     *
     * @throws ZoneRulesException if unable to load
@@ -120,8 +114,7 @@ final class TzdbZoneRulesProvider extends ZoneRulesProvider {
     }
   //}
 
-  /**
-    * Creates an instance and loads the specified URL.
+  /** Creates an instance and loads the specified URL.
     * <p>
     * This could be used to wrap this provider in another instance.
     *
@@ -143,8 +136,7 @@ final class TzdbZoneRulesProvider extends ZoneRulesProvider {
   }
   */
 
-  /**
-    * Creates an instance and loads the specified input stream.
+  /** Creates an instance and loads the specified input stream.
     * <p>
     * This could be used to wrap this provider in another instance.
     *
@@ -187,8 +179,7 @@ final class TzdbZoneRulesProvider extends ZoneRulesProvider {
     map
   }
 
-  /**
-    * Loads the rules.
+  /** Loads the rules.
     *
     * @param classLoader  the class loader to use, not null
     * @return true if updated
@@ -210,8 +201,7 @@ final class TzdbZoneRulesProvider extends ZoneRulesProvider {
     updated
   }
 
-  /**
-    * Loads the rules from a URL, often in a jar file.
+  /** Loads the rules from a URL, often in a jar file.
     *
     * @param url  the jar file to load, not null
     * @return true if updated
@@ -238,8 +228,7 @@ final class TzdbZoneRulesProvider extends ZoneRulesProvider {
     updated
   }
 
-  /**
-    * Loads the rules from an input stream.
+  /** Loads the rules from an input stream.
     *
     * @param in  the stream to load, not null, not closed after use
     * @throws Exception if an error occurs
@@ -260,8 +249,7 @@ final class TzdbZoneRulesProvider extends ZoneRulesProvider {
     updated
   }
 
-  /**
-    * Loads the rules from an input stream.
+  /** Loads the rules from an input stream.
     *
     * @param in  the stream to load, not null, not closed after use
     * @throws Exception if an error occurs

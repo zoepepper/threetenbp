@@ -39,9 +39,7 @@ import org.testng.annotations.Test
 import org.threeten.bp.ZoneOffset
 import org.threeten.bp.temporal.TemporalQueries
 
-/**
-  * Test OffsetIdPrinterParser.
-  */
+/** Test OffsetIdPrinterParser. */
 @Test class TestZoneOffsetParser extends AbstractTestPrinterParser {
   @DataProvider(name = "error") private[format] def data_error: Array[Array[Any]] = {
     Array[Array[Any]](Array(new DateTimeFormatterBuilder.OffsetIdPrinterParser("Z", "+HH:MM:ss"), "hello", -1, classOf[IndexOutOfBoundsException]), Array(new DateTimeFormatterBuilder.OffsetIdPrinterParser("Z", "+HH:MM:ss"), "hello", 6, classOf[IndexOutOfBoundsException]))

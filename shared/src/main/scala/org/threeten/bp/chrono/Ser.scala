@@ -123,8 +123,7 @@ private object Ser {
     }
 }
 
-/**
-  * The shared serialization delegate for this package.
+/** The shared serialization delegate for this package.
   *
   * <h4>Implementation notes</h4>
   * This class wraps the object being serialized, and takes a byte representing the type of the class to
@@ -156,16 +155,14 @@ final class Ser private[chrono](private var `type`: Byte, private var `object`: 
     this(0, null)
   }
 
-  /**
-    * Implements the {@code Externalizable} interface to write the object.
+  /** Implements the {@code Externalizable} interface to write the object.
     *
     * @param out  the data stream to write to, not null
     */
   @throws[IOException]
   def writeExternal(out: ObjectOutput): Unit = Ser.writeInternal(`type`, `object`, out)
 
-  /**
-    * Implements the {@code Externalizable} interface to read the object.
+  /** Implements the {@code Externalizable} interface to read the object.
     *
     * @param in  the data to read, not null
     */
@@ -176,8 +173,7 @@ final class Ser private[chrono](private var `type`: Byte, private var `object`: 
     `object` = Ser.readInternal(`type`, in)
   }
 
-  /**
-    * Returns the object that will replace this one.
+  /** Returns the object that will replace this one.
     *
     * @return the read object, should never be null
     */

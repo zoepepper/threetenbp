@@ -47,9 +47,7 @@ import java.lang.reflect.Constructor
 import java.lang.reflect.Field
 import java.lang.reflect.Modifier
 
-/**
-  * Base test class.
-  */
+/** Base test class. */
 object AbstractTest extends TestNGSuite {
   private val SERIALISATION_DATA_FOLDER: String = "jvm/src/test/resources/"
 

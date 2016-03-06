@@ -43,20 +43,16 @@ import org.threeten.bp.temporal.ChronoField.{HOUR_OF_DAY, MINUTE_OF_HOUR, SECOND
 import org.threeten.bp.temporal.{TemporalAccessor, TemporalAdjusters}
 import org.threeten.bp.zone.ZoneOffsetTransitionRule.TimeDefinition
 
-/**
-  * A builder that can read the TZDB time-zone files and build {@code ZoneRules} instances.
+/** A builder that can read the TZDB time-zone files and build {@code ZoneRules} instances.
   *
   * <h3>Specification for implementors</h3>
   * This class is a mutable builder. A new instance must be created for each compile.
   */
 object TzdbZoneRulesCompiler {
-  /**
-    * Time parser.
-    */
+  /** Time parser. */
   private val TIME_PARSER: DateTimeFormatter =  new DateTimeFormatterBuilder().appendValue(HOUR_OF_DAY).optionalStart().appendLiteral(':').appendValue(MINUTE_OF_HOUR, 2).optionalStart().appendLiteral(':').appendValue(SECOND_OF_MINUTE, 2).toFormatter
 
-  /**
-    * Reads a set of TZDB files and builds a single combined data file.
+  /** Reads a set of TZDB files and builds a single combined data file.
     *
     * @param args  the arguments
     */
@@ -168,9 +164,7 @@ object TzdbZoneRulesCompiler {
     process(srcDirs, srcFileNames, dstDir, unpacked, verbose)
   }
 
-  /**
-    * Output usage text for the command line.
-    */
+  /** Output usage text for the command line. */
   private def outputHelp(): Unit = {
     System.out.println("Usage: TzdbZoneRulesCompiler <options> <tzdb source filenames>")
     System.out.println("where options include:")
@@ -188,9 +182,7 @@ object TzdbZoneRulesCompiler {
     System.out.println(" If the version is specified, only that version is processed")
   }
 
-  /**
-    * Process to create the jar files.
-    */
+  /** Process to create the jar files. */
   private def process(srcDirs: java.util.List[File], srcFileNames: java.util.List[String], dstDir: File, unpacked: Boolean, verbose: Boolean): Unit = {
     val deduplicateMap: java.util.Map[AnyRef, AnyRef] = new java.util.HashMap[AnyRef, AnyRef]
     val allBuiltZones: java.util.Map[String, java.util.SortedMap[String, ZoneRules]] = new java.util.TreeMap[String, java.util.SortedMap[String, ZoneRules]]
@@ -259,9 +251,7 @@ object TzdbZoneRulesCompiler {
     }
   }
 
-  /**
-    * Outputs the DAT files.
-    */
+  /** Outputs the DAT files. */
   private def outputFilesDat(dstDir: File, allBuiltZones: java.util.Map[String, java.util.SortedMap[String, ZoneRules]], allRegionIds: java.util.Set[String], allRules: java.util.Set[ZoneRules], leapSeconds: java.util.SortedMap[LocalDate, Byte]): Unit = {
     val tzdbFile: File = new File(dstDir, "TZDB.dat")
     tzdbFile.delete
@@ -283,9 +273,7 @@ object TzdbZoneRulesCompiler {
     }
   }
 
-  /**
-    * Outputs the file.
-    */
+  /** Outputs the file. */
   private def outputFile(dstFile: File, version: String, builtZones: java.util.SortedMap[String, ZoneRules], leapSeconds: java.util.SortedMap[LocalDate, Byte]): Unit = {
     val loopAllBuiltZones: java.util.Map[String, java.util.SortedMap[String, ZoneRules]] = new java.util.TreeMap[String, java.util.SortedMap[String, ZoneRules]]
     loopAllBuiltZones.put(version, builtZones)
@@ -294,9 +282,7 @@ object TzdbZoneRulesCompiler {
     outputFile(dstFile, loopAllBuiltZones, loopAllRegionIds, loopAllRules, leapSeconds)
   }
 
-  /**
-    * Outputs the file.
-    */
+  /** Outputs the file. */
   private def outputFile(dstFile: File, allBuiltZones: java.util.Map[String, java.util.SortedMap[String, ZoneRules]], allRegionIds: java.util.Set[String], allRules: java.util.Set[ZoneRules], leapSeconds: java.util.SortedMap[LocalDate, Byte]): Unit = {
     var jos: JarOutputStream = null
     try {
@@ -318,9 +304,7 @@ object TzdbZoneRulesCompiler {
     }
   }
 
-  /**
-    * Outputs the timezone entry in the JAR file.
-    */
+  /** Outputs the timezone entry in the JAR file. */
   private def outputTzdbEntry(jos: JarOutputStream, allBuiltZones: java.util.Map[String, java.util.SortedMap[String, ZoneRules]], allRegionIds: java.util.Set[String], allRules: java.util.Set[ZoneRules]): Unit = {
     try {
       jos.putNextEntry(new ZipEntry("org/threeten/bp/TZDB.dat"))
@@ -335,9 +319,7 @@ object TzdbZoneRulesCompiler {
     }
   }
 
-  /**
-    * Outputs the timezone DAT file.
-    */
+  /** Outputs the timezone DAT file. */
   @throws(classOf[IOException])
   private def outputTzdbDat(jos: OutputStream, allBuiltZones: java.util.Map[String, java.util.SortedMap[String, ZoneRules]], allRegionIds: java.util.Set[String], allRules: java.util.Set[ZoneRules]): Unit = {
     val out: DataOutputStream = new DataOutputStream(jos)
@@ -380,8 +362,7 @@ object TzdbZoneRulesCompiler {
     out.flush()
   }
 
-  /**
-    * Class representing a rule line in the TZDB file.
+  /** Class representing a rule line in the TZDB file.
     *
     * Constructs a rule using fields.
     * @param leapDate Date which has gets leap second adjustment (at the end)
@@ -390,8 +371,7 @@ object TzdbZoneRulesCompiler {
   private[zone] final class LeapSecondRule(private[zone] val leapDate: LocalDate, private[zone] var secondAdjustment: Byte)
 }
 
-/**
-  * Creates an instance if you want to invoke the compiler manually.
+/** Creates an instance if you want to invoke the compiler manually.
   *
   * @param version  the version, such as 2009a, not null
   * @param sourceFiles  the list of source files, not empty, not null
@@ -411,9 +391,8 @@ final class TzdbZoneRulesCompiler(private val version: String, private val sourc
   /** Sorted collection of LeapSecondRules. */
   private val leapSeconds: java.util.SortedMap[LocalDate, Byte] = new java.util.TreeMap[LocalDate, Byte]
 
-  /**
-    * Compile the rules file.
-    * <p>
+  /** Compile the rules file.
+    *
     * Use {@link #getZones()} and {@link #getLeapSeconds()} to retrieve the parsed data.
     *
     * @throws Exception if an error occurs
@@ -427,37 +406,32 @@ final class TzdbZoneRulesCompiler(private val version: String, private val sourc
     printVerbose("Compiled TZDB version " + version)
   }
 
-  /**
-    * Gets the parsed zone rules.
+  /** Gets the parsed zone rules.
     *
     * @return the parsed zone rules, not null
     */
   def getZones: java.util.SortedMap[String, ZoneRules] = builtZones
 
-  /**
-    * Gets the parsed leap seconds.
+  /** Gets the parsed leap seconds.
     *
     * @return the parsed and sorted leap seconds, not null
     */
   def getLeapSeconds: java.util.SortedMap[LocalDate, Byte] = leapSeconds
 
-  /**
-    * Gets the most recent leap second.
+  /** Gets the most recent leap second.
     *
     * @return the most recent leap second, null if none
     */
   private def getMostRecentLeapSecond: LocalDate = if (leapSeconds.isEmpty) null else leapSeconds.lastKey
 
-  /**
-    * Sets the deduplication map.
+  /** Sets the deduplication map.
     *
     * @param deduplicateMap  the map to deduplicate items
     */
   private[zone] def setDeduplicateMap(deduplicateMap: java.util.Map[AnyRef, AnyRef]): Unit =
     this.deduplicateMap = deduplicateMap
 
-  /**
-    * Parses the source files.
+  /** Parses the source files.
     *
     * @throws Exception if an error occurs
     */
@@ -470,8 +444,7 @@ final class TzdbZoneRulesCompiler(private val version: String, private val sourc
     }
   }
 
-  /**
-    * Parses the leap seconds file.
+  /** Parses the leap seconds file.
     *
     * @throws Exception if an error occurs
     */
@@ -545,8 +518,7 @@ final class TzdbZoneRulesCompiler(private val version: String, private val sourc
     new TzdbZoneRulesCompiler.LeapSecondRule(leapDate, adjustmentByte)
   }
 
-  /**
-    * Parses a source file.
+  /** Parses a source file.
     *
     * @param file  the file being read, not null
     * @throws Exception if an error occurs
@@ -622,8 +594,7 @@ final class TzdbZoneRulesCompiler(private val version: String, private val sourc
     }
   }
 
-  /**
-    * Parses a Rule line.
+  /** Parses a Rule line.
     *
     * @param st  the tokenizer, not null
     */
@@ -645,8 +616,7 @@ final class TzdbZoneRulesCompiler(private val version: String, private val sourc
     rule.text = parseOptional(st.nextToken)
   }
 
-  /**
-    * Parses a Zone line.
+  /** Parses a Zone line.
     *
     * @param st  the tokenizer, not null
     * @return true if the zone is complete
@@ -684,8 +654,7 @@ final class TzdbZoneRulesCompiler(private val version: String, private val sourc
     }
   }
 
-  /**
-    * Parses a Rule line.
+  /** Parses a Rule line.
     *
     * @param st  the tokenizer, not null
     * @param mdt  the object to parse into, not null
@@ -803,8 +772,7 @@ final class TzdbZoneRulesCompiler(private val version: String, private val sourc
       case 'w' | 'W' | _                     => TimeDefinition.WALL
     }
 
-  /**
-    * Build the rules, zones and links into real zones.
+  /** Build the rules, zones and links into real zones.
     *
     * @throws Exception if an error occurs
     */
@@ -848,8 +816,7 @@ final class TzdbZoneRulesCompiler(private val version: String, private val sourc
     builtZones.remove("GMT-0")
   }
 
-  /**
-    * Deduplicates an object instance.
+  /** Deduplicates an object instance.
     *
     * @tparam T the generic type
     * @param obj  the object to deduplicate
@@ -862,8 +829,7 @@ final class TzdbZoneRulesCompiler(private val version: String, private val sourc
     deduplicateMap.get(obj).asInstanceOf[T]
   }
 
-  /**
-    * Prints a verbose message.
+  /** Prints a verbose message.
     *
     * @param message  the message, not null
     */
@@ -871,9 +837,7 @@ final class TzdbZoneRulesCompiler(private val version: String, private val sourc
     if (verbose)
       System.out.println(message)
 
-  /**
-    * Class representing a month-day-time in the TZDB file.
-    */
+  /** Class representing a month-day-time in the TZDB file. */
   private[zone] abstract class TZDBMonthDayTime {
     /** The month of the cutover. */
     private[zone] var month: Month = Month.JANUARY
@@ -900,9 +864,7 @@ final class TzdbZoneRulesCompiler(private val version: String, private val sourc
     }
   }
 
-  /**
-    * Class representing a rule line in the TZDB file.
-    */
+  /** Class representing a rule line in the TZDB file. */
   private[zone] final class TZDBRule extends TZDBMonthDayTime {
     /** The start year. */
     private[zone] var startYear: Int = 0
@@ -919,9 +881,7 @@ final class TzdbZoneRulesCompiler(private val version: String, private val sourc
     }
   }
 
-  /**
-    * Class representing a linked set of zone lines in the TZDB file.
-    */
+  /** Class representing a linked set of zone lines in the TZDB file. */
   private[zone] final class TZDBZone extends TZDBMonthDayTime {
     /** The standard offset. */
     private[zone] var standardOffset: ZoneOffset = null

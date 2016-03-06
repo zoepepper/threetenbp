@@ -48,8 +48,7 @@ import org.threeten.bp.temporal.TemporalAmount
 import org.threeten.bp.temporal.TemporalUnit
 import org.threeten.bp.temporal.UnsupportedTemporalTypeException
 
-/**
-  * A date-based amount of time, such as '2 years, 3 months and 4 days'.
+/** A date-based amount of time, such as '2 years, 3 months and 4 days'.
   *
   * This class models a quantity or amount of time in terms of years, months and days.
   * See {@link Duration} for the time-based equivalent to this class.
@@ -84,17 +83,12 @@ import org.threeten.bp.temporal.UnsupportedTemporalTypeException
   */
 @SerialVersionUID(-8290556941213247973L)
 object Period {
-  /**
-    * A constant for a period of zero.
-    */
+  /** A constant for a period of zero. */
   val ZERO: Period = new Period(0, 0, 0)
-  /**
-    * The pattern for parsing.
-    */
+  /** The pattern for parsing. */
   private val PATTERN: Pattern = Pattern.compile("([-+]?)P(?:([-+]?[0-9]+)Y)?(?:([-+]?[0-9]+)M)?(?:([-+]?[0-9]+)W)?(?:([-+]?[0-9]+)D)?", Pattern.CASE_INSENSITIVE)
 
-  /**
-    * Obtains a {@code Period} representing a number of years.
+  /** Obtains a {@code Period} representing a number of years.
     *
     * The resulting period will have the specified years.
     * The months and days units will be zero.
@@ -104,8 +98,7 @@ object Period {
     */
   def ofYears(years: Int): Period = create(years, 0, 0)
 
-  /**
-    * Obtains a {@code Period} representing a number of months.
+  /** Obtains a {@code Period} representing a number of months.
     *
     * The resulting period will have the specified months.
     * The years and days units will be zero.
@@ -115,8 +108,7 @@ object Period {
     */
   def ofMonths(months: Int): Period = create(0, months, 0)
 
-  /**
-    * Obtains a {@code Period} representing a number of weeks.
+  /** Obtains a {@code Period} representing a number of weeks.
     *
     * The resulting period will have days equal to the weeks multiplied by seven.
     * The years and months units will be zero.
@@ -126,8 +118,7 @@ object Period {
     */
   def ofWeeks(weeks: Int): Period = create(0, 0, Math.multiplyExact(weeks, 7))
 
-  /**
-    * Obtains a {@code Period} representing a number of days.
+  /** Obtains a {@code Period} representing a number of days.
     *
     * The resulting period will have the specified days.
     * The years and months units will be zero.
@@ -137,8 +128,7 @@ object Period {
     */
   def ofDays(days: Int): Period = create(0, 0, days)
 
-  /**
-    * Obtains a {@code Period} representing a number of years, months and days.
+  /** Obtains a {@code Period} representing a number of years, months and days.
     *
     * This creates an instance based on years, months and days.
     *
@@ -149,8 +139,7 @@ object Period {
     */
   def of(years: Int, months: Int, days: Int): Period = create(years, months, days)
 
-  /**
-    * Obtains an instance of {@code Period} from a temporal amount.
+  /** Obtains an instance of {@code Period} from a temporal amount.
     *
     * This obtains a period based on the specified amount.
     * A {@code TemporalAmount} represents an  amount of time, which may be
@@ -200,8 +189,7 @@ object Period {
     create(years, months, days)
   }
 
-  /**
-    * Obtains a {@code Period} consisting of the number of years, months,
+  /** Obtains a {@code Period} consisting of the number of years, months,
     * and days between two dates.
     *
     * The start date is included, but the end date is not.
@@ -223,8 +211,7 @@ object Period {
     startDate.until(endDate)
   }
 
-  /**
-    * Obtains a {@code Period} from a text string such as {@code PnYnMnD}.
+  /** Obtains a {@code Period} from a text string such as {@code PnYnMnD}.
     *
     * This will parse the string produced by {@code toString()} which is
     * based on the ISO-8601 period formats {@code PnYnMnD} and {@code PnW}.
@@ -303,8 +290,7 @@ object Period {
     }
   }
 
-  /**
-    * Creates an instance.
+  /** Creates an instance.
     *
     * @param years  the amount
     * @param months  the amount
@@ -318,8 +304,7 @@ object Period {
   }
 }
 
-/**
-  * @constructor
+/** @constructor
   *
   * @param years  the amount
   * @param months  the amount
@@ -328,8 +313,7 @@ object Period {
 @SerialVersionUID(-8290556941213247973L)
 final class Period private(private val years: Int, private val months: Int, private val days: Int) extends ChronoPeriod with Serializable {
 
-  /**
-    * Resolves singletons.
+  /** Resolves singletons.
     *
     * @return the resolved instance
     */
@@ -349,8 +333,7 @@ final class Period private(private val years: Int, private val months: Int, priv
     else if (unit eq DAYS) days
     else throw new UnsupportedTemporalTypeException("Unsupported unit: " + unit)
 
-  /**
-    * Checks if all three units of this period are zero.
+  /** Checks if all three units of this period are zero.
     *
     * A zero period has the value zero for the years, months and days units.
     *
@@ -358,8 +341,7 @@ final class Period private(private val years: Int, private val months: Int, priv
     */
   override def isZero: Boolean = this eq Period.ZERO
 
-  /**
-    * Checks if any of the three units of this period are negative.
+  /** Checks if any of the three units of this period are negative.
     *
     * This checks whether the years, months or days units are less than zero.
     *
@@ -369,8 +351,7 @@ final class Period private(private val years: Int, private val months: Int, priv
     years < 0 || months < 0 || days < 0
   }
 
-  /**
-    * Gets the amount of years of this period.
+  /** Gets the amount of years of this period.
     *
     * This returns the years unit.
     *
@@ -384,8 +365,7 @@ final class Period private(private val years: Int, private val months: Int, priv
     years
   }
 
-  /**
-    * Gets the amount of months of this period.
+  /** Gets the amount of months of this period.
     *
     * This returns the months unit.
     *
@@ -399,8 +379,7 @@ final class Period private(private val years: Int, private val months: Int, priv
     months
   }
 
-  /**
-    * Gets the amount of days of this period.
+  /** Gets the amount of days of this period.
     *
     * This returns the days unit.
     *
@@ -410,8 +389,7 @@ final class Period private(private val years: Int, private val months: Int, priv
     days
   }
 
-  /**
-    * Returns a copy of this period with the specified amount of years.
+  /** Returns a copy of this period with the specified amount of years.
     *
     * This sets the amount of the years unit in a copy of this period.
     * The months and days units are unaffected.
@@ -432,8 +410,7 @@ final class Period private(private val years: Int, private val months: Int, priv
     Period.create(years, months, days)
   }
 
-  /**
-    * Returns a copy of this period with the specified amount of months.
+  /** Returns a copy of this period with the specified amount of months.
     *
     * This sets the amount of the months unit in a copy of this period.
     * The years and days units are unaffected.
@@ -454,8 +431,7 @@ final class Period private(private val years: Int, private val months: Int, priv
     Period.create(years, months, days)
   }
 
-  /**
-    * Returns a copy of this period with the specified amount of days.
+  /** Returns a copy of this period with the specified amount of days.
     *
     * This sets the amount of the days unit in a copy of this period.
     * The years and months units are unaffected.
@@ -472,8 +448,7 @@ final class Period private(private val years: Int, private val months: Int, priv
     Period.create(years, months, days)
   }
 
-  /**
-    * Returns a copy of this period with the specified amount added.
+  /** Returns a copy of this period with the specified amount added.
     *
     * This input amount is converted to a {@code Period} using {@code from(TemporalAmount)}.
     * This operates separately on the years, months and days.
@@ -492,8 +467,7 @@ final class Period private(private val years: Int, private val months: Int, priv
     Period.create(Math.addExact(years, amount.years), Math.addExact(months, amount.months), Math.addExact(days, amount.days))
   }
 
-  /**
-    * Returns a copy of this period with the specified years added.
+  /** Returns a copy of this period with the specified years added.
     *
     * This adds the amount to the years unit in a copy of this period.
     * The months and days units are unaffected.
@@ -511,8 +485,7 @@ final class Period private(private val years: Int, private val months: Int, priv
     else
       Period.create(Math.toIntExact(Math.addExact(years, yearsToAdd)), months, days)
 
-  /**
-    * Returns a copy of this period with the specified months added.
+  /** Returns a copy of this period with the specified months added.
     *
     * This adds the amount to the months unit in a copy of this period.
     * The years and days units are unaffected.
@@ -530,8 +503,7 @@ final class Period private(private val years: Int, private val months: Int, priv
     else
       Period.create(years, Math.toIntExact(Math.addExact(months, monthsToAdd)), days)
 
-  /**
-    * Returns a copy of this period with the specified days added.
+  /** Returns a copy of this period with the specified days added.
     *
     * This adds the amount to the days unit in a copy of this period.
     * The years and months units are unaffected.
@@ -549,8 +521,7 @@ final class Period private(private val years: Int, private val months: Int, priv
     else
       Period.create(years, months, Math.toIntExact(Math.addExact(days, daysToAdd)))
 
-  /**
-    * Returns a copy of this period with the specified amount subtracted.
+  /** Returns a copy of this period with the specified amount subtracted.
     *
     * This input amount is converted to a {@code Period} using {@code from(TemporalAmount)}.
     * This operates separately on the years, months and days.
@@ -569,8 +540,7 @@ final class Period private(private val years: Int, private val months: Int, priv
     Period.create(Math.subtractExact(years, amount.years), Math.subtractExact(months, amount.months), Math.subtractExact(days, amount.days))
   }
 
-  /**
-    * Returns a copy of this period with the specified years subtracted.
+  /** Returns a copy of this period with the specified years subtracted.
     *
     * This subtracts the amount from the years unit in a copy of this period.
     * The months and days units are unaffected.
@@ -586,8 +556,7 @@ final class Period private(private val years: Int, private val months: Int, priv
     if (yearsToSubtract == Long.MinValue) plusYears(Long.MaxValue).plusYears(1)
     else plusYears(-yearsToSubtract)
 
-  /**
-    * Returns a copy of this period with the specified months subtracted.
+  /** Returns a copy of this period with the specified months subtracted.
     *
     * This subtracts the amount from the months unit in a copy of this period.
     * The years and days units are unaffected.
@@ -603,8 +572,7 @@ final class Period private(private val years: Int, private val months: Int, priv
     if (monthsToSubtract == Long.MinValue) plusMonths(Long.MaxValue).plusMonths(1)
     else plusMonths(-monthsToSubtract)
 
-  /**
-    * Returns a copy of this period with the specified days subtracted.
+  /** Returns a copy of this period with the specified days subtracted.
     *
     * This subtracts the amount from the days unit in a copy of this period.
     * The years and months units are unaffected.
@@ -620,8 +588,7 @@ final class Period private(private val years: Int, private val months: Int, priv
     if (daysToSubtract == Long.MinValue) plusDays(Long.MaxValue).plusDays(1)
     else plusDays(-daysToSubtract)
 
-  /**
-    * Returns a new instance with each element in this period multiplied
+  /** Returns a new instance with each element in this period multiplied
     * by the specified scalar.
     *
     * This simply multiplies each field, years, months, days and normalized time,
@@ -637,16 +604,14 @@ final class Period private(private val years: Int, private val months: Int, priv
     else
       Period.create(Math.multiplyExact(years, scalar), Math.multiplyExact(months, scalar), Math.multiplyExact(days, scalar))
 
-  /**
-    * Returns a new instance with each amount in this period negated.
+  /** Returns a new instance with each amount in this period negated.
     *
     * @return a { @code Period} based on this period with the amounts negated, not null
     * @throws ArithmeticException if numeric overflow occurs
     */
   override def negated: Period = multipliedBy(-1)
 
-  /**
-    * Returns a copy of this period with the years and months normalized
+  /** Returns a copy of this period with the years and months normalized
     * using a 12 month year.
     *
     * This normalizes the years and months units, leaving the days unit unchanged.
@@ -675,8 +640,7 @@ final class Period private(private val years: Int, private val months: Int, priv
     Period.create(Math.toIntExact(splitYears), splitMonths, days)
   }
 
-  /**
-    * Gets the total number of months in this period using a 12 month year.
+  /** Gets the total number of months in this period using a 12 month year.
     *
     * This returns the total number of months in the period by multiplying the
     * number of years by 12 and adding the number of months.
@@ -691,8 +655,7 @@ final class Period private(private val years: Int, private val months: Int, priv
     years * 12L + months
   }
 
-  /**
-    * Adds this period to the specified temporal object.
+  /** Adds this period to the specified temporal object.
     *
     * This returns a temporal object of the same observable type as the input
     * with this period added.
@@ -737,8 +700,7 @@ final class Period private(private val years: Int, private val months: Int, priv
     _temporal
   }
 
-  /**
-    * Subtracts this period from the specified temporal object.
+  /** Subtracts this period from the specified temporal object.
     *
     * This returns a temporal object of the same observable type as the input
     * with this period subtracted.
@@ -789,8 +751,7 @@ final class Period private(private val years: Int, private val months: Int, priv
     _temporal
   }
 
-  /**
-    * Checks if this period is equal to another period.
+  /** Checks if this period is equal to another period.
     *
     * The comparison is based on the amounts held in the period.
     * To be equal, the years, months and days units must be individually equal.
@@ -806,15 +767,13 @@ final class Period private(private val years: Int, private val months: Int, priv
       case _             => false
     }
 
-  /**
-    * A hash code for this period.
+  /** A hash code for this period.
     *
     * @return a suitable hash code
     */
   override def hashCode: Int = years + Integer.rotateLeft(months, 8) + Integer.rotateLeft(days, 16)
 
-  /**
-    * Outputs this period as a {@code String}, such as {@code P6Y3M1D}.
+  /** Outputs this period as a {@code String}, such as {@code P6Y3M1D}.
     *
     * The output will be in the ISO-8601 period format.
     * A zero period will be represented as zero days, 'P0D'.

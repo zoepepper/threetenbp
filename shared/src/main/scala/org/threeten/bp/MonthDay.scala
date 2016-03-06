@@ -61,8 +61,7 @@ object MonthDay {
   /** Parser. */
   private val PARSER: DateTimeFormatter = new DateTimeFormatterBuilder().appendLiteral("--").appendValue(MONTH_OF_YEAR, 2).appendLiteral('-').appendValue(DAY_OF_MONTH, 2).toFormatter
 
-  /**
-    * Obtains the current month-day from the system clock in the default time-zone.
+  /** Obtains the current month-day from the system clock in the default time-zone.
     *
     * This will query the {@link Clock#systemDefaultZone() system clock} in the default
     * time-zone to obtain the current month-day.
@@ -74,8 +73,7 @@ object MonthDay {
     */
   def now: MonthDay = now(Clock.systemDefaultZone)
 
-  /**
-    * Obtains the current month-day from the system clock in the specified time-zone.
+  /** Obtains the current month-day from the system clock in the specified time-zone.
     *
     * This will query the {@link Clock#system(ZoneId) system clock} to obtain the current month-day.
     * Specifying the time-zone avoids dependence on the default time-zone.
@@ -88,8 +86,7 @@ object MonthDay {
     */
   def now(zone: ZoneId): MonthDay = now(Clock.system(zone))
 
-  /**
-    * Obtains the current month-day from the specified clock.
+  /** Obtains the current month-day from the specified clock.
     *
     * This will query the specified clock to obtain the current month-day.
     * Using this method allows the use of an alternate clock for testing.
@@ -103,8 +100,7 @@ object MonthDay {
     MonthDay.of(now.getMonth, now.getDayOfMonth)
   }
 
-  /**
-    * Obtains an instance of {@code MonthDay}.
+  /** Obtains an instance of {@code MonthDay}.
     *
     * The day-of-month must be valid for the month within a leap year.
     * Hence, for February, day 29 is valid.
@@ -128,8 +124,7 @@ object MonthDay {
     new MonthDay(month.getValue, dayOfMonth)
   }
 
-  /**
-    * Obtains an instance of {@code MonthDay}.
+  /** Obtains an instance of {@code MonthDay}.
     *
     * The day-of-month must be valid for the month within a leap year.
     * Hence, for month 2 (February), day 29 is valid.
@@ -146,8 +141,7 @@ object MonthDay {
     */
   def of(month: Int, dayOfMonth: Int): MonthDay = of(Month.of(month), dayOfMonth)
 
-  /**
-    * Obtains an instance of {@code MonthDay} from a temporal object.
+  /** Obtains an instance of {@code MonthDay} from a temporal object.
     *
     * A {@code TemporalAccessor} represents some form of date and time information.
     * This factory converts the arbitrary temporal object to an instance of {@code MonthDay}.
@@ -180,8 +174,7 @@ object MonthDay {
     }
   }
 
-  /**
-    * Obtains an instance of {@code MonthDay} from a text string such as {@code --12-03}.
+  /** Obtains an instance of {@code MonthDay} from a text string such as {@code --12-03}.
     *
     * The string must represent a valid month-day.
     * The format is {@code --MM-dd}.
@@ -192,8 +185,7 @@ object MonthDay {
     */
   def parse(text: CharSequence): MonthDay = parse(text, PARSER)
 
-  /**
-    * Obtains an instance of {@code MonthDay} from a text string using a specific formatter.
+  /** Obtains an instance of {@code MonthDay} from a text string using a specific formatter.
     *
     * The text is parsed using the formatter, returning a month-day.
     *
@@ -251,8 +243,7 @@ object MonthDay {
 @SerialVersionUID(-939150713474957432L)
 final class MonthDay private (private val month: Int, private val day: Int) extends TemporalAccessor with TemporalAdjuster with Ordered[MonthDay] with Serializable {
 
-  /**
-    * Checks if the specified field is supported.
+  /** Checks if the specified field is supported.
     *
     * This checks if this month-day can be queried for the specified field.
     * If false, then calling the {@link #range(TemporalField) range} and
@@ -282,8 +273,7 @@ final class MonthDay private (private val month: Int, private val day: Int) exte
     else
       field != null && field.isSupportedBy(this)
 
-  /**
-    * Gets the range of valid values for the specified field.
+  /** Gets the range of valid values for the specified field.
     *
     * The range object expresses the minimum and maximum valid values for a field.
     * This month-day is used to enhance the accuracy of the returned range.
@@ -312,8 +302,7 @@ final class MonthDay private (private val month: Int, private val day: Int) exte
     else
       super.range(field)
 
-  /**
-    * Gets the value of the specified field from this month-day as an {@code int}.
+  /** Gets the value of the specified field from this month-day as an {@code int}.
     *
     * This queries this month-day for the value for the specified field.
     * The returned value will always be within the valid range of values for the field.
@@ -337,8 +326,7 @@ final class MonthDay private (private val month: Int, private val day: Int) exte
     */
   override def get(field: TemporalField): Int = range(field).checkValidIntValue(getLong(field), field)
 
-  /**
-    * Gets the value of the specified field from this month-day as a {@code long}.
+  /** Gets the value of the specified field from this month-day as a {@code long}.
     *
     * This queries this month-day for the value for the specified field.
     * If it is not possible to return the value, because the field is not supported
@@ -370,8 +358,7 @@ final class MonthDay private (private val month: Int, private val day: Int) exte
       case _ => field.getFrom(this)
     }
 
-  /**
-    * Gets the month-of-year field from 1 to 12.
+  /** Gets the month-of-year field from 1 to 12.
     *
     * This method returns the month as an {@code int} from 1 to 12.
     * Application code is frequently clearer if the enum {@link Month}
@@ -382,8 +369,7 @@ final class MonthDay private (private val month: Int, private val day: Int) exte
     */
   def getMonthValue: Int = month
 
-  /**
-    * Gets the month-of-year field using the {@code Month} enum.
+  /** Gets the month-of-year field using the {@code Month} enum.
     *
     * This method returns the enum {@link Month} for the month.
     * This avoids confusion as to what {@code int} values mean.
@@ -395,8 +381,7 @@ final class MonthDay private (private val month: Int, private val day: Int) exte
     */
   def getMonth: Month = Month.of(month)
 
-  /**
-    * Gets the day-of-month field.
+  /** Gets the day-of-month field.
     *
     * This method returns the primitive {@code int} value for the day-of-month.
     *
@@ -404,8 +389,7 @@ final class MonthDay private (private val month: Int, private val day: Int) exte
     */
   def getDayOfMonth: Int = day
 
-  /**
-    * Checks if the year is valid for this month-day.
+  /** Checks if the year is valid for this month-day.
     *
     * This method checks whether this month and day and the input year form
     * a valid date. This can only return false for February 29th.
@@ -416,8 +400,7 @@ final class MonthDay private (private val month: Int, private val day: Int) exte
     */
   def isValidYear(year: Int): Boolean = !(day == 29 && month == 2 && !Year.isLeap(year))
 
-  /**
-    * Returns a copy of this {@code MonthDay} with the month-of-year altered.
+  /** Returns a copy of this {@code MonthDay} with the month-of-year altered.
     *
     * This returns a month-day with the specified month.
     * If the day-of-month is invalid for the specified month, the day will
@@ -431,8 +414,7 @@ final class MonthDay private (private val month: Int, private val day: Int) exte
     */
   def withMonth(month: Int): MonthDay = `with`(Month.of(month))
 
-  /**
-    * Returns a copy of this {@code MonthDay} with the month-of-year altered.
+  /** Returns a copy of this {@code MonthDay} with the month-of-year altered.
     *
     * This returns a month-day with the specified month.
     * If the day-of-month is invalid for the specified month, the day will
@@ -452,8 +434,7 @@ final class MonthDay private (private val month: Int, private val day: Int) exte
     new MonthDay(month.getValue, day)
   }
 
-  /**
-    * Returns a copy of this {@code MonthDay} with the day-of-month altered.
+  /** Returns a copy of this {@code MonthDay} with the day-of-month altered.
     *
     * This returns a month-day with the specified day-of-month.
     * If the day-of-month is invalid for the month, an exception is thrown.
@@ -469,8 +450,7 @@ final class MonthDay private (private val month: Int, private val day: Int) exte
     if (dayOfMonth == this.day) this
     else MonthDay.of(month, dayOfMonth)
 
-  /**
-    * Queries this month-day using the specified query.
+  /** Queries this month-day using the specified query.
     *
     * This queries this month-day using the specified query strategy object.
     * The {@code TemporalQuery} object defines the logic to be used to
@@ -493,8 +473,7 @@ final class MonthDay private (private val month: Int, private val day: Int) exte
     else
       super.query(query)
 
-  /**
-    * Adjusts the specified temporal object to have this month-day.
+  /** Adjusts the specified temporal object to have this month-day.
     *
     * This returns a temporal object of the same observable type as the input
     * with the month and day-of-month changed to be the same as this.
@@ -529,8 +508,7 @@ final class MonthDay private (private val month: Int, private val day: Int) exte
     _temporal.`with`(DAY_OF_MONTH, Math.min(_temporal.range(DAY_OF_MONTH).getMaximum, day))
   }
 
-  /**
-    * Combines this month-day with a year to create a {@code LocalDate}.
+  /** Combines this month-day with a year to create a {@code LocalDate}.
     *
     * This returns a {@code LocalDate} formed from this month-day and the specified year.
     *
@@ -545,8 +523,7 @@ final class MonthDay private (private val month: Int, private val day: Int) exte
     */
   def atYear(year: Int): LocalDate = LocalDate.of(year, month, if (isValidYear(year)) day else 28)
 
-  /**
-    * Compares this month-day to another month-day.
+  /** Compares this month-day to another month-day.
     *
     * The comparison is based first on value of the month, then on the value of the day.
     * It is "consistent with equals", as defined by {@link Comparable}.
@@ -561,24 +538,21 @@ final class MonthDay private (private val month: Int, private val day: Int) exte
     cmp
   }
 
-  /**
-    * Is this month-day after the specified month-day.
+  /** Is this month-day after the specified month-day.
     *
     * @param other  the other month-day to compare to, not null
     * @return true if this is after the specified month-day
     */
   def isAfter(other: MonthDay): Boolean = compareTo(other) > 0
 
-  /**
-    * Is this month-day before the specified month-day.
+  /** Is this month-day before the specified month-day.
     *
     * @param other  the other month-day to compare to, not null
     * @return true if this point is before the specified month-day
     */
   def isBefore(other: MonthDay): Boolean = compareTo(other) < 0
 
-  /**
-    * Checks if this month-day is equal to another month-day.
+  /** Checks if this month-day is equal to another month-day.
     *
     * The comparison is based on the time-line position of the month-day within a year.
     *
@@ -591,15 +565,13 @@ final class MonthDay private (private val month: Int, private val day: Int) exte
       case _               => false
     }
 
-  /**
-    * A hash code for this month-day.
+  /** A hash code for this month-day.
     *
     * @return a suitable hash code
     */
   override def hashCode: Int = (month << 6) + day
 
-  /**
-    * Outputs this month-day as a {@code String}, such as {@code --12-03}.
+  /** Outputs this month-day as a {@code String}, such as {@code --12-03}.
     *
     * The output will be in the format {@code --MM-dd}:
     *
@@ -608,8 +580,7 @@ final class MonthDay private (private val month: Int, private val day: Int) exte
   override def toString: String =
     new StringBuilder(10).append("--").append(if (month < 10) "0" else "").append(month).append(if (day < 10) "-0" else "-").append(day).toString
 
-  /**
-    * Outputs this month-day as a {@code String} using the formatter.
+  /** Outputs this month-day as a {@code String} using the formatter.
     *
     * This month-day will be passed to the formatter
     * {@link DateTimeFormatter#format(TemporalAccessor) print method}.
@@ -625,8 +596,7 @@ final class MonthDay private (private val month: Int, private val day: Int) exte
 
   private def writeReplace: AnyRef = new Ser(Ser.MONTH_DAY_TYPE, this)
 
-  /**
-    * Defend against malicious streams.
+  /** Defend against malicious streams.
     * @return never
     * @throws InvalidObjectException always
     */

@@ -39,9 +39,7 @@ import java.util.Collections
 import org.testng.annotations.Test
 import org.threeten.bp.ZoneOffset
 
-/**
-  * Test ZoneRulesProvider.
-  */
+/** Test ZoneRulesProvider. */
 @Test object TestZoneRulesProvider {
 
   private[zone] class MockTempProvider extends ZoneRulesProvider {

@@ -63,8 +63,7 @@ import org.threeten.bp.temporal.TemporalAccessor
 import org.threeten.bp.temporal.TemporalField
 import org.threeten.bp.temporal.ValueRange
 
-/**
-  * The Hijrah calendar system.
+/** The Hijrah calendar system.
   *
   * This chronology defines the rules of the Hijrah calendar system.
   *
@@ -163,35 +162,25 @@ import org.threeten.bp.temporal.ValueRange
   */
 @SerialVersionUID(3127340209035924785L)
 object HijrahChronology {
-  /**
-    * Singleton instance of the Hijrah chronology.
-    */
+  /** Singleton instance of the Hijrah chronology. */
   val INSTANCE: HijrahChronology = new HijrahChronology
 
-  /**
-    * Fallback language for the era names.
-    */
+  /** Fallback language for the era names. */
   private val FALLBACK_LANGUAGE: String = "en"
 
-  /**
-    * Narrow names for eras.
-    */
+  /** Narrow names for eras. */
   private val ERA_NARROW_NAMES: java.util.HashMap[String, Array[String]] = {
     val names = new java.util.HashMap[String, Array[String]]
     names.put(FALLBACK_LANGUAGE, Array[String]("BH", "HE"))
     names
   }
-  /**
-    * Short names for eras.
-    */
+  /** Short names for eras. */
   private val ERA_SHORT_NAMES: java.util.HashMap[String, Array[String]] = {
     val names = new java.util.HashMap[String, Array[String]]
     names.put(FALLBACK_LANGUAGE, Array[String]("B.H.", "H.E."))
     names
   }
-  /**
-    * Full names for eras.
-    */
+  /** Full names for eras. */
   private val ERA_FULL_NAMES: java.util.HashMap[String, Array[String]] = {
     val names = new java.util.HashMap[String, Array[String]]
     names.put(FALLBACK_LANGUAGE, Array[String]("Before Hijrah", "Hijrah Era"))
@@ -203,15 +192,13 @@ object HijrahChronology {
 @SerialVersionUID(3127340209035924785L)
 final class HijrahChronology private() extends Chronology with Serializable {
 
-  /**
-    * Resolve singleton.
+  /** Resolve singleton.
     *
     * @return the singleton instance, not null
     */
   private def readResolve: AnyRef = HijrahChronology.INSTANCE
 
-  /**
-    * Gets the ID of the chronology - 'Hijrah-umalqura'.
+  /** Gets the ID of the chronology - 'Hijrah-umalqura'.
     *
     * The ID uniquely identifies the {@code Chronology}.
     * It can be used to lookup the {@code Chronology} using {@link #of(String)}.
@@ -221,8 +208,7 @@ final class HijrahChronology private() extends Chronology with Serializable {
     */
   def getId: String = "Hijrah-umalqura"
 
-  /**
-    * Gets the calendar type of the underlying calendar system - 'islamic-umalqura'.
+  /** Gets the calendar type of the underlying calendar system - 'islamic-umalqura'.
     *
     * The calendar type is an identifier defined by the
     * <em>Unicode Locale Data Markup Language (LDML)</em> specification.

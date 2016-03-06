@@ -49,9 +49,7 @@ import org.threeten.bp.zone.ZoneOffsetTransition
 import org.threeten.bp.zone.ZoneRules
 import org.threeten.bp.zone.ZoneRulesException
 
-/**
-  * Test ZoneId.
-  */
+/** Test ZoneId. */
 @Test object TestZoneId {
   private val ZONE_PARIS: ZoneId = ZoneId.of("Europe/Paris")
   val LATEST_TZDB: String = "2010i"

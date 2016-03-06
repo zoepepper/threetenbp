@@ -83,9 +83,7 @@ import org.threeten.bp.temporal.TemporalField
 import org.threeten.bp.temporal.TemporalQueries
 import org.threeten.bp.temporal.TemporalUnit
 
-/**
-  * Test LocalDate.
-  */
+/** Test LocalDate. */
 @Test object TestLocalDate {
   private val OFFSET_PONE: ZoneOffset = ZoneOffset.ofHours(1)
   private val ZONE_PARIS: ZoneId = ZoneId.of("Europe/Paris")

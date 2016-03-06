@@ -45,7 +45,6 @@ import org.threeten.bp.Month
 import org.threeten.bp.Year
 import org.threeten.bp.zone.ZoneOffsetTransitionRule.TimeDefinition
 
-
 object TestTzdbZoneRulesCompiler {
   private[zone] var PARSE_YEAR: Method = null
   private[zone] var PARSE_MONTH: Method = null
@@ -84,8 +83,7 @@ object TestTzdbZoneRulesCompiler {
   }
 }
 
-/**
-  * Test TzdbZoneRulesCompiler.
+/** Test TzdbZoneRulesCompiler.
   */
 @Test class TestTzdbZoneRulesCompiler extends TestNGSuite {
   @Test

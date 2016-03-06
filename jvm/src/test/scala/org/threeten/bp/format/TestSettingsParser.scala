@@ -36,9 +36,7 @@ import org.testng.Assert.assertEquals
 import org.testng.annotations.Test
 import org.threeten.bp.format.DateTimeFormatterBuilder.SettingsParser
 
-/**
-  * Test SettingsParser.
-  */
+/** Test SettingsParser. */
 @Test class TestSettingsParser extends AbstractTestPrinterParser {
   @throws(classOf[Exception])
   def test_print_sensitive(): Unit = {

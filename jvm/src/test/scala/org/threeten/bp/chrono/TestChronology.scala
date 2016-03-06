@@ -47,9 +47,7 @@ import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
 import org.threeten.bp.temporal.ChronoField
 
-/**
-  * Test Chrono class.
-  */
+/** Test Chrono class. */
 @Test class TestChronology extends TestNGSuite {
   @BeforeMethod def setUp(): Unit = {
     var c: Chronology = null
@@ -92,9 +90,7 @@ import org.threeten.bp.temporal.ChronoField
     assertEquals(chronos.size >= data_of_calendars.length, true, "Required list of calendars too short")
   }
 
-  /**
-    * Compute the number of days from the Epoch and compute the date from the number of days.
-    */
+  /** Compute the number of days from the Epoch and compute the date from the number of days. */
   @Test(dataProvider = "calendars") def test_epoch(name: String, alias: String, description: String): Unit = {
     val chrono: Chronology = Chronology.of(name)
     val date1: ChronoLocalDate = chrono.dateNow

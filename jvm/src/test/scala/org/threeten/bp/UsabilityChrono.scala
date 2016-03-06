@@ -47,9 +47,7 @@ import org.threeten.bp.temporal.ChronoField
 import org.threeten.bp.temporal.ChronoUnit
 import org.threeten.bp.temporal.JulianFields
 
-/**
-  * Usability class for package.
-  */
+/** Usability class for package. */
 object UsabilityChrono {
   def main(args: Array[String]): Unit = {
     System.out.println("------")
@@ -101,8 +99,7 @@ object UsabilityChrono {
     System.out.println()
   }
 
-  /**
-    * Example code.
+  /** Example code.
     */
   private[bp] def example1(): Unit = {
     System.out.printf("Available Calendars%n")
@@ -125,8 +122,7 @@ object UsabilityChrono {
     }
   }
 
-  /**
-    * Prints a Minguo calendar for the current month.
+  /** Prints a Minguo calendar for the current month.
     */
   private def printMinguoCal(): Unit = {
     val chronoName: String = "Minguo"
@@ -135,8 +131,7 @@ object UsabilityChrono {
     printMonthCal(today, System.out)
   }
 
-  /**
-    * Print a month calendar with complete week rows.
+  /** Print a month calendar with complete week rows.
     * @param date A date in some calendar
     * @param out a PrintStream
     */

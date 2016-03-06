@@ -129,8 +129,7 @@ import org.threeten.bp.zone.ZoneRulesProvider
 @SerialVersionUID(8352817235686L)
 object ZoneId {
 
-  /**
-    * A map of zone overrides to enable the short time-zone names to be used.
+  /** A map of zone overrides to enable the short time-zone names to be used.
     *
     * Use of short zone IDs has been deprecated in {@code java.util.TimeZone}.
     * This map allows the IDs to continue to be used via the
@@ -206,8 +205,7 @@ object ZoneId {
     Collections.unmodifiableMap(base)
   }
 
-  /**
-    * Gets the system default time-zone.
+  /** Gets the system default time-zone.
     *
     * This queries {@link TimeZone#getDefault()} to find the default time-zone
     * and converts it to a {@code ZoneId}. If the system default time-zone is changed,
@@ -219,8 +217,7 @@ object ZoneId {
     */
   def systemDefault: ZoneId = ZoneId.of(TimeZone.getDefault.getID, SHORT_IDS)
 
-  /**
-    * Gets the set of available zone IDs.
+  /** Gets the set of available zone IDs.
     *
     * This set includes the string form of all available region-based IDs.
     * Offset-based zone IDs are not included in the returned set.
@@ -233,8 +230,7 @@ object ZoneId {
     */
   def getAvailableZoneIds: java.util.Set[String] = ZoneRulesProvider.getAvailableZoneIds
 
-  /**
-    * Obtains an instance of {@code ZoneId} using its ID using a map
+  /** Obtains an instance of {@code ZoneId} using its ID using a map
     * of aliases to supplement the standard zone IDs.
     *
     * Many users of time-zones use short abbreviations, such as PST for
@@ -257,8 +253,7 @@ object ZoneId {
     of(id)
   }
 
-  /**
-    * Obtains an instance of {@code ZoneId} from an ID ensuring that the
+  /** Obtains an instance of {@code ZoneId} from an ID ensuring that the
     * ID is valid and available for use.
     *
     * This method parses the ID producing a {@code ZoneId} or {@code ZoneOffset}.
@@ -322,8 +317,7 @@ object ZoneId {
     ZoneRegion.ofId(zoneId, true)
   }
 
-  /**
-    * Obtains an instance of {@code ZoneId} wrapping an offset.
+  /** Obtains an instance of {@code ZoneId} wrapping an offset.
     *
     * If the prefix is "GMT", "UTC", or "UT" a {@code ZoneId}
     * with the prefix and the non-zero offset is returned.
@@ -350,8 +344,7 @@ object ZoneId {
     throw new IllegalArgumentException("Invalid prefix, must be GMT, UTC or UT: " + prefix)
   }
 
-  /**
-    * Obtains an instance of {@code ZoneId} from a temporal object.
+  /** Obtains an instance of {@code ZoneId} from a temporal object.
     *
     * A {@code TemporalAccessor} represents some form of date and time information.
     * This factory converts the arbitrary temporal object to an instance of {@code ZoneId}.
@@ -380,8 +373,7 @@ abstract class ZoneId private[bp]() extends Serializable {
   if ((getClass ne classOf[ZoneOffset]) && (getClass ne classOf[ZoneRegion]))
     throw new AssertionError("Invalid subclass")
 
-  /**
-    * Gets the unique time-zone ID.
+  /** Gets the unique time-zone ID.
     *
     * This ID uniquely defines this object.
     * The format of an offset based ID is defined by {@link ZoneOffset#getId()}.
@@ -390,8 +382,7 @@ abstract class ZoneId private[bp]() extends Serializable {
     */
   def getId: String
 
-  /**
-    * Gets the time-zone rules for this ID allowing calculations to be performed.
+  /** Gets the time-zone rules for this ID allowing calculations to be performed.
     *
     * The rules provide the functionality associated with a time-zone,
     * such as finding the offset for a given instant or local date-time.
@@ -412,8 +403,7 @@ abstract class ZoneId private[bp]() extends Serializable {
     */
   def getRules: ZoneRules
 
-  /**
-    * Gets the textual representation of the zone, such as 'British Time' or
+  /** Gets the textual representation of the zone, such as 'British Time' or
     * '+02:00'.
     *
     * This returns the textual name used to identify the time-zone ID,
@@ -440,8 +430,7 @@ abstract class ZoneId private[bp]() extends Serializable {
     })
   }
 
-  /**
-    * Normalizes the time-zone ID, returning a {@code ZoneOffset} where possible.
+  /** Normalizes the time-zone ID, returning a {@code ZoneOffset} where possible.
     *
     * The returns a normalized {@code ZoneId} that can be used in place of this ID.
     * The result will have {@code ZoneRules} equivalent to those returned by this object,
@@ -465,8 +454,7 @@ abstract class ZoneId private[bp]() extends Serializable {
     this
   }
 
-  /**
-    * Checks if this time-zone ID is equal to another time-zone ID.
+  /** Checks if this time-zone ID is equal to another time-zone ID.
     *
     * The comparison is based on the ID.
     *
@@ -479,15 +467,13 @@ abstract class ZoneId private[bp]() extends Serializable {
       case _             => false
     }
 
-  /**
-    * A hash code for this time-zone ID.
+  /** A hash code for this time-zone ID.
     *
     * @return a suitable hash code
     */
   override def hashCode: Int = getId.hashCode
 
-  /**
-    * Outputs this zone as a {@code String}, using the ID.
+  /** Outputs this zone as a {@code String}, using the ID.
     *
     * @return a string representation of this time-zone ID, not null
     */

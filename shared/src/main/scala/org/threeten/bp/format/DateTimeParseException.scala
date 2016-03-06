@@ -33,8 +33,7 @@ package org.threeten.bp.format
 
 import org.threeten.bp.DateTimeException
 
-/**
-  * An exception thrown when an error occurs during parsing.
+/** An exception thrown when an error occurs during parsing.
   *
   * This exception includes the text being parsed and the error index.
   *
@@ -50,20 +49,17 @@ import org.threeten.bp.DateTimeException
   */
 @SerialVersionUID(4304633501674722597L)
 class DateTimeParseException(message: String, parsedData: CharSequence, private val errorIndex: Int, cause: Throwable = null) extends DateTimeException(message, cause) {
-  /**
-    * The text that was being parsed.
+  /** The text that was being parsed.
     */
   private final val parsedString: String = parsedData.toString
 
-  /**
-    * Returns the string that was being parsed.
+  /** Returns the string that was being parsed.
     *
     * @return the string that was being parsed, should not be null.
     */
   def getParsedString: String = parsedString
 
-  /**
-    * Returns the index where the error was found.
+  /** Returns the index where the error was found.
     *
     * @return the index in the parsed string that was invalid, should be a valid index
     */

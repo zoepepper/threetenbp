@@ -57,9 +57,7 @@ import org.threeten.bp.Month
 import org.threeten.bp.Year
 import org.threeten.bp.ZoneOffset
 
-/**
-  * Test ZoneRulesBuilder.
-  */
+/** Test ZoneRulesBuilder. */
 @Test object TestZoneRulesBuilder {
   private val OFFSET_1: ZoneOffset = ZoneOffset.ofHours(1)
   private val OFFSET_2: ZoneOffset = ZoneOffset.ofHours(2)

@@ -41,9 +41,7 @@ import org.testng.annotations.Test
 
 import java.lang.{Long => JLong}
 
-/**
-  * Test.
-  */
+/** Test. */
 @Test class TestDateTimes_implementation extends TestNGSuite {
 
   @Test(enabled = false) // this originally tested Jdk8Methods ...

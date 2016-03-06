@@ -88,9 +88,7 @@ import org.threeten.bp.temporal.TemporalField
 import org.threeten.bp.temporal.TemporalQueries
 import org.threeten.bp.temporal.TemporalQuery
 
-/**
-  * Test ZonedDateTime.
-  */
+/** Test ZonedDateTime. */
 @Test object TestZonedDateTime {
   private val OFFSET_0100: ZoneOffset = ZoneOffset.ofHours(1)
   private val OFFSET_0200: ZoneOffset = ZoneOffset.ofHours(2)

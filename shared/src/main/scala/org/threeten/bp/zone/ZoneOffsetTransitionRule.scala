@@ -46,8 +46,7 @@ import org.threeten.bp.Month
 import org.threeten.bp.ZoneOffset
 import org.threeten.bp.chrono.IsoChronology
 
-/**
-  * A rule expressing how to create a transition.
+/** A rule expressing how to create a transition.
   *
   * This class allows rules for identifying future transitions to be expressed.
   * A rule might be written in many forms:
@@ -64,8 +63,7 @@ import org.threeten.bp.chrono.IsoChronology
   */
 @SerialVersionUID(6889046316657758795L)
 object ZoneOffsetTransitionRule {
-  /**
-    * Obtains an instance defining the yearly rule to create transitions between two offsets.
+  /** Obtains an instance defining the yearly rule to create transitions between two offsets.
     *
     * Applications should normally obtain an instance from {@link ZoneRules}.
     * This factory is only intended for use when creating {@link ZoneRules}.
@@ -99,8 +97,7 @@ object ZoneOffsetTransitionRule {
     new ZoneOffsetTransitionRule(month, dayOfMonthIndicator, dayOfWeek, time, timeEndOfDay, timeDefnition, standardOffset, offsetBefore, offsetAfter)
   }
 
-  /**
-    * Reads the state from the stream.
+  /** Reads the state from the stream.
     *
     * @param in  the input stream, not null
     * @return the created object, not null
@@ -125,8 +122,7 @@ object ZoneOffsetTransitionRule {
     ZoneOffsetTransitionRule.of(month, dom, dow, time, timeByte == 24, defn, std, before, after)
   }
 
-  /**
-    * A definition of the way a local time can be converted to the actual
+  /** A definition of the way a local time can be converted to the actual
     * transition date-time.
     *
     * Time zone rules are expressed in one of three ways:
@@ -148,8 +144,7 @@ object ZoneOffsetTransitionRule {
   }
 
   final class TimeDefinition(name: String, ordinal: Int) extends Enum[TimeDefinition](name, ordinal) {
-    /**
-      * Converts the specified local date-time to the local date-time actually
+    /** Converts the specified local date-time to the local date-time actually
       * seen on a wall clock.
       *
       * This method converts using the type of this enum.
@@ -179,8 +174,7 @@ object ZoneOffsetTransitionRule {
   }
 }
 
-/**
-  * Creates an instance defining the yearly rule to create transitions between two offsets.
+/** Creates an instance defining the yearly rule to create transitions between two offsets.
   *
   * @param month  The month of the month-day of the first day of the cutover week, not null.
   *               The actual date will be adjusted by the dowChange field
@@ -207,8 +201,7 @@ final class ZoneOffsetTransitionRule private[zone](private val month: Month,
                                                    private val standardOffset: ZoneOffset,
                                                    private val offsetBefore: ZoneOffset,
                                                    private val offsetAfter: ZoneOffset) extends Serializable {
-  /**
-    * The day-of-month of the month-day of the cutover week.
+  /** The day-of-month of the month-day of the cutover week.
     * If positive, it is the start of the week where the cutover can occur.
     * If negative, it represents the end of the week where cutover can occur.
     * The value is the number of days from the end of the month, such that
@@ -217,15 +210,13 @@ final class ZoneOffsetTransitionRule private[zone](private val month: Month,
     */
   private val dom: Byte = dayOfMonthIndicator.toByte
 
-  /**
-    * Uses a serialization delegate.
+  /** Uses a serialization delegate.
     *
     * @return the replacing object, not null
     */
   private def writeReplace: AnyRef = new Ser(Ser.ZOTRULE, this)
 
-  /**
-    * Writes the state to the stream.
+  /** Writes the state to the stream.
     *
     * @param out  the output stream, not null
     * @throws IOException if an error occurs
@@ -253,8 +244,7 @@ final class ZoneOffsetTransitionRule private[zone](private val month: Month,
       out.writeInt(offsetAfter.getTotalSeconds)
   }
 
-  /**
-    * Gets the month of the transition.
+  /** Gets the month of the transition.
     *
     * If the rule defines an exact date then the month is the month of that date.
     *
@@ -265,8 +255,7 @@ final class ZoneOffsetTransitionRule private[zone](private val month: Month,
     */
   def getMonth: Month = month
 
-  /**
-    * Gets the indicator of the day-of-month of the transition.
+  /** Gets the indicator of the day-of-month of the transition.
     *
     * If the rule defines an exact date then the day is the month of that date.
     *
@@ -285,8 +274,7 @@ final class ZoneOffsetTransitionRule private[zone](private val month: Month,
     */
   def getDayOfMonthIndicator: Int = dom
 
-  /**
-    * Gets the day-of-week of the transition.
+  /** Gets the day-of-week of the transition.
     *
     * If the rule defines an exact date then this returns null.
     *
@@ -299,8 +287,7 @@ final class ZoneOffsetTransitionRule private[zone](private val month: Month,
     */
   def getDayOfWeek: DayOfWeek = dayOfWeek
 
-  /**
-    * Gets the local time of day of the transition which must be checked with
+  /** Gets the local time of day of the transition which must be checked with
     * {@link #isMidnightEndOfDay()}.
     *
     * The time is converted into an instant using the time definition.
@@ -309,8 +296,7 @@ final class ZoneOffsetTransitionRule private[zone](private val month: Month,
     */
   def getLocalTime: LocalTime = time
 
-  /**
-    * Is the transition local time midnight at the end of day.
+  /** Is the transition local time midnight at the end of day.
     *
     * The transition may be represented as occurring at 24:00.
     *
@@ -318,8 +304,7 @@ final class ZoneOffsetTransitionRule private[zone](private val month: Month,
     */
   def isMidnightEndOfDay: Boolean = timeEndOfDay
 
-  /**
-    * Gets the time definition, specifying how to convert the time to an instant.
+  /** Gets the time definition, specifying how to convert the time to an instant.
     *
     * The local time can be converted to an instant using the standard offset,
     * the wall offset or UTC.
@@ -328,29 +313,25 @@ final class ZoneOffsetTransitionRule private[zone](private val month: Month,
     */
   def getTimeDefinition: ZoneOffsetTransitionRule.TimeDefinition = timeDefinition
 
-  /**
-    * Gets the standard offset in force at the transition.
+  /** Gets the standard offset in force at the transition.
     *
     * @return the standard offset, not null
     */
   def getStandardOffset: ZoneOffset = standardOffset
 
-  /**
-    * Gets the offset before the transition.
+  /** Gets the offset before the transition.
     *
     * @return the offset before, not null
     */
   def getOffsetBefore: ZoneOffset = offsetBefore
 
-  /**
-    * Gets the offset after the transition.
+  /** Gets the offset after the transition.
     *
     * @return the offset after, not null
     */
   def getOffsetAfter: ZoneOffset = offsetAfter
 
-  /**
-    * Creates a transition instance for the specified year.
+  /** Creates a transition instance for the specified year.
     *
     * Calculations are performed using the ISO-8601 chronology.
     *
@@ -379,8 +360,7 @@ final class ZoneOffsetTransitionRule private[zone](private val month: Month,
     new ZoneOffsetTransition(transition, offsetBefore, offsetAfter)
   }
 
-  /**
-    * Checks if this object equals another.
+  /** Checks if this object equals another.
     *
     * The entire state of the object is compared.
     *
@@ -393,8 +373,7 @@ final class ZoneOffsetTransitionRule private[zone](private val month: Month,
       case _ => false
     }
 
-  /**
-    * Returns a suitable hash code.
+  /** Returns a suitable hash code.
     *
     * @return the hash code
     */
@@ -403,8 +382,7 @@ final class ZoneOffsetTransitionRule private[zone](private val month: Month,
     hash ^ standardOffset.hashCode ^ offsetBefore.hashCode ^ offsetAfter.hashCode
   }
 
-  /**
-    * Returns a string describing this object.
+  /** Returns a string describing this object.
     *
     * @return a string for debugging, not null
     */

@@ -46,9 +46,7 @@ import org.threeten.bp.ZoneOffset
 import org.threeten.bp.temporal.ChronoUnit
 import org.threeten.bp.temporal.TemporalAdjusters
 
-/**
-  * Test.
-  */
+/** Test. */
 @Test class TestMinguoChronology {
   @Test def test_chrono_byName(): Unit = {
     val c: Chronology = MinguoChronology.INSTANCE

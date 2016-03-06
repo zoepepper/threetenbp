@@ -43,9 +43,7 @@ import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
 import org.threeten.bp.temporal.TemporalAccessor
 
-/**
-  * Test DateTimeFormatterBuilder.
-  */
+/** Test DateTimeFormatterBuilder. */
 @Test class TestDateTimeFormatterBuilder {
   private var builder: DateTimeFormatterBuilder = null
 

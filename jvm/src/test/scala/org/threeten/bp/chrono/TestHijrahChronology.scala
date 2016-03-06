@@ -44,9 +44,7 @@ import org.threeten.bp.LocalDateTime
 import org.threeten.bp.Month
 import org.threeten.bp.temporal.TemporalAdjusters
 
-/**
-  * Test.
-  */
+/** Test. */
 @Test class TestHijrahChronology extends TestNGSuite {
   @Test def test_chrono_byName(): Unit = {
     val c: Chronology = HijrahChronology.INSTANCE

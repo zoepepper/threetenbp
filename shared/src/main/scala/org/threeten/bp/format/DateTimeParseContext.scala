@@ -38,8 +38,7 @@ import org.threeten.bp.chrono.Chronology
 import org.threeten.bp.chrono.IsoChronology
 import org.threeten.bp.temporal._
 
-/**
-  * Context object used during date and time parsing.
+/** Context object used during date and time parsing.
   *
   * This class represents the current state of the parse.
   * It has the ability to store and retrieve the parsed values and manage optional segments.
@@ -54,8 +53,7 @@ import org.threeten.bp.temporal._
   * is automatically created for each parse and parsing is single-threaded
   */
 object DateTimeParseContext {
-  /**
-    * Compares two characters ignoring case.
+  /** Compares two characters ignoring case.
     *
     * @param c1  the first
     * @param c2  the second
@@ -71,8 +69,7 @@ final class DateTimeParseContext private[format](private var locale: Locale,
                                                  private var overrideZone: ZoneId,
                                                  private var caseSensitive: Boolean = true,
                                                  private var strict: Boolean = true) {
-  /**
-    * The list of parsed data.
+  /** The list of parsed data.
     */
   private val parsed: java.util.ArrayList[DateTimeParseContext#Parsed] = {
     val list = new java.util.ArrayList[DateTimeParseContext#Parsed]
@@ -80,8 +77,7 @@ final class DateTimeParseContext private[format](private var locale: Locale,
     list
   }
 
-  /**
-    * Creates a new instance of the context.
+  /** Creates a new instance of the context.
     *
     * @param formatter  the formatter controlling the parse, not null
     */
@@ -97,13 +93,11 @@ final class DateTimeParseContext private[format](private var locale: Locale,
     this(other.locale, other.symbols, other.overrideChronology, other.overrideZone, other.caseSensitive, other.strict)
   }
 
-  /**
-    * Creates a copy of this context.
+  /** Creates a copy of this context.
     */
   private[format] def copy: DateTimeParseContext = new DateTimeParseContext(this)
 
-  /**
-    * Gets the locale.
+  /** Gets the locale.
     *
     * This locale is used to control localization in the parse except
     * where localization is controlled by the symbols.
@@ -112,8 +106,7 @@ final class DateTimeParseContext private[format](private var locale: Locale,
     */
   private[format] def getLocale: Locale = locale
 
-  /**
-    * Gets the formatting symbols.
+  /** Gets the formatting symbols.
     *
     * The symbols control the localization of numeric parsing.
     *
@@ -121,8 +114,7 @@ final class DateTimeParseContext private[format](private var locale: Locale,
     */
   private[format] def getSymbols: DecimalStyle = symbols
 
-  /**
-    * Gets the effective chronology during parsing.
+  /** Gets the effective chronology during parsing.
     *
     * @return the effective parsing chronology, not null
     */
@@ -137,22 +129,19 @@ final class DateTimeParseContext private[format](private var locale: Locale,
     chrono
   }
 
-  /**
-    * Checks if parsing is case sensitive.
+  /** Checks if parsing is case sensitive.
     *
     * @return true if parsing is case sensitive, false if case insensitive
     */
   private[format] def isCaseSensitive: Boolean = caseSensitive
 
-  /**
-    * Sets whether the parsing is case sensitive or not.
+  /** Sets whether the parsing is case sensitive or not.
     *
     * @param caseSensitive  changes the parsing to be case sensitive or not from now on
     */
   private[format] def setCaseSensitive(caseSensitive: Boolean): Unit = this.caseSensitive = caseSensitive
 
-  /**
-    * Helper to compare two {@code CharSequence} instances.
+  /** Helper to compare two {@code CharSequence} instances.
     * This uses {@link #isCaseSensitive()}.
     *
     * @param cs1  the first character sequence, not null
@@ -195,8 +184,7 @@ final class DateTimeParseContext private[format](private var locale: Locale,
     true
   }
 
-  /**
-    * Helper to compare two {@code char}.
+  /** Helper to compare two {@code char}.
     * This uses {@link #isCaseSensitive()}.
     *
     * @param ch1  the first character
@@ -209,8 +197,7 @@ final class DateTimeParseContext private[format](private var locale: Locale,
     else
       DateTimeParseContext.charEqualsIgnoreCase(ch1, ch2)
 
-  /**
-    * Checks if parsing is strict.
+  /** Checks if parsing is strict.
     *
     * Strict parsing requires exact matching of the text and sign styles.
     *
@@ -218,20 +205,17 @@ final class DateTimeParseContext private[format](private var locale: Locale,
     */
   private[format] def isStrict: Boolean = strict
 
-  /**
-    * Sets whether parsing is strict or lenient.
+  /** Sets whether parsing is strict or lenient.
     *
     * @param strict  changes the parsing to be strict or lenient from now on
     */
   private[format] def setStrict(strict: Boolean): Unit = this.strict = strict
 
-  /**
-    * Starts the parsing of an optional segment of the input.
+  /** Starts the parsing of an optional segment of the input.
     */
   private[format] def startOptional(): Unit = parsed.add(currentParsed.copy)
 
-  /**
-    * Ends the parsing of an optional segment of the input.
+  /** Ends the parsing of an optional segment of the input.
     *
     * @param successful  whether the optional segment was successfully parsed
     */
@@ -241,15 +225,13 @@ final class DateTimeParseContext private[format](private var locale: Locale,
     else
       parsed.remove(parsed.size - 1)
 
-  /**
-    * Gets the currently active temporal objects.
+  /** Gets the currently active temporal objects.
     *
     * @return the current temporal objects, not null
     */
   private def currentParsed: DateTimeParseContext#Parsed = parsed.get(parsed.size - 1)
 
-  /**
-    * Gets the first value that was parsed for the specified field.
+  /** Gets the first value that was parsed for the specified field.
     *
     * This searches the results of the parse, returning the first value found
     * for the specified field. No attempt is made to derive a value.
@@ -261,8 +243,7 @@ final class DateTimeParseContext private[format](private var locale: Locale,
     */
   private[format] def getParsed(field: TemporalField): java.lang.Long = currentParsed.fieldValues.get(field)
 
-  /**
-    * Stores the parsed field.
+  /** Stores the parsed field.
     *
     * This stores a field-value pair that has been parsed.
     * The value stored may be out of range for the field - no checks are performed.
@@ -279,8 +260,7 @@ final class DateTimeParseContext private[format](private var locale: Locale,
     if (old != null && old.longValue != value) ~errorPos else successPos
   }
 
-  /**
-    * Stores the parsed chronology.
+  /** Stores the parsed chronology.
     *
     * This stores the chronology that has been parsed.
     * No validation is performed other than ensuring it is not null.
@@ -309,8 +289,7 @@ final class DateTimeParseContext private[format](private var locale: Locale,
     _currentParsed.callbacks.add(Array[AnyRef](reducedPrinterParser, value.asInstanceOf[AnyRef], errorPos.asInstanceOf[AnyRef], successPos.asInstanceOf[AnyRef]))
   }
 
-  /**
-    * Stores the parsed zone.
+  /** Stores the parsed zone.
     *
     * This stores the zone that has been parsed.
     * No validation is performed other than ensuring it is not null.
@@ -322,28 +301,24 @@ final class DateTimeParseContext private[format](private var locale: Locale,
     currentParsed.zone = zone
   }
 
-  /**
-    * Stores the leap second.
+  /** Stores the leap second.
     */
   private[format] def setParsedLeapSecond(): Unit = currentParsed.leapSecond = true
 
-  /**
-    * Returns a {@code TemporalAccessor} that can be used to interpret
+  /** Returns a {@code TemporalAccessor} that can be used to interpret
     * the results of the parse.
     *
     * @return an accessor with the results of the parse, not null
     */
   private[format] def toParsed: DateTimeParseContext#Parsed = currentParsed
 
-  /**
-    * Returns a string version of the context for debugging.
+  /** Returns a string version of the context for debugging.
     *
     * @return a string representation of the context data, not null
     */
   override def toString: String = currentParsed.toString
 
-  /**
-    * Temporary store of parsed data.
+  /** Temporary store of parsed data.
     */
   private[format] final class Parsed private[format]() extends TemporalAccessor {
     private[format] var chrono: Chronology = null
@@ -387,8 +362,7 @@ final class DateTimeParseContext private[format](private var locale: Locale,
       else
         super.query(query)
 
-    /**
-      * Returns a {@code DateTimeBuilder} that can be used to interpret
+    /** Returns a {@code DateTimeBuilder} that can be used to interpret
       * the results of the parse.
       *
       * This method is typically used once parsing is complete to obtain the parsed data.
@@ -413,8 +387,7 @@ final class DateTimeParseContext private[format](private var locale: Locale,
     }
   }
 
-  /**
-    * Sets the locale.
+  /** Sets the locale.
     *
     * This locale is used to control localization in the print output except
     * where localization is controlled by the symbols.

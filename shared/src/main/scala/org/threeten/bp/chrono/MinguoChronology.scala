@@ -62,8 +62,7 @@ import org.threeten.bp.temporal.TemporalAccessor
 import org.threeten.bp.temporal.TemporalField
 import org.threeten.bp.temporal.ValueRange
 
-/**
-  * The Minguo calendar system.
+/** The Minguo calendar system.
   *
   * This chronology defines the rules of the Minguo calendar system.
   * This calendar system is primarily used in the Republic of China, often known as Taiwan.
@@ -90,12 +89,10 @@ import org.threeten.bp.temporal.ValueRange
   */
 @SerialVersionUID(1039765215346859963L)
 object MinguoChronology {
-  /**
-    * Singleton instance for the Minguo chronology.
+  /** Singleton instance for the Minguo chronology.
     */
   val INSTANCE: MinguoChronology = new MinguoChronology
-  /**
-    * The difference in years between ISO and Minguo.
+  /** The difference in years between ISO and Minguo.
     */
   private[chrono] val YEARS_DIFFERENCE: Int = 1911
 }
@@ -103,15 +100,13 @@ object MinguoChronology {
 @SerialVersionUID(1039765215346859963L)
 final class MinguoChronology private() extends Chronology with Serializable {
 
-  /**
-    * Resolve singleton.
+  /** Resolve singleton.
     *
     * @return the singleton instance, not null
     */
   private def readResolve: AnyRef = MinguoChronology.INSTANCE
 
-  /**
-    * Gets the ID of the chronology - 'Minguo'.
+  /** Gets the ID of the chronology - 'Minguo'.
     *
     * The ID uniquely identifies the {@code Chronology}.
     * It can be used to lookup the {@code Chronology} using {@link #of(String)}.
@@ -121,8 +116,7 @@ final class MinguoChronology private() extends Chronology with Serializable {
     */
   def getId: String = "Minguo"
 
-  /**
-    * Gets the calendar type of the underlying calendar system - 'roc'.
+  /** Gets the calendar type of the underlying calendar system - 'roc'.
     *
     * The calendar type is an identifier defined by the
     * <em>Unicode Locale Data Markup Language (LDML)</em> specification.
@@ -174,8 +168,7 @@ final class MinguoChronology private() extends Chronology with Serializable {
     super.dateNow(clock).asInstanceOf[MinguoDate]
   }
 
-  /**
-    * Checks if the specified year is a leap year.
+  /** Checks if the specified year is a leap year.
     *
     * Minguo leap years occur exactly in line with ISO leap years.
     * This method does not validate the year passed in, and only has a

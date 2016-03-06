@@ -37,9 +37,7 @@ import java.util.Locale
 import org.threeten.bp.DateTimeException
 import org.threeten.bp.format.ResolverStyle
 
-/**
-  * Mock DateTimeField that returns null.
-  */
+/** Mock DateTimeField that returns null. */
 object MockFieldNoValue {
   val INSTANCE = new MockFieldNoValue("INSTANCE", 0)
 }

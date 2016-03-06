@@ -37,9 +37,7 @@ import java.util.Locale
 import java.util.Set
 import org.testng.annotations.Test
 
-/**
-  * Test DecimalStyle.
-  */
+/** Test DecimalStyle. */
 @Test class TestDecimalStyle extends TestNGSuite {
   @Test def test_getAvailableLocales(): Unit = {
     val locales: java.util.Set[Locale] = DecimalStyle.getAvailableLocales

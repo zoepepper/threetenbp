@@ -37,27 +37,22 @@ import org.testng.annotations.Test
 import org.threeten.bp.temporal.TemporalAccessor
 import org.threeten.bp.temporal.TemporalField
 
-/**
-  * Base test class for {@code DateTime}.
-  */
+/** Base test class for {@code DateTime}. */
 abstract class AbstractDateTimeTest extends TestNGSuite {
-  /**
-    * Sample {@code DateTime} objects.
- *
+  /** Sample {@code DateTime} objects.
+    *
     * @return the objects, not null
     */
   protected def samples: java.util.List[TemporalAccessor]
 
-  /**
-    * List of valid supported fields.
- *
+  /** List of valid supported fields.
+    *
     * @return the fields, not null
     */
   protected def validFields: java.util.List[TemporalField]
 
-  /**
-    * List of invalid unsupported fields.
- *
+  /** List of invalid unsupported fields.
+    *
     * @return the fields, not null
     */
   protected def invalidFields: java.util.List[TemporalField]

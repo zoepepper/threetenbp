@@ -46,8 +46,7 @@ import org.threeten.bp.temporal.TemporalQuery
 import org.threeten.bp.temporal.UnsupportedTemporalTypeException
 import org.threeten.bp.temporal.ValueRange
 
-/**
-  * A day-of-week, such as 'Tuesday'.
+/** A day-of-week, such as 'Tuesday'.
   *
   * {@code DayOfWeek} is an enum representing the 7 days of the week -
   * Monday, Tuesday, Wednesday, Thursday, Friday, Saturday and Sunday.
@@ -73,38 +72,31 @@ import org.threeten.bp.temporal.ValueRange
   * This is an immutable and thread-safe enum.
   */
 object DayOfWeek {
-  /**
-    * The singleton instance for the day-of-week of Monday.
+  /** The singleton instance for the day-of-week of Monday.
     * This has the numeric value of {@code 1}.
     */
   val MONDAY    = new DayOfWeek("MONDAY", 0)
-  /**
-    * The singleton instance for the day-of-week of Tuesday.
+  /** The singleton instance for the day-of-week of Tuesday.
     * This has the numeric value of {@code 2}.
     */
   val TUESDAY   = new DayOfWeek("TUESDAY", 1)
-  /**
-    * The singleton instance for the day-of-week of Wednesday.
+  /** The singleton instance for the day-of-week of Wednesday.
     * This has the numeric value of {@code 3}.
     */
   val WEDNESDAY = new DayOfWeek("WEDNESDAY", 2)
-  /**
-    * The singleton instance for the day-of-week of Thursday.
+  /** The singleton instance for the day-of-week of Thursday.
     * This has the numeric value of {@code 4}.
     */
   val THURSDAY  = new DayOfWeek("THURSDAY", 3)
-  /**
-    * The singleton instance for the day-of-week of Friday.
+  /** The singleton instance for the day-of-week of Friday.
     * This has the numeric value of {@code 5}.
     */
   val FRIDAY    = new DayOfWeek("FRIDAY", 4)
-  /**
-    * The singleton instance for the day-of-week of Saturday.
+  /** The singleton instance for the day-of-week of Saturday.
     * This has the numeric value of {@code 6}.
     */
   val SATURDAY  = new DayOfWeek("SATURDAY", 5)
-  /**
-    * The singleton instance for the day-of-week of Sunday.
+  /** The singleton instance for the day-of-week of Sunday.
     * This has the numeric value of {@code 7}.
     */
   val SUNDAY    = new DayOfWeek("SUNDAY", 6)
@@ -116,13 +108,11 @@ object DayOfWeek {
       throw new IllegalArgumentException(s"Unrecognized day of week name: $enum")
   }
 
-  /**
-    * Private cache of all the constants.
+  /** Private cache of all the constants.
     */
   private val ENUMS: Array[DayOfWeek] = DayOfWeek.values
 
-  /**
-    * Obtains an instance of {@code DayOfWeek} from an {@code int} value.
+  /** Obtains an instance of {@code DayOfWeek} from an {@code int} value.
     *
     * {@code DayOfWeek} is an enum representing the 7 days of the week.
     * This factory allows the enum to be obtained from the {@code int} value.
@@ -138,8 +128,7 @@ object DayOfWeek {
     else
       ENUMS(dayOfWeek - 1)
 
-  /**
-    * Obtains an instance of {@code DayOfWeek} from a temporal object.
+  /** Obtains an instance of {@code DayOfWeek} from a temporal object.
     *
     * A {@code TemporalAccessor} represents some form of date and time information.
     * This factory converts the arbitrary temporal object to an instance of {@code DayOfWeek}.
@@ -165,8 +154,7 @@ object DayOfWeek {
 }
 
 final class DayOfWeek(name: String, ordinal: Int) extends Enum[DayOfWeek](name, ordinal) with TemporalAccessor with TemporalAdjuster {
-  /**
-    * Gets the day-of-week {@code int} value.
+  /** Gets the day-of-week {@code int} value.
     *
     * The values are numbered following the ISO-8601 standard, from 1 (Monday) to 7 (Sunday).
     * See {@link WeekFields#dayOfWeek} for localized week-numbering.
@@ -175,8 +163,7 @@ final class DayOfWeek(name: String, ordinal: Int) extends Enum[DayOfWeek](name, 
     */
   def getValue: Int = ordinal + 1
 
-  /**
-    * Gets the textual representation, such as 'Mon' or 'Friday'.
+  /** Gets the textual representation, such as 'Mon' or 'Friday'.
     *
     * This returns the textual name used to identify the day-of-week.
     * The parameters control the length of the returned text and the locale.
@@ -190,8 +177,7 @@ final class DayOfWeek(name: String, ordinal: Int) extends Enum[DayOfWeek](name, 
   def getDisplayName(style: TextStyle, locale: Locale): String =
     new DateTimeFormatterBuilder().appendText(DAY_OF_WEEK, style).toFormatter(locale).format(this)
 
-  /**
-    * Checks if the specified field is supported.
+  /** Checks if the specified field is supported.
     *
     * This checks if this day-of-week can be queried for the specified field.
     * If false, then calling the {@link #range(TemporalField) range} and
@@ -215,8 +201,7 @@ final class DayOfWeek(name: String, ordinal: Int) extends Enum[DayOfWeek](name, 
     else
       field != null && field.isSupportedBy(this)
 
-  /**
-    * Gets the range of valid values for the specified field.
+  /** Gets the range of valid values for the specified field.
     *
     * The range object expresses the minimum and maximum valid values for a field.
     * This day-of-week is used to enhance the accuracy of the returned range.
@@ -244,8 +229,7 @@ final class DayOfWeek(name: String, ordinal: Int) extends Enum[DayOfWeek](name, 
     else
       field.rangeRefinedBy(this)
 
-  /**
-    * Gets the value of the specified field from this day-of-week as an {@code int}.
+  /** Gets the value of the specified field from this day-of-week as an {@code int}.
     *
     * This queries this day-of-week for the value for the specified field.
     * The returned value will always be within the valid range of values for the field.
@@ -274,8 +258,7 @@ final class DayOfWeek(name: String, ordinal: Int) extends Enum[DayOfWeek](name, 
     else
       range(field).checkValidIntValue(getLong(field), field)
 
-  /**
-    * Gets the value of the specified field from this day-of-week as a {@code long}.
+  /** Gets the value of the specified field from this day-of-week as a {@code long}.
     *
     * This queries this day-of-week for the value for the specified field.
     * If it is not possible to return the value, because the field is not supported
@@ -303,8 +286,7 @@ final class DayOfWeek(name: String, ordinal: Int) extends Enum[DayOfWeek](name, 
     else
       field.getFrom(this)
 
-  /**
-    * Returns the day-of-week that is the specified number of days after this one.
+  /** Returns the day-of-week that is the specified number of days after this one.
     *
     * The calculation rolls around the end of the week from Sunday to Monday.
     * The specified period may be negative.
@@ -319,8 +301,7 @@ final class DayOfWeek(name: String, ordinal: Int) extends Enum[DayOfWeek](name, 
     DayOfWeek.ENUMS((ordinal + (amount + 7)) % 7)
   }
 
-  /**
-    * Returns the day-of-week that is the specified number of days before this one.
+  /** Returns the day-of-week that is the specified number of days before this one.
     *
     * The calculation rolls around the start of the year from Monday to Sunday.
     * The specified period may be negative.
@@ -332,8 +313,7 @@ final class DayOfWeek(name: String, ordinal: Int) extends Enum[DayOfWeek](name, 
     */
   def minus(days: Long): DayOfWeek = plus(-(days % 7))
 
-  /**
-    * Queries this day-of-week using the specified query.
+  /** Queries this day-of-week using the specified query.
     *
     * This queries this day-of-week using the specified query strategy object.
     * The {@code TemporalQuery} object defines the logic to be used to
@@ -358,8 +338,7 @@ final class DayOfWeek(name: String, ordinal: Int) extends Enum[DayOfWeek](name, 
     else
       query.queryFrom(this)
 
-  /**
-    * Adjusts the specified temporal object to have this day-of-week.
+  /** Adjusts the specified temporal object to have this day-of-week.
     *
     * This returns a temporal object of the same observable type as the input
     * with the day-of-week changed to be the same as this.

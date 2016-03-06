@@ -36,8 +36,7 @@ import java.util.{Objects, Arrays, Locale}
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.ConcurrentMap
 
-/**
-  * Localized symbols used in date and time formatting.
+/** Localized symbols used in date and time formatting.
   *
   * A significant part of dealing with dates and times is the localization.
   * This class acts as a central point for accessing the information.
@@ -46,19 +45,16 @@ import java.util.concurrent.ConcurrentMap
   * This class is immutable and thread-safe.
   */
 object DecimalStyle {
-  /**
-    * The standard set of non-localized symbols.
+  /** The standard set of non-localized symbols.
     *
     * This uses standard ASCII characters for zero, positive, negative and a dot for the decimal point.
     */
   val STANDARD: DecimalStyle = new DecimalStyle('0', '+', '-', '.')
-  /**
-    * The cache of symbols instances.
+  /** The cache of symbols instances.
     */
   private val CACHE: ConcurrentMap[Locale, DecimalStyle] = new ConcurrentHashMap[Locale, DecimalStyle](16, 0.75f, 2)
 
-  /**
-    * Lists all the locales that are supported.
+  /** Lists all the locales that are supported.
     *
     * The locale 'en_US' will always be present.
     *
@@ -69,8 +65,7 @@ object DecimalStyle {
     new java.util.HashSet[Locale](Arrays.asList(l: _*))
   }
 
-  /**
-    * Obtains symbols for the default locale.
+  /** Obtains symbols for the default locale.
     *
     * This method provides access to locale sensitive symbols.
     *
@@ -78,8 +73,7 @@ object DecimalStyle {
     */
   def ofDefaultLocale: DecimalStyle = of(Locale.getDefault)
 
-  /**
-    * Obtains symbols for the specified locale.
+  /** Obtains symbols for the specified locale.
     *
     * This method provides access to locale sensitive symbols.
     *
@@ -117,8 +111,7 @@ object DecimalStyle {
   */
 final class DecimalStyle private(val zeroDigit: Char, val positiveSign: Char, val negativeSign: Char, val decimalSeparator: Char) {
 
-  /**
-    * Gets the character that represents zero.
+  /** Gets the character that represents zero.
     *
     * The character used to represent digits may vary by culture.
     * This method specifies the zero character to use, which implies the characters for one to nine.
@@ -127,8 +120,7 @@ final class DecimalStyle private(val zeroDigit: Char, val positiveSign: Char, va
     */
   def getZeroDigit: Char = zeroDigit
 
-  /**
-    * Returns a copy of the info with a new character that represents zero.
+  /** Returns a copy of the info with a new character that represents zero.
     *
     * The character used to represent digits may vary by culture.
     * This method specifies the zero character to use, which implies the characters for one to nine.
@@ -141,8 +133,7 @@ final class DecimalStyle private(val zeroDigit: Char, val positiveSign: Char, va
     if (zeroDigit == this.zeroDigit) this
     else new DecimalStyle(zeroDigit, positiveSign, negativeSign, decimalSeparator)
 
-  /**
-    * Gets the character that represents the positive sign.
+  /** Gets the character that represents the positive sign.
     *
     * The character used to represent a positive number may vary by culture.
     * This method specifies the character to use.
@@ -153,8 +144,7 @@ final class DecimalStyle private(val zeroDigit: Char, val positiveSign: Char, va
     positiveSign
   }
 
-  /**
-    * Returns a copy of the info with a new character that represents the positive sign.
+  /** Returns a copy of the info with a new character that represents the positive sign.
     *
     * The character used to represent a positive number may vary by culture.
     * This method specifies the character to use.
@@ -169,8 +159,7 @@ final class DecimalStyle private(val zeroDigit: Char, val positiveSign: Char, va
     new DecimalStyle(zeroDigit, positiveSign, negativeSign, decimalSeparator)
   }
 
-  /**
-    * Gets the character that represents the negative sign.
+  /** Gets the character that represents the negative sign.
     *
     * The character used to represent a negative number may vary by culture.
     * This method specifies the character to use.
@@ -181,8 +170,7 @@ final class DecimalStyle private(val zeroDigit: Char, val positiveSign: Char, va
     negativeSign
   }
 
-  /**
-    * Returns a copy of the info with a new character that represents the negative sign.
+  /** Returns a copy of the info with a new character that represents the negative sign.
     *
     * The character used to represent a negative number may vary by culture.
     * This method specifies the character to use.
@@ -197,8 +185,7 @@ final class DecimalStyle private(val zeroDigit: Char, val positiveSign: Char, va
     new DecimalStyle(zeroDigit, positiveSign, negativeSign, decimalSeparator)
   }
 
-  /**
-    * Gets the character that represents the decimal point.
+  /** Gets the character that represents the decimal point.
     *
     * The character used to represent a decimal point may vary by culture.
     * This method specifies the character to use.
@@ -209,8 +196,7 @@ final class DecimalStyle private(val zeroDigit: Char, val positiveSign: Char, va
     decimalSeparator
   }
 
-  /**
-    * Returns a copy of the info with a new character that represents the decimal point.
+  /** Returns a copy of the info with a new character that represents the decimal point.
     *
     * The character used to represent a decimal point may vary by culture.
     * This method specifies the character to use.
@@ -225,8 +211,7 @@ final class DecimalStyle private(val zeroDigit: Char, val positiveSign: Char, va
     new DecimalStyle(zeroDigit, positiveSign, negativeSign, decimalSeparator)
   }
 
-  /**
-    * Checks whether the character is a digit, based on the currently set zero character.
+  /** Checks whether the character is a digit, based on the currently set zero character.
     *
     * @param ch  the character to check
     * @return the value, 0 to 9, of the character, or -1 if not a digit
@@ -236,8 +221,7 @@ final class DecimalStyle private(val zeroDigit: Char, val positiveSign: Char, va
     if (`val` >= 0 && `val` <= 9) `val` else -1
   }
 
-  /**
-    * Converts the input numeric text to the internationalized form using the zero character.
+  /** Converts the input numeric text to the internationalized form using the zero character.
     *
     * @param numericText  the text, consisting of digits 0 to 9, to convert, not null
     * @return the internationalized text, not null
@@ -264,8 +248,7 @@ final class DecimalStyle private(val zeroDigit: Char, val positiveSign: Char, va
     new String(array)
   }
 
-  /**
-    * Checks if these symbols equal another set of symbols.
+  /** Checks if these symbols equal another set of symbols.
     *
     * @param obj  the object to check, null returns false
     * @return true if this is equal to the other date
@@ -278,15 +261,13 @@ final class DecimalStyle private(val zeroDigit: Char, val positiveSign: Char, va
     false
   }
 
-  /**
-    * A hash code for these symbols.
+  /** A hash code for these symbols.
     *
     * @return a suitable hash code
     */
   override def hashCode: Int = zeroDigit + positiveSign + negativeSign + decimalSeparator
 
-  /**
-    * Returns a string describing these symbols.
+  /** Returns a string describing these symbols.
     *
     * @return a string description, not null
     */

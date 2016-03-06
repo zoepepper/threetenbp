@@ -40,9 +40,7 @@ import org.testng.annotations.Test
 import org.threeten.bp.temporal.TemporalField
 import org.threeten.bp.temporal.TemporalQueries
 
-/**
-  * Test ReducedPrinterParser.
-  */
+/** Test ReducedPrinterParser. */
 @Test class TestReducedParser extends AbstractTestPrinterParser {
   @DataProvider(name = "error") private[format] def data_error: Array[Array[Any]] = {
     Array[Array[Any]](Array(new DateTimeFormatterBuilder.ReducedPrinterParser(YEAR, 2, 2, 2010, null), "12", -1, classOf[IndexOutOfBoundsException]), Array(new DateTimeFormatterBuilder.ReducedPrinterParser(YEAR, 2, 2, 2010, null), "12", 3, classOf[IndexOutOfBoundsException]))

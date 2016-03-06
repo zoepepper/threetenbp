@@ -42,9 +42,7 @@ import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
 import org.threeten.bp.AbstractTest
 
-/**
-  * Test.
-  */
+/** Test. */
 @Test class TestValueRange extends TestNGSuite {
   @Test def test_immutable(): Unit = {
     throw new SkipException("private constructor shows up public due to companion object")

@@ -49,9 +49,7 @@ import org.threeten.bp.chrono.IsoChronology
 import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.format.DateTimeParseException
 
-/**
-  * Test YearMonth.
-  */
+/** Test YearMonth. */
 @Test class TestYearMonth extends AbstractDateTimeTest {
   private var TEST_2008_06: YearMonth = null
 

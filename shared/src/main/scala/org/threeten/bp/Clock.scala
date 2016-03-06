@@ -37,8 +37,7 @@ import java.io.Serializable
 import java.util.Objects
 
 object Clock {
-  /**
-    * Obtains a clock that returns the current instant using the best available
+  /** Obtains a clock that returns the current instant using the best available
     * system clock, converting to date and time using the UTC time-zone.
     *
     * This clock, rather than {@link #systemDefaultZone()}, should be used when
@@ -57,8 +56,7 @@ object Clock {
     */
   def systemUTC: Clock = new Clock.SystemClock(ZoneOffset.UTC)
 
-  /**
-    * Obtains a clock that returns the current instant using the best available
+  /** Obtains a clock that returns the current instant using the best available
     * system clock, converting to date and time using the default time-zone.
     *
     * This clock is based on the best available system clock.
@@ -78,8 +76,7 @@ object Clock {
     */
   def systemDefaultZone: Clock = new Clock.SystemClock(ZoneId.systemDefault)
 
-  /**
-    * Obtains a clock that returns the current instant using best available
+  /** Obtains a clock that returns the current instant using best available
     * system clock.
     *
     * This clock is based on the best available system clock.
@@ -98,8 +95,7 @@ object Clock {
     new Clock.SystemClock(zone)
   }
 
-  /**
-    * Obtains a clock that returns the current instant ticking in whole seconds
+  /** Obtains a clock that returns the current instant ticking in whole seconds
     * using best available system clock.
     *
     * This clock will always have the nano-of-second field set to zero.
@@ -119,8 +115,7 @@ object Clock {
     */
   def tickSeconds(zone: ZoneId): Clock = new Clock.TickClock(system(zone), NANOS_PER_SECOND)
 
-  /**
-    * Obtains a clock that returns the current instant ticking in whole minutes
+  /** Obtains a clock that returns the current instant ticking in whole minutes
     * using best available system clock.
     *
     * This clock will always have the nano-of-second and second-of-minute fields set to zero.
@@ -140,8 +135,7 @@ object Clock {
     */
   def tickMinutes(zone: ZoneId): Clock = new Clock.TickClock(system(zone), NANOS_PER_MINUTE)
 
-  /**
-    * Obtains a clock that returns instants from the specified clock truncated
+  /** Obtains a clock that returns instants from the specified clock truncated
     * to the nearest occurrence of the specified duration.
     *
     * This clock will only tick as per the specified duration. Thus, if the duration
@@ -191,8 +185,7 @@ object Clock {
     new Clock.TickClock(baseClock, tickNanos)
   }
 
-  /**
-    * Obtains a clock that always returns the same instant.
+  /** Obtains a clock that always returns the same instant.
     *
     * This clock simply returns the specified instant.
     * As such, it is not a clock in the conventional sense.
@@ -211,8 +204,7 @@ object Clock {
     new Clock.FixedClock(fixedInstant, zone)
   }
 
-  /**
-    * Obtains a clock that returns instants from the specified clock with the
+  /** Obtains a clock that returns instants from the specified clock with the
     * specified duration added
     *
     * This clock wraps another clock, returning instants that are later by the
@@ -239,8 +231,7 @@ object Clock {
     new Clock.OffsetClock(baseClock, offsetDuration)
   }
 
-  /**
-    * Implementation of a clock that always returns the latest time from
+  /** Implementation of a clock that always returns the latest time from
     * {@link System#currentTimeMillis()}.
     */
   @SerialVersionUID(6740630888130243051L)
@@ -268,8 +259,7 @@ object Clock {
     override def toString: String = s"SystemClock[$zone]"
   }
 
-  /**
-    * Implementation of a clock that always returns the same instant.
+  /** Implementation of a clock that always returns the same instant.
     * This is typically used for testing.
     */
   @SerialVersionUID(7430389292664866958L)
@@ -295,8 +285,7 @@ object Clock {
     override def toString: String = s"FixedClock[$instant,$zone]"
   }
 
-  /**
-    * Implementation of a clock that adds an offset to an underlying clock.
+  /** Implementation of a clock that adds an offset to an underlying clock.
     */
   @SerialVersionUID(2007484719125426256L)
   private[bp] final class OffsetClock(val baseClock: Clock, val offset: Duration) extends Clock with Serializable {
@@ -322,8 +311,7 @@ object Clock {
     override def toString: String = s"OffsetClock[$baseClock,$offset]"
   }
 
-  /**
-    * Implementation of a clock that adds an offset to an underlying clock.
+  /** Implementation of a clock that adds an offset to an underlying clock.
     */
   @SerialVersionUID(6504659149906368850L)
   private[bp] final class TickClock(val baseClock: Clock, val tickNanos: Long) extends Clock with Serializable {
@@ -415,8 +403,7 @@ object Clock {
   */
 abstract class Clock protected() {
 
-  /**
-    * Gets the time-zone being used to create dates and times.
+  /** Gets the time-zone being used to create dates and times.
     *
     * A clock will typically obtain the current instant and then convert that
     * to a date or time using a time-zone. This method returns the time-zone used.
@@ -425,8 +412,7 @@ abstract class Clock protected() {
     */
   def getZone: ZoneId
 
-  /**
-    * Returns a copy of this clock with a different time-zone.
+  /** Returns a copy of this clock with a different time-zone.
     *
     * A clock will typically obtain the current instant and then convert that
     * to a date or time using a time-zone. This method returns a clock with
@@ -437,8 +423,7 @@ abstract class Clock protected() {
     */
   def withZone(zone: ZoneId): Clock
 
-  /**
-    * Gets the current millisecond instant of the clock.
+  /** Gets the current millisecond instant of the clock.
     *
     * This returns the millisecond-based instant, measured from 1970-01-01T00:00 UTC.
     * This is equivalent to the definition of {@link System#currentTimeMillis()}.
@@ -456,8 +441,7 @@ abstract class Clock protected() {
     */
   def millis: Long = instant.toEpochMilli
 
-  /**
-    * Gets the current instant of the clock.
+  /** Gets the current instant of the clock.
     *
     * This returns an instant representing the current instant as defined by the clock.
     *
@@ -466,8 +450,7 @@ abstract class Clock protected() {
     */
   def instant: Instant
 
-  /**
-    * Checks if this clock is equal to another clock.
+  /** Checks if this clock is equal to another clock.
     *
     * Clocks must compare equal based on their state and behavior.
     *
@@ -476,8 +459,7 @@ abstract class Clock protected() {
     */
   override def equals(obj: Any): Boolean = super.equals(obj)
 
-  /**
-    * A hash code for this clock.
+  /** A hash code for this clock.
     *
     * @return a suitable hash code
     */

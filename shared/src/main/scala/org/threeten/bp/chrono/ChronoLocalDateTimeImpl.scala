@@ -50,65 +50,39 @@ import org.threeten.bp.temporal.ValueRange
 
 @SerialVersionUID(4556003607393004514L)
 object ChronoLocalDateTimeImpl {
-  /**
-    * Hours per minute.
-    */
-  private val HOURS_PER_DAY: Int = 24
-  /**
-    * Minutes per hour.
-    */
-  private val MINUTES_PER_HOUR: Int = 60
-  /**
-    * Minutes per day.
-    */
-  private val MINUTES_PER_DAY: Int = MINUTES_PER_HOUR * HOURS_PER_DAY
-  /**
-    * Seconds per minute.
-    */
+  /** Hours per minute. */
+  private val HOURS_PER_DAY: Int      = 24
+  /** Minutes per hour. */
+  private val MINUTES_PER_HOUR: Int   = 60
+  /** Minutes per day. */
+  private val MINUTES_PER_DAY: Int    = MINUTES_PER_HOUR * HOURS_PER_DAY
+  /** Seconds per minute. */
   private val SECONDS_PER_MINUTE: Int = 60
-  /**
-    * Seconds per hour.
-    */
-  private val SECONDS_PER_HOUR: Int = SECONDS_PER_MINUTE * MINUTES_PER_HOUR
-  /**
-    * Seconds per day.
-    */
-  private val SECONDS_PER_DAY: Int = SECONDS_PER_HOUR * HOURS_PER_DAY
-  /**
-    * Milliseconds per day.
-    */
-  private val MILLIS_PER_DAY: Long = SECONDS_PER_DAY * 1000L
-  /**
-    * Microseconds per day.
-    */
-  private val MICROS_PER_DAY: Long = SECONDS_PER_DAY * 1000000L
-  /**
-    * Nanos per second.
-    */
-  private val NANOS_PER_SECOND: Long = 1000000000L
-  /**
-    * Nanos per minute.
-    */
-  private val NANOS_PER_MINUTE: Long = NANOS_PER_SECOND * SECONDS_PER_MINUTE
-  /**
-    * Nanos per hour.
-    */
-  private val NANOS_PER_HOUR: Long = NANOS_PER_MINUTE * MINUTES_PER_HOUR
-  /**
-    * Nanos per day.
-    */
-  private val NANOS_PER_DAY: Long = NANOS_PER_HOUR * HOURS_PER_DAY
+  /** Seconds per hour. */
+  private val SECONDS_PER_HOUR: Int   = SECONDS_PER_MINUTE * MINUTES_PER_HOUR
+  /** Seconds per day. */
+  private val SECONDS_PER_DAY: Int    = SECONDS_PER_HOUR * HOURS_PER_DAY
+  /** Milliseconds per day. */
+  private val MILLIS_PER_DAY: Long    = SECONDS_PER_DAY * 1000L
+  /** Microseconds per day. */
+  private val MICROS_PER_DAY: Long    = SECONDS_PER_DAY * 1000000L
+  /** Nanos per second. */
+  private val NANOS_PER_SECOND: Long  = 1000000000L
+  /** Nanos per minute. */
+  private val NANOS_PER_MINUTE: Long  = NANOS_PER_SECOND * SECONDS_PER_MINUTE
+  /** Nanos per hour. */
+  private val NANOS_PER_HOUR: Long    = NANOS_PER_MINUTE * MINUTES_PER_HOUR
+  /** Nanos per day. */
+  private val NANOS_PER_DAY: Long     = NANOS_PER_HOUR * HOURS_PER_DAY
 
-  /**
-    * Obtains an instance of {@code ChronoLocalDateTime} from a date and time.
+  /** Obtains an instance of {@code ChronoLocalDateTime} from a date and time.
     *
     * @param date  the local date, not null
     * @param time  the local time, not null
     * @return the local date-time, not null
     */
-  private[chrono] def of[R <: ChronoLocalDate](date: R, time: LocalTime): ChronoLocalDateTimeImpl[R] = {
+  private[chrono] def of[R <: ChronoLocalDate](date: R, time: LocalTime): ChronoLocalDateTimeImpl[R] =
     new ChronoLocalDateTimeImpl[R](date, time)
-  }
 
   @throws(classOf[IOException])
   @throws(classOf[ClassNotFoundException])
@@ -119,8 +93,7 @@ object ChronoLocalDateTimeImpl {
   }
 }
 
-/**
-  * A date-time without a time-zone for the calendar neutral API.
+/** A date-time without a time-zone for the calendar neutral API.
   *
   * {@code ChronoLocalDateTime} is an immutable date-time object that represents a date-time, often
   * viewed as year-month-day-hour-minute-second. This object can also access other
@@ -134,9 +107,7 @@ object ChronoLocalDateTimeImpl {
   * This class is immutable and thread-safe.
   *
   * @tparam D the date type
-  *
   * @constructor
-  *
   * @param date  the date part of the date-time, not null
   * @param time  the time part of the date-time, not null
   */
@@ -145,8 +116,7 @@ final class ChronoLocalDateTimeImpl[D <: ChronoLocalDate] private(private val da
   Objects.requireNonNull(date, "date")
   Objects.requireNonNull(time, "time")
 
-  /**
-    * Returns a copy of this date-time with the new date and time, checking
+  /** Returns a copy of this date-time with the new date and time, checking
     * to see if a new object is in fact required.
     *
     * @param newDate  the date of the new date-time, not null
@@ -218,25 +188,18 @@ final class ChronoLocalDateTimeImpl[D <: ChronoLocalDate] private(private val da
       val f: ChronoUnit = unit.asInstanceOf[ChronoUnit]
       import ChronoUnit._
       f match {
-        case NANOS =>
-          return plusNanos(amountToAdd)
-        case MICROS =>
-          return plusDays(amountToAdd / ChronoLocalDateTimeImpl.MICROS_PER_DAY).plusNanos((amountToAdd % ChronoLocalDateTimeImpl.MICROS_PER_DAY) * 1000)
-        case MILLIS =>
-          return plusDays(amountToAdd / ChronoLocalDateTimeImpl.MILLIS_PER_DAY).plusNanos((amountToAdd % ChronoLocalDateTimeImpl.MILLIS_PER_DAY) * 1000000)
-        case SECONDS =>
-          return plusSeconds(amountToAdd)
-        case MINUTES =>
-          return plusMinutes(amountToAdd)
-        case HOURS =>
-          return plusHours(amountToAdd)
-        case HALF_DAYS =>
-          return plusDays(amountToAdd / 256).plusHours((amountToAdd % 256) * 12)
-        case _ =>
-          return `with`(date.plus(amountToAdd, unit), time)
+        case NANOS     => plusNanos(amountToAdd)
+        case MICROS    => plusDays(amountToAdd / ChronoLocalDateTimeImpl.MICROS_PER_DAY).plusNanos((amountToAdd % ChronoLocalDateTimeImpl.MICROS_PER_DAY) * 1000)
+        case MILLIS    => plusDays(amountToAdd / ChronoLocalDateTimeImpl.MILLIS_PER_DAY).plusNanos((amountToAdd % ChronoLocalDateTimeImpl.MILLIS_PER_DAY) * 1000000)
+        case SECONDS   => plusSeconds(amountToAdd)
+        case MINUTES   => plusMinutes(amountToAdd)
+        case HOURS     => plusHours(amountToAdd)
+        case HALF_DAYS => plusDays(amountToAdd / 256).plusHours((amountToAdd % 256) * 12)
+        case _         => `with`(date.plus(amountToAdd, unit), time)
       }
+    } else {
+      date.getChronology.ensureChronoLocalDateTime(unit.addTo(this, amountToAdd))
     }
-    date.getChronology.ensureChronoLocalDateTime(unit.addTo(this, amountToAdd))
   }
 
   private def plusDays(days: Long): ChronoLocalDateTimeImpl[D] = `with`(date.plus(days, ChronoUnit.DAYS), time)

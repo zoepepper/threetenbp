@@ -67,22 +67,15 @@ import org.threeten.bp.temporal.ValueRange
 
 @SerialVersionUID(-23038383694477807L)
 object Year {
-  /**
-    * The minimum supported year, '-999,999,999'.
-    */
+  /** The minimum supported year, '-999,999,999'. */
   val MIN_VALUE: Int = -999999999
-  /**
-    * The maximum supported year, '+999,999,999'.
-    */
+  /** The maximum supported year, '+999,999,999'. */
   val MAX_VALUE: Int = 999999999
 
-  /**
-    * Parser.
-    */
+  /** Parser. */
   private lazy val PARSER: DateTimeFormatter = new DateTimeFormatterBuilder().appendValue(YEAR, 4, 10, SignStyle.EXCEEDS_PAD).toFormatter
 
-  /**
-    * Obtains the current year from the system clock in the default time-zone.
+  /** Obtains the current year from the system clock in the default time-zone.
     *
     * This will query the {@link Clock#systemDefaultZone() system clock} in the default
     * time-zone to obtain the current year.
@@ -94,8 +87,7 @@ object Year {
     */
   def now: Year = now(Clock.systemDefaultZone)
 
-  /**
-    * Obtains the current year from the system clock in the specified time-zone.
+  /** Obtains the current year from the system clock in the specified time-zone.
     *
     * This will query the {@link Clock#system(ZoneId) system clock} to obtain the current year.
     * Specifying the time-zone avoids dependence on the default time-zone.
@@ -108,8 +100,7 @@ object Year {
     */
   def now(zone: ZoneId): Year = now(Clock.system(zone))
 
-  /**
-    * Obtains the current year from the specified clock.
+  /** Obtains the current year from the specified clock.
     *
     * This will query the specified clock to obtain the current year.
     * Using this method allows the use of an alternate clock for testing.
@@ -123,8 +114,7 @@ object Year {
     Year.of(now.getYear)
   }
 
-  /**
-    * Obtains an instance of {@code Year}.
+  /** Obtains an instance of {@code Year}.
     *
     * This method accepts a year value from the proleptic ISO calendar system.
     *
@@ -142,8 +132,7 @@ object Year {
     new Year(isoYear)
   }
 
-  /**
-    * Obtains an instance of {@code Year} from a temporal object.
+  /** Obtains an instance of {@code Year} from a temporal object.
     *
     * A {@code TemporalAccessor} represents some form of date and time information.
     * This factory converts the arbitrary temporal object to an instance of {@code Year}.
@@ -176,8 +165,7 @@ object Year {
     }
   }
 
-  /**
-    * Obtains an instance of {@code Year} from a text string such as {@code 2007}.
+  /** Obtains an instance of {@code Year} from a text string such as {@code 2007}.
     *
     * The string must represent a valid year.
     * Years outside the range 0000 to 9999 must be prefixed by the plus or minus symbol.
@@ -188,8 +176,7 @@ object Year {
     */
   def parse(text: CharSequence): Year = parse(text, PARSER)
 
-  /**
-    * Obtains an instance of {@code Year} from a text string using a specific formatter.
+  /** Obtains an instance of {@code Year} from a text string using a specific formatter.
     *
     * The text is parsed using the formatter, returning a year.
     *
@@ -203,8 +190,7 @@ object Year {
     formatter.parse(text, Year.from)
   }
 
-  /**
-    * Checks if the year is a leap year, according to the ISO proleptic
+  /** Checks if the year is a leap year, according to the ISO proleptic
     * calendar system rules.
     *
     * This method applies the current rules for leap years across the whole time-line.
@@ -261,8 +247,7 @@ object Year {
 @SerialVersionUID(-23038383694477807L)
 final class Year private(private val year: Int) extends TemporalAccessor with Temporal with TemporalAdjuster with Ordered[Year] with Serializable {
 
-  /**
-    * Gets the year value.
+  /** Gets the year value.
     *
     * The year returned by this method is proleptic as per {@code get(YEAR)}.
     *
@@ -270,8 +255,7 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
     */
   def getValue: Int = year
 
-  /**
-    * Checks if the specified field is supported.
+  /** Checks if the specified field is supported.
     *
     * This checks if this year can be queried for the specified field.
     * If false, then calling the {@link #range(TemporalField) range} and
@@ -308,8 +292,7 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
     else
       unit != null && unit.isSupportedBy(this)
 
-  /**
-    * Gets the range of valid values for the specified field.
+  /** Gets the range of valid values for the specified field.
     *
     * The range object expresses the minimum and maximum valid values for a field.
     * This year is used to enhance the accuracy of the returned range.
@@ -337,8 +320,7 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
     else
       super.range(field)
 
-  /**
-    * Gets the value of the specified field from this year as an {@code int}.
+  /** Gets the value of the specified field from this year as an {@code int}.
     *
     * This queries this year for the value for the specified field.
     * The returned value will always be within the valid range of values for the field.
@@ -362,8 +344,7 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
     */
   override def get(field: TemporalField): Int = range(field).checkValidIntValue(getLong(field), field)
 
-  /**
-    * Gets the value of the specified field from this year as a {@code long}.
+  /** Gets the value of the specified field from this year as a {@code long}.
     *
     * This queries this year for the value for the specified field.
     * If it is not possible to return the value, because the field is not supported
@@ -395,8 +376,7 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
     else
       field.getFrom(this)
 
-  /**
-    * Checks if the year is a leap year, according to the ISO proleptic
+  /** Checks if the year is a leap year, according to the ISO proleptic
     * calendar system rules.
     *
     * This method applies the current rules for leap years across the whole time-line.
@@ -415,8 +395,7 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
     */
   def isLeap: Boolean = Year.isLeap(year)
 
-  /**
-    * Checks if the month-day is valid for this year.
+  /** Checks if the month-day is valid for this year.
     *
     * This method checks whether this year and the input month and day form
     * a valid date.
@@ -426,15 +405,13 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
     */
   def isValidMonthDay(monthDay: MonthDay): Boolean = monthDay != null && monthDay.isValidYear(year)
 
-  /**
-    * Gets the length of this year in days.
+  /** Gets the length of this year in days.
     *
     * @return the length of this year in days, 365 or 366
     */
   def length: Int = if (isLeap) 366 else 365
 
-  /**
-    * Returns an adjusted copy of this year.
+  /** Returns an adjusted copy of this year.
     *
     * This returns a new {@code Year}, based on this one, with the year adjusted.
     * The adjustment takes place using the specified adjuster strategy object.
@@ -453,8 +430,7 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
     */
   override def `with`(adjuster: TemporalAdjuster): Year = adjuster.adjustInto(this).asInstanceOf[Year]
 
-  /**
-    * Returns a copy of this year with the specified field set to a new value.
+  /** Returns a copy of this year with the specified field set to a new value.
     *
     * This returns a new {@code Year}, based on this one, with the value
     * for the specified field changed.
@@ -510,8 +486,7 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
     field.adjustInto(this, newValue)
   }
 
-  /**
-    * Returns a copy of this year with the specified period added.
+  /** Returns a copy of this year with the specified period added.
     *
     * This method returns a new year based on this year with the specified period added.
     * The adder is typically {@link Period} but may be any other type implementing
@@ -528,8 +503,7 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
     */
   override def plus(amount: TemporalAmount): Year = amount.addTo(this).asInstanceOf[Year]
 
-  /**
-    * {@inheritDoc}
+  /** {@inheritDoc}
     * @throws DateTimeException { @inheritDoc}
     * @throws ArithmeticException { @inheritDoc}
     */
@@ -552,8 +526,7 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
     unit.addTo(this, amountToAdd)
   }
 
-  /**
-    * Returns a copy of this year with the specified number of years added.
+  /** Returns a copy of this year with the specified number of years added.
     *
     * This instance is immutable and unaffected by this method call.
     *
@@ -568,8 +541,7 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
     Year.of(YEAR.checkValidIntValue(year + yearsToAdd))
   }
 
-  /**
-    * Returns a copy of this year with the specified period subtracted.
+  /** Returns a copy of this year with the specified period subtracted.
     *
     * This method returns a new year based on this year with the specified period subtracted.
     * The subtractor is typically {@link Period} but may be any other type implementing
@@ -586,16 +558,14 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
     */
   override def minus(amount: TemporalAmount): Year = amount.subtractFrom(this).asInstanceOf[Year]
 
-  /**
-    * {@inheritDoc}
+  /** {@inheritDoc}
     * @throws DateTimeException { @inheritDoc}
     * @throws ArithmeticException { @inheritDoc}
     */
   override def minus(amountToSubtract: Long, unit: TemporalUnit): Year =
     if (amountToSubtract == Long.MinValue) plus(Long.MaxValue, unit).plus(1, unit) else plus(-amountToSubtract, unit)
 
-  /**
-    * Returns a copy of this year with the specified number of years subtracted.
+  /** Returns a copy of this year with the specified number of years subtracted.
     *
     * This instance is immutable and unaffected by this method call.
     *
@@ -606,8 +576,7 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
   def minusYears(yearsToSubtract: Long): Year =
     if (yearsToSubtract == Long.MinValue) plusYears(Long.MaxValue).plusYears(1) else plusYears(-yearsToSubtract)
 
-  /**
-    * Queries this year using the specified query.
+  /** Queries this year using the specified query.
     *
     * This queries this year using the specified query strategy object.
     * The {@code TemporalQuery} object defines the logic to be used to
@@ -637,8 +606,7 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
     super.query(query)
   }
 
-  /**
-    * Adjusts the specified temporal object to have this year.
+  /** Adjusts the specified temporal object to have this year.
     *
     * This returns a temporal object of the same observable type as the input
     * with the year changed to be the same as this.
@@ -670,8 +638,7 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
     temporal.`with`(YEAR, year)
   }
 
-  /**
-    * Calculates the period between this year and another year in
+  /** Calculates the period between this year and another year in
     * terms of the specified unit.
     *
     * This calculates the period between two years in terms of a single unit.
@@ -734,8 +701,7 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
     unit.between(this, end)
   }
 
-  /**
-    * Combines this year with a day-of-year to create a {@code LocalDate}.
+  /** Combines this year with a day-of-year to create a {@code LocalDate}.
     *
     * This returns a {@code LocalDate} formed from this year and the specified day-of-year.
     *
@@ -750,8 +716,7 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
     LocalDate.ofYearDay(year, dayOfYear)
   }
 
-  /**
-    * Combines this year with a month to create a {@code YearMonth}.
+  /** Combines this year with a month to create a {@code YearMonth}.
     *
     * This returns a {@code YearMonth} formed from this year and the specified month.
     * All possible combinations of year and month are valid.
@@ -768,8 +733,7 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
     YearMonth.of(year, month)
   }
 
-  /**
-    * Combines this year with a month to create a {@code YearMonth}.
+  /** Combines this year with a month to create a {@code YearMonth}.
     *
     * This returns a {@code YearMonth} formed from this year and the specified month.
     * All possible combinations of year and month are valid.
@@ -787,8 +751,7 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
     YearMonth.of(year, month)
   }
 
-  /**
-    * Combines this year with a month-day to create a {@code LocalDate}.
+  /** Combines this year with a month-day to create a {@code LocalDate}.
     *
     * This returns a {@code LocalDate} formed from this year and the specified month-day.
     *
@@ -802,8 +765,7 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
     monthDay.atYear(year)
   }
 
-  /**
-    * Compares this year to another year.
+  /** Compares this year to another year.
     *
     * The comparison is based on the value of the year.
     * It is "consistent with equals", as defined by {@link Comparable}.
@@ -815,8 +777,7 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
     year - other.year
   }
 
-  /**
-    * Is this year after the specified year.
+  /** Is this year after the specified year.
     *
     * @param other  the other year to compare to, not null
     * @return true if this is after the specified year
@@ -825,8 +786,7 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
     year > other.year
   }
 
-  /**
-    * Is this year before the specified year.
+  /** Is this year before the specified year.
     *
     * @param other  the other year to compare to, not null
     * @return true if this point is before the specified year
@@ -835,8 +795,7 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
     year < other.year
   }
 
-  /**
-    * Checks if this year is equal to another year.
+  /** Checks if this year is equal to another year.
     *
     * The comparison is based on the time-line position of the years.
     *
@@ -849,22 +808,19 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
       case _          => false
     }
 
-  /**
-    * A hash code for this year.
+  /** A hash code for this year.
     *
     * @return a suitable hash code
     */
   override def hashCode: Int = year
 
-  /**
-    * Outputs this year as a {@code String}.
+  /** Outputs this year as a {@code String}.
     *
     * @return a string representation of this year, not null
     */
   override def toString: String = Integer.toString(year)
 
-  /**
-    * Outputs this year as a {@code String} using the formatter.
+  /** Outputs this year as a {@code String} using the formatter.
     *
     * This year will be passed to the formatter
     * {@link DateTimeFormatter#format(TemporalAccessor) print method}.
@@ -880,8 +836,7 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
 
   private def writeReplace: AnyRef = new Ser(Ser.YEAR_TYPE, this)
 
-  /**
-    * Defend against malicious streams.
+  /** Defend against malicious streams.
     * @return never
     * @throws InvalidObjectException always
     */

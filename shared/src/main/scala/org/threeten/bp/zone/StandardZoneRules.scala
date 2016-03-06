@@ -48,13 +48,11 @@ import org.threeten.bp.ZoneOffset
 
 @SerialVersionUID(3044319355680032515L)
 object StandardZoneRules {
-  /**
-    * The last year to have its transitions cached.
+  /** The last year to have its transitions cached.
     */
   private val LAST_CACHED_YEAR: Int = 2100
 
-  /**
-    * Reads the state from the stream.
+  /** Reads the state from the stream.
     *
     * @param in  the input stream, not null
     * @return the created object, not null
@@ -114,8 +112,7 @@ object StandardZoneRules {
     new StandardZoneRules(stdTrans, stdOffsets, savTrans, savOffsets, rules)
   }
 
-  /**
-    * Creates an instance.
+  /** Creates an instance.
     *
     * @param baseStandardOffset  the standard offset to use before legal rules were set, not null
     * @param baseWallOffset  the wall offset to use before legal rules were set, not null
@@ -201,13 +198,11 @@ final class StandardZoneRules private(private val standardTransitions: Array[Lon
                                       private val wallOffsets: Array[ZoneOffset],
                                       private val lastRules: Array[ZoneOffsetTransitionRule],
                                       private val savingsLocalTransitions: Array[LocalDateTime]) extends ZoneRules with Serializable {
-  /**
-    * The map of recent transitions.
+  /** The map of recent transitions.
     */
   private val lastRulesCache: ConcurrentMap[Integer, Array[ZoneOffsetTransition]] = new ConcurrentHashMap[Integer, Array[ZoneOffsetTransition]]
 
-  /**
-    * Creates an instance.
+  /** Creates an instance.
     */
   /* // Can't be implemented with Scala's constructor rules. Replaced with apply factory method.
   private[zone] def this(baseStandardOffset: ZoneOffset,
@@ -252,15 +247,13 @@ final class StandardZoneRules private(private val standardTransitions: Array[Lon
     })
   }
 
-  /**
-    * Uses a serialization delegate.
+  /** Uses a serialization delegate.
     *
     * @return the replacing object, not null
     */
   private def writeReplace: AnyRef = new Ser(Ser.SZR, this)
 
-  /**
-    * Writes the state to the stream.
+  /** Writes the state to the stream.
     *
     * @param out  the output stream, not null
     * @throws IOException if an error occurs
@@ -361,8 +354,7 @@ final class StandardZoneRules private(private val standardTransitions: Array[Lon
     }
   }
 
-  /**
-    * Finds the offset info for a local date-time and transition.
+  /** Finds the offset info for a local date-time and transition.
     *
     * @param dt  the date-time, not null
     * @param trans  the transition, not null
@@ -390,8 +382,7 @@ final class StandardZoneRules private(private val standardTransitions: Array[Lon
   def isValidOffset(localDateTime: LocalDateTime, offset: ZoneOffset): Boolean =
     getValidOffsets(localDateTime).contains(offset)
 
-  /**
-    * Finds the appropriate transition array for the given year.
+  /** Finds the appropriate transition array for the given year.
     *
     * @param year  the year, not null
     * @return the transition array, not null
@@ -524,8 +515,7 @@ final class StandardZoneRules private(private val standardTransitions: Array[Lon
     Arrays.hashCode(standardTransitions) ^ Arrays.hashCode(standardOffsets.asInstanceOf[Array[AnyRef]]) ^ Arrays.hashCode(savingsInstantTransitions) ^ Arrays.hashCode(wallOffsets.asInstanceOf[Array[AnyRef]]) ^ Arrays.hashCode(lastRules.asInstanceOf[Array[AnyRef]])
   }
 
-  /**
-    * Returns a string describing this object.
+  /** Returns a string describing this object.
     *
     * @return a string for debugging, not null
     */

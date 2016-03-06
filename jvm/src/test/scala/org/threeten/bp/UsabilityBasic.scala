@@ -40,9 +40,7 @@ import org.threeten.bp.temporal.ChronoUnit
 import org.threeten.bp.temporal.TemporalAccessor
 import org.threeten.bp.temporal.TemporalField
 
-/**
-  * Usability class for package.
-  */
+/** Usability class for package. */
 object UsabilityBasic {
   def main(args: Array[String]): Unit = {
     simpleCalendar()

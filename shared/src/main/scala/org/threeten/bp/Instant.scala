@@ -65,30 +65,19 @@ import org.threeten.bp.temporal.ValueRange
 
 @SerialVersionUID(-665713676816604388L)
 object Instant {
-  /**
-    * Constant for the 1970-01-01T00:00:00Z epoch instant.
-    */
+  /** Constant for the 1970-01-01T00:00:00Z epoch instant. */
   val EPOCH: Instant = new Instant(0, 0)
-  /**
-    * The minimum supported epoch second.
-    */
+  /** The minimum supported epoch second. */
   private val MIN_SECOND: Long = -31557014167219200L
-  /**
-    * The maximum supported epoch second.
-    */
+  /** The maximum supported epoch second. */
   private val MAX_SECOND: Long = 31556889864403199L
 
-  /**
-    * Constant for nanos per second.
-    */
+  /** Constant for nanos per second. */
   private val NANOS_PER_SECOND: Int = 1000000000
-  /**
-    * Constant for nanos per milli.
-    */
+  /** Constant for nanos per milli. */
   private val NANOS_PER_MILLI: Int = 1000000
 
-  /**
-    * The minimum supported {@code Instant}, '-1000000000-01-01T00:00Z'.
+  /** The minimum supported {@code Instant}, '-1000000000-01-01T00:00Z'.
     * This could be used by an application as a "far past" instant.
     *
     * This is one year earlier than the minimum {@code LocalDateTime}.
@@ -98,8 +87,7 @@ object Instant {
     * an {@code int}.
     */
   val MIN: Instant = Instant.ofEpochSecond(MIN_SECOND, 0)
-  /**
-    * The maximum supported {@code Instant}, '1000000000-12-31T23:59:59.999999999Z'.
+  /** The maximum supported {@code Instant}, '1000000000-12-31T23:59:59.999999999Z'.
     * This could be used by an application as a "far future" instant.
     *
     * This is one year later than the maximum {@code LocalDateTime}.
@@ -110,8 +98,7 @@ object Instant {
     */
   val MAX: Instant = Instant.ofEpochSecond(MAX_SECOND, 999999999)
 
-  /**
-    * Obtains the current instant from the system clock.
+  /** Obtains the current instant from the system clock.
     *
     * This will query the {@link Clock#systemUTC() system UTC clock} to
     * obtain the current instant.
@@ -123,8 +110,7 @@ object Instant {
     */
   def now: Instant = Clock.systemUTC.instant
 
-  /**
-    * Obtains the current instant from the specified clock.
+  /** Obtains the current instant from the specified clock.
     *
     * This will query the specified clock to obtain the current time.
     *
@@ -139,8 +125,7 @@ object Instant {
     clock.instant
   }
 
-  /**
-    * Obtains an instance of {@code Instant} using seconds from the
+  /** Obtains an instance of {@code Instant} using seconds from the
     * epoch of 1970-01-01T00:00:00Z.
     *
     * The nanosecond field is set to zero.
@@ -151,8 +136,7 @@ object Instant {
     */
   def ofEpochSecond(epochSecond: Long): Instant = create(epochSecond, 0)
 
-  /**
-    * Obtains an instance of {@code Instant} using seconds from the
+  /** Obtains an instance of {@code Instant} using seconds from the
     * epoch of 1970-01-01T00:00:00Z and nanosecond fraction of second.
     *
     * This method allows an arbitrary number of nanoseconds to be passed in.
@@ -177,8 +161,7 @@ object Instant {
     create(secs, nos)
   }
 
-  /**
-    * Obtains an instance of {@code Instant} using milliseconds from the
+  /** Obtains an instance of {@code Instant} using milliseconds from the
     * epoch of 1970-01-01T00:00:00Z.
     *
     * The seconds and nanoseconds are extracted from the specified milliseconds.
@@ -193,8 +176,7 @@ object Instant {
     create(secs, mos * NANOS_PER_MILLI)
   }
 
-  /**
-    * Obtains an instance of {@code Instant} from a temporal object.
+  /** Obtains an instance of {@code Instant} from a temporal object.
     *
     * A {@code TemporalAccessor} represents some form of date and time information.
     * This factory converts the arbitrary temporal object to an instance of {@code Instant}.
@@ -222,8 +204,7 @@ object Instant {
     }
   }
 
-  /**
-    * Obtains an instance of {@code Instant} from a text string such as
+  /** Obtains an instance of {@code Instant} from a text string such as
     * {@code 2007-12-03T10:15:30.000Z}.
     *
     * The string must represent a valid instant in UTC and is parsed using
@@ -235,8 +216,7 @@ object Instant {
     */
   def parse(text: CharSequence): Instant = DateTimeFormatter.ISO_INSTANT.parse(text, Instant.from)
 
-  /**
-    * Obtains an instance of {@code Instant} using seconds and nanoseconds.
+  /** Obtains an instance of {@code Instant} using seconds and nanoseconds.
     *
     * @param seconds  the length of the duration in seconds
     * @param nanoOfSecond  the nano-of-second, from 0 to 999,999,999
@@ -355,8 +335,7 @@ object Instant {
 @SerialVersionUID(-665713676816604388L)
 final class Instant private(private val seconds: Long, private val nanos: Int) extends TemporalAccessor with Temporal with TemporalAdjuster with Ordered[Instant] with Serializable {
 
-  /**
-    * Checks if the specified field is supported.
+  /** Checks if the specified field is supported.
     *
     * This checks if this instant can be queried for the specified field.
     * If false, then calling the {@link #range(TemporalField) range} and
@@ -392,8 +371,7 @@ final class Instant private(private val seconds: Long, private val nanos: Int) e
     else
       unit != null && unit.isSupportedBy(this)
 
-  /**
-    * Gets the range of valid values for the specified field.
+  /** Gets the range of valid values for the specified field.
     *
     * The range object expresses the minimum and maximum valid values for a field.
     * This instant is used to enhance the accuracy of the returned range.
@@ -416,8 +394,7 @@ final class Instant private(private val seconds: Long, private val nanos: Int) e
     */
   override def range(field: TemporalField): ValueRange = super.range(field)
 
-  /**
-    * Gets the value of the specified field from this instant as an {@code int}.
+  /** Gets the value of the specified field from this instant as an {@code int}.
     *
     * This queries this instant for the value for the specified field.
     * The returned value will always be within the valid range of values for the field.
@@ -458,8 +435,7 @@ final class Instant private(private val seconds: Long, private val nanos: Int) e
     range(field).checkValidIntValue(field.getFrom(this), field)
   }
 
-  /**
-    * Gets the value of the specified field from this instant as a {@code long}.
+  /** Gets the value of the specified field from this instant as a {@code long}.
     *
     * This queries this instant for the value for the specified field.
     * If it is not possible to return the value, because the field is not supported
@@ -498,8 +474,7 @@ final class Instant private(private val seconds: Long, private val nanos: Int) e
     field.getFrom(this)
   }
 
-  /**
-    * Gets the number of seconds from the Java epoch of 1970-01-01T00:00:00Z.
+  /** Gets the number of seconds from the Java epoch of 1970-01-01T00:00:00Z.
     *
     * The epoch second count is a simple incrementing count of seconds where
     * second 0 is 1970-01-01T00:00:00Z.
@@ -509,8 +484,7 @@ final class Instant private(private val seconds: Long, private val nanos: Int) e
     */
   def getEpochSecond: Long = seconds
 
-  /**
-    * Gets the number of nanoseconds, later along the time-line, from the start
+  /** Gets the number of nanoseconds, later along the time-line, from the start
     * of the second.
     *
     * The nanosecond-of-second value measures the total number of nanoseconds from
@@ -520,8 +494,7 @@ final class Instant private(private val seconds: Long, private val nanos: Int) e
     */
   def getNano: Int = nanos
 
-  /**
-    * Returns an adjusted copy of this instant.
+  /** Returns an adjusted copy of this instant.
     *
     * This returns a new {@code Instant}, based on this one, with the date adjusted.
     * The adjustment takes place using the specified adjuster strategy object.
@@ -540,8 +513,7 @@ final class Instant private(private val seconds: Long, private val nanos: Int) e
     */
   override def `with`(adjuster: TemporalAdjuster): Instant = adjuster.adjustInto(this).asInstanceOf[Instant]
 
-  /**
-    * Returns a copy of this instant with the specified field set to a new value.
+  /** Returns a copy of this instant with the specified field set to a new value.
     *
     * This returns a new {@code Instant}, based on this one, with the value
     * for the specified field changed.
@@ -604,8 +576,7 @@ final class Instant private(private val seconds: Long, private val nanos: Int) e
     field.adjustInto(this, newValue)
   }
 
-  /**
-    * Returns a copy of this {@code Instant} truncated to the specified unit.
+  /** Returns a copy of this {@code Instant} truncated to the specified unit.
     *
     * Truncating the instant returns a copy of the original with fields
     * smaller than the specified unit set to zero.
@@ -642,15 +613,13 @@ final class Instant private(private val seconds: Long, private val nanos: Int) e
     plusNanos(result - nod)
   }
 
-  /**
-    * {@inheritDoc}
+  /** {@inheritDoc}
     * @throws DateTimeException { @inheritDoc}
     * @throws ArithmeticException { @inheritDoc}
     */
   override def plus(amount: TemporalAmount): Instant = amount.addTo(this).asInstanceOf[Instant]
 
-  /**
-    * {@inheritDoc}
+  /** {@inheritDoc}
     * @throws DateTimeException { @inheritDoc}
     * @throws ArithmeticException { @inheritDoc}
     */
@@ -680,8 +649,7 @@ final class Instant private(private val seconds: Long, private val nanos: Int) e
     unit.addTo(this, amountToAdd)
   }
 
-  /**
-    * Returns a copy of this instant with the specified duration in seconds added.
+  /** Returns a copy of this instant with the specified duration in seconds added.
     *
     * This instance is immutable and unaffected by this method call.
     *
@@ -692,8 +660,7 @@ final class Instant private(private val seconds: Long, private val nanos: Int) e
     */
   def plusSeconds(secondsToAdd: Long): Instant = plus(secondsToAdd, 0)
 
-  /**
-    * Returns a copy of this instant with the specified duration in milliseconds added.
+  /** Returns a copy of this instant with the specified duration in milliseconds added.
     *
     * This instance is immutable and unaffected by this method call.
     *
@@ -704,8 +671,7 @@ final class Instant private(private val seconds: Long, private val nanos: Int) e
     */
   def plusMillis(millisToAdd: Long): Instant = plus(millisToAdd / 1000, (millisToAdd % 1000) * Instant.NANOS_PER_MILLI)
 
-  /**
-    * Returns a copy of this instant with the specified duration in nanoseconds added.
+  /** Returns a copy of this instant with the specified duration in nanoseconds added.
     *
     * This instance is immutable and unaffected by this method call.
     *
@@ -716,8 +682,7 @@ final class Instant private(private val seconds: Long, private val nanos: Int) e
     */
   def plusNanos(nanosToAdd: Long): Instant = plus(0, nanosToAdd)
 
-  /**
-    * Returns a copy of this instant with the specified duration added.
+  /** Returns a copy of this instant with the specified duration added.
     *
     * This instance is immutable and unaffected by this method call.
     *
@@ -739,23 +704,20 @@ final class Instant private(private val seconds: Long, private val nanos: Int) e
     Instant.ofEpochSecond(epochSec, nanoAdjustment)
   }
 
-  /**
-    * {@inheritDoc}
+  /** {@inheritDoc}
     * @throws DateTimeException { @inheritDoc}
     * @throws ArithmeticException { @inheritDoc}
     */
   override def minus(amount: TemporalAmount): Instant = amount.subtractFrom(this).asInstanceOf[Instant]
 
-  /**
-    * {@inheritDoc}
+  /** {@inheritDoc}
     * @throws DateTimeException { @inheritDoc}
     * @throws ArithmeticException { @inheritDoc}
     */
   override def minus(amountToSubtract: Long, unit: TemporalUnit): Instant =
     if (amountToSubtract == Long.MinValue) plus(Long.MaxValue, unit).plus(1, unit) else plus(-amountToSubtract, unit)
 
-  /**
-    * Returns a copy of this instant with the specified duration in seconds subtracted.
+  /** Returns a copy of this instant with the specified duration in seconds subtracted.
     *
     * This instance is immutable and unaffected by this method call.
     *
@@ -770,8 +732,7 @@ final class Instant private(private val seconds: Long, private val nanos: Int) e
     else
       plusSeconds(-secondsToSubtract)
 
-  /**
-    * Returns a copy of this instant with the specified duration in milliseconds subtracted.
+  /** Returns a copy of this instant with the specified duration in milliseconds subtracted.
     *
     * This instance is immutable and unaffected by this method call.
     *
@@ -787,8 +748,7 @@ final class Instant private(private val seconds: Long, private val nanos: Int) e
     plusMillis(-millisToSubtract)
   }
 
-  /**
-    * Returns a copy of this instant with the specified duration in nanoseconds subtracted.
+  /** Returns a copy of this instant with the specified duration in nanoseconds subtracted.
     *
     * This instance is immutable and unaffected by this method call.
     *
@@ -803,8 +763,7 @@ final class Instant private(private val seconds: Long, private val nanos: Int) e
     else
       plusNanos(-nanosToSubtract)
 
-  /**
-    * Queries this instant using the specified query.
+  /** Queries this instant using the specified query.
     *
     * This queries this instant using the specified query strategy object.
     * The {@code TemporalQuery} object defines the logic to be used to
@@ -829,8 +788,7 @@ final class Instant private(private val seconds: Long, private val nanos: Int) e
     else
       query.queryFrom(this)
 
-  /**
-    * Adjusts the specified temporal object to have this instant.
+  /** Adjusts the specified temporal object to have this instant.
     *
     * This returns a temporal object of the same observable type as the input
     * with the instant changed to be the same as this.
@@ -856,8 +814,7 @@ final class Instant private(private val seconds: Long, private val nanos: Int) e
     */
   def adjustInto(temporal: Temporal): Temporal = temporal.`with`(INSTANT_SECONDS, seconds).`with`(NANO_OF_SECOND, nanos)
 
-  /**
-    * Calculates the period between this instant and another instant in
+  /** Calculates the period between this instant and another instant in
     * terms of the specified unit.
     *
     * This calculates the period between two instants in terms of a single unit.
@@ -943,8 +900,7 @@ final class Instant private(private val seconds: Long, private val nanos: Int) e
     secsDiff
   }
 
-  /**
-    * Combines this instant with an offset to create an {@code OffsetDateTime}.
+  /** Combines this instant with an offset to create an {@code OffsetDateTime}.
     *
     * This returns an {@code OffsetDateTime} formed from this instant at the
     * specified offset from UTC/Greenwich. An exception will be thrown if the
@@ -959,8 +915,7 @@ final class Instant private(private val seconds: Long, private val nanos: Int) e
     */
   def atOffset(offset: ZoneOffset): OffsetDateTime = OffsetDateTime.ofInstant(this, offset)
 
-  /**
-    * Combines this instant with a time-zone to create a {@code ZonedDateTime}.
+  /** Combines this instant with a time-zone to create a {@code ZonedDateTime}.
     *
     * This returns an {@code ZonedDateTime} formed from this instant at the
     * specified time-zone. An exception will be thrown if the instant is too
@@ -975,8 +930,7 @@ final class Instant private(private val seconds: Long, private val nanos: Int) e
     */
   def atZone(zone: ZoneId): ZonedDateTime = ZonedDateTime.ofInstant(this, zone)
 
-  /**
-    * Converts this instant to the number of milliseconds from the epoch
+  /** Converts this instant to the number of milliseconds from the epoch
     * of 1970-01-01T00:00:00Z.
     *
     * If this instant represents a point on the time-line too far in the future
@@ -994,8 +948,7 @@ final class Instant private(private val seconds: Long, private val nanos: Int) e
     millis + nanos / Instant.NANOS_PER_MILLI
   }
 
-  /**
-    * Compares this instant to the specified instant.
+  /** Compares this instant to the specified instant.
     *
     * The comparison is based on the time-line position of the instants.
     * It is "consistent with equals", as defined by {@link Comparable}.
@@ -1010,8 +963,7 @@ final class Instant private(private val seconds: Long, private val nanos: Int) e
     else nanos - otherInstant.nanos
   }
 
-  /**
-    * Checks if this instant is after the specified instant.
+  /** Checks if this instant is after the specified instant.
     *
     * The comparison is based on the time-line position of the instants.
     *
@@ -1021,8 +973,7 @@ final class Instant private(private val seconds: Long, private val nanos: Int) e
     */
   def isAfter(otherInstant: Instant): Boolean = compareTo(otherInstant) > 0
 
-  /**
-    * Checks if this instant is before the specified instant.
+  /** Checks if this instant is before the specified instant.
     *
     * The comparison is based on the time-line position of the instants.
     *
@@ -1032,8 +983,7 @@ final class Instant private(private val seconds: Long, private val nanos: Int) e
     */
   def isBefore(otherInstant: Instant): Boolean = compareTo(otherInstant) < 0
 
-  /**
-    * Checks if this instant is equal to the specified instant.
+  /** Checks if this instant is equal to the specified instant.
     *
     * The comparison is based on the time-line position of the instants.
     *
@@ -1046,15 +996,13 @@ final class Instant private(private val seconds: Long, private val nanos: Int) e
       case _ => false
     }
 
-  /**
-    * Returns a hash code for this instant.
+  /** Returns a hash code for this instant.
     *
     * @return a suitable hash code
     */
   override def hashCode: Int = (seconds ^ (seconds >>> 32)).toInt + 51 * nanos
 
-  /**
-    * A string representation of this instant using ISO-8601 representation.
+  /** A string representation of this instant using ISO-8601 representation.
     *
     * The format used is the same as {@link DateTimeFormatter#ISO_INSTANT}.
     *
@@ -1064,8 +1012,7 @@ final class Instant private(private val seconds: Long, private val nanos: Int) e
 
   private def writeReplace: AnyRef = new Ser(Ser.INSTANT_TYPE, this)
 
-  /**
-    * Defend against malicious streams.
+  /** Defend against malicious streams.
     * @return never
     * @throws InvalidObjectException always
     */

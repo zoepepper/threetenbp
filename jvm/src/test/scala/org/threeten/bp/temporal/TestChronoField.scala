@@ -35,9 +35,7 @@ import org.scalatest.testng.TestNGSuite
 import org.testng.Assert.assertEquals
 import org.testng.annotations.Test
 
-/**
-  * Test.
-  */
+/** Test. */
 @Test class TestChronoField extends TestNGSuite {
   @Test def test_isDateBased(): Unit = {
     for (field <- ChronoField.values) {

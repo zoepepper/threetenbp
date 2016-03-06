@@ -72,8 +72,7 @@ import org.threeten.bp.temporal.TemporalUnit
 import org.threeten.bp.temporal.UnsupportedTemporalTypeException
 import org.threeten.bp.temporal.ValueRange
 
-/**
-  * A date in the Hijrah calendar system.
+/** A date in the Hijrah calendar system.
   *
   * This implements {@code ChronoLocalDate} for the {@link HijrahChronology Hijrah calendar}.
   *
@@ -111,35 +110,24 @@ import org.threeten.bp.temporal.ValueRange
   */
 @SerialVersionUID(-5207853542612002020L)
 object HijrahDate {
-  /**
-    * The minimum valid year-of-era.
-    */
+  /** The minimum valid year-of-era. */
   val MIN_VALUE_OF_ERA: Int = 1
-  /**
-    * The maximum valid year-of-era.
+  /** The maximum valid year-of-era.
     * This is currently set to 9999 but may be changed to increase the valid range
     * in a future version of the specification.
     */
   val MAX_VALUE_OF_ERA: Int = 9999
-  /**
-    * 0-based, for number of day-of-year in the beginning of month in normal
+  /** 0-based, for number of day-of-year in the beginning of month in normal
     * year.
     */
   private val NUM_DAYS: Array[Int] = Array(0, 30, 59, 89, 118, 148, 177, 207, 236, 266, 295, 325)
-  /**
-    * 0-based, for number of day-of-year in the beginning of month in leap year.
-    */
+  /** 0-based, for number of day-of-year in the beginning of month in leap year. */
   private val LEAP_NUM_DAYS: Array[Int] = Array(0, 30, 59, 89, 118, 148, 177, 207, 236, 266, 295, 325)
-  /**
-    * 0-based, for day-of-month in normal year.
-    */
+  /** 0-based, for day-of-month in normal year. */
   private val MONTH_LENGTH: Array[Int] = Array(30, 29, 30, 29, 30, 29, 30, 29, 30, 29, 30, 29)
-  /**
-    * 0-based, for day-of-month in leap year.
-    */
+  /** 0-based, for day-of-month in leap year. */
   private val LEAP_MONTH_LENGTH: Array[Int] = Array(30, 29, 30, 29, 30, 29, 30, 29, 30, 29, 30, 30)
-  /**
-    * <pre>
+  /** <pre>
     * Greatest       Least
     * Field name        Minimum   Minimum     Maximum     Maximum
     * ----------        -------   -------     -------     -------
@@ -153,68 +141,46 @@ object HijrahDate {
     * Minimum values.
     */
   private val MIN_VALUES: Array[Int] = Array(0, MIN_VALUE_OF_ERA, 0, 1, 0, 1, 1)
-  /**
-    * Least maximum values.
-    */
+  /** Least maximum values. */
   private val LEAST_MAX_VALUES: Array[Int] = Array(1, MAX_VALUE_OF_ERA, 11, 51, 5, 29, 354)
-  /**
-    * Maximum values.
-    */
+  /** Maximum values. */
   private val MAX_VALUES: Array[Int] = Array(1, MAX_VALUE_OF_ERA, 11, 52, 6, 30, 355)
-  /**
-    * Position of day-of-month. This value is used to get the min/max value
+  /** Position of day-of-month. This value is used to get the min/max value
     * from an array.
     */
   private val POSITION_DAY_OF_MONTH: Int = 5
-  /**
-    * Position of day-of-year. This value is used to get the min/max value from
+  /** Position of day-of-year. This value is used to get the min/max value from
     * an array.
     */
   private val POSITION_DAY_OF_YEAR: Int = 6
-  /**
-    * Zero-based start date of cycle year.
-    */
+  /** Zero-based start date of cycle year. */
   private val CYCLEYEAR_START_DATE: Array[Int] = Array(0, 354, 709, 1063, 1417, 1772, 2126, 2481, 2835, 3189, 3544, 3898, 4252, 4607, 4961, 5315, 5670, 6024, 6379, 6733, 7087, 7442, 7796, 8150, 8505, 8859, 9214, 9568, 9922, 10277)
-  /**
-    * File separator.
-    */
+  /** File separator. */
   private val FILE_SEP: Char = File.separatorChar
-  /**
-    * Path separator.
-    */
+  /** Path separator. */
   private val PATH_SEP: String = File.pathSeparator
-  /**
-    * Default config file name.
-    */
+  /** Default config file name. */
   private val DEFAULT_CONFIG_FILENAME: String = "hijrah_deviation.cfg"
-  /**
-    * Default path to the config file.
-    */
+  /** Default path to the config file. */
   private val DEFAULT_CONFIG_PATH: String = "org" + FILE_SEP + "threeten" + FILE_SEP + "bp" + FILE_SEP + "chrono"
 
-  /**
-    * number of 30-year cycles to hold the deviation data.
-    */
+  /** number of 30-year cycles to hold the deviation data. */
   private val MAX_ADJUSTED_CYCLE: Int = 334
 
-  /**
-    * Holding the adjusted month days in year. The key is a year (Integer) and
+  /** Holding the adjusted month days in year. The key is a year (Integer) and
     * the value is the all the month days in year (Integer[]).
     */
   private val ADJUSTED_MONTH_DAYS: java.util.HashMap[Integer, Array[Integer]] = new java.util.HashMap[Integer, Array[Integer]]
-  /**
-    * Holding the adjusted month length in year. The key is a year (Integer)
+  /** Holding the adjusted month length in year. The key is a year (Integer)
     * and the value is the all the month length in year (Integer[]).
     */
   private val ADJUSTED_MONTH_LENGTHS: java.util.HashMap[Integer, Array[Integer]] = new java.util.HashMap[Integer, Array[Integer]]
-  /**
-    * Holding the adjusted days in the 30 year cycle. The key is a cycle number
+  /** Holding the adjusted days in the 30 year cycle. The key is a cycle number
     * (Integer) and the value is the all the starting days of the year in the
     * cycle (Integer[]).
     */
   private val ADJUSTED_CYCLE_YEARS: java.util.HashMap[Integer, Array[Integer]] = new java.util.HashMap[Integer, Array[Integer]]
-  /**
-    * Holding the adjusted cycle in the 1 - 30000 year. The key is the cycle
+  /** Holding the adjusted cycle in the 1 - 30000 year. The key is the cycle
     * number (Integer) and the value is the starting days in the cycle in the
     * term.
     */
@@ -228,9 +194,7 @@ object HijrahDate {
     cycles
   }
 
-  /**
-    * Holding the adjusted min values.
-    */
+  /** Holding the adjusted min values. */
   private val ADJUSTED_MIN_VALUES: Array[Integer] = {
     val values = new Array[Integer](MIN_VALUES.length)
     var i: Int = 0
@@ -240,9 +204,7 @@ object HijrahDate {
     }
     values
   }
-  /**
-    * Holding the adjusted max least max values.
-    */
+  /** Holding the adjusted max least max values. */
   private val ADJUSTED_LEAST_MAX_VALUES: Array[Integer] = {
     val values = new Array[Integer](LEAST_MAX_VALUES.length)
     var i: Int = 0
@@ -252,9 +214,7 @@ object HijrahDate {
     }
     values
   }
-  /**
-    * Holding adjusted max values.
-    */
+  /** Holding adjusted max values. */
   private val ADJUSTED_MAX_VALUES: Array[Integer] = {
     val values = new Array[Integer](MAX_VALUES.length)
     var i: Int = 0
@@ -264,9 +224,7 @@ object HijrahDate {
     }
     values
   }
-  /**
-    * Holding the non-adjusted month days in year for non leap year.
-    */
+  /** Holding the non-adjusted month days in year for non leap year. */
   private val DEFAULT_MONTH_DAYS: Array[Integer] = {
     val days = new Array[Integer](NUM_DAYS.length)
     var i: Int = 0
@@ -277,9 +235,7 @@ object HijrahDate {
     days
   }
 
-  /**
-    * Holding the non-adjusted month days in year for leap year.
-    */
+  /** Holding the non-adjusted month days in year for leap year. */
   private val DEFAULT_LEAP_MONTH_DAYS: Array[Integer] = {
     val days = new Array[Integer](LEAP_NUM_DAYS.length)
     var i: Int = 0
@@ -289,9 +245,7 @@ object HijrahDate {
     }
     days
   }
-  /**
-    * Holding the non-adjusted month length for non leap year.
-    */
+  /** Holding the non-adjusted month length for non leap year. */
   private val DEFAULT_MONTH_LENGTHS: Array[Integer] = {
     val lengths = new Array[Integer](MONTH_LENGTH.length)
     var i: Int = 0
@@ -301,9 +255,7 @@ object HijrahDate {
     }
     lengths
   }
-  /**
-    * Holding the non-adjusted month length for leap year.
-    */
+  /** Holding the non-adjusted month length for leap year. */
   private val DEFAULT_LEAP_MONTH_LENGTHS: Array[Integer] = {
     val lengths = new Array[Integer](LEAP_MONTH_LENGTH.length)
     var i: Int = 0
@@ -313,9 +265,7 @@ object HijrahDate {
     }
     lengths
   }
-  /**
-    * Holding the non-adjusted 30 year cycle starting day.
-    */
+  /** Holding the non-adjusted 30 year cycle starting day. */
   private val DEFAULT_CYCLE_YEARS: Array[Integer] = {
     val years = new Array[Integer](CYCLEYEAR_START_DATE.length)
     var i: Int = 0
@@ -325,8 +275,7 @@ object HijrahDate {
     }
     years
   }
-  /**
-    * Number of Gregorian day of July 19, year 622 (Gregorian), which is epoch day
+  /** Number of Gregorian day of July 19, year 622 (Gregorian), which is epoch day
     * of Hijrah calendar.
     */
   private val HIJRAH_JAN_1_1_GREGORIAN_DAY: Int = -492148
@@ -337,8 +286,7 @@ object HijrahDate {
     case e: ParseException =>
   }
 
-  /**
-    * Obtains the current {@code HijrahDate} of the Islamic Umm Al-Qura calendar
+  /** Obtains the current {@code HijrahDate} of the Islamic Umm Al-Qura calendar
     * in the default time-zone.
     *
     * This will query the {@link Clock#systemDefaultZone() system clock} in the default
@@ -351,8 +299,7 @@ object HijrahDate {
     */
   def now: HijrahDate = now(Clock.systemDefaultZone)
 
-  /**
-    * Obtains the current {@code HijrahDate} of the Islamic Umm Al-Qura calendar
+  /** Obtains the current {@code HijrahDate} of the Islamic Umm Al-Qura calendar
     * in the specified time-zone.
     *
     * This will query the {@link Clock#system(ZoneId) system clock} to obtain the current date.
@@ -366,8 +313,7 @@ object HijrahDate {
     */
   def now(zone: ZoneId): HijrahDate = now(Clock.system(zone))
 
-  /**
-    * Obtains the current {@code HijrahDate} of the Islamic Umm Al-Qura calendar
+  /** Obtains the current {@code HijrahDate} of the Islamic Umm Al-Qura calendar
     * from the specified clock.
     *
     * This will query the specified clock to obtain the current date - today.
@@ -380,8 +326,7 @@ object HijrahDate {
     */
   def now(clock: Clock): HijrahDate = HijrahChronology.INSTANCE.dateNow(clock)
 
-  /**
-    * Obtains an instance of {@code HijrahDate} from the Hijrah era year,
+  /** Obtains an instance of {@code HijrahDate} from the Hijrah era year,
     * month-of-year and day-of-month. This uses the Hijrah era.
     *
     * @param prolepticYear  the proleptic year to represent in the Hijrah
@@ -395,8 +340,7 @@ object HijrahDate {
     if (prolepticYear >= 1) HijrahDate.of(HijrahEra.AH, prolepticYear, monthOfYear, dayOfMonth)
     else HijrahDate.of(HijrahEra.BEFORE_AH, 1 - prolepticYear, monthOfYear, dayOfMonth)
 
-  /**
-    * Obtains an instance of {@code HijrahDate} from the era, year-of-era
+  /** Obtains an instance of {@code HijrahDate} from the era, year-of-era
     * month-of-year and day-of-month.
     *
     * @param era  the era to represent, not null
@@ -416,8 +360,7 @@ object HijrahDate {
     new HijrahDate(gregorianDays)
   }
 
-  /**
-    * Check the validity of a yearOfEra.
+  /** Check the validity of a yearOfEra.
     * @param yearOfEra the year to check
     */
   private def checkValidYearOfEra(yearOfEra: Int): Unit =
@@ -436,8 +379,7 @@ object HijrahDate {
     if (dayOfMonth < 1 || dayOfMonth > getMaximumDayOfMonth)
       throw new DateTimeException("Invalid day of month of Hijrah date, day " + dayOfMonth + " greater than " + getMaximumDayOfMonth + " or less than 1")
 
-  /**
-    * Obtains an instance of {@code HijrahDate} from a date.
+  /** Obtains an instance of {@code HijrahDate} from a date.
     *
     * @param date  the date to use, not null
     * @return the Hijrah date, never null
@@ -450,8 +392,7 @@ object HijrahDate {
 
   private[chrono] def ofEpochDay(epochDay: Long): HijrahDate = new HijrahDate(epochDay)
 
-  /**
-    * Obtains a {@code HijrahDate} of the Islamic Umm Al-Qura calendar from a temporal object.
+  /** Obtains a {@code HijrahDate} of the Islamic Umm Al-Qura calendar from a temporal object.
     *
     * This obtains a date in the Hijrah calendar system based on the specified temporal.
     * A {@code TemporalAccessor} represents an arbitrary set of date and time information,
@@ -478,8 +419,7 @@ object HijrahDate {
     HijrahDate.of(yearOfEra, month, _day)
   }
 
-  /**
-    * Returns the int array containing the following field from the julian day.
+  /** Returns the int array containing the following field from the julian day.
     *
     * int[0] = ERA
     * int[1] = YEAR
@@ -534,8 +474,7 @@ object HijrahDate {
     Array[Int](era, year, month + 1, date, dayOfYear + 1, dayOfWeek)
   }
 
-  /**
-    * Return Gregorian epoch day from Hijrah year, month, and day.
+  /** Return Gregorian epoch day from Hijrah year, month, and day.
     *
     * @param prolepticYear  the year to represent, caller calculated
     * @param monthOfYear  the month-of-year to represent, caller calculated
@@ -549,8 +488,7 @@ object HijrahDate {
     day
   }
 
-  /**
-    * Returns the Gregorian epoch day from the proleptic year
+  /** Returns the Gregorian epoch day from the proleptic year
     * @param prolepticYear the proleptic year
     * @return the Epoch day
     */
@@ -575,8 +513,7 @@ object HijrahDate {
     (cycleDays.longValue + dayInCycle + HIJRAH_JAN_1_1_GREGORIAN_DAY - 1)
   }
 
-  /**
-    * Returns the 30 year cycle number from the epoch day.
+  /** Returns the 30 year cycle number from the epoch day.
     *
     * @param epochDay  an epoch day
     * @return a cycle number
@@ -598,8 +535,7 @@ object HijrahDate {
     cycleNumber
   }
 
-  /**
-    * Returns day of cycle from the epoch day and cycle number.
+  /** Returns day of cycle from the epoch day and cycle number.
     *
     * @param epochDay  an epoch day
     * @param cycleNumber  a cycle number
@@ -618,8 +554,7 @@ object HijrahDate {
     (epochDay - day.longValue).toInt
   }
 
-  /**
-    * Returns the year in cycle from the cycle number and day of cycle.
+  /** Returns the year in cycle from the cycle number and day of cycle.
     *
     * @param cycleNumber  a cycle number
     * @param dayOfCycle  day of cycle
@@ -655,8 +590,7 @@ object HijrahDate {
     }
   }
 
-  /**
-    * Returns adjusted 30 year cycle startind day as Integer array from the
+  /** Returns adjusted 30 year cycle startind day as Integer array from the
     * cycle number specified.
     *
     * @param cycleNumber  a cycle number
@@ -678,8 +612,7 @@ object HijrahDate {
     cycles
   }
 
-  /**
-    * Returns adjusted month days as Integer array form the year specified.
+  /** Returns adjusted month days as Integer array form the year specified.
     *
     * @param year  a year
     * @return an Integer array
@@ -705,8 +638,7 @@ object HijrahDate {
     newMonths
   }
 
-  /**
-    * Returns adjusted month length as Integer array form the year specified.
+  /** Returns adjusted month length as Integer array form the year specified.
     *
     * @param year  a year
     * @return an Integer array
@@ -732,8 +664,7 @@ object HijrahDate {
     newMonths
   }
 
-  /**
-    * Returns day-of-year.
+  /** Returns day-of-year.
     *
     * @param cycleNumber  a cycle number
     * @param dayOfCycle  day of cycle
@@ -748,8 +679,7 @@ object HijrahDate {
       cycles(yearInCycle).intValue + dayOfCycle
   }
 
-  /**
-    * Returns month-of-year. 0-based.
+  /** Returns month-of-year. 0-based.
     *
     * @param dayOfYear  day-of-year
     * @param year  a year
@@ -781,8 +711,7 @@ object HijrahDate {
     }
   }
 
-  /**
-    * Returns day-of-month.
+  /** Returns day-of-month.
     *
     * @param dayOfYear  day of  year
     * @param month  month
@@ -806,16 +735,14 @@ object HijrahDate {
     }
   }
 
-  /**
-    * Determines if the given year is a leap year.
+  /** Determines if the given year is a leap year.
     *
     * @param year  year
     * @return true if leap year
     */
   private[chrono] def isLeapYear(year: Long): Boolean = (14 + 11 * (if (year > 0) year else -year)) % 30 < 11
 
-  /**
-    * Returns month days from the beginning of year.
+  /** Returns month days from the beginning of year.
     *
     * @param month  month (0-based)
     * @param year  year
@@ -826,8 +753,7 @@ object HijrahDate {
     newMonths(month).intValue
   }
 
-  /**
-    * Returns month length.
+  /** Returns month length.
     *
     * @param month  month (0-based)
     * @param year  year
@@ -838,8 +764,7 @@ object HijrahDate {
     newMonths(month).intValue
   }
 
-  /**
-    * Returns year length.
+  /** Returns year length.
     *
     * @param year  year
     * @return year length
@@ -864,36 +789,31 @@ object HijrahDate {
     }
   }
 
-  /**
-    * Returns maximum day-of-month.
+  /** Returns maximum day-of-month.
     *
     * @return maximum day-of-month
     */
   private[chrono] def getMaximumDayOfMonth: Int = ADJUSTED_MAX_VALUES(POSITION_DAY_OF_MONTH)
 
-  /**
-    * Returns smallest maximum day-of-month.
+  /** Returns smallest maximum day-of-month.
     *
     * @return smallest maximum day-of-month
     */
   private[chrono] def getSmallestMaximumDayOfMonth: Int = ADJUSTED_LEAST_MAX_VALUES(POSITION_DAY_OF_MONTH)
 
-  /**
-    * Returns maximum day-of-year.
+  /** Returns maximum day-of-year.
     *
     * @return maximum day-of-year
     */
   private[chrono] def getMaximumDayOfYear: Int = ADJUSTED_MAX_VALUES(POSITION_DAY_OF_YEAR)
 
-  /**
-    * Returns smallest maximum day-of-year.
+  /** Returns smallest maximum day-of-year.
     *
     * @return smallest maximum day-of-year
     */
   private[chrono] def getSmallestMaximumDayOfYear: Int = ADJUSTED_LEAST_MAX_VALUES(POSITION_DAY_OF_YEAR)
 
-  /**
-    * Adds deviation definition. The year and month sepcifed should be the
+  /** Adds deviation definition. The year and month sepcifed should be the
     * caluculated Hijrah year and month. The month is 0 based. e.g. 8 for
     * Ramadan (9th month) Addition of anything minus deviation days is
     * calculated negatively in the case the user wants to subtract days from
@@ -1171,8 +1091,7 @@ object HijrahDate {
     ADJUSTED_LEAST_MAX_VALUES(POSITION_DAY_OF_YEAR) = new Integer(leastMaxMonthDay)
   }
 
-  /**
-    * Read hijrah_deviation.cfg file. The config file contains the deviation data with
+  /** Read hijrah_deviation.cfg file. The config file contains the deviation data with
     * following format.
     *
     * StartYear/StartMonth(0-based)-EndYear/EndMonth(0-based):Deviation day (1,
@@ -1214,8 +1133,7 @@ object HijrahDate {
     }
   }
 
-  /**
-    * Parse each deviation element.
+  /** Parse each deviation element.
     *
     * @param line  a line to parse
     * @param num  line number
@@ -1298,8 +1216,7 @@ object HijrahDate {
     }
   }
 
-  /**
-    * Return InputStream for deviation configuration file.
+  /** Return InputStream for deviation configuration file.
     * The default location of the deviation file is:
     * <pre>
     * $CLASSPATH/org/threeten/bp/chrono
@@ -1396,45 +1313,37 @@ object HijrahDate {
     HijrahChronology.INSTANCE.date(year, month, dayOfMonth)
   }
 }
-/**
-  * Constructs an instance with the specified date.
+/** Constructs an instance with the specified date.
   *
   * @param gregorianEpochDay  the number of days from 0001/01/01 (Gregorian), caller calculated
   */
 @SerialVersionUID(-5207853542612002020L)
 final class HijrahDate private (private val gregorianEpochDay: Long) extends ChronoDateImpl[HijrahDate] with Serializable {
-  /**
-    * The era.
+  /** The era.
     */
   @transient
   private var era: HijrahEra = null
-  /**
-    * The year.
+  /** The year.
     */
   @transient
   private var yearOfEra: Int = 0
-  /**
-    * The month-of-year.
+  /** The month-of-year.
     */
   @transient
   private var monthOfYear: Int = 0
-  /**
-    * The day-of-month.
+  /** The day-of-month.
     */
   @transient
   private var dayOfMonth: Int = 0
-  /**
-    * The day-of-year.
+  /** The day-of-year.
     */
   @transient
   private var dayOfYear: Int = 0
-  /**
-    * The day-of-week.
+  /** The day-of-week.
     */
   @transient
   private var dayOfWeek: DayOfWeek = null
-  /**
-    * True if year is leap year.
+  /** True if year is leap year.
     */
   @transient
   private var _isLeapYear: Boolean = false
@@ -1454,8 +1363,7 @@ final class HijrahDate private (private val gregorianEpochDay: Long) extends Chr
     this._isLeapYear = HijrahDate.isLeapYear(this.yearOfEra)
   }
 
-  /**
-    * Replaces the date instance from the stream with a valid one.
+  /** Replaces the date instance from the stream with a valid one.
     *
     * @return the resolved date, never null
     */
@@ -1578,8 +1486,7 @@ final class HijrahDate private (private val gregorianEpochDay: Long) extends Chr
 
   override def toEpochDay: Long = HijrahDate.getGregorianEpochDay(yearOfEra, monthOfYear, dayOfMonth)
 
-  /**
-    * Checks if the year is a leap year, according to the Hijrah calendar system rules.
+  /** Checks if the year is a leap year, according to the Hijrah calendar system rules.
     *
     * @return true if this date is in a leap year
     */

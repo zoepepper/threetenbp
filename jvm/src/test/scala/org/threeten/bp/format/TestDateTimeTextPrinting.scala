@@ -44,9 +44,7 @@ import org.threeten.bp.LocalDateTime
 import org.threeten.bp.Month
 import org.threeten.bp.temporal.TemporalField
 
-/**
-  * Test text printing.
-  */
+/** Test text printing. */
 @Test class TestDateTimeTextPrinting extends TestNGSuite {
   private var builder: DateTimeFormatterBuilder = null
 

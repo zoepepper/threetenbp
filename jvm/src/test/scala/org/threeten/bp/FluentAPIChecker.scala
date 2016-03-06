@@ -47,9 +47,7 @@ import org.threeten.bp.temporal.TemporalAdjusters.next
 import org.threeten.bp.temporal.TemporalAdjusters.nextOrSame
 import org.threeten.bp.zone.ZoneOffsetTransition
 
-/**
-  * Test the fluency of the whole API.
-  */
+/** Test the fluency of the whole API. */
 object FluentAPIChecker {
   @SuppressWarnings(Array("unused")) def main(args: Array[String]): Unit = {
     val clock: Clock = Clock.systemDefaultZone

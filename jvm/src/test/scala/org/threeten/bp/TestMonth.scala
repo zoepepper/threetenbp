@@ -51,9 +51,7 @@ import org.threeten.bp.temporal.TemporalAccessor
 import org.threeten.bp.temporal.TemporalField
 import org.threeten.bp.temporal.TemporalQueries
 
-/**
-  * Test Month.
-  */
+/** Test Month. */
 @Test object TestMonth {
   private val MAX_LENGTH: Int = 12
 }

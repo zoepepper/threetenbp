@@ -36,9 +36,7 @@ import org.threeten.bp.temporal.ChronoField.MONTH_OF_YEAR
 import org.testng.annotations.Test
 import org.threeten.bp.temporal.TemporalField
 
-/**
-  * Test PadPrinterParserDecorator.
-  */
+/** Test PadPrinterParserDecorator. */
 @Test class TestPadParserDecorator extends AbstractTestPrinterParser {
   @Test(expectedExceptions = Array(classOf[IndexOutOfBoundsException]))
   @throws(classOf[Exception])

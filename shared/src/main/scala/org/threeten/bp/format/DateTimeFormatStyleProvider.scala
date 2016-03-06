@@ -34,8 +34,7 @@ package org.threeten.bp.format
 import java.util.Locale
 import org.threeten.bp.chrono.Chronology
 
-/**
-  * The Service Provider Interface (SPI) to be implemented by classes providing
+/** The Service Provider Interface (SPI) to be implemented by classes providing
   * date-time formatting information.
   *
   * <h3>Specification for implementors</h3>
@@ -44,8 +43,7 @@ import org.threeten.bp.chrono.Chronology
   * Implementations should cache the returned formatters.
   */
 object DateTimeFormatStyleProvider {
-  /**
-    * Gets the provider.
+  /** Gets the provider.
     *
     * @return the provider, not null
     */
@@ -54,15 +52,13 @@ object DateTimeFormatStyleProvider {
 }
 
 abstract class DateTimeFormatStyleProvider {
-  /**
-    * Gets the available locales.
+  /** Gets the available locales.
     *
     * @return the locales
     */
   def getAvailableLocales: Array[Locale] = throw new UnsupportedOperationException
 
-  /**
-    * Gets a localized date, time or date-time formatter.
+  /** Gets a localized date, time or date-time formatter.
     *
     * The formatter will be the most appropriate to use for the date and time style in the locale.
     * For example, some locales will use the month name while others will use the number.

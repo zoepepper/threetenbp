@@ -55,9 +55,7 @@ import java.util.Random
 import java.util.TreeMap
 import org.threeten.bp.format.DateTimeFormatter
 
-/**
-  * Test Performance.
-  */
+/** Test Performance. */
 object Performance extends TestNGSuite {
   /** Size. */
   private val NF: NumberFormat = {
@@ -72,9 +70,8 @@ object Performance extends TestNGSuite {
   /** Count. */
   private var loop: Int = 0
 
-  /**
-    * Main.
- *
+  /** Main.
+    *
     * @param args  the arguments
     */
   def main(args: Array[String]): Unit = {

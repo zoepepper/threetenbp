@@ -62,8 +62,7 @@ import org.threeten.bp.zone.ZoneRules
 @SerialVersionUID(-6260982410461394882L)
 object ZonedDateTime {
 
-  /**
-    * Obtains the current date-time from the system clock in the default time-zone.
+  /** Obtains the current date-time from the system clock in the default time-zone.
     *
     * This will query the {@link Clock#systemDefaultZone() system clock} in the default
     * time-zone to obtain the current date-time.
@@ -76,8 +75,7 @@ object ZonedDateTime {
     */
   def now: ZonedDateTime = now(Clock.systemDefaultZone)
 
-  /**
-    * Obtains the current date-time from the system clock in the specified time-zone.
+  /** Obtains the current date-time from the system clock in the specified time-zone.
     *
     * This will query the {@link Clock#system(ZoneId) system clock} to obtain the current date-time.
     * Specifying the time-zone avoids dependence on the default time-zone.
@@ -91,8 +89,7 @@ object ZonedDateTime {
     */
   def now(zone: ZoneId): ZonedDateTime = now(Clock.system(zone))
 
-  /**
-    * Obtains the current date-time from the specified clock.
+  /** Obtains the current date-time from the specified clock.
     *
     * This will query the specified clock to obtain the current date-time.
     * The zone and offset will be set based on the time-zone in the clock.
@@ -109,8 +106,7 @@ object ZonedDateTime {
     ofInstant(now, clock.getZone)
   }
 
-  /**
-    * Obtains an instance of {@code ZonedDateTime} from a local date and time.
+  /** Obtains an instance of {@code ZonedDateTime} from a local date and time.
     *
     * This creates a zoned date-time matching the input local date and time as closely as possible.
     * Time-zone rules, such as daylight savings, mean that not every local date-time
@@ -137,8 +133,7 @@ object ZonedDateTime {
     */
   def of(date: LocalDate, time: LocalTime, zone: ZoneId): ZonedDateTime = of(LocalDateTime.of(date, time), zone)
 
-  /**
-    * Obtains an instance of {@code ZonedDateTime} from a local date-time.
+  /** Obtains an instance of {@code ZonedDateTime} from a local date-time.
     *
     * This creates a zoned date-time matching the input local date-time as closely as possible.
     * Time-zone rules, such as daylight savings, mean that not every local date-time
@@ -163,8 +158,7 @@ object ZonedDateTime {
     */
   def of(localDateTime: LocalDateTime, zone: ZoneId): ZonedDateTime = ofLocal(localDateTime, zone, null)
 
-  /**
-    * Obtains an instance of {@code ZonedDateTime} from a year, month, day,
+  /** Obtains an instance of {@code ZonedDateTime} from a year, month, day,
     * hour, minute, second, nanosecond and time-zone.
     *
     * This creates a zoned date-time matching the local date-time of the seven
@@ -208,8 +202,7 @@ object ZonedDateTime {
     ofLocal(dt, zone, null)
   }
 
-  /**
-    * Obtains an instance of {@code ZonedDateTime} from a local date-time
+  /** Obtains an instance of {@code ZonedDateTime} from a local date-time
     * using the preferred offset if possible.
     *
     * The local date-time is resolved to a single instant on the time-line.
@@ -260,8 +253,7 @@ object ZonedDateTime {
     new ZonedDateTime(_localDateTime, offset, zone)
   }
 
-  /**
-    * Obtains an instance of {@code ZonedDateTime} from an {@code Instant}.
+  /** Obtains an instance of {@code ZonedDateTime} from an {@code Instant}.
     *
     * This creates a zoned date-time with the same instant as that specified.
     * Calling {@link #toInstant()} will return an instant equal to the one used here.
@@ -280,8 +272,7 @@ object ZonedDateTime {
     create(instant.getEpochSecond, instant.getNano, zone)
   }
 
-  /**
-    * Obtains an instance of {@code ZonedDateTime} from the instant formed by combining
+  /** Obtains an instance of {@code ZonedDateTime} from the instant formed by combining
     * the local date-time and offset.
     *
     * This creates a zoned date-time by {@link LocalDateTime#toInstant(ZoneOffset) combining}
@@ -307,8 +298,7 @@ object ZonedDateTime {
     create(localDateTime.toEpochSecond(offset), localDateTime.getNano, zone)
   }
 
-  /**
-    * Obtains an instance of {@code ZonedDateTime} using seconds from the
+  /** Obtains an instance of {@code ZonedDateTime} using seconds from the
     * epoch of 1970-01-01T00:00:00Z.
     *
     * @param epochSecond  the number of seconds from the epoch of 1970-01-01T00:00:00Z
@@ -325,8 +315,7 @@ object ZonedDateTime {
     new ZonedDateTime(ldt, offset, zone)
   }
 
-  /**
-    * Obtains an instance of {@code ZonedDateTime} strictly validating the
+  /** Obtains an instance of {@code ZonedDateTime} strictly validating the
     * combination of local date-time, offset and zone ID.
     *
     * This creates a zoned date-time ensuring that the offset is valid for the
@@ -353,8 +342,7 @@ object ZonedDateTime {
     new ZonedDateTime(localDateTime, offset, zone)
   }
 
-  /**
-    * Obtains an instance of {@code ZonedDateTime} leniently, for advanced use cases,
+  /** Obtains an instance of {@code ZonedDateTime} leniently, for advanced use cases,
     * allowing any combination of local date-time, offset and zone ID.
     *
     * This creates a zoned date-time with no checks other than no nulls.
@@ -384,8 +372,7 @@ object ZonedDateTime {
     new ZonedDateTime(localDateTime, offset, zone)
   }
 
-  /**
-    * Obtains an instance of {@code ZonedDateTime} from a temporal object.
+  /** Obtains an instance of {@code ZonedDateTime} from a temporal object.
     *
     * A {@code TemporalAccessor} represents some form of date and time information.
     * This factory converts the arbitrary temporal object to an instance of {@code ZonedDateTime}.
@@ -426,8 +413,7 @@ object ZonedDateTime {
     }
   }
 
-  /**
-    * Obtains an instance of {@code ZonedDateTime} from a text string such as
+  /** Obtains an instance of {@code ZonedDateTime} from a text string such as
     * {@code 2007-12-03T10:15:30+01:00[Europe/Paris]}.
     *
     * The string must represent a valid date-time and is parsed using
@@ -440,8 +426,7 @@ object ZonedDateTime {
   def parse(text: CharSequence): ZonedDateTime =
     parse(text, DateTimeFormatter.ISO_ZONED_DATE_TIME)
 
-  /**
-    * Obtains an instance of {@code ZonedDateTime} from a text string using a specific formatter.
+  /** Obtains an instance of {@code ZonedDateTime} from a text string using a specific formatter.
     *
     * The text is parsed using the formatter, returning a date-time.
     *
@@ -528,24 +513,21 @@ object ZonedDateTime {
 @SerialVersionUID(-6260982410461394882L)
 final class ZonedDateTime(private val dateTime: LocalDateTime, private val offset: ZoneOffset, private val zone: ZoneId) extends ChronoZonedDateTime[LocalDate] with Temporal with Serializable {
 
-  /**
-    * Resolves the new local date-time using this zone ID, retaining the offset if possible.
+  /** Resolves the new local date-time using this zone ID, retaining the offset if possible.
     *
     * @param newDateTime  the new local date-time, not null
     * @return the zoned date-time, not null
     */
   private def resolveLocal(newDateTime: LocalDateTime): ZonedDateTime = ZonedDateTime.ofLocal(newDateTime, zone, offset)
 
-  /**
-    * Resolves the new local date-time using the offset to identify the instant.
+  /** Resolves the new local date-time using the offset to identify the instant.
     *
     * @param newDateTime  the new local date-time, not null
     * @return the zoned date-time, not null
     */
   private def resolveInstant(newDateTime: LocalDateTime): ZonedDateTime = ZonedDateTime.ofInstant(newDateTime, offset, zone)
 
-  /**
-    * Resolves the offset into this zoned date-time.
+  /** Resolves the offset into this zoned date-time.
     *
     * This ignores the offset, unless it can be used in an overlap.
     *
@@ -558,8 +540,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     else
       this
 
-  /**
-    * Checks if the specified field is supported.
+  /** Checks if the specified field is supported.
     *
     * This checks if this date-time can be queried for the specified field.
     * If false, then calling the {@link #range(TemporalField) range} and
@@ -618,8 +599,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     else
       unit != null && unit.isSupportedBy(this)
 
-  /**
-    * Gets the range of valid values for the specified field.
+  /** Gets the range of valid values for the specified field.
     *
     * The range object expresses the minimum and maximum valid values for a field.
     * This date-time is used to enhance the accuracy of the returned range.
@@ -649,8 +629,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     else
       field.rangeRefinedBy(this)
 
-  /**
-    * Gets the value of the specified field from this date-time as an {@code int}.
+  /** Gets the value of the specified field from this date-time as an {@code int}.
     *
     * This queries this date-time for the value for the specified field.
     * The returned value will always be within the valid range of values for the field.
@@ -688,8 +667,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     super.get(field)
   }
 
-  /**
-    * Gets the value of the specified field from this date-time as a {@code long}.
+  /** Gets the value of the specified field from this date-time as a {@code long}.
     *
     * This queries this date-time for the value for the specified field.
     * If it is not possible to return the value, because the field is not supported
@@ -724,8 +702,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     field.getFrom(this)
   }
 
-  /**
-    * Gets the zone offset, such as '+01:00'.
+  /** Gets the zone offset, such as '+01:00'.
     *
     * This is the offset of the local date-time from UTC/Greenwich.
     *
@@ -733,8 +710,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     */
   def getOffset: ZoneOffset = offset
 
-  /**
-    * Returns a copy of this date-time changing the zone offset to the
+  /** Returns a copy of this date-time changing the zone offset to the
     * earlier of the two valid offsets at a local time-line overlap.
     *
     * This method only has any effect when the local time-line overlaps, such as
@@ -759,8 +735,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     this
   }
 
-  /**
-    * Returns a copy of this date-time changing the zone offset to the
+  /** Returns a copy of this date-time changing the zone offset to the
     * later of the two valid offsets at a local time-line overlap.
     *
     * This method only has any effect when the local time-line overlaps, such as
@@ -785,8 +760,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     this
   }
 
-  /**
-    * Gets the time-zone, such as 'Europe/Paris'.
+  /** Gets the time-zone, such as 'Europe/Paris'.
     *
     * This returns the zone ID. This identifies the time-zone {@link ZoneRules rules}
     * that determine when and how the offset from UTC/Greenwich changes.
@@ -800,8 +774,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     */
   def getZone: ZoneId = zone
 
-  /**
-    * Returns a copy of this date-time with a different time-zone,
+  /** Returns a copy of this date-time with a different time-zone,
     * retaining the local date-time if possible.
     *
     * This method changes the time-zone and retains the local date-time.
@@ -822,8 +795,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     if (this.zone == zone) this else ZonedDateTime.ofLocal(dateTime, zone, offset)
   }
 
-  /**
-    * Returns a copy of this date-time with a different time-zone,
+  /** Returns a copy of this date-time with a different time-zone,
     * retaining the instant.
     *
     * This method changes the time-zone and retains the instant.
@@ -844,8 +816,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     if (this.zone == zone) this else ZonedDateTime.create(dateTime.toEpochSecond(offset), dateTime.getNano, zone)
   }
 
-  /**
-    * Returns a copy of this date-time with the zone ID set to the offset.
+  /** Returns a copy of this date-time with the zone ID set to the offset.
     *
     * This returns a zoned date-time where the zone ID is the same as {@link #getOffset()}.
     * The local date-time, offset and instant of the result will be the same as in this date-time.
@@ -865,8 +836,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     if (this.zone == offset) this
     else new ZonedDateTime(dateTime, offset, offset)
 
-  /**
-    * Gets the year field.
+  /** Gets the year field.
     *
     * This method returns the primitive {@code int} value for the year.
     *
@@ -877,8 +847,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     */
   def getYear: Int = dateTime.getYear
 
-  /**
-    * Gets the month-of-year field from 1 to 12.
+  /** Gets the month-of-year field from 1 to 12.
     *
     * This method returns the month as an {@code int} from 1 to 12.
     * Application code is frequently clearer if the enum {@link Month}
@@ -889,8 +858,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     */
   def getMonthValue: Int = dateTime.getMonthValue
 
-  /**
-    * Gets the month-of-year field using the {@code Month} enum.
+  /** Gets the month-of-year field using the {@code Month} enum.
     *
     * This method returns the enum {@link Month} for the month.
     * This avoids confusion as to what {@code int} values mean.
@@ -902,8 +870,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     */
   def getMonth: Month = dateTime.getMonth
 
-  /**
-    * Gets the day-of-month field.
+  /** Gets the day-of-month field.
     *
     * This method returns the primitive {@code int} value for the day-of-month.
     *
@@ -911,8 +878,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     */
   def getDayOfMonth: Int = dateTime.getDayOfMonth
 
-  /**
-    * Gets the day-of-year field.
+  /** Gets the day-of-year field.
     *
     * This method returns the primitive {@code int} value for the day-of-year.
     *
@@ -920,8 +886,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     */
   def getDayOfYear: Int = dateTime.getDayOfYear
 
-  /**
-    * Gets the day-of-week field, which is an enum {@code DayOfWeek}.
+  /** Gets the day-of-week field, which is an enum {@code DayOfWeek}.
     *
     * This method returns the enum {@link DayOfWeek} for the day-of-week.
     * This avoids confusion as to what {@code int} values mean.
@@ -935,36 +900,31 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     */
   def getDayOfWeek: DayOfWeek = dateTime.getDayOfWeek
 
-  /**
-    * Gets the hour-of-day field.
+  /** Gets the hour-of-day field.
     *
     * @return the hour-of-day, from 0 to 23
     */
   def getHour: Int = dateTime.getHour
 
-  /**
-    * Gets the minute-of-hour field.
+  /** Gets the minute-of-hour field.
     *
     * @return the minute-of-hour, from 0 to 59
     */
   def getMinute: Int = dateTime.getMinute
 
-  /**
-    * Gets the second-of-minute field.
+  /** Gets the second-of-minute field.
     *
     * @return the second-of-minute, from 0 to 59
     */
   def getSecond: Int = dateTime.getSecond
 
-  /**
-    * Gets the nano-of-second field.
+  /** Gets the nano-of-second field.
     *
     * @return the nano-of-second, from 0 to 999,999,999
     */
   def getNano: Int = dateTime.getNano
 
-  /**
-    * Returns an adjusted copy of this date-time.
+  /** Returns an adjusted copy of this date-time.
     *
     * This returns a new {@code ZonedDateTime}, based on this one, with the date-time adjusted.
     * The adjustment takes place using the specified adjuster strategy object.
@@ -1031,8 +991,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     else
       adjuster.adjustInto(this).asInstanceOf[ZonedDateTime]
 
-  /**
-    * Returns a copy of this date-time with the specified field set to a new value.
+  /** Returns a copy of this date-time with the specified field set to a new value.
     *
     * This returns a {@code ZonedDateTime}, based on this one, with the value
     * for the specified field changed.
@@ -1099,8 +1058,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     field.adjustInto(this, newValue)
   }
 
-  /**
-    * Returns a copy of this {@code ZonedDateTime} with the year value altered.
+  /** Returns a copy of this {@code ZonedDateTime} with the year value altered.
     *
     * This operates on the local time-line,
     * {@link LocalDateTime#withYear(int) changing the year} of the local date-time.
@@ -1119,8 +1077,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     */
   def withYear(year: Int): ZonedDateTime = resolveLocal(dateTime.withYear(year))
 
-  /**
-    * Returns a copy of this {@code ZonedDateTime} with the month-of-year value altered.
+  /** Returns a copy of this {@code ZonedDateTime} with the month-of-year value altered.
     *
     * This operates on the local time-line,
     * {@link LocalDateTime#withMonth(int) changing the month} of the local date-time.
@@ -1139,8 +1096,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     */
   def withMonth(month: Int): ZonedDateTime = resolveLocal(dateTime.withMonth(month))
 
-  /**
-    * Returns a copy of this {@code ZonedDateTime} with the day-of-month value altered.
+  /** Returns a copy of this {@code ZonedDateTime} with the day-of-month value altered.
     *
     * This operates on the local time-line,
     * {@link LocalDateTime#withDayOfMonth(int) changing the day-of-month} of the local date-time.
@@ -1160,8 +1116,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     */
   def withDayOfMonth(dayOfMonth: Int): ZonedDateTime = resolveLocal(dateTime.withDayOfMonth(dayOfMonth))
 
-  /**
-    * Returns a copy of this {@code ZonedDateTime} with the day-of-year altered.
+  /** Returns a copy of this {@code ZonedDateTime} with the day-of-year altered.
     *
     * This operates on the local time-line,
     * {@link LocalDateTime#withDayOfYear(int) changing the day-of-year} of the local date-time.
@@ -1181,8 +1136,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     */
   def withDayOfYear(dayOfYear: Int): ZonedDateTime = resolveLocal(dateTime.withDayOfYear(dayOfYear))
 
-  /**
-    * Returns a copy of this {@code ZonedDateTime} with the hour-of-day value altered.
+  /** Returns a copy of this {@code ZonedDateTime} with the hour-of-day value altered.
     *
     * This operates on the local time-line,
     * {@link LocalDateTime#withHour(int) changing the time} of the local date-time.
@@ -1201,8 +1155,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     */
   def withHour(hour: Int): ZonedDateTime = resolveLocal(dateTime.withHour(hour))
 
-  /**
-    * Returns a copy of this {@code ZonedDateTime} with the minute-of-hour value altered.
+  /** Returns a copy of this {@code ZonedDateTime} with the minute-of-hour value altered.
     *
     * This operates on the local time-line,
     * {@link LocalDateTime#withMinute(int) changing the time} of the local date-time.
@@ -1221,8 +1174,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     */
   def withMinute(minute: Int): ZonedDateTime = resolveLocal(dateTime.withMinute(minute))
 
-  /**
-    * Returns a copy of this {@code ZonedDateTime} with the second-of-minute value altered.
+  /** Returns a copy of this {@code ZonedDateTime} with the second-of-minute value altered.
     *
     * This operates on the local time-line,
     * {@link LocalDateTime#withSecond(int) changing the time} of the local date-time.
@@ -1241,8 +1193,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     */
   def withSecond(second: Int): ZonedDateTime = resolveLocal(dateTime.withSecond(second))
 
-  /**
-    * Returns a copy of this {@code ZonedDateTime} with the nano-of-second value altered.
+  /** Returns a copy of this {@code ZonedDateTime} with the nano-of-second value altered.
     *
     * This operates on the local time-line,
     * {@link LocalDateTime#withNano(int) changing the time} of the local date-time.
@@ -1261,8 +1212,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     */
   def withNano(nanoOfSecond: Int): ZonedDateTime = resolveLocal(dateTime.withNano(nanoOfSecond))
 
-  /**
-    * Returns a copy of this {@code ZonedDateTime} with the time truncated.
+  /** Returns a copy of this {@code ZonedDateTime} with the time truncated.
     *
     * Truncation returns a copy of the original date-time with fields
     * smaller than the specified unit set to zero.
@@ -1291,8 +1241,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     */
   def truncatedTo(unit: TemporalUnit): ZonedDateTime = resolveLocal(dateTime.truncatedTo(unit))
 
-  /**
-    * Returns a copy of this date-time with the specified period added.
+  /** Returns a copy of this date-time with the specified period added.
     *
     * This method returns a new date-time based on this time with the specified period added.
     * The amount is typically {@link Period} but may be any other type implementing
@@ -1309,8 +1258,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     */
   override def plus(amount: TemporalAmount): ZonedDateTime = amount.addTo(this).asInstanceOf[ZonedDateTime]
 
-  /**
-    * Returns a copy of this date-time with the specified period added.
+  /** Returns a copy of this date-time with the specified period added.
     *
     * This method returns a new date-time based on this date-time with the specified period added.
     * This can be used to add any period that is defined by a unit, for example to add years, months or days.
@@ -1350,8 +1298,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     unit.addTo(this, amountToAdd)
   }
 
-  /**
-    * Returns a copy of this {@code ZonedDateTime} with the specified period in years added.
+  /** Returns a copy of this {@code ZonedDateTime} with the specified period in years added.
     *
     * This operates on the local time-line,
     * {@link LocalDateTime#plusYears(long) adding years} to the local date-time.
@@ -1370,8 +1317,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     */
   def plusYears(years: Long): ZonedDateTime = resolveLocal(dateTime.plusYears(years))
 
-  /**
-    * Returns a copy of this {@code ZonedDateTime} with the specified period in months added.
+  /** Returns a copy of this {@code ZonedDateTime} with the specified period in months added.
     *
     * This operates on the local time-line,
     * {@link LocalDateTime#plusMonths(long) adding months} to the local date-time.
@@ -1390,8 +1336,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     */
   def plusMonths(months: Long): ZonedDateTime = resolveLocal(dateTime.plusMonths(months))
 
-  /**
-    * Returns a copy of this {@code ZonedDateTime} with the specified period in weeks added.
+  /** Returns a copy of this {@code ZonedDateTime} with the specified period in weeks added.
     *
     * This operates on the local time-line,
     * {@link LocalDateTime#plusWeeks(long) adding weeks} to the local date-time.
@@ -1410,8 +1355,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     */
   def plusWeeks(weeks: Long): ZonedDateTime = resolveLocal(dateTime.plusWeeks(weeks))
 
-  /**
-    * Returns a copy of this {@code ZonedDateTime} with the specified period in days added.
+  /** Returns a copy of this {@code ZonedDateTime} with the specified period in days added.
     *
     * This operates on the local time-line,
     * {@link LocalDateTime#plusDays(long) adding days} to the local date-time.
@@ -1430,8 +1374,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     */
   def plusDays(days: Long): ZonedDateTime = resolveLocal(dateTime.plusDays(days))
 
-  /**
-    * Returns a copy of this {@code ZonedDateTime} with the specified period in hours added.
+  /** Returns a copy of this {@code ZonedDateTime} with the specified period in hours added.
     *
     * This operates on the instant time-line, such that adding one hour will
     * always be a duration of one hour later.
@@ -1456,8 +1399,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     */
   def plusHours(hours: Long): ZonedDateTime = resolveInstant(dateTime.plusHours(hours))
 
-  /**
-    * Returns a copy of this {@code ZonedDateTime} with the specified period in minutes added.
+  /** Returns a copy of this {@code ZonedDateTime} with the specified period in minutes added.
     *
     * This operates on the instant time-line, such that adding one minute will
     * always be a duration of one minute later.
@@ -1472,8 +1414,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     */
   def plusMinutes(minutes: Long): ZonedDateTime = resolveInstant(dateTime.plusMinutes(minutes))
 
-  /**
-    * Returns a copy of this {@code ZonedDateTime} with the specified period in seconds added.
+  /** Returns a copy of this {@code ZonedDateTime} with the specified period in seconds added.
     *
     * This operates on the instant time-line, such that adding one second will
     * always be a duration of one second later.
@@ -1488,8 +1429,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     */
   def plusSeconds(seconds: Long): ZonedDateTime = resolveInstant(dateTime.plusSeconds(seconds))
 
-  /**
-    * Returns a copy of this {@code ZonedDateTime} with the specified period in nanoseconds added.
+  /** Returns a copy of this {@code ZonedDateTime} with the specified period in nanoseconds added.
     *
     * This operates on the instant time-line, such that adding one nano will
     * always be a duration of one nano later.
@@ -1504,8 +1444,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     */
   def plusNanos(nanos: Long): ZonedDateTime = resolveInstant(dateTime.plusNanos(nanos))
 
-  /**
-    * Returns a copy of this date-time with the specified period subtracted.
+  /** Returns a copy of this date-time with the specified period subtracted.
     *
     * This method returns a new date-time based on this time with the specified period subtracted.
     * The amount is typically {@link Period} but may be any other type implementing
@@ -1522,8 +1461,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     */
   override def minus(amount: TemporalAmount): ZonedDateTime = amount.subtractFrom(this).asInstanceOf[ZonedDateTime]
 
-  /**
-    * Returns a copy of this date-time with the specified period subtracted.
+  /** Returns a copy of this date-time with the specified period subtracted.
     *
     * This method returns a new date-time based on this date-time with the specified period subtracted.
     * This can be used to subtract any period that is defined by a unit, for example to subtract years, months or days.
@@ -1555,8 +1493,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     if (amountToSubtract == Long.MinValue) plus(Long.MaxValue, unit).plus(1, unit)
     else plus(-amountToSubtract, unit)
 
-  /**
-    * Returns a copy of this {@code ZonedDateTime} with the specified period in years subtracted.
+  /** Returns a copy of this {@code ZonedDateTime} with the specified period in years subtracted.
     *
     * This operates on the local time-line,
     * {@link LocalDateTime#minusYears(long) subtracting years} to the local date-time.
@@ -1577,8 +1514,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     if (years == Long.MinValue) plusYears(Long.MaxValue).plusYears(1)
     else plusYears(-years)
 
-  /**
-    * Returns a copy of this {@code ZonedDateTime} with the specified period in months subtracted.
+  /** Returns a copy of this {@code ZonedDateTime} with the specified period in months subtracted.
     *
     * This operates on the local time-line,
     * {@link LocalDateTime#minusMonths(long) subtracting months} to the local date-time.
@@ -1599,8 +1535,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     if (months == Long.MinValue) plusMonths(Long.MaxValue).plusMonths(1)
     else plusMonths(-months)
 
-  /**
-    * Returns a copy of this {@code ZonedDateTime} with the specified period in weeks subtracted.
+  /** Returns a copy of this {@code ZonedDateTime} with the specified period in weeks subtracted.
     *
     * This operates on the local time-line,
     * {@link LocalDateTime#minusWeeks(long) subtracting weeks} to the local date-time.
@@ -1621,8 +1556,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     if (weeks == Long.MinValue) plusWeeks(Long.MaxValue).plusWeeks(1)
     else plusWeeks(-weeks)
 
-  /**
-    * Returns a copy of this {@code ZonedDateTime} with the specified period in days subtracted.
+  /** Returns a copy of this {@code ZonedDateTime} with the specified period in days subtracted.
     *
     * This operates on the local time-line,
     * {@link LocalDateTime#minusDays(long) subtracting days} to the local date-time.
@@ -1643,8 +1577,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     if (days == Long.MinValue) plusDays(Long.MaxValue).plusDays(1)
     else plusDays(-days)
 
-  /**
-    * Returns a copy of this {@code ZonedDateTime} with the specified period in hours subtracted.
+  /** Returns a copy of this {@code ZonedDateTime} with the specified period in hours subtracted.
     *
     * This operates on the instant time-line, such that subtracting one hour will
     * always be a duration of one hour earlier.
@@ -1671,8 +1604,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     if (hours == Long.MinValue) plusHours(Long.MaxValue).plusHours(1)
     else plusHours(-hours)
 
-  /**
-    * Returns a copy of this {@code ZonedDateTime} with the specified period in minutes subtracted.
+  /** Returns a copy of this {@code ZonedDateTime} with the specified period in minutes subtracted.
     *
     * This operates on the instant time-line, such that subtracting one minute will
     * always be a duration of one minute earlier.
@@ -1689,8 +1621,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     if (minutes == Long.MinValue) plusMinutes(Long.MaxValue).plusMinutes(1)
     else plusMinutes(-minutes)
 
-  /**
-    * Returns a copy of this {@code ZonedDateTime} with the specified period in seconds subtracted.
+  /** Returns a copy of this {@code ZonedDateTime} with the specified period in seconds subtracted.
     *
     * This operates on the instant time-line, such that subtracting one second will
     * always be a duration of one second earlier.
@@ -1707,8 +1638,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     if (seconds == Long.MinValue) plusSeconds(Long.MaxValue).plusSeconds(1)
     else plusSeconds(-seconds)
 
-  /**
-    * Returns a copy of this {@code ZonedDateTime} with the specified period in nanoseconds subtracted.
+  /** Returns a copy of this {@code ZonedDateTime} with the specified period in nanoseconds subtracted.
     *
     * This operates on the instant time-line, such that subtracting one nano will
     * always be a duration of one nano earlier.
@@ -1725,8 +1655,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     if (nanos == Long.MinValue) plusNanos(Long.MaxValue).plusNanos(1)
     else plusNanos(-nanos)
 
-  /**
-    * Queries this date-time using the specified query.
+  /** Queries this date-time using the specified query.
     *
     * This queries this date-time using the specified query strategy object.
     * The {@code TemporalQuery} object defines the logic to be used to
@@ -1749,8 +1678,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     else
       super.query(query)
 
-  /**
-    * Calculates the period between this date-time and another date-time in
+  /** Calculates the period between this date-time and another date-time in
     * terms of the specified unit.
     *
     * This calculates the period between two date-times in terms of a single unit.
@@ -1823,8 +1751,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     unit.between(this, end)
   }
 
-  /**
-    * Gets the {@code LocalDateTime} part of this date-time.
+  /** Gets the {@code LocalDateTime} part of this date-time.
     *
     * This returns a {@code LocalDateTime} with the same year, month, day and time
     * as this date-time.
@@ -1833,8 +1760,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     */
   def toLocalDateTime: LocalDateTime = dateTime
 
-  /**
-    * Gets the {@code LocalDate} part of this date-time.
+  /** Gets the {@code LocalDate} part of this date-time.
     *
     * This returns a {@code LocalDate} with the same year, month and day
     * as this date-time.
@@ -1843,8 +1769,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     */
   override def toLocalDate: LocalDate = dateTime.toLocalDate
 
-  /**
-    * Gets the {@code LocalTime} part of this date-time.
+  /** Gets the {@code LocalTime} part of this date-time.
     *
     * This returns a {@code LocalTime} with the same hour, minute, second and
     * nanosecond as this date-time.
@@ -1853,8 +1778,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     */
   override def toLocalTime: LocalTime = dateTime.toLocalTime
 
-  /**
-    * Converts this date-time to an {@code OffsetDateTime}.
+  /** Converts this date-time to an {@code OffsetDateTime}.
     *
     * This creates an offset date-time using the local date-time and offset.
     * The zone ID is ignored.
@@ -1863,8 +1787,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     */
   def toOffsetDateTime: OffsetDateTime = OffsetDateTime.of(dateTime, offset)
 
-  /**
-    * Checks if this date-time is equal to another date-time.
+  /** Checks if this date-time is equal to another date-time.
     *
     * The comparison is based on the offset date-time and the zone.
     * Only objects of type {@code ZonedDateTime} are compared, other types return false.
@@ -1879,15 +1802,13 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     }
 
 
-  /**
-    * A hash code for this date-time.
+  /** A hash code for this date-time.
     *
     * @return a suitable hash code
     */
   override def hashCode: Int = dateTime.hashCode ^ offset.hashCode ^ Integer.rotateLeft(zone.hashCode, 3)
 
-  /**
-    * Outputs this date-time as a {@code String}, such as
+  /** Outputs this date-time as a {@code String}, such as
     * {@code 2007-12-03T10:15:30+01:00[Europe/Paris]}.
     *
     * The format consists of the {@code LocalDateTime} followed by the {@code ZoneOffset}.
@@ -1904,8 +1825,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     str
   }
 
-  /**
-    * Outputs this date-time as a {@code String} using the formatter.
+  /** Outputs this date-time as a {@code String} using the formatter.
     *
     * This date will be passed to the formatter
     * {@link DateTimeFormatter#format(TemporalAccessor) print method}.
@@ -1918,8 +1838,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
 
   private def writeReplace: AnyRef = new Ser(Ser.ZONED_DATE_TIME_TYPE, this)
 
-  /**
-    * Defend against malicious streams.
+  /** Defend against malicious streams.
     * @return never
     * @throws InvalidObjectException always
     */

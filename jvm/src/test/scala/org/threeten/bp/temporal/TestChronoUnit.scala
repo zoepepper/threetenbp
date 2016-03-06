@@ -50,9 +50,7 @@ import org.threeten.bp.LocalDate
 import org.threeten.bp.Month
 import org.threeten.bp.ZoneOffset
 
-/**
-  * Test.
-  */
+/** Test. */
 @Test object TestChronoUnit {
   private def date(year: Int, month: Month, dom: Int): LocalDate = LocalDate.of(year, month, dom)
 }

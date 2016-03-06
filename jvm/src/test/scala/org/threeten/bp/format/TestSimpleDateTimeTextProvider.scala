@@ -42,9 +42,7 @@ import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
 import org.threeten.bp.temporal.TemporalField
 
-/**
-  * Test SimpleDateTimeTextProvider.
-  */
+/** Test SimpleDateTimeTextProvider. */
 @Test class TestSimpleDateTimeTextProvider extends TestNGSuite {
   private val enUS: Locale = new Locale("en", "US")
   private val ptBR: Locale = new Locale("pt", "BR")

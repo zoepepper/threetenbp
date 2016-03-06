@@ -36,9 +36,7 @@ import org.testng.annotations.Test
 import org.threeten.bp.DateTimeException
 import org.threeten.bp.LocalDate
 
-/**
-  * Test PadPrinterDecorator.
-  */
+/** Test PadPrinterDecorator. */
 @Test class TestPadPrinterDecorator extends AbstractTestPrinterParser {
   @throws(classOf[Exception])
   def test_print_emptyCalendrical(): Unit = {

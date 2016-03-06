@@ -45,8 +45,7 @@ import org.threeten.bp.temporal.TemporalQuery
 import org.threeten.bp.temporal.UnsupportedTemporalTypeException
 import org.threeten.bp.temporal.ValueRange
 
-/**
-  * An era in the ISO calendar system.
+/** An era in the ISO calendar system.
   *
   * The ISO-8601 standard does not define eras.
   * A definition has therefore been created with two eras - 'Current era' (CE) for
@@ -59,15 +58,13 @@ import org.threeten.bp.temporal.ValueRange
   * This is an immutable and thread-safe enum.
   */
 object IsoEra {
-  /**
-    * The singleton instance for the era BCE, 'Before Current Era'.
+  /** The singleton instance for the era BCE, 'Before Current Era'.
     * The 'ISO' part of the name emphasizes that this differs from the BCE
     * era in the Gregorian calendar system.
     * This has the numeric value of {@code 0}.
     */
   val BCE = new IsoEra("BCE", 0)
-  /**
-    * The singleton instance for the era CE, 'Current Era'.
+  /** The singleton instance for the era CE, 'Current Era'.
     * The 'ISO' part of the name emphasizes that this differs from the CE
     * era in the Gregorian calendar system.
     * This has the numeric value of {@code 1}.
@@ -76,8 +73,7 @@ object IsoEra {
 
   val values: Array[IsoEra] = Array(BCE, CE)
 
-  /**
-    * Obtains an instance of {@code IsoEra} from an {@code int} value.
+  /** Obtains an instance of {@code IsoEra} from an {@code int} value.
     *
     * {@code IsoEra} is an enum representing the ISO eras of BCE/CE.
     * This factory allows the enum to be obtained from the {@code int} value.
@@ -96,8 +92,7 @@ object IsoEra {
 }
 
 final class IsoEra(name: String, ordinal: Int) extends Enum[IsoEra](name, ordinal) with Era {
-  /**
-    * Gets the numeric era {@code int} value.
+  /** Gets the numeric era {@code int} value.
     *
     * The era BCE has the value 0, while the era CE has the value 1.
     *

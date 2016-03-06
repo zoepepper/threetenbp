@@ -37,9 +37,7 @@ import org.testng.Assert.assertSame
 import java.io.IOException
 import org.testng.annotations.Test
 
-/**
-  * Test fixed clock.
-  */
+/** Test fixed clock. */
 @Test object TestClock_Fixed {
   private val MOSCOW: ZoneId = ZoneId.of("Europe/Moscow")
   private val PARIS: ZoneId = ZoneId.of("Europe/Paris")

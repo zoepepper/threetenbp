@@ -53,9 +53,7 @@ import org.threeten.bp.temporal.TemporalAccessor
 import org.threeten.bp.temporal.TemporalField
 import org.threeten.bp.temporal.TemporalQueries
 
-/**
-  * Test Instant.
-  */
+/** Test Instant. */
 @Test object TestInstant {
   private val MIN_SECOND: Long = Instant.MIN.getEpochSecond
   private val MAX_SECOND: Long = Instant.MAX.getEpochSecond

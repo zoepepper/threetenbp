@@ -51,9 +51,7 @@ import org.threeten.bp.temporal.TemporalAccessor
 import org.threeten.bp.temporal.TemporalField
 import org.threeten.bp.temporal.TemporalQueries
 
-/**
-  * Test DayOfWeek.
-  */
+/** Test DayOfWeek. */
 @Test class TestDayOfWeek extends AbstractDateTimeTest {
   @BeforeMethod def setUp(): Unit = {}
 

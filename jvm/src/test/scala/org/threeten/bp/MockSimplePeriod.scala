@@ -41,21 +41,14 @@ import org.threeten.bp.temporal.TemporalUnit
 
 import scala.collection.JavaConverters._
 
-/**
-  * Mock period of time measured using a single unit, such as {@code 3 Days}.
-  */
+/** Mock period of time measured using a single unit, such as {@code 3 Days}. */
 object MockSimplePeriod {
-  /**
-    * A constant for a period of zero, measured in days.
-    */
+  /** A constant for a period of zero, measured in days. */
   val ZERO_DAYS: MockSimplePeriod = new MockSimplePeriod(0, DAYS)
-  /**
-    * A constant for a period of zero, measured in seconds.
-    */
+  /** A constant for a period of zero, measured in seconds. */
   val ZERO_SECONDS: MockSimplePeriod = new MockSimplePeriod(0, SECONDS)
 
-  /**
-    * Obtains a {@code MockSimplePeriod} from an amount and unit.
+  /** Obtains a {@code MockSimplePeriod} from an amount and unit.
     * <p>
     * The parameters represent the two parts of a phrase like '6 Days'.
     *

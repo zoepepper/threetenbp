@@ -48,9 +48,7 @@ import org.threeten.bp.Month
 import org.threeten.bp.temporal.ChronoField
 import org.threeten.bp.temporal.TemporalAdjusters
 
-/**
-  * Test.
-  */
+/** Test. */
 @Test class TestIsoChronology {
   @Test def test_chrono_byName(): Unit = {
     val c: Chronology = IsoChronology.INSTANCE

@@ -54,8 +54,7 @@ import org.threeten.bp.zone.ZoneRules
 
 @SerialVersionUID(-5261813987200935591L)
 object ChronoZonedDateTimeImpl {
-  /**
-    * Obtains an instance from a local date-time using the preferred offset if possible.
+  /** Obtains an instance from a local date-time using the preferred offset if possible.
     *
     * @param localDateTime  the local date-time, not null
     * @param zone  the zone identifier, not null
@@ -89,8 +88,7 @@ object ChronoZonedDateTimeImpl {
     new ChronoZonedDateTimeImpl[R](_localDateTime, offset, zone)
   }
 
-  /**
-    * Obtains an instance from an instant using the specified time-zone.
+  /** Obtains an instance from an instant using the specified time-zone.
     *
     * @param chrono  the chronology, not null
     * @param instant  the instant, not null
@@ -116,8 +114,7 @@ object ChronoZonedDateTimeImpl {
   }
 }
 
-/**
-  * A date-time with a time-zone in the calendar neutral API.
+/** A date-time with a time-zone in the calendar neutral API.
   *
   * {@code ZoneChronoDateTime} is an immutable representation of a date-time with a time-zone.
   * This class stores all date and time fields, to a precision of nanoseconds,
@@ -144,8 +141,7 @@ final class ChronoZonedDateTimeImpl[D <: ChronoLocalDate] private(private val da
   Objects.requireNonNull(offset, "offset")
   Objects.requireNonNull(zone, "zone")
 
-  /**
-    * Obtains an instance from an {@code Instant}.
+  /** Obtains an instance from an {@code Instant}.
     *
     * @param instant  the instant to create the date-time from, not null
     * @param zone  the time-zone to use, validated not null
@@ -234,8 +230,7 @@ final class ChronoZonedDateTimeImpl[D <: ChronoLocalDate] private(private val da
 
   private def writeReplace: AnyRef = new Ser(Ser.CHRONO_ZONEDDATETIME_TYPE, this)
 
-  /**
-    * Defend against malicious streams.
+  /** Defend against malicious streams.
     * @return never
     * @throws InvalidObjectException always
     */

@@ -86,9 +86,7 @@ import org.threeten.bp.temporal.TemporalQueries
 import org.threeten.bp.temporal.TemporalUnit
 import org.threeten.bp.temporal.UnsupportedTemporalTypeException
 
-/**
-  * Test LocalTime.
-  */
+/** Test LocalTime. */
 @Test object TestLocalTime {
   private val INVALID_UNITS: Array[TemporalUnit] =  {
     //val set: java.util.EnumSet[ChronoUnit] = EnumSet.range(WEEKS, FOREVER)

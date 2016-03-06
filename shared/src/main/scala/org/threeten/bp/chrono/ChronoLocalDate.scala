@@ -54,8 +54,7 @@ import org.threeten.bp.temporal.TemporalQuery
 import org.threeten.bp.temporal.TemporalUnit
 
 object ChronoLocalDate {
-  /**
-    * Gets a comparator that compares {@code ChronoLocalDate} in
+  /** Gets a comparator that compares {@code ChronoLocalDate} in
     * time-line order ignoring the chronology.
     *
     * This comparator differs from the comparison in {@link #compareTo} in that it
@@ -74,8 +73,7 @@ object ChronoLocalDate {
   private val DATE_COMPARATOR: Comparator[ChronoLocalDate] =
     (date1: ChronoLocalDate, date2: ChronoLocalDate) => java.lang.Long.compare(date1.toEpochDay, date2.toEpochDay)
 
-  /**
-    * Obtains an instance of {@code ChronoLocalDate} from a temporal object.
+  /** Obtains an instance of {@code ChronoLocalDate} from a temporal object.
     *
     * This obtains a local date based on the specified temporal.
     * A {@code TemporalAccessor} represents an arbitrary set of date and time information,
@@ -267,8 +265,7 @@ object ChronoLocalDate {
   * See {@link Chronology} for more details.
   */
 trait ChronoLocalDate extends Temporal with TemporalAdjuster with Ordered[ChronoLocalDate] {
-  /**
-    * Gets the chronology of this date.
+  /** Gets the chronology of this date.
     *
     * The {@code Chronology} represents the calendar system in use.
     * The era and other fields in {@link ChronoField} are defined by the chronology.
@@ -277,8 +274,7 @@ trait ChronoLocalDate extends Temporal with TemporalAdjuster with Ordered[Chrono
     */
   def getChronology: Chronology
 
-  /**
-    * Gets the era, as defined by the chronology.
+  /** Gets the era, as defined by the chronology.
     *
     * The era is, conceptually, the largest division of the time-line.
     * Most calendar systems have a single epoch dividing the time-line into two eras.
@@ -292,8 +288,7 @@ trait ChronoLocalDate extends Temporal with TemporalAdjuster with Ordered[Chrono
     */
   def getEra: Era = getChronology.eraOf(get(ERA))
 
-  /**
-    * Checks if the year is a leap year, as defined by the calendar system.
+  /** Checks if the year is a leap year, as defined by the calendar system.
     *
     * A leap-year is a year of a longer length than normal.
     * The exact meaning is determined by the chronology with the constraint that
@@ -305,8 +300,7 @@ trait ChronoLocalDate extends Temporal with TemporalAdjuster with Ordered[Chrono
     */
   def isLeapYear: Boolean = getChronology.isLeapYear(getLong(YEAR))
 
-  /**
-    * Returns the length of the month represented by this date, as defined by the calendar system.
+  /** Returns the length of the month represented by this date, as defined by the calendar system.
     *
     * This returns the length of the month in days.
     *
@@ -314,8 +308,7 @@ trait ChronoLocalDate extends Temporal with TemporalAdjuster with Ordered[Chrono
     */
   def lengthOfMonth: Int
 
-  /**
-    * Returns the length of the year represented by this date, as defined by the calendar system.
+  /** Returns the length of the year represented by this date, as defined by the calendar system.
     *
     * This returns the length of the year in days.
     *
@@ -368,8 +361,7 @@ trait ChronoLocalDate extends Temporal with TemporalAdjuster with Ordered[Chrono
 
   def adjustInto(temporal: Temporal): Temporal = temporal.`with`(EPOCH_DAY, toEpochDay)
 
-  /**
-    * Calculates the period between this date and another date as a {@code ChronoPeriod}.
+  /** Calculates the period between this date and another date as a {@code ChronoPeriod}.
     *
     * This calculates the period between two dates. All supplied chronologies
     * calculate the period using years, months and days, however the
@@ -391,8 +383,7 @@ trait ChronoLocalDate extends Temporal with TemporalAdjuster with Ordered[Chrono
     */
   def until(endDateExclusive: ChronoLocalDate): ChronoPeriod
 
-  /**
-    * Formats this date using the specified formatter.
+  /** Formats this date using the specified formatter.
     *
     * This date will be passed to the formatter to produce a string.
     *
@@ -410,8 +401,7 @@ trait ChronoLocalDate extends Temporal with TemporalAdjuster with Ordered[Chrono
     formatter.format(this)
   }
 
-  /**
-    * Combines this date with a time to create a {@code ChronoLocalDateTime}.
+  /** Combines this date with a time to create a {@code ChronoLocalDateTime}.
     *
     * This returns a {@code ChronoLocalDateTime} formed from this date at the specified time.
     * All possible combinations of date and time are valid.
@@ -421,8 +411,7 @@ trait ChronoLocalDate extends Temporal with TemporalAdjuster with Ordered[Chrono
     */
   def atTime(localTime: LocalTime): ChronoLocalDateTime[_ <: ChronoLocalDate] = ChronoLocalDateTimeImpl.of(this, localTime)
 
-  /**
-    * Converts this date to the Epoch Day.
+  /** Converts this date to the Epoch Day.
     *
     * The {@link ChronoField#EPOCH_DAY Epoch Day count} is a simple
     * incrementing count of days where day 0 is 1970-01-01 (ISO).
@@ -432,8 +421,7 @@ trait ChronoLocalDate extends Temporal with TemporalAdjuster with Ordered[Chrono
     */
   def toEpochDay: Long = getLong(EPOCH_DAY)
 
-  /**
-    * Compares this date to another date, including the chronology.
+  /** Compares this date to another date, including the chronology.
     *
     * The comparison is based first on the underlying time-line date, then
     * on the chronology.
@@ -465,8 +453,7 @@ trait ChronoLocalDate extends Temporal with TemporalAdjuster with Ordered[Chrono
     cmp
   }
 
-  /**
-    * Checks if this date is after the specified date ignoring the chronology.
+  /** Checks if this date is after the specified date ignoring the chronology.
     *
     * This method differs from the comparison in {@link #compareTo} in that it
     * only compares the underlying date and not the chronology.
@@ -479,8 +466,7 @@ trait ChronoLocalDate extends Temporal with TemporalAdjuster with Ordered[Chrono
     */
   def isAfter(other: ChronoLocalDate): Boolean = this.toEpochDay > other.toEpochDay
 
-  /**
-    * Checks if this date is before the specified date ignoring the chronology.
+  /** Checks if this date is before the specified date ignoring the chronology.
     *
     * This method differs from the comparison in {@link #compareTo} in that it
     * only compares the underlying date and not the chronology.
@@ -493,8 +479,7 @@ trait ChronoLocalDate extends Temporal with TemporalAdjuster with Ordered[Chrono
     */
   def isBefore(other: ChronoLocalDate): Boolean = this.toEpochDay < other.toEpochDay
 
-  /**
-    * Checks if this date is equal to the specified date ignoring the chronology.
+  /** Checks if this date is equal to the specified date ignoring the chronology.
     *
     * This method differs from the comparison in {@link #compareTo} in that it
     * only compares the underlying date and not the chronology.
@@ -507,8 +492,7 @@ trait ChronoLocalDate extends Temporal with TemporalAdjuster with Ordered[Chrono
     */
   def isEqual(other: ChronoLocalDate): Boolean = this.toEpochDay == other.toEpochDay
 
-  /**
-    * Checks if this date is equal to another date, including the chronology.
+  /** Checks if this date is equal to another date, including the chronology.
     *
     * Compares this date with another ensuring that the date and chronology are the same.
     *
@@ -524,8 +508,7 @@ trait ChronoLocalDate extends Temporal with TemporalAdjuster with Ordered[Chrono
       case _                      => false
     }
 
-  /**
-    * A hash code for this date.
+  /** A hash code for this date.
     *
     * @return a suitable hash code
     */
@@ -534,8 +517,7 @@ trait ChronoLocalDate extends Temporal with TemporalAdjuster with Ordered[Chrono
     getChronology.hashCode ^ (epDay ^ (epDay >>> 32)).toInt
   }
 
-  /**
-    * Outputs this date as a {@code String}.
+  /** Outputs this date as a {@code String}.
     *
     * The output will include the full local date and the chronology ID.
     *

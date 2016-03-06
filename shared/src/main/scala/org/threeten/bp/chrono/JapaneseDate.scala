@@ -57,13 +57,11 @@ import org.threeten.bp.temporal.ValueRange
 
 @SerialVersionUID(-305327627230580483L)
 object JapaneseDate {
-  /**
-    * Minimum date.
+  /** Minimum date.
     */
   private[chrono] val MIN_DATE: LocalDate = LocalDate.of(1873, 1, 1)
 
-  /**
-    * Obtains the current {@code JapaneseDate} from the system clock in the default time-zone.
+  /** Obtains the current {@code JapaneseDate} from the system clock in the default time-zone.
     *
     * This will query the {@link Clock#systemDefaultZone() system clock} in the default
     * time-zone to obtain the current date.
@@ -75,8 +73,7 @@ object JapaneseDate {
     */
   def now: JapaneseDate = now(Clock.systemDefaultZone)
 
-  /**
-    * Obtains the current {@code JapaneseDate} from the system clock in the specified time-zone.
+  /** Obtains the current {@code JapaneseDate} from the system clock in the specified time-zone.
     *
     * This will query the {@link Clock#system(ZoneId) system clock} to obtain the current date.
     * Specifying the time-zone avoids dependence on the default time-zone.
@@ -89,8 +86,7 @@ object JapaneseDate {
     */
   def now(zone: ZoneId): JapaneseDate = now(Clock.system(zone))
 
-  /**
-    * Obtains the current {@code JapaneseDate} from the specified clock.
+  /** Obtains the current {@code JapaneseDate} from the specified clock.
     *
     * This will query the specified clock to obtain the current date - today.
     * Using this method allows the use of an alternate clock for testing.
@@ -102,8 +98,7 @@ object JapaneseDate {
     */
   def now(clock: Clock): JapaneseDate = new JapaneseDate(LocalDate.now(clock))
 
-  /**
-    * Obtains a {@code JapaneseDate} representing a date in the Japanese calendar
+  /** Obtains a {@code JapaneseDate} representing a date in the Japanese calendar
     * system from the era, year-of-era, month-of-year and day-of-month fields.
     *
     * This returns a {@code JapaneseDate} with the specified fields.
@@ -142,8 +137,7 @@ object JapaneseDate {
     new JapaneseDate(era, yearOfEra, date)
   }
 
-  /**
-    * Obtains a {@code JapaneseDate} representing a date in the Japanese calendar
+  /** Obtains a {@code JapaneseDate} representing a date in the Japanese calendar
     * system from the era, year-of-era and day-of-year fields.
     *
     * This returns a {@code JapaneseDate} with the specified fields.
@@ -176,8 +170,7 @@ object JapaneseDate {
     new JapaneseDate(era, yearOfEra, isoDate)
   }
 
-  /**
-    * Obtains a {@code JapaneseDate} representing a date in the Japanese calendar
+  /** Obtains a {@code JapaneseDate} representing a date in the Japanese calendar
     * system from the proleptic-year, month-of-year and day-of-month fields.
     *
     * This returns a {@code JapaneseDate} with the specified fields.
@@ -196,8 +189,7 @@ object JapaneseDate {
   def of(prolepticYear: Int, month: Int, dayOfMonth: Int): JapaneseDate =
     new JapaneseDate(LocalDate.of(prolepticYear, month, dayOfMonth))
 
-  /**
-    * Obtains a {@code JapaneseDate} from a temporal object.
+  /** Obtains a {@code JapaneseDate} from a temporal object.
     *
     * This obtains a date in the Japanese calendar system based on the specified temporal.
     * A {@code TemporalAccessor} represents an arbitrary set of date and time information,
@@ -259,8 +251,7 @@ final class JapaneseDate private[chrono](@transient private var era: JapaneseEra
   if (isoDate.isBefore(JapaneseDate.MIN_DATE))
     throw new DateTimeException("Minimum supported date is January 1st Meiji 6")
 
-  /**
-    * Creates an instance from an ISO date.
+  /** Creates an instance from an ISO date.
     *
     * @param isoDate  the standard local date, validated not null
     */
@@ -269,8 +260,7 @@ final class JapaneseDate private[chrono](@transient private var era: JapaneseEra
     this(JapaneseEra.from(isoDate), isoDate.getYear - (JapaneseEra.from(isoDate).startDate.getYear - 1), isoDate)
   }
 
-  /**
-    * Reconstitutes this object from a stream.
+  /** Reconstitutes this object from a stream.
     *
     * @param stream object input stream
     */
@@ -296,8 +286,7 @@ final class JapaneseDate private[chrono](@transient private var era: JapaneseEra
     jcal.getActualMaximum(Calendar.DAY_OF_YEAR)
   }
 
-  /**
-    * Checks if the specified field is supported.
+  /** Checks if the specified field is supported.
     *
     * This checks if this date can be queried for the specified field.
     * If false, then calling the {@link #range(TemporalField) range} and
@@ -427,8 +416,7 @@ final class JapaneseDate private[chrono](@transient private var era: JapaneseEra
   override def minus(amountToAdd: Long, unit: TemporalUnit): JapaneseDate =
     super.minus(amountToAdd, unit).asInstanceOf[JapaneseDate]
 
-  /**
-    * Returns a copy of this date with the year altered.
+  /** Returns a copy of this date with the year altered.
     *
     * This method changes the year of the date.
     * If the month-day is invalid for the year, then the previous valid day
@@ -446,8 +434,7 @@ final class JapaneseDate private[chrono](@transient private var era: JapaneseEra
     `with`(isoDate.withYear(year))
   }
 
-  /**
-    * Returns a copy of this date with the year-of-era altered.
+  /** Returns a copy of this date with the year-of-era altered.
     *
     * This method changes the year-of-era of the date.
     * If the month-day is invalid for the year, then the previous valid day

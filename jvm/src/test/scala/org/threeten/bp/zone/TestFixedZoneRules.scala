@@ -47,9 +47,7 @@ import org.threeten.bp.Month
 import org.threeten.bp.ZoneOffset
 import org.threeten.bp.zone.ZoneOffsetTransitionRule.TimeDefinition
 
-/**
-  * Test ZoneRules for fixed offset time-zones.
-  */
+/** Test ZoneRules for fixed offset time-zones. */
 @Test object TestFixedZoneRules {
   private val OFFSET_PONE: ZoneOffset = ZoneOffset.ofHours(1)
   private val OFFSET_PTWO: ZoneOffset = ZoneOffset.ofHours(2)

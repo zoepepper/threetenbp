@@ -34,8 +34,7 @@ package org.threeten.bp.temporal
 import java.io.Serializable
 import org.threeten.bp.DateTimeException
 
-/**
-  * The range of valid values for a date-time field.
+/** The range of valid values for a date-time field.
   *
   * All {@link TemporalField} instances have a valid range of values.
   * For example, the ISO day-of-month runs from 1 to somewhere between 28 and 31.
@@ -54,8 +53,7 @@ import org.threeten.bp.DateTimeException
   */
 @SerialVersionUID(-7317881728594519368L)
 object ValueRange {
-  /**
-    * Obtains a fixed value range.
+  /** Obtains a fixed value range.
     *
     * This factory obtains a range where the minimum and maximum values are fixed.
     * For example, the ISO month-of-year always runs from 1 to 12.
@@ -71,8 +69,7 @@ object ValueRange {
     else
       new ValueRange(min, min, max, max)
 
-  /**
-    * Obtains a variable value range.
+  /** Obtains a variable value range.
     *
     * This factory obtains a range where the minimum value is fixed and the maximum value may vary.
     * For example, the ISO day-of-month always starts at 1, but ends between 28 and 31.
@@ -87,8 +84,7 @@ object ValueRange {
     */
   def of(min: Long, maxSmallest: Long, maxLargest: Long): ValueRange = of(min, min, maxSmallest, maxLargest)
 
-  /**
-    * Obtains a fully variable value range.
+  /** Obtains a fully variable value range.
     *
     * This factory obtains a range where both the minimum and maximum value may vary.
     *
@@ -123,8 +119,7 @@ object ValueRange {
 @SerialVersionUID(-7317881728594519368L)
 final class ValueRange private(private val minSmallest: Long, private val minLargest: Long, private val maxSmallest: Long, private val maxLargest: Long) extends Serializable {
 
-  /**
-    * Is the value range fixed and fully known.
+  /** Is the value range fixed and fully known.
     *
     * For example, the ISO day-of-month runs from 1 to between 28 and 31.
     * Since there is uncertainty about the maximum value, the range is not fixed.
@@ -134,8 +129,7 @@ final class ValueRange private(private val minSmallest: Long, private val minLar
     */
   def isFixed: Boolean = minSmallest == minLargest && maxSmallest == maxLargest
 
-  /**
-    * Gets the minimum value that the field can take.
+  /** Gets the minimum value that the field can take.
     *
     * For example, the ISO day-of-month always starts at 1.
     * The minimum is therefore 1.
@@ -144,8 +138,7 @@ final class ValueRange private(private val minSmallest: Long, private val minLar
     */
   def getMinimum: Long = minSmallest
 
-  /**
-    * Gets the largest possible minimum value that the field can take.
+  /** Gets the largest possible minimum value that the field can take.
     *
     * For example, the ISO day-of-month always starts at 1.
     * The largest minimum is therefore 1.
@@ -154,8 +147,7 @@ final class ValueRange private(private val minSmallest: Long, private val minLar
     */
   def getLargestMinimum: Long = minLargest
 
-  /**
-    * Gets the smallest possible maximum value that the field can take.
+  /** Gets the smallest possible maximum value that the field can take.
     *
     * For example, the ISO day-of-month runs to between 28 and 31 days.
     * The smallest maximum is therefore 28.
@@ -164,8 +156,7 @@ final class ValueRange private(private val minSmallest: Long, private val minLar
     */
   def getSmallestMaximum: Long = maxSmallest
 
-  /**
-    * Gets the maximum value that the field can take.
+  /** Gets the maximum value that the field can take.
     *
     * For example, the ISO day-of-month runs to between 28 and 31 days.
     * The maximum is therefore 31.
@@ -174,8 +165,7 @@ final class ValueRange private(private val minSmallest: Long, private val minLar
     */
   def getMaximum: Long = maxLargest
 
-  /**
-    * Checks if all values in the range fit in an {@code int}.
+  /** Checks if all values in the range fit in an {@code int}.
     *
     * This checks that all valid values are within the bounds of an {@code int}.
     *
@@ -188,8 +178,7 @@ final class ValueRange private(private val minSmallest: Long, private val minLar
     */
   def isIntValue: Boolean = getMinimum >= Int.MinValue && getMaximum <= Int.MaxValue
 
-  /**
-    * Checks if the value is within the valid range.
+  /** Checks if the value is within the valid range.
     *
     * This checks that the value is within the stored range of values.
     *
@@ -198,8 +187,7 @@ final class ValueRange private(private val minSmallest: Long, private val minLar
     */
   def isValidValue(value: Long): Boolean = value >= getMinimum && value <= getMaximum
 
-  /**
-    * Checks if the value is within the valid range and that all values
+  /** Checks if the value is within the valid range and that all values
     * in the range fit in an {@code int}.
     *
     * This method combines {@link #isIntValue()} and {@link #isValidValue(long)}.
@@ -209,8 +197,7 @@ final class ValueRange private(private val minSmallest: Long, private val minLar
     */
   def isValidIntValue(value: Long): Boolean = isIntValue && isValidValue(value)
 
-  /**
-    * Checks that the specified value is valid.
+  /** Checks that the specified value is valid.
     *
     * This validates that the value is within the valid range of values.
     * The field is only used to improve the error message.
@@ -229,8 +216,7 @@ final class ValueRange private(private val minSmallest: Long, private val minLar
     else
       value
 
-  /**
-    * Checks that the specified value is valid and fits in an {@code int}.
+  /** Checks that the specified value is valid and fits in an {@code int}.
     *
     * This validates that the value is within the valid range of values and that
     * all valid values are within the bounds of an {@code int}.
@@ -247,8 +233,7 @@ final class ValueRange private(private val minSmallest: Long, private val minLar
     else
       value.toInt
 
-  /**
-    * Checks if this range is equal to another range.
+  /** Checks if this range is equal to another range.
     *
     * The comparison is based on the four values, minimum, largest minimum,
     * smallest maximum and maximum.
@@ -265,8 +250,7 @@ final class ValueRange private(private val minSmallest: Long, private val minLar
       false
     }
 
-  /**
-    * A hash code for this range.
+  /** A hash code for this range.
     *
     * @return a suitable hash code
     */
@@ -275,8 +259,7 @@ final class ValueRange private(private val minSmallest: Long, private val minLar
     (hash ^ (hash >>> 32)).toInt
   }
 
-  /**
-    * Outputs this range as a {@code String}.
+  /** Outputs this range as a {@code String}.
     *
     * The format will be '{min}/{largestMin} - {smallestMax}/{max}',
     * where the largestMin or smallestMax sections may be omitted, together

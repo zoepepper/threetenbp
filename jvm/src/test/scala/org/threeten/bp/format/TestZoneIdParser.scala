@@ -40,9 +40,7 @@ import org.threeten.bp.ZoneOffset
 import org.threeten.bp.temporal.TemporalQueries
 import org.threeten.bp.zone.ZoneRulesProvider
 
-/**
-  * Test ZonePrinterParser.
-  */
+/** Test ZonePrinterParser. */
 @Test object TestZoneIdParser {
   private val AMERICA_DENVER: String = "America/Denver"
   private val TIME_ZONE_DENVER: ZoneId = ZoneId.of(AMERICA_DENVER)

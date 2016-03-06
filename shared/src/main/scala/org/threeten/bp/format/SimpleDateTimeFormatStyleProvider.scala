@@ -38,8 +38,7 @@ import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.ConcurrentMap
 import org.threeten.bp.chrono.Chronology
 
-/**
-  * The Service Provider Implementation to obtain date-time formatters for a style.
+/** The Service Provider Implementation to obtain date-time formatters for a style.
   *
   * This implementation is based on extraction of data from a {@link SimpleDateFormat}.
   *
@@ -90,8 +89,7 @@ final class SimpleDateTimeFormatStyleProvider extends DateTimeFormatStyleProvide
     throw new IllegalArgumentException("Unable to convert DateFormat to DateTimeFormatter")
   }
 
-  /**
-    * Converts the enum style to the old format style.
+  /** Converts the enum style to the old format style.
     * @param style  the enum style, not null
     * @return the int style
     */

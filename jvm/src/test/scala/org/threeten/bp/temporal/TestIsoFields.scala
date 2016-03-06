@@ -49,9 +49,7 @@ import org.threeten.bp.LocalDate
 import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.format.DateTimeFormatterBuilder
 
-/**
-  * Test.
-  */
+/** Test. */
 @Test class TestIsoFields extends TestNGSuite {
   def test_enum(): Unit = {
     assertTrue(IsoFields.WEEK_OF_WEEK_BASED_YEAR.isInstanceOf[Enum[_]])

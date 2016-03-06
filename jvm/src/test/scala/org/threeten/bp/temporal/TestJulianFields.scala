@@ -37,9 +37,7 @@ import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
 import org.threeten.bp.LocalDate
 
-/**
-  * Test.
-  */
+/** Test. */
 @Test object TestJulianFields {
   private val JAN01_1970: LocalDate = LocalDate.of(1970, 1, 1)
   private val DEC31_1969: LocalDate = LocalDate.of(1969, 12, 31)

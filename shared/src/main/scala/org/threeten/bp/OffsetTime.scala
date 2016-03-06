@@ -64,16 +64,14 @@ import org.threeten.bp.zone.ZoneRules
 
 @SerialVersionUID(7264499704384272492L)
 object OffsetTime {
-  /**
-    * The minimum supported {@code OffsetTime}, '00:00:00+18:00'.
+  /** The minimum supported {@code OffsetTime}, '00:00:00+18:00'.
     * This is the time of midnight at the start of the day in the maximum offset
     * (larger offsets are earlier on the time-line).
     * This combines {@link LocalTime#MIN} and {@link ZoneOffset#MAX}.
     * This could be used by an application as a "far past" date.
     */
   val MIN: OffsetTime = LocalTime.MIN.atOffset(ZoneOffset.MAX)
-  /**
-    * The maximum supported {@code OffsetTime}, '23:59:59.999999999-18:00'.
+  /** The maximum supported {@code OffsetTime}, '23:59:59.999999999-18:00'.
     * This is the time just before midnight at the end of the day in the minimum offset
     * (larger negative offsets are later on the time-line).
     * This combines {@link LocalTime#MAX} and {@link ZoneOffset#MIN}.
@@ -81,8 +79,7 @@ object OffsetTime {
     */
   val MAX: OffsetTime = LocalTime.MAX.atOffset(ZoneOffset.MIN)
 
-  /**
-    * Obtains the current time from the system clock in the default time-zone.
+  /** Obtains the current time from the system clock in the default time-zone.
     *
     * This will query the {@link Clock#systemDefaultZone() system clock} in the default
     * time-zone to obtain the current time.
@@ -95,8 +92,7 @@ object OffsetTime {
     */
   def now: OffsetTime = now(Clock.systemDefaultZone)
 
-  /**
-    * Obtains the current time from the system clock in the specified time-zone.
+  /** Obtains the current time from the system clock in the specified time-zone.
     *
     * This will query the {@link Clock#system(ZoneId) system clock} to obtain the current time.
     * Specifying the time-zone avoids dependence on the default time-zone.
@@ -110,8 +106,7 @@ object OffsetTime {
     */
   def now(zone: ZoneId): OffsetTime = now(Clock.system(zone))
 
-  /**
-    * Obtains the current time from the specified clock.
+  /** Obtains the current time from the specified clock.
     *
     * This will query the specified clock to obtain the current time.
     * The offset will be calculated from the time-zone in the clock.
@@ -128,8 +123,7 @@ object OffsetTime {
     ofInstant(now, clock.getZone.getRules.getOffset(now))
   }
 
-  /**
-    * Obtains an instance of {@code OffsetTime} from a local time and an offset.
+  /** Obtains an instance of {@code OffsetTime} from a local time and an offset.
     *
     * @param time  the local time, not null
     * @param offset  the zone offset, not null
@@ -137,8 +131,7 @@ object OffsetTime {
     */
   def of(time: LocalTime, offset: ZoneOffset): OffsetTime = new OffsetTime(time, offset)
 
-  /**
-    * Obtains an instance of {@code OffsetTime} from an hour, minute, second and nanosecond.
+  /** Obtains an instance of {@code OffsetTime} from an hour, minute, second and nanosecond.
     *
     * This creates an offset time with the four specified fields.
     *
@@ -159,8 +152,7 @@ object OffsetTime {
   def of(hour: Int, minute: Int, second: Int, nanoOfSecond: Int, offset: ZoneOffset): OffsetTime =
     new OffsetTime(LocalTime.of(hour, minute, second, nanoOfSecond), offset)
 
-  /**
-    * Obtains an instance of {@code OffsetTime} from an {@code Instant} and zone ID.
+  /** Obtains an instance of {@code OffsetTime} from an {@code Instant} and zone ID.
     *
     * This creates an offset time with the same instant as that specified.
     * Finding the offset from UTC/Greenwich is simple as there is only one valid
@@ -188,8 +180,7 @@ object OffsetTime {
     new OffsetTime(time, offset)
   }
 
-  /**
-    * Obtains an instance of {@code OffsetTime} from a temporal object.
+  /** Obtains an instance of {@code OffsetTime} from a temporal object.
     *
     * A {@code TemporalAccessor} represents some form of date and time information.
     * This factory converts the arbitrary temporal object to an instance of {@code OffsetTime}.
@@ -216,8 +207,7 @@ object OffsetTime {
     }
   }
 
-  /**
-    * Obtains an instance of {@code OffsetTime} from a text string such as {@code 10:15:30+01:00}.
+  /** Obtains an instance of {@code OffsetTime} from a text string such as {@code 10:15:30+01:00}.
     *
     * The string must represent a valid time and is parsed using
     * {@link org.threeten.bp.format.DateTimeFormatter#ISO_OFFSET_TIME}.
@@ -228,8 +218,7 @@ object OffsetTime {
     */
   def parse(text: CharSequence): OffsetTime = parse(text, DateTimeFormatter.ISO_OFFSET_TIME)
 
-  /**
-    * Obtains an instance of {@code OffsetTime} from a text string using a specific formatter.
+  /** Obtains an instance of {@code OffsetTime} from a text string using a specific formatter.
     *
     * The text is parsed using the formatter, returning a time.
     *
@@ -274,8 +263,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
   Objects.requireNonNull(time, "time")
   Objects.requireNonNull(offset, "offset")
 
-  /**
-    * Returns a new time based on this one, returning {@code this} where possible.
+  /** Returns a new time based on this one, returning {@code this} where possible.
     *
     * @param time  the time to create with, not null
     * @param offset  the zone offset to create with, not null
@@ -286,8 +274,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     else
       new OffsetTime(time, offset)
 
-  /**
-    * Checks if the specified field is supported.
+  /** Checks if the specified field is supported.
     *
     * This checks if this time can be queried for the specified field.
     * If false, then calling the {@link #range(TemporalField) range} and
@@ -335,8 +322,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     else
       unit != null && unit.isSupportedBy(this)
 
-  /**
-    * Gets the range of valid values for the specified field.
+  /** Gets the range of valid values for the specified field.
     *
     * The range object expresses the minimum and maximum valid values for a field.
     * This time is used to enhance the accuracy of the returned range.
@@ -367,8 +353,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     field.rangeRefinedBy(this)
   }
 
-  /**
-    * Gets the value of the specified field from this time as an {@code int}.
+  /** Gets the value of the specified field from this time as an {@code int}.
     *
     * This queries this time for the value for the specified field.
     * The returned value will always be within the valid range of values for the field.
@@ -393,8 +378,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     */
   override def get(field: TemporalField): Int = super.get(field)
 
-  /**
-    * Gets the value of the specified field from this time as a {@code long}.
+  /** Gets the value of the specified field from this time as a {@code long}.
     *
     * This queries this time for the value for the specified field.
     * If it is not possible to return the value, because the field is not supported
@@ -425,8 +409,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     field.getFrom(this)
   }
 
-  /**
-    * Gets the zone offset, such as '+01:00'.
+  /** Gets the zone offset, such as '+01:00'.
     *
     * This is the offset of the local time from UTC/Greenwich.
     *
@@ -434,8 +417,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     */
   def getOffset: ZoneOffset = offset
 
-  /**
-    * Returns a copy of this {@code OffsetTime} with the specified offset ensuring
+  /** Returns a copy of this {@code OffsetTime} with the specified offset ensuring
     * that the result has the same local time.
     *
     * This method returns an object with the same {@code LocalTime} and the specified {@code ZoneOffset}.
@@ -455,8 +437,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     if (offset != null && (offset == this.offset)) this
     else new OffsetTime(time, offset)
 
-  /**
-    * Returns a copy of this {@code OffsetTime} with the specified offset ensuring
+  /** Returns a copy of this {@code OffsetTime} with the specified offset ensuring
     * that the result is at the same instant on an implied day.
     *
     * This method returns an object with the specified {@code ZoneOffset} and a {@code LocalTime}
@@ -482,36 +463,31 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
       new OffsetTime(adjusted, offset)
     }
 
-  /**
-    * Gets the hour-of-day field.
+  /** Gets the hour-of-day field.
     *
     * @return the hour-of-day, from 0 to 23
     */
   def getHour: Int = time.getHour
 
-  /**
-    * Gets the minute-of-hour field.
+  /** Gets the minute-of-hour field.
     *
     * @return the minute-of-hour, from 0 to 59
     */
   def getMinute: Int = time.getMinute
 
-  /**
-    * Gets the second-of-minute field.
+  /** Gets the second-of-minute field.
     *
     * @return the second-of-minute, from 0 to 59
     */
   def getSecond: Int = time.getSecond
 
-  /**
-    * Gets the nano-of-second field.
+  /** Gets the nano-of-second field.
     *
     * @return the nano-of-second, from 0 to 999,999,999
     */
   def getNano: Int = time.getNano
 
-  /**
-    * Returns an adjusted copy of this time.
+  /** Returns an adjusted copy of this time.
     *
     * This returns a new {@code OffsetTime}, based on this one, with the time adjusted.
     * The adjustment takes place using the specified adjuster strategy object.
@@ -546,8 +522,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
       case _                      => adjuster.adjustInto(this).asInstanceOf[OffsetTime]
     }
 
-  /**
-    * Returns a copy of this time with the specified field set to a new value.
+  /** Returns a copy of this time with the specified field set to a new value.
     *
     * This returns a new {@code OffsetTime}, based on this one, with the value
     * for the specified field changed.
@@ -592,8 +567,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
       field.adjustInto(this, newValue)
     }
 
-  /**
-    * Returns a copy of this {@code OffsetTime} with the hour-of-day value altered.
+  /** Returns a copy of this {@code OffsetTime} with the hour-of-day value altered.
     *
     * The offset does not affect the calculation and will be the same in the result.
     *
@@ -605,8 +579,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     */
   def withHour(hour: Int): OffsetTime = `with`(time.withHour(hour), offset)
 
-  /**
-    * Returns a copy of this {@code OffsetTime} with the minute-of-hour value altered.
+  /** Returns a copy of this {@code OffsetTime} with the minute-of-hour value altered.
     *
     * The offset does not affect the calculation and will be the same in the result.
     *
@@ -618,8 +591,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     */
   def withMinute(minute: Int): OffsetTime = `with`(time.withMinute(minute), offset)
 
-  /**
-    * Returns a copy of this {@code OffsetTime} with the second-of-minute value altered.
+  /** Returns a copy of this {@code OffsetTime} with the second-of-minute value altered.
     *
     * The offset does not affect the calculation and will be the same in the result.
     *
@@ -631,8 +603,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     */
   def withSecond(second: Int): OffsetTime = `with`(time.withSecond(second), offset)
 
-  /**
-    * Returns a copy of this {@code OffsetTime} with the nano-of-second value altered.
+  /** Returns a copy of this {@code OffsetTime} with the nano-of-second value altered.
     *
     * The offset does not affect the calculation and will be the same in the result.
     *
@@ -644,8 +615,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     */
   def withNano(nanoOfSecond: Int): OffsetTime = `with`(time.withNano(nanoOfSecond), offset)
 
-  /**
-    * Returns a copy of this {@code OffsetTime} with the time truncated.
+  /** Returns a copy of this {@code OffsetTime} with the time truncated.
     *
     * Truncation returns a copy of the original time with fields
     * smaller than the specified unit set to zero.
@@ -667,8 +637,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     */
   def truncatedTo(unit: TemporalUnit): OffsetTime = `with`(time.truncatedTo(unit), offset)
 
-  /**
-    * Returns a copy of this date with the specified period added.
+  /** Returns a copy of this date with the specified period added.
     *
     * This method returns a new time based on this time with the specified period added.
     * The amount is typically {@link Period} but may be any other type implementing
@@ -686,8 +655,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     */
   override def plus(amount: TemporalAmount): OffsetTime = amount.addTo(this).asInstanceOf[OffsetTime]
 
-  /**
-    * Returns a copy of this time with the specified period added.
+  /** Returns a copy of this time with the specified period added.
     *
     * This method returns a new time based on this time with the specified period added.
     * This can be used to add any period that is defined by a unit, for example to add hours, minutes or seconds.
@@ -708,8 +676,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     else
       unit.addTo(this, amountToAdd)
 
-  /**
-    * Returns a copy of this {@code OffsetTime} with the specified period in hours added.
+  /** Returns a copy of this {@code OffsetTime} with the specified period in hours added.
     *
     * This adds the specified number of hours to this time, returning a new time.
     * The calculation wraps around midnight.
@@ -721,8 +688,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     */
   def plusHours(hours: Long): OffsetTime = `with`(time.plusHours(hours), offset)
 
-  /**
-    * Returns a copy of this {@code OffsetTime} with the specified period in minutes added.
+  /** Returns a copy of this {@code OffsetTime} with the specified period in minutes added.
     *
     * This adds the specified number of minutes to this time, returning a new time.
     * The calculation wraps around midnight.
@@ -734,8 +700,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     */
   def plusMinutes(minutes: Long): OffsetTime = `with`(time.plusMinutes(minutes), offset)
 
-  /**
-    * Returns a copy of this {@code OffsetTime} with the specified period in seconds added.
+  /** Returns a copy of this {@code OffsetTime} with the specified period in seconds added.
     *
     * This adds the specified number of seconds to this time, returning a new time.
     * The calculation wraps around midnight.
@@ -747,8 +712,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     */
   def plusSeconds(seconds: Long): OffsetTime = `with`(time.plusSeconds(seconds), offset)
 
-  /**
-    * Returns a copy of this {@code OffsetTime} with the specified period in nanoseconds added.
+  /** Returns a copy of this {@code OffsetTime} with the specified period in nanoseconds added.
     *
     * This adds the specified number of nanoseconds to this time, returning a new time.
     * The calculation wraps around midnight.
@@ -760,8 +724,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     */
   def plusNanos(nanos: Long): OffsetTime = `with`(time.plusNanos(nanos), offset)
 
-  /**
-    * Returns a copy of this time with the specified period subtracted.
+  /** Returns a copy of this time with the specified period subtracted.
     *
     * This method returns a new time based on this time with the specified period subtracted.
     * The amount is typically {@link Period} but may be any other type implementing
@@ -779,8 +742,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     */
   override def minus(amount: TemporalAmount): OffsetTime = amount.subtractFrom(this).asInstanceOf[OffsetTime]
 
-  /**
-    * Returns a copy of this time with the specified period subtracted.
+  /** Returns a copy of this time with the specified period subtracted.
     *
     * This method returns a new time based on this time with the specified period subtracted.
     * This can be used to subtract any period that is defined by a unit, for example to subtract hours, minutes or seconds.
@@ -798,8 +760,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
   override def minus(amountToSubtract: Long, unit: TemporalUnit): OffsetTime =
     if (amountToSubtract == Long.MinValue) plus(Long.MaxValue, unit).plus(1, unit) else plus(-amountToSubtract, unit)
 
-  /**
-    * Returns a copy of this {@code OffsetTime} with the specified period in hours subtracted.
+  /** Returns a copy of this {@code OffsetTime} with the specified period in hours subtracted.
     *
     * This subtracts the specified number of hours from this time, returning a new time.
     * The calculation wraps around midnight.
@@ -811,8 +772,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     */
   def minusHours(hours: Long): OffsetTime = `with`(time.minusHours(hours), offset)
 
-  /**
-    * Returns a copy of this {@code OffsetTime} with the specified period in minutes subtracted.
+  /** Returns a copy of this {@code OffsetTime} with the specified period in minutes subtracted.
     *
     * This subtracts the specified number of minutes from this time, returning a new time.
     * The calculation wraps around midnight.
@@ -824,8 +784,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     */
   def minusMinutes(minutes: Long): OffsetTime = `with`(time.minusMinutes(minutes), offset)
 
-  /**
-    * Returns a copy of this {@code OffsetTime} with the specified period in seconds subtracted.
+  /** Returns a copy of this {@code OffsetTime} with the specified period in seconds subtracted.
     *
     * This subtracts the specified number of seconds from this time, returning a new time.
     * The calculation wraps around midnight.
@@ -837,8 +796,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     */
   def minusSeconds(seconds: Long): OffsetTime = `with`(time.minusSeconds(seconds), offset)
 
-  /**
-    * Returns a copy of this {@code OffsetTime} with the specified period in nanoseconds subtracted.
+  /** Returns a copy of this {@code OffsetTime} with the specified period in nanoseconds subtracted.
     *
     * This subtracts the specified number of nanoseconds from this time, returning a new time.
     * The calculation wraps around midnight.
@@ -850,8 +808,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     */
   def minusNanos(nanos: Long): OffsetTime = `with`(time.minusNanos(nanos), offset)
 
-  /**
-    * Queries this time using the specified query.
+  /** Queries this time using the specified query.
     *
     * This queries this time using the specified query strategy object.
     * The {@code TemporalQuery} object defines the logic to be used to
@@ -880,8 +837,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     else
       super.query(query)
 
-  /**
-    * Adjusts the specified temporal object to have the same offset and time
+  /** Adjusts the specified temporal object to have the same offset and time
     * as this object.
     *
     * This returns a temporal object of the same observable type as the input
@@ -909,8 +865,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
   def adjustInto(temporal: Temporal): Temporal =
     temporal.`with`(NANO_OF_DAY, time.toNanoOfDay).`with`(OFFSET_SECONDS, getOffset.getTotalSeconds)
 
-  /**
-    * Calculates the period between this time and another time in
+  /** Calculates the period between this time and another time in
     * terms of the specified unit.
     *
     * This calculates the period between two times in terms of a single unit.
@@ -976,8 +931,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     }
   }
 
-  /**
-    * Combines this time with a date to create an {@code OffsetDateTime}.
+  /** Combines this time with a date to create an {@code OffsetDateTime}.
     *
     * This returns an {@code OffsetDateTime} formed from this time and the specified date.
     * All possible combinations of date and time are valid.
@@ -987,8 +941,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     */
   def atDate(date: LocalDate): OffsetDateTime = OffsetDateTime.of(date, time, offset)
 
-  /**
-    * Gets the {@code LocalTime} part of this date-time.
+  /** Gets the {@code LocalTime} part of this date-time.
     *
     * This returns a {@code LocalTime} with the same hour, minute, second and
     * nanosecond as this date-time.
@@ -997,8 +950,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     */
   def toLocalTime: LocalTime = time
 
-  /**
-    * Converts this time to epoch nanos based on 1970-01-01Z.
+  /** Converts this time to epoch nanos based on 1970-01-01Z.
     *
     * @return the epoch nanos value
     */
@@ -1008,8 +960,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     nod - offsetNanos
   }
 
-  /**
-    * Compares this {@code OffsetTime} to another time.
+  /** Compares this {@code OffsetTime} to another time.
     *
     * The comparison is based first on the UTC equivalent instant, then on the local time.
     * It is "consistent with equals", as defined by {@link Comparable}.
@@ -1045,8 +996,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
       compare
     }
 
-  /**
-    * Checks if the instant of this {@code OffsetTime} is after that of the
+  /** Checks if the instant of this {@code OffsetTime} is after that of the
     * specified time applying both times to a common date.
     *
     * This method differs from the comparison in {@link #compareTo} in that it
@@ -1058,8 +1008,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     */
   def isAfter(other: OffsetTime): Boolean = toEpochNano > other.toEpochNano
 
-  /**
-    * Checks if the instant of this {@code OffsetTime} is before that of the
+  /** Checks if the instant of this {@code OffsetTime} is before that of the
     * specified time applying both times to a common date.
     *
     * This method differs from the comparison in {@link #compareTo} in that it
@@ -1071,8 +1020,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     */
   def isBefore(other: OffsetTime): Boolean = toEpochNano < other.toEpochNano
 
-  /**
-    * Checks if the instant of this {@code OffsetTime} is equal to that of the
+  /** Checks if the instant of this {@code OffsetTime} is equal to that of the
     * specified time applying both times to a common date.
     *
     * This method differs from the comparison in {@link #compareTo} and {@link #equals}
@@ -1084,8 +1032,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     */
   def isEqual(other: OffsetTime): Boolean = toEpochNano == other.toEpochNano
 
-  /**
-    * Checks if this time is equal to another time.
+  /** Checks if this time is equal to another time.
     *
     * The comparison is based on the local-time and the offset.
     * To compare for the same instant on the time-line, use {@link #isEqual(OffsetTime)}.
@@ -1103,15 +1050,13 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
       case _                 => false
     }
 
-  /**
-    * A hash code for this time.
+  /** A hash code for this time.
     *
     * @return a suitable hash code
     */
   override def hashCode: Int = time.hashCode ^ offset.hashCode
 
-  /**
-    * Outputs this time as a {@code String}, such as {@code 10:15:30+01:00}.
+  /** Outputs this time as a {@code String}, such as {@code 10:15:30+01:00}.
     *
     * The output will be one of the following ISO-8601 formats:
     *<ul>
@@ -1128,8 +1073,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     */
   override def toString: String = time.toString + offset.toString
 
-  /**
-    * Outputs this time as a {@code String} using the formatter.
+  /** Outputs this time as a {@code String} using the formatter.
     *
     * This time will be passed to the formatter
     * {@link DateTimeFormatter#format(TemporalAccessor) print method}.
@@ -1145,8 +1089,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
 
   private def writeReplace: AnyRef = new Ser(Ser.OFFSET_TIME_TYPE, this)
 
-  /**
-    * Defend against malicious streams.
+  /** Defend against malicious streams.
     *
     * @return never
     * @throws InvalidObjectException always

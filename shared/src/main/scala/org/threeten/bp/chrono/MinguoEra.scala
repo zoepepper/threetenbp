@@ -48,8 +48,7 @@ import org.threeten.bp.temporal.TemporalQuery
 import org.threeten.bp.temporal.UnsupportedTemporalTypeException
 import org.threeten.bp.temporal.ValueRange
 
-/**
-  * An era in the Minguo calendar system.
+/** An era in the Minguo calendar system.
   *
   * The Minguo calendar system has two eras.
   * The date {@code 0001-01-01 (Minguo)} is equal to {@code 1912-01-01 (ISO)}.
@@ -61,21 +60,18 @@ import org.threeten.bp.temporal.ValueRange
   * This is an immutable and thread-safe enum.
   */
 object MinguoEra {
-  /**
-    * The singleton instance for the era BEFORE_ROC, 'Before Republic of China'.
+  /** The singleton instance for the era BEFORE_ROC, 'Before Republic of China'.
     * This has the numeric value of {@code 0}.
     */
   val BEFORE_ROC = new MinguoEra("BEFORE_ROC", 0)
-  /**
-    * The singleton instance for the era ROC, 'Republic of China'.
+  /** The singleton instance for the era ROC, 'Republic of China'.
     * This has the numeric value of {@code 1}.
     */
   val ROC        = new MinguoEra("ROC", 1)
 
   val values: Array[MinguoEra] = Array(BEFORE_ROC, ROC)
 
-  /**
-    * Obtains an instance of {@code MinguoEra} from an {@code int} value.
+  /** Obtains an instance of {@code MinguoEra} from an {@code int} value.
     *
     * {@code MinguoEra} is an enum representing the Minguo eras of BEFORE_ROC/ROC.
     * This factory allows the enum to be obtained from the {@code int} value.
@@ -99,8 +95,7 @@ object MinguoEra {
 }
 
 final class MinguoEra(name: String, ordinal: Int) extends Enum[MinguoEra](name, ordinal) with Era {
-  /**
-    * Gets the numeric era {@code int} value.
+  /** Gets the numeric era {@code int} value.
     *
     * The era BEFORE_ROC has the value 0, while the era ROC has the value 1.
     *

@@ -58,8 +58,7 @@ import org.threeten.bp.temporal.TemporalField
 import org.threeten.bp.temporal.TemporalQuery
 
 object DateTimeFormatter {
-  /**
-    * Returns the ISO date formatter that prints/parses a date without an offset,
+  /** Returns the ISO date formatter that prints/parses a date without an offset,
     * such as '2011-12-03'.
     *
     * This returns an immutable formatter capable of printing and parsing
@@ -78,8 +77,7 @@ object DateTimeFormatter {
     * </ul><p>
     */
   val ISO_LOCAL_DATE: DateTimeFormatter = new DateTimeFormatterBuilder().appendValue(YEAR, 4, 10, SignStyle.EXCEEDS_PAD).appendLiteral('-').appendValue(MONTH_OF_YEAR, 2).appendLiteral('-').appendValue(DAY_OF_MONTH, 2).toFormatter(ResolverStyle.STRICT).withChronology(IsoChronology.INSTANCE)
-  /**
-    * Returns the ISO date formatter that prints/parses a date with an offset,
+  /** Returns the ISO date formatter that prints/parses a date with an offset,
     * such as '2011-12-03+01:00'.
     *
     * This returns an immutable formatter capable of printing and parsing
@@ -93,8 +91,7 @@ object DateTimeFormatter {
     * </ul><p>
     */
   val ISO_OFFSET_DATE: DateTimeFormatter =  new DateTimeFormatterBuilder().parseCaseInsensitive.append(ISO_LOCAL_DATE).appendOffsetId.toFormatter(ResolverStyle.STRICT).withChronology(IsoChronology.INSTANCE)
-  /**
-    * Returns the ISO date formatter that prints/parses a date with the
+  /** Returns the ISO date formatter that prints/parses a date with the
     * offset if available, such as '2011-12-03' or '2011-12-03+01:00'.
     *
     * This returns an immutable formatter capable of printing and parsing
@@ -111,8 +108,7 @@ object DateTimeFormatter {
     * {@link DateTimeFormatter#parseBest}.
     */
   val ISO_DATE: DateTimeFormatter = new DateTimeFormatterBuilder().parseCaseInsensitive.append(ISO_LOCAL_DATE).optionalStart().appendOffsetId.toFormatter(ResolverStyle.STRICT).withChronology(IsoChronology.INSTANCE)
-  /**
-    * Returns the ISO time formatter that prints/parses a time without an offset,
+  /** Returns the ISO time formatter that prints/parses a time without an offset,
     * such as '10:15' or '10:15:30'.
     *
     * This returns an immutable formatter capable of printing and parsing
@@ -135,8 +131,7 @@ object DateTimeFormatter {
     * </ul><p>
     */
   val ISO_LOCAL_TIME: DateTimeFormatter =  new DateTimeFormatterBuilder().appendValue(HOUR_OF_DAY, 2).appendLiteral(':').appendValue(MINUTE_OF_HOUR, 2).optionalStart().appendLiteral(':').appendValue(SECOND_OF_MINUTE, 2).optionalStart().appendFraction(NANO_OF_SECOND, 0, 9, true).toFormatter(ResolverStyle.STRICT)
-  /**
-    * Returns the ISO time formatter that prints/parses a time with an offset,
+  /** Returns the ISO time formatter that prints/parses a time with an offset,
     * such as '10:15+01:00' or '10:15:30+01:00'.
     *
     * This returns an immutable formatter capable of printing and parsing
@@ -150,8 +145,7 @@ object DateTimeFormatter {
     * </ul><p>
     */
   val ISO_OFFSET_TIME: DateTimeFormatter = new DateTimeFormatterBuilder().parseCaseInsensitive.append(ISO_LOCAL_TIME).appendOffsetId.toFormatter(ResolverStyle.STRICT)
-  /**
-    * Returns the ISO time formatter that prints/parses a time, with the
+  /** Returns the ISO time formatter that prints/parses a time, with the
     * offset if available, such as '10:15', '10:15:30' or '10:15:30+01:00'.
     *
     * This returns an immutable formatter capable of printing and parsing
@@ -168,8 +162,7 @@ object DateTimeFormatter {
     * {@link DateTimeFormatter#parseBest}.
     */
   val ISO_TIME: DateTimeFormatter = new DateTimeFormatterBuilder().parseCaseInsensitive.append(ISO_LOCAL_TIME).optionalStart().appendOffsetId.toFormatter(ResolverStyle.STRICT)
-  /**
-    * Returns the ISO date formatter that prints/parses a date-time
+  /** Returns the ISO date formatter that prints/parses a date-time
     * without an offset, such as '2011-12-03T10:15:30'.
     *
     * This returns an immutable formatter capable of printing and parsing
@@ -182,8 +175,7 @@ object DateTimeFormatter {
     * </ul><p>
     */
   val ISO_LOCAL_DATE_TIME: DateTimeFormatter = new DateTimeFormatterBuilder().parseCaseInsensitive.append(ISO_LOCAL_DATE).appendLiteral('T').append(ISO_LOCAL_TIME).toFormatter(ResolverStyle.STRICT).withChronology(IsoChronology.INSTANCE)
-  /**
-    * Returns the ISO date formatter that prints/parses a date-time
+  /** Returns the ISO date formatter that prints/parses a date-time
     * with an offset, such as '2011-12-03T10:15:30+01:00'.
     *
     * This returns an immutable formatter capable of printing and parsing
@@ -197,8 +189,7 @@ object DateTimeFormatter {
     * </ul><p>
     */
   val ISO_OFFSET_DATE_TIME: DateTimeFormatter = new DateTimeFormatterBuilder().parseCaseInsensitive.append(ISO_LOCAL_DATE_TIME).appendOffsetId.toFormatter(ResolverStyle.STRICT).withChronology(IsoChronology.INSTANCE)
-  /**
-    * Returns the ISO date formatter that prints/parses a date-time with
+  /** Returns the ISO date formatter that prints/parses a date-time with
     * offset and zone, such as '2011-12-03T10:15:30+01:00[Europe/Paris]'.
     *
     * This returns an immutable formatter capable of printing and parsing
@@ -215,8 +206,7 @@ object DateTimeFormatter {
     * </ul><p>
     */
   val ISO_ZONED_DATE_TIME: DateTimeFormatter = new DateTimeFormatterBuilder().append(ISO_OFFSET_DATE_TIME).optionalStart().appendLiteral('[').parseCaseSensitive.appendZoneRegionId.appendLiteral(']').toFormatter(ResolverStyle.STRICT).withChronology(IsoChronology.INSTANCE)
-  /**
-    * Returns the ISO date formatter that prints/parses a date-time
+  /** Returns the ISO date formatter that prints/parses a date-time
     * with the offset and zone if available, such as '2011-12-03T10:15:30',
     * '2011-12-03T10:15:30+01:00' or '2011-12-03T10:15:30+01:00[Europe/Paris]'.
     *
@@ -238,8 +228,7 @@ object DateTimeFormatter {
     * {@link DateTimeFormatter#parseBest}.
     */
   val ISO_DATE_TIME: DateTimeFormatter = new DateTimeFormatterBuilder().append(ISO_LOCAL_DATE_TIME).optionalStart().appendOffsetId.optionalStart().appendLiteral('[').parseCaseSensitive.appendZoneRegionId.appendLiteral(']').toFormatter(ResolverStyle.STRICT).withChronology(IsoChronology.INSTANCE)
-  /**
-    * Returns the ISO date formatter that prints/parses the ordinal date
+  /** Returns the ISO date formatter that prints/parses the ordinal date
     * without an offset, such as '2012-337'.
     *
     * This returns an immutable formatter capable of printing and parsing
@@ -261,8 +250,7 @@ object DateTimeFormatter {
     * {@link DateTimeFormatter#parseBest}.
     */
   val ISO_ORDINAL_DATE: DateTimeFormatter = new DateTimeFormatterBuilder().parseCaseInsensitive.appendValue(YEAR, 4, 10, SignStyle.EXCEEDS_PAD).appendLiteral('-').appendValue(DAY_OF_YEAR, 3).optionalStart().appendOffsetId.toFormatter(ResolverStyle.STRICT).withChronology(IsoChronology.INSTANCE)
-  /**
-    * Returns the ISO date formatter that prints/parses the week-based date
+  /** Returns the ISO date formatter that prints/parses the week-based date
     * without an offset, such as '2012-W48-6'.
     *
     * This returns an immutable formatter capable of printing and parsing
@@ -288,8 +276,7 @@ object DateTimeFormatter {
     * {@link DateTimeFormatter#parseBest}.
     */
   val ISO_WEEK_DATE: DateTimeFormatter = new DateTimeFormatterBuilder().parseCaseInsensitive.appendValue(IsoFields.WEEK_BASED_YEAR, 4, 10, SignStyle.EXCEEDS_PAD).appendLiteral("-W").appendValue(IsoFields.WEEK_OF_WEEK_BASED_YEAR, 2).appendLiteral('-').appendValue(DAY_OF_WEEK, 1).optionalStart().appendOffsetId.toFormatter(ResolverStyle.STRICT).withChronology(IsoChronology.INSTANCE)
-  /**
-    * The ISO instant formatter that formats or parses an instant in UTC,
+  /** The ISO instant formatter that formats or parses an instant in UTC,
     * such as '2011-12-03T10:15:30Z'.
     *
     * This returns an immutable formatter capable of formatting and parsing
@@ -320,8 +307,7 @@ object DateTimeFormatter {
     * It uses the {@link ResolverStyle#STRICT STRICT} resolver style.
     */
   val ISO_INSTANT: DateTimeFormatter = new DateTimeFormatterBuilder().parseCaseInsensitive.appendInstant.toFormatter(ResolverStyle.STRICT)
-  /**
-    * Returns the ISO date formatter that prints/parses a date without an offset,
+  /** Returns the ISO date formatter that prints/parses a date without an offset,
     * such as '20111203'.
     *
     * This returns an immutable formatter capable of printing and parsing
@@ -343,8 +329,7 @@ object DateTimeFormatter {
     * {@link DateTimeFormatter#parseBest}.
     */
   val BASIC_ISO_DATE: DateTimeFormatter = new DateTimeFormatterBuilder().parseCaseInsensitive.appendValue(YEAR, 4).appendValue(MONTH_OF_YEAR, 2).appendValue(DAY_OF_MONTH, 2).optionalStart().appendOffset("+HHMMss", "Z").toFormatter(ResolverStyle.STRICT).withChronology(IsoChronology.INSTANCE)
-  /**
-    * Returns the RFC-1123 date-time formatter, such as 'Tue, 3 Jun 2008 11:05:30 GMT'.
+  /** Returns the RFC-1123 date-time formatter, such as 'Tue, 3 Jun 2008 11:05:30 GMT'.
     *
     * This returns an immutable formatter capable of printing and parsing
     * most of the RFC-1123 format.
@@ -406,8 +391,7 @@ object DateTimeFormatter {
     new DateTimeFormatterBuilder().parseCaseInsensitive.parseLenient.optionalStart().appendText(DAY_OF_WEEK, dow).appendLiteral(", ").optionalEnd().appendValue(DAY_OF_MONTH, 1, 2, SignStyle.NOT_NEGATIVE).appendLiteral(' ').appendText(MONTH_OF_YEAR, moy).appendLiteral(' ').appendValue(YEAR, 4).appendLiteral(' ').appendValue(HOUR_OF_DAY, 2).appendLiteral(':').appendValue(MINUTE_OF_HOUR, 2).optionalStart().appendLiteral(':').appendValue(SECOND_OF_MINUTE, 2).optionalEnd().appendLiteral(' ').appendOffset("+HHMM", "GMT").toFormatter(ResolverStyle.SMART).withChronology(IsoChronology.INSTANCE)
   }
 
-  /**
-    * Creates a formatter using the specified pattern.
+  /** Creates a formatter using the specified pattern.
     *
     * This method will create a formatter based on a simple pattern of letters and symbols.
     * For example, {@code d MMM yyyy} will format 2011-12-03 as '3 Dec 2011'.
@@ -541,8 +525,7 @@ object DateTimeFormatter {
   def ofPattern(pattern: String): DateTimeFormatter =
     new DateTimeFormatterBuilder().appendPattern(pattern).toFormatter
 
-  /**
-    * Creates a formatter using the specified pattern.
+  /** Creates a formatter using the specified pattern.
     *
     * This method will create a formatter based on a simple pattern of letters and symbols.
     * For example, {@code d MMM yyyy} will format 2011-12-03 as '3 Dec 2011'.
@@ -561,8 +544,7 @@ object DateTimeFormatter {
   def ofPattern(pattern: String, locale: Locale): DateTimeFormatter =
     new DateTimeFormatterBuilder().appendPattern(pattern).toFormatter(locale)
 
-  /**
-    * Returns a locale specific date format.
+  /** Returns a locale specific date format.
     *
     * This returns a formatter that will print/parse a date.
     * The exact format pattern used varies by locale.
@@ -584,8 +566,7 @@ object DateTimeFormatter {
     new DateTimeFormatterBuilder().appendLocalized(dateStyle, null).toFormatter.withChronology(IsoChronology.INSTANCE)
   }
 
-  /**
-    * Returns a locale specific time format.
+  /** Returns a locale specific time format.
     *
     * This returns a formatter that will print/parse a time.
     * The exact format pattern used varies by locale.
@@ -607,8 +588,7 @@ object DateTimeFormatter {
     new DateTimeFormatterBuilder().appendLocalized(null, timeStyle).toFormatter.withChronology(IsoChronology.INSTANCE)
   }
 
-  /**
-    * Returns a locale specific date-time format, which is typically of short length.
+  /** Returns a locale specific date-time format, which is typically of short length.
     *
     * This returns a formatter that will print/parse a date-time.
     * The exact format pattern used varies by locale.
@@ -630,8 +610,7 @@ object DateTimeFormatter {
     new DateTimeFormatterBuilder().appendLocalized(dateTimeStyle, dateTimeStyle).toFormatter.withChronology(IsoChronology.INSTANCE)
   }
 
-  /**
-    * Returns a locale specific date and time format.
+  /** Returns a locale specific date and time format.
     *
     * This returns a formatter that will print/parse a date-time.
     * The exact format pattern used varies by locale.
@@ -655,8 +634,7 @@ object DateTimeFormatter {
     new DateTimeFormatterBuilder().appendLocalized(dateStyle, timeStyle).toFormatter.withChronology(IsoChronology.INSTANCE)
   }
 
-  /**
-    * A query that provides access to the excess days that were parsed.
+  /** A query that provides access to the excess days that were parsed.
     *
     * This returns a singleton {@linkplain TemporalQuery query} that provides
     * access to additional information from the parse. The query always returns
@@ -702,8 +680,7 @@ object DateTimeFormatter {
     case _ => Period.ZERO
   }
 
-  /**
-    * A query that provides access to whether a leap-second was parsed.
+  /** A query that provides access to whether a leap-second was parsed.
     *
     * This returns a singleton {@linkplain TemporalQuery query} that provides
     * access to additional information from the parse. The query always returns
@@ -739,8 +716,7 @@ object DateTimeFormatter {
     case _ => false
   }
 
-  /**
-    * Implements the classic Java Format API.
+  /** Implements the classic Java Format API.
     *
     * @param formatter The formatter
     * @param query The query to be parsed
@@ -862,8 +838,7 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
   Objects.requireNonNull(decimalStyle, "decimalStyle")
   Objects.requireNonNull(resolverStyle, "resolverStyle")
 
-  /**
-    * Gets the locale to be used during formatting.
+  /** Gets the locale to be used during formatting.
     *
     * This is used to lookup any part of the formatter needing specific
     * localization, such as the text or localized pattern.
@@ -872,8 +847,7 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
     */
   def getLocale: Locale = locale
 
-  /**
-    * Returns a copy of this formatter with a new locale.
+  /** Returns a copy of this formatter with a new locale.
     *
     * This is used to lookup any part of the formatter needing specific
     * localization, such as the text or localized pattern.
@@ -889,15 +863,13 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
     else
       new DateTimeFormatter(printerParser, locale, decimalStyle, resolverStyle, resolverFields, chrono, zone)
 
-  /**
-    * Gets the decimal style to be used during formatting.
+  /** Gets the decimal style to be used during formatting.
     *
     * @return the decimal style of this formatter, not null
     */
   def getDecimalStyle: DecimalStyle = decimalStyle
 
-  /**
-    * Returns a copy of this formatter with a new decimal style.
+  /** Returns a copy of this formatter with a new decimal style.
     *
     * This instance is immutable and unaffected by this method call.
     *
@@ -910,8 +882,7 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
     else
       new DateTimeFormatter(printerParser, locale, decimalStyle, resolverStyle, resolverFields, chrono, zone)
 
-  /**
-    * Gets the overriding chronology to be used during formatting.
+  /** Gets the overriding chronology to be used during formatting.
     *
     * This returns the override chronology, used to convert dates.
     * By default, a formatter has no override chronology, returning null.
@@ -921,8 +892,7 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
     */
   def getChronology: Chronology = chrono
 
-  /**
-    * Returns a copy of this formatter with a new override chronology.
+  /** Returns a copy of this formatter with a new override chronology.
     *
     * This returns a formatter with similar state to this formatter but
     * with the override chronology set.
@@ -951,8 +921,7 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
     else
       new DateTimeFormatter(printerParser, locale, decimalStyle, resolverStyle, resolverFields, chrono, zone)
 
-  /**
-    * Gets the overriding zone to be used during formatting.
+  /** Gets the overriding zone to be used during formatting.
     *
     * This returns the override zone, used to convert instants.
     * By default, a formatter has no override zone, returning null.
@@ -962,8 +931,7 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
     */
   def getZone: ZoneId = zone
 
-  /**
-    * Returns a copy of this formatter with a new override zone.
+  /** Returns a copy of this formatter with a new override zone.
     *
     * This returns a formatter with similar state to this formatter but
     * with the override zone set.
@@ -994,8 +962,7 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
     else
       new DateTimeFormatter(printerParser, locale, decimalStyle, resolverStyle, resolverFields, chrono, zone)
 
-  /**
-    * Gets the resolver style to use during parsing.
+  /** Gets the resolver style to use during parsing.
     *
     * This returns the resolver style, used during the second phase of parsing
     * when fields are resolved into dates and times.
@@ -1006,8 +973,7 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
     */
   def getResolverStyle: ResolverStyle = resolverStyle
 
-  /**
-    * Returns a copy of this formatter with a new resolver style.
+  /** Returns a copy of this formatter with a new resolver style.
     *
     * This returns a formatter with similar state to this formatter but
     * with the resolver style set. By default, a formatter has the
@@ -1033,8 +999,7 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
       new DateTimeFormatter(printerParser, locale, decimalStyle, resolverStyle, resolverFields, chrono, zone)
   }
 
-  /**
-    * Gets the resolver fields to use during parsing.
+  /** Gets the resolver fields to use during parsing.
     *
     * This returns the resolver fields, used during the second phase of parsing
     * when fields are resolved into dates and times.
@@ -1045,8 +1010,7 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
     */
   def getResolverFields: java.util.Set[TemporalField] = resolverFields
 
-  /**
-    * Returns a copy of this formatter with a new set of resolver fields.
+  /** Returns a copy of this formatter with a new set of resolver fields.
     *
     * This returns a formatter with similar state to this formatter but with
     * the resolver fields set. By default, a formatter has no resolver fields.
@@ -1094,8 +1058,7 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
     new DateTimeFormatter(printerParser, locale, decimalStyle, resolverStyle, fields, chrono, zone)
   }
 
-  /**
-    * Returns a copy of this formatter with a new set of resolver fields.
+  /** Returns a copy of this formatter with a new set of resolver fields.
     *
     * This returns a formatter with similar state to this formatter but with
     * the resolver fields set. By default, a formatter has no resolver fields.
@@ -1143,8 +1106,7 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
     new DateTimeFormatter(printerParser, locale, decimalStyle, resolverStyle, _resolverFields, chrono, zone)
   }
 
-  /**
-    * Formats a date-time object using this formatter.
+  /** Formats a date-time object using this formatter.
     *
     * This formats the date-time to a String using the rules of the formatter.
     *
@@ -1158,8 +1120,7 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
     buf.toString
   }
 
-  /**
-    * Formats a date-time object to an {@code Appendable} using this formatter.
+  /** Formats a date-time object to an {@code Appendable} using this formatter.
     *
     * This formats the date-time to the specified destination.
     * {@link Appendable} is a general purpose interface that is implemented by all
@@ -1191,8 +1152,7 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
     }
   }
 
-  /**
-    * Fully parses the text producing a temporal object.
+  /** Fully parses the text producing a temporal object.
     *
     * This parses the entire text producing a temporal object.
     * It is typically more useful to use {@link #parse(CharSequence, TemporalQuery)}.
@@ -1215,8 +1175,7 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
     }
   }
 
-  /**
-    * Parses the text using this formatter, providing control over the text position.
+  /** Parses the text using this formatter, providing control over the text position.
     *
     * This parses the text without requiring the parse to start from the beginning
     * of the string or finish at the end.
@@ -1256,8 +1215,7 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
     }
   }
 
-  /**
-    * Fully parses the text producing an object of the specified type.
+  /** Fully parses the text producing an object of the specified type.
     *
     * Most applications should use this method for parsing.
     * It parses the entire text to produce the required date-time.
@@ -1287,8 +1245,7 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
     }
   }
 
-  /**
-    * Fully parses the text producing an object of one of the specified types.
+  /** Fully parses the text producing an object of one of the specified types.
     *
     * This parse method is convenient for use when the parser can handle optional elements.
     * For example, a pattern of 'yyyy[-MM[-dd]]' can be fully parsed to a {@code LocalDate},
@@ -1347,8 +1304,7 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
     new DateTimeParseException("Text '" + abbr + "' could not be parsed: " + ex.getMessage, text, 0, ex)
   }
 
-  /**
-    * Parses the text to a builder.
+  /** Parses the text to a builder.
     *
     * This parses to a {@code DateTimeBuilder} ensuring that the text is fully parsed.
     * This method throws {@link DateTimeParseException} if unable to parse, or
@@ -1377,8 +1333,7 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
     result.toBuilder
   }
 
-  /**
-    * Parses the text using this formatter, without resolving the result, intended
+  /** Parses the text using this formatter, without resolving the result, intended
     * for advanced use cases.
     *
     * Parsing is implemented as a two-phase operation.
@@ -1433,8 +1388,7 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
     context.toParsed
   }
 
-  /**
-    * Returns the formatter as a composite printer parser.
+  /** Returns the formatter as a composite printer parser.
     *
     * @param optional  whether the printer/parser should be optional
     * @return the printer/parser, not null
@@ -1442,8 +1396,7 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
   private[format] def toPrinterParser(optional: Boolean): DateTimeFormatterBuilder.CompositePrinterParser =
     printerParser.withOptional(optional)
 
-  /**
-    * Returns this formatter as a {@code java.text.Format} instance.
+  /** Returns this formatter as a {@code java.text.Format} instance.
     *
     * The returned {@link Format} instance will print any {@link TemporalAccessor}
     * and parses to a resolved {@link TemporalAccessor}.
@@ -1457,8 +1410,7 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
     */
   def toFormat: Format = new DateTimeFormatter.ClassicFormat(this, null)
 
-  /**
-    * Returns this formatter as a {@code java.text.Format} instance that will
+  /** Returns this formatter as a {@code java.text.Format} instance that will
     * parse to the specified type.
     *
     * The returned {@link Format} instance will print any {@link TemporalAccessor}
@@ -1478,8 +1430,7 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
     new DateTimeFormatter.ClassicFormat(this, query)
   }
 
-  /**
-    * Returns a description of the underlying formatters.
+  /** Returns a description of the underlying formatters.
     *
     * @return a description of this formatter, not null
     */

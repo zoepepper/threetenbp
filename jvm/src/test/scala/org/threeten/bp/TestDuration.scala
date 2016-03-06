@@ -54,9 +54,7 @@ import org.testng.annotations.Test
 import org.threeten.bp.format.DateTimeParseException
 import org.threeten.bp.temporal.TemporalUnit
 
-/**
-  * Test Duration.
-  */
+/** Test Duration. */
 @Test class TestDuration extends TestNGSuite {
   @Test def test_immutable(): Unit = {
     throw new SkipException("private constructor shows up public due to companion object")

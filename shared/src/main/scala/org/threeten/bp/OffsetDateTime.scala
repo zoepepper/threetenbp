@@ -61,16 +61,14 @@ import org.threeten.bp.zone.ZoneRules
 
 @SerialVersionUID(2287754244819255394L)
 object OffsetDateTime {
-  /**
-    * The minimum supported {@code OffsetDateTime}, '-999999999-01-01T00:00:00+18:00'.
+  /** The minimum supported {@code OffsetDateTime}, '-999999999-01-01T00:00:00+18:00'.
     * This is the local date-time of midnight at the start of the minimum date
     * in the maximum offset (larger offsets are earlier on the time-line).
     * This combines {@link LocalDateTime#MIN} and {@link ZoneOffset#MAX}.
     * This could be used by an application as a "far past" date-time.
     */
   val MIN: OffsetDateTime = LocalDateTime.MIN.atOffset(ZoneOffset.MAX)
-  /**
-    * The maximum supported {@code OffsetDateTime}, '+999999999-12-31T23:59:59.999999999-18:00'.
+  /** The maximum supported {@code OffsetDateTime}, '+999999999-12-31T23:59:59.999999999-18:00'.
     * This is the local date-time just before midnight at the end of the maximum date
     * in the minimum offset (larger negative offsets are later on the time-line).
     * This combines {@link LocalDateTime#MAX} and {@link ZoneOffset#MIN}.
@@ -78,8 +76,7 @@ object OffsetDateTime {
     */
   val MAX: OffsetDateTime = LocalDateTime.MAX.atOffset(ZoneOffset.MIN)
 
-  /**
-    * Gets a comparator that compares two {@code OffsetDateTime} instances
+  /** Gets a comparator that compares two {@code OffsetDateTime} instances
     * based solely on the instant.
     *
     * This method differs from the comparison in {@link #compareTo} in that it
@@ -100,8 +97,7 @@ object OffsetDateTime {
       cmp
     }
 
-  /**
-    * Obtains the current date-time from the system clock in the default time-zone.
+  /** Obtains the current date-time from the system clock in the default time-zone.
     *
     * This will query the {@link Clock#systemDefaultZone() system clock} in the default
     * time-zone to obtain the current date-time.
@@ -114,8 +110,7 @@ object OffsetDateTime {
     */
   def now: OffsetDateTime = now(Clock.systemDefaultZone)
 
-  /**
-    * Obtains the current date-time from the system clock in the specified time-zone.
+  /** Obtains the current date-time from the system clock in the specified time-zone.
     *
     * This will query the {@link Clock#system(ZoneId) system clock} to obtain the current date-time.
     * Specifying the time-zone avoids dependence on the default time-zone.
@@ -129,8 +124,7 @@ object OffsetDateTime {
     */
   def now(zone: ZoneId): OffsetDateTime = now(Clock.system(zone))
 
-  /**
-    * Obtains the current date-time from the specified clock.
+  /** Obtains the current date-time from the specified clock.
     *
     * This will query the specified clock to obtain the current date-time.
     * The offset will be calculated from the time-zone in the clock.
@@ -147,8 +141,7 @@ object OffsetDateTime {
     ofInstant(now, clock.getZone.getRules.getOffset(now))
   }
 
-  /**
-    * Obtains an instance of {@code OffsetDateTime} from a date, time and offset.
+  /** Obtains an instance of {@code OffsetDateTime} from a date, time and offset.
     *
     * This creates an offset date-time with the specified local date, time and offset.
     *
@@ -162,8 +155,7 @@ object OffsetDateTime {
     new OffsetDateTime(dt, offset)
   }
 
-  /**
-    * Obtains an instance of {@code OffsetDateTime} from a date-time and offset.
+  /** Obtains an instance of {@code OffsetDateTime} from a date-time and offset.
     *
     * This creates an offset date-time with the specified local date-time and offset.
     *
@@ -173,8 +165,7 @@ object OffsetDateTime {
     */
   def of(dateTime: LocalDateTime, offset: ZoneOffset): OffsetDateTime = new OffsetDateTime(dateTime, offset)
 
-  /**
-    * Obtains an instance of {@code OffsetDateTime} from a year, month, day,
+  /** Obtains an instance of {@code OffsetDateTime} from a year, month, day,
     * hour, minute, second, nanosecond and offset.
     *
     * This creates an offset date-time with the seven specified fields.
@@ -202,8 +193,7 @@ object OffsetDateTime {
     new OffsetDateTime(dt, offset)
   }
 
-  /**
-    * Obtains an instance of {@code OffsetDateTime} from an {@code Instant} and zone ID.
+  /** Obtains an instance of {@code OffsetDateTime} from an {@code Instant} and zone ID.
     *
     * This creates an offset date-time with the same instant as that specified.
     * Finding the offset from UTC/Greenwich is simple as there is only one valid
@@ -223,8 +213,7 @@ object OffsetDateTime {
     new OffsetDateTime(ldt, offset)
   }
 
-  /**
-    * Obtains an instance of {@code OffsetDateTime} from a temporal object.
+  /** Obtains an instance of {@code OffsetDateTime} from a temporal object.
     *
     * A {@code TemporalAccessor} represents some form of date and time information.
     * This factory converts the arbitrary temporal object to an instance of {@code OffsetDateTime}.
@@ -261,8 +250,7 @@ object OffsetDateTime {
     }
   }
 
-  /**
-    * Obtains an instance of {@code OffsetDateTime} from a text string
+  /** Obtains an instance of {@code OffsetDateTime} from a text string
     * such as {@code 2007-12-03T10:15:30+01:00}.
     *
     * The string must represent a valid date-time and is parsed using
@@ -274,8 +262,7 @@ object OffsetDateTime {
     */
   def parse(text: CharSequence): OffsetDateTime = parse(text, DateTimeFormatter.ISO_OFFSET_DATE_TIME)
 
-  /**
-    * Obtains an instance of {@code OffsetDateTime} from a text string using a specific formatter.
+  /** Obtains an instance of {@code OffsetDateTime} from a text string using a specific formatter.
     *
     * The text is parsed using the formatter, returning a date-time.
     *
@@ -297,8 +284,7 @@ object OffsetDateTime {
   }
 }
 
-/**
-  * A date-time with an offset from UTC/Greenwich in the ISO-8601 calendar system,
+/** A date-time with an offset from UTC/Greenwich in the ISO-8601 calendar system,
   * such as {@code 2007-12-03T10:15:30+01:00}.
   *
   * {@code OffsetDateTime} is an immutable representation of a date-time with an offset.
@@ -330,8 +316,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     Objects.requireNonNull(dateTime, "dateTime")
     Objects.requireNonNull(offset, "offset")
 
-  /**
-    * Returns a new date-time based on this one, returning {@code this} where possible.
+  /** Returns a new date-time based on this one, returning {@code this} where possible.
     *
     * @param dateTime  the date-time to create with, not null
     * @param offset  the zone offset to create with, not null
@@ -342,8 +327,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     else
       new OffsetDateTime(dateTime, offset)
 
-  /**
-    * Checks if the specified field is supported.
+  /** Checks if the specified field is supported.
     *
     * This checks if this date-time can be queried for the specified field.
     * If false, then calling the {@link #range(TemporalField) range} and
@@ -402,8 +386,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     else
       unit != null && unit.isSupportedBy(this)
 
-  /**
-    * Gets the range of valid values for the specified field.
+  /** Gets the range of valid values for the specified field.
     *
     * The range object expresses the minimum and maximum valid values for a field.
     * This date-time is used to enhance the accuracy of the returned range.
@@ -433,8 +416,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     field.rangeRefinedBy(this)
   }
 
-  /**
-    * Gets the value of the specified field from this date-time as an {@code int}.
+  /** Gets the value of the specified field from this date-time as an {@code int}.
     *
     * This queries this date-time for the value for the specified field.
     * The returned value will always be within the valid range of values for the field.
@@ -470,8 +452,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     }
   }
 
-  /**
-    * Gets the value of the specified field from this date-time as a {@code long}.
+  /** Gets the value of the specified field from this date-time as a {@code long}.
     *
     * This queries this date-time for the value for the specified field.
     * If it is not possible to return the value, because the field is not supported
@@ -504,8 +485,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     }
   }
 
-  /**
-    * Gets the zone offset, such as '+01:00'.
+  /** Gets the zone offset, such as '+01:00'.
     *
     * This is the offset of the local date-time from UTC/Greenwich.
     *
@@ -513,8 +493,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     */
   def getOffset: ZoneOffset = offset
 
-  /**
-    * Returns a copy of this {@code OffsetDateTime} with the specified offset ensuring
+  /** Returns a copy of this {@code OffsetDateTime} with the specified offset ensuring
     * that the result has the same local date-time.
     *
     * This method returns an object with the same {@code LocalDateTime} and the specified {@code ZoneOffset}.
@@ -532,8 +511,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     */
   def withOffsetSameLocal(offset: ZoneOffset): OffsetDateTime = `with`(dateTime, offset)
 
-  /**
-    * Returns a copy of this {@code OffsetDateTime} with the specified offset ensuring
+  /** Returns a copy of this {@code OffsetDateTime} with the specified offset ensuring
     * that the result is at the same instant.
     *
     * This method returns an object with the specified {@code ZoneOffset} and a {@code LocalDateTime}
@@ -560,8 +538,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     new OffsetDateTime(adjusted, offset)
   }
 
-  /**
-    * Gets the year field.
+  /** Gets the year field.
     *
     * This method returns the primitive {@code int} value for the year.
     *
@@ -572,8 +549,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     */
   def getYear: Int = dateTime.getYear
 
-  /**
-    * Gets the month-of-year field from 1 to 12.
+  /** Gets the month-of-year field from 1 to 12.
     *
     * This method returns the month as an {@code int} from 1 to 12.
     * Application code is frequently clearer if the enum {@link Month}
@@ -584,8 +560,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     */
   def getMonthValue: Int = dateTime.getMonthValue
 
-  /**
-    * Gets the month-of-year field using the {@code Month} enum.
+  /** Gets the month-of-year field using the {@code Month} enum.
     *
     * This method returns the enum {@link Month} for the month.
     * This avoids confusion as to what {@code int} values mean.
@@ -597,8 +572,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     */
   def getMonth: Month = dateTime.getMonth
 
-  /**
-    * Gets the day-of-month field.
+  /** Gets the day-of-month field.
     *
     * This method returns the primitive {@code int} value for the day-of-month.
     *
@@ -606,8 +580,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     */
   def getDayOfMonth: Int = dateTime.getDayOfMonth
 
-  /**
-    * Gets the day-of-year field.
+  /** Gets the day-of-year field.
     *
     * This method returns the primitive {@code int} value for the day-of-year.
     *
@@ -615,8 +588,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     */
   def getDayOfYear: Int = dateTime.getDayOfYear
 
-  /**
-    * Gets the day-of-week field, which is an enum {@code DayOfWeek}.
+  /** Gets the day-of-week field, which is an enum {@code DayOfWeek}.
     *
     * This method returns the enum {@link DayOfWeek} for the day-of-week.
     * This avoids confusion as to what {@code int} values mean.
@@ -630,36 +602,31 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     */
   def getDayOfWeek: DayOfWeek = dateTime.getDayOfWeek
 
-  /**
-    * Gets the hour-of-day field.
+  /** Gets the hour-of-day field.
     *
     * @return the hour-of-day, from 0 to 23
     */
   def getHour: Int = dateTime.getHour
 
-  /**
-    * Gets the minute-of-hour field.
+  /** Gets the minute-of-hour field.
     *
     * @return the minute-of-hour, from 0 to 59
     */
   def getMinute: Int = dateTime.getMinute
 
-  /**
-    * Gets the second-of-minute field.
+  /** Gets the second-of-minute field.
     *
     * @return the second-of-minute, from 0 to 59
     */
   def getSecond: Int = dateTime.getSecond
 
-  /**
-    * Gets the nano-of-second field.
+  /** Gets the nano-of-second field.
     *
     * @return the nano-of-second, from 0 to 999,999,999
     */
   def getNano: Int = dateTime.getNano
 
-  /**
-    * Returns an adjusted copy of this date-time.
+  /** Returns an adjusted copy of this date-time.
     *
     * This returns a new {@code OffsetDateTime}, based on this one, with the date-time adjusted.
     * The adjustment takes place using the specified adjuster strategy object.
@@ -713,8 +680,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     else
       adjuster.adjustInto(this).asInstanceOf[OffsetDateTime]
 
-  /**
-    * Returns a copy of this date-time with the specified field set to a new value.
+  /** Returns a copy of this date-time with the specified field set to a new value.
     *
     * This returns a new {@code OffsetDateTime}, based on this one, with the value
     * for the specified field changed.
@@ -770,8 +736,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     }
   }
 
-  /**
-    * Returns a copy of this {@code OffsetDateTime} with the year altered.
+  /** Returns a copy of this {@code OffsetDateTime} with the year altered.
     * The offset does not affect the calculation and will be the same in the result.
     * If the day-of-month is invalid for the year, it will be changed to the last valid day of the month.
     *
@@ -783,8 +748,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     */
   def withYear(year: Int): OffsetDateTime = `with`(dateTime.withYear(year), offset)
 
-  /**
-    * Returns a copy of this {@code OffsetDateTime} with the month-of-year altered.
+  /** Returns a copy of this {@code OffsetDateTime} with the month-of-year altered.
     * The offset does not affect the calculation and will be the same in the result.
     * If the day-of-month is invalid for the year, it will be changed to the last valid day of the month.
     *
@@ -796,8 +760,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     */
   def withMonth(month: Int): OffsetDateTime = `with`(dateTime.withMonth(month), offset)
 
-  /**
-    * Returns a copy of this {@code OffsetDateTime} with the day-of-month altered.
+  /** Returns a copy of this {@code OffsetDateTime} with the day-of-month altered.
     * If the resulting {@code OffsetDateTime} is invalid, an exception is thrown.
     * The offset does not affect the calculation and will be the same in the result.
     *
@@ -810,8 +773,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     */
   def withDayOfMonth(dayOfMonth: Int): OffsetDateTime = `with`(dateTime.withDayOfMonth(dayOfMonth), offset)
 
-  /**
-    * Returns a copy of this {@code OffsetDateTime} with the day-of-year altered.
+  /** Returns a copy of this {@code OffsetDateTime} with the day-of-year altered.
     * If the resulting {@code OffsetDateTime} is invalid, an exception is thrown.
     *
     * This instance is immutable and unaffected by this method call.
@@ -823,8 +785,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     */
   def withDayOfYear(dayOfYear: Int): OffsetDateTime = `with`(dateTime.withDayOfYear(dayOfYear), offset)
 
-  /**
-    * Returns a copy of this {@code OffsetDateTime} with the hour-of-day value altered.
+  /** Returns a copy of this {@code OffsetDateTime} with the hour-of-day value altered.
     *
     * The offset does not affect the calculation and will be the same in the result.
     *
@@ -836,8 +797,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     */
   def withHour(hour: Int): OffsetDateTime = `with`(dateTime.withHour(hour), offset)
 
-  /**
-    * Returns a copy of this {@code OffsetDateTime} with the minute-of-hour value altered.
+  /** Returns a copy of this {@code OffsetDateTime} with the minute-of-hour value altered.
     *
     * The offset does not affect the calculation and will be the same in the result.
     *
@@ -849,8 +809,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     */
   def withMinute(minute: Int): OffsetDateTime = `with`(dateTime.withMinute(minute), offset)
 
-  /**
-    * Returns a copy of this {@code OffsetDateTime} with the second-of-minute value altered.
+  /** Returns a copy of this {@code OffsetDateTime} with the second-of-minute value altered.
     *
     * The offset does not affect the calculation and will be the same in the result.
     *
@@ -862,8 +821,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     */
   def withSecond(second: Int): OffsetDateTime = `with`(dateTime.withSecond(second), offset)
 
-  /**
-    * Returns a copy of this {@code OffsetDateTime} with the nano-of-second value altered.
+  /** Returns a copy of this {@code OffsetDateTime} with the nano-of-second value altered.
     *
     * The offset does not affect the calculation and will be the same in the result.
     *
@@ -875,8 +833,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     */
   def withNano(nanoOfSecond: Int): OffsetDateTime = `with`(dateTime.withNano(nanoOfSecond), offset)
 
-  /**
-    * Returns a copy of this {@code OffsetDateTime} with the time truncated.
+  /** Returns a copy of this {@code OffsetDateTime} with the time truncated.
     *
     * Truncation returns a copy of the original date-time with fields
     * smaller than the specified unit set to zero.
@@ -898,8 +855,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     */
   def truncatedTo(unit: TemporalUnit): OffsetDateTime = `with`(dateTime.truncatedTo(unit), offset)
 
-  /**
-    * Returns a copy of this date-time with the specified period added.
+  /** Returns a copy of this date-time with the specified period added.
     *
     * This method returns a new date-time based on this time with the specified period added.
     * The amount is typically {@link Period} but may be any other type implementing
@@ -917,8 +873,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     */
   override def plus(amount: TemporalAmount): OffsetDateTime = amount.addTo(this).asInstanceOf[OffsetDateTime]
 
-  /**
-    * Returns a copy of this date-time with the specified period added.
+  /** Returns a copy of this date-time with the specified period added.
     *
     * This method returns a new date-time based on this date-time with the specified period added.
     * This can be used to add any period that is defined by a unit, for example to add years, months or days.
@@ -939,8 +894,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     else
       unit.addTo(this, amountToAdd)
 
-  /**
-    * Returns a copy of this {@code OffsetDateTime} with the specified period in years added.
+  /** Returns a copy of this {@code OffsetDateTime} with the specified period in years added.
     *
     * This method adds the specified amount to the years field in three steps:
     * <ol>
@@ -961,8 +915,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     */
   def plusYears(years: Long): OffsetDateTime = `with`(dateTime.plusYears(years), offset)
 
-  /**
-    * Returns a copy of this {@code OffsetDateTime} with the specified period in months added.
+  /** Returns a copy of this {@code OffsetDateTime} with the specified period in months added.
     *
     * This method adds the specified amount to the months field in three steps:
     * <ol>
@@ -983,8 +936,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     */
   def plusMonths(months: Long): OffsetDateTime = `with`(dateTime.plusMonths(months), offset)
 
-  /**
-    * Returns a copy of this OffsetDateTime with the specified period in weeks added.
+  /** Returns a copy of this OffsetDateTime with the specified period in weeks added.
     *
     * This method adds the specified amount in weeks to the days field incrementing
     * the month and year fields as necessary to ensure the result remains valid.
@@ -1000,8 +952,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     */
   def plusWeeks(weeks: Long): OffsetDateTime = `with`(dateTime.plusWeeks(weeks), offset)
 
-  /**
-    * Returns a copy of this OffsetDateTime with the specified period in days added.
+  /** Returns a copy of this OffsetDateTime with the specified period in days added.
     *
     * This method adds the specified amount to the days field incrementing the
     * month and year fields as necessary to ensure the result remains valid.
@@ -1017,8 +968,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     */
   def plusDays(days: Long): OffsetDateTime = `with`(dateTime.plusDays(days), offset)
 
-  /**
-    * Returns a copy of this {@code OffsetDateTime} with the specified period in hours added.
+  /** Returns a copy of this {@code OffsetDateTime} with the specified period in hours added.
     *
     * This instance is immutable and unaffected by this method call.
     *
@@ -1028,8 +978,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     */
   def plusHours(hours: Long): OffsetDateTime = `with`(dateTime.plusHours(hours), offset)
 
-  /**
-    * Returns a copy of this {@code OffsetDateTime} with the specified period in minutes added.
+  /** Returns a copy of this {@code OffsetDateTime} with the specified period in minutes added.
     *
     * This instance is immutable and unaffected by this method call.
     *
@@ -1039,8 +988,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     */
   def plusMinutes(minutes: Long): OffsetDateTime = `with`(dateTime.plusMinutes(minutes), offset)
 
-  /**
-    * Returns a copy of this {@code OffsetDateTime} with the specified period in seconds added.
+  /** Returns a copy of this {@code OffsetDateTime} with the specified period in seconds added.
     *
     * This instance is immutable and unaffected by this method call.
     *
@@ -1050,8 +998,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     */
   def plusSeconds(seconds: Long): OffsetDateTime = `with`(dateTime.plusSeconds(seconds), offset)
 
-  /**
-    * Returns a copy of this {@code OffsetDateTime} with the specified period in nanoseconds added.
+  /** Returns a copy of this {@code OffsetDateTime} with the specified period in nanoseconds added.
     *
     * This instance is immutable and unaffected by this method call.
     *
@@ -1061,8 +1008,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     */
   def plusNanos(nanos: Long): OffsetDateTime = `with`(dateTime.plusNanos(nanos), offset)
 
-  /**
-    * Returns a copy of this date-time with the specified period subtracted.
+  /** Returns a copy of this date-time with the specified period subtracted.
     *
     * This method returns a new date-time based on this time with the specified period subtracted.
     * The amount is typically {@link Period} but may be any other type implementing
@@ -1080,8 +1026,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     */
   override def minus(amount: TemporalAmount): OffsetDateTime = amount.subtractFrom(this).asInstanceOf[OffsetDateTime]
 
-  /**
-    * Returns a copy of this date-time with the specified period subtracted.
+  /** Returns a copy of this date-time with the specified period subtracted.
     *
     * This method returns a new date-time based on this date-time with the specified period subtracted.
     * This can be used to subtract any period that is defined by a unit, for example to subtract years, months or days.
@@ -1098,8 +1043,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
   override def minus(amountToSubtract: Long, unit: TemporalUnit): OffsetDateTime =
     if (amountToSubtract == Long.MinValue) plus(Long.MaxValue, unit).plus(1, unit) else plus(-amountToSubtract, unit)
 
-  /**
-    * Returns a copy of this {@code OffsetDateTime} with the specified period in years subtracted.
+  /** Returns a copy of this {@code OffsetDateTime} with the specified period in years subtracted.
     *
     * This method subtracts the specified amount from the years field in three steps:
     * <ol>
@@ -1121,8 +1065,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
   def minusYears(years: Long): OffsetDateTime =
     if (years == Long.MinValue) plusYears(Long.MaxValue).plusYears(1) else plusYears(-years)
 
-  /**
-    * Returns a copy of this {@code OffsetDateTime} with the specified period in months subtracted.
+  /** Returns a copy of this {@code OffsetDateTime} with the specified period in months subtracted.
     *
     * This method subtracts the specified amount from the months field in three steps:
     * <ol>
@@ -1144,8 +1087,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
   def minusMonths(months: Long): OffsetDateTime =
     if (months == Long.MinValue) plusMonths(Long.MaxValue).plusMonths(1) else plusMonths(-months)
 
-  /**
-    * Returns a copy of this {@code OffsetDateTime} with the specified period in weeks subtracted.
+  /** Returns a copy of this {@code OffsetDateTime} with the specified period in weeks subtracted.
     *
     * This method subtracts the specified amount in weeks from the days field decrementing
     * the month and year fields as necessary to ensure the result remains valid.
@@ -1162,8 +1104,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
   def minusWeeks(weeks: Long): OffsetDateTime =
     if (weeks == Long.MinValue) plusWeeks(Long.MaxValue).plusWeeks(1) else plusWeeks(-weeks)
 
-  /**
-    * Returns a copy of this {@code OffsetDateTime} with the specified period in days subtracted.
+  /** Returns a copy of this {@code OffsetDateTime} with the specified period in days subtracted.
     *
     * This method subtracts the specified amount from the days field incrementing the
     * month and year fields as necessary to ensure the result remains valid.
@@ -1180,8 +1121,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
   def minusDays(days: Long): OffsetDateTime =
     if (days == Long.MinValue) plusDays(Long.MaxValue).plusDays(1) else plusDays(-days)
 
-  /**
-    * Returns a copy of this {@code OffsetDateTime} with the specified period in hours subtracted.
+  /** Returns a copy of this {@code OffsetDateTime} with the specified period in hours subtracted.
     *
     * This instance is immutable and unaffected by this method call.
     *
@@ -1192,8 +1132,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
   def minusHours(hours: Long): OffsetDateTime =
     if (hours == Long.MinValue) plusHours(Long.MaxValue).plusHours(1) else plusHours(-hours)
 
-  /**
-    * Returns a copy of this {@code OffsetDateTime} with the specified period in minutes subtracted.
+  /** Returns a copy of this {@code OffsetDateTime} with the specified period in minutes subtracted.
     *
     * This instance is immutable and unaffected by this method call.
     *
@@ -1204,8 +1143,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
   def minusMinutes(minutes: Long): OffsetDateTime =
     if (minutes == Long.MinValue) plusMinutes(Long.MaxValue).plusMinutes(1) else plusMinutes(-minutes)
 
-  /**
-    * Returns a copy of this {@code OffsetDateTime} with the specified period in seconds subtracted.
+  /** Returns a copy of this {@code OffsetDateTime} with the specified period in seconds subtracted.
     *
     * This instance is immutable and unaffected by this method call.
     *
@@ -1216,8 +1154,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
   def minusSeconds(seconds: Long): OffsetDateTime =
     if (seconds == Long.MinValue) plusSeconds(Long.MaxValue).plusSeconds(1) else plusSeconds(-seconds)
 
-  /**
-    * Returns a copy of this {@code OffsetDateTime} with the specified period in nanoseconds subtracted.
+  /** Returns a copy of this {@code OffsetDateTime} with the specified period in nanoseconds subtracted.
     *
     * This instance is immutable and unaffected by this method call.
     *
@@ -1228,8 +1165,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
   def minusNanos(nanos: Long): OffsetDateTime =
     if (nanos == Long.MinValue) plusNanos(Long.MaxValue).plusNanos(1) else plusNanos(-nanos)
 
-  /**
-    * Queries this date-time using the specified query.
+  /** Queries this date-time using the specified query.
     *
     * This queries this date-time using the specified query strategy object.
     * The {@code TemporalQuery} object defines the logic to be used to
@@ -1262,8 +1198,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     else
       super.query(query)
 
-  /**
-    * Adjusts the specified temporal object to have the same offset, date
+  /** Adjusts the specified temporal object to have the same offset, date
     * and time as this object.
     *
     * This returns a temporal object of the same observable type as the input
@@ -1291,8 +1226,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
   def adjustInto(temporal: Temporal): Temporal =
     temporal.`with`(EPOCH_DAY, toLocalDate.toEpochDay).`with`(NANO_OF_DAY, toLocalTime.toNanoOfDay).`with`(OFFSET_SECONDS, getOffset.getTotalSeconds)
 
-  /**
-    * Calculates the period between this date-time and another date-time in
+  /** Calculates the period between this date-time and another date-time in
     * terms of the specified unit.
     *
     * This calculates the period between two date-times in terms of a single unit.
@@ -1348,8 +1282,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
       unit.between(this, end)
   }
 
-  /**
-    * Combines this date-time with a time-zone to create a {@code ZonedDateTime}
+  /** Combines this date-time with a time-zone to create a {@code ZonedDateTime}
     * ensuring that the result has the same instant.
     *
     * This returns a {@code ZonedDateTime} formed from this date-time and the specified time-zone.
@@ -1365,8 +1298,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     */
   def atZoneSameInstant(zone: ZoneId): ZonedDateTime = ZonedDateTime.ofInstant(dateTime, offset, zone)
 
-  /**
-    * Combines this date-time with a time-zone to create a {@code ZonedDateTime}
+  /** Combines this date-time with a time-zone to create a {@code ZonedDateTime}
     * trying to keep the same local date and time.
     *
     * This returns a {@code ZonedDateTime} formed from this date-time and the specified time-zone.
@@ -1391,8 +1323,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     */
   def atZoneSimilarLocal(zone: ZoneId): ZonedDateTime = ZonedDateTime.ofLocal(dateTime, zone, offset)
 
-  /**
-    * Gets the {@code LocalDateTime} part of this offset date-time.
+  /** Gets the {@code LocalDateTime} part of this offset date-time.
     *
     * This returns a {@code LocalDateTime} with the same year, month, day and time
     * as this date-time.
@@ -1401,8 +1332,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     */
   def toLocalDateTime: LocalDateTime = dateTime
 
-  /**
-    * Gets the {@code LocalDate} part of this date-time.
+  /** Gets the {@code LocalDate} part of this date-time.
     *
     * This returns a {@code LocalDate} with the same year, month and day
     * as this date-time.
@@ -1411,8 +1341,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     */
   def toLocalDate: LocalDate = dateTime.toLocalDate
 
-  /**
-    * Gets the {@code LocalTime} part of this date-time.
+  /** Gets the {@code LocalTime} part of this date-time.
     *
     * This returns a {@code LocalTime} with the same hour, minute, second and
     * nanosecond as this date-time.
@@ -1421,8 +1350,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     */
   def toLocalTime: LocalTime = dateTime.toLocalTime
 
-  /**
-    * Converts this date-time to an {@code OffsetTime}.
+  /** Converts this date-time to an {@code OffsetTime}.
     *
     * This returns an offset time with the same local time and offset.
     *
@@ -1430,8 +1358,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     */
   def toOffsetTime: OffsetTime = OffsetTime.of(dateTime.toLocalTime, offset)
 
-  /**
-    * Converts this date-time to a {@code ZonedDateTime} using the offset as the zone ID.
+  /** Converts this date-time to a {@code ZonedDateTime} using the offset as the zone ID.
     *
     * This creates the simplest possible {@code ZonedDateTime} using the offset
     * as the zone ID.
@@ -1443,15 +1370,13 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     */
   def toZonedDateTime: ZonedDateTime = ZonedDateTime.of(dateTime, offset)
 
-  /**
-    * Converts this date-time to an {@code Instant}.
+  /** Converts this date-time to an {@code Instant}.
     *
     * @return an { @code Instant} representing the same instant, not null
     */
   def toInstant: Instant = dateTime.toInstant(offset)
 
-  /**
-    * Converts this date-time to the number of seconds from the epoch of 1970-01-01T00:00:00Z.
+  /** Converts this date-time to the number of seconds from the epoch of 1970-01-01T00:00:00Z.
     *
     * This allows this date-time to be converted to a value of the
     * {@link ChronoField#INSTANT_SECONDS epoch-seconds} field. This is primarily
@@ -1461,8 +1386,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     */
   def toEpochSecond: Long = dateTime.toEpochSecond(offset)
 
-  /**
-    * Compares this {@code OffsetDateTime} to another date-time.
+  /** Compares this {@code OffsetDateTime} to another date-time.
     *
     * The comparison is based on the instant then on the local date-time.
     * It is "consistent with equals", as defined by {@link Comparable}.
@@ -1497,8 +1421,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     cmp
   }
 
-  /**
-    * Checks if the instant of this date-time is after that of the specified date-time.
+  /** Checks if the instant of this date-time is after that of the specified date-time.
     *
     * This method differs from the comparison in {@link #compareTo} and {@link #equals} in that it
     * only compares the instant of the date-time. This is equivalent to using
@@ -1513,8 +1436,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     thisEpochSec > otherEpochSec || (thisEpochSec == otherEpochSec && toLocalTime.getNano > other.toLocalTime.getNano)
   }
 
-  /**
-    * Checks if the instant of this date-time is before that of the specified date-time.
+  /** Checks if the instant of this date-time is before that of the specified date-time.
     *
     * This method differs from the comparison in {@link #compareTo} in that it
     * only compares the instant of the date-time. This is equivalent to using
@@ -1529,8 +1451,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     thisEpochSec < otherEpochSec || (thisEpochSec == otherEpochSec && toLocalTime.getNano < other.toLocalTime.getNano)
   }
 
-  /**
-    * Checks if the instant of this date-time is equal to that of the specified date-time.
+  /** Checks if the instant of this date-time is equal to that of the specified date-time.
     *
     * This method differs from the comparison in {@link #compareTo} and {@link #equals}
     * in that it only compares the instant of the date-time. This is equivalent to using
@@ -1542,8 +1463,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
   def isEqual(other: OffsetDateTime): Boolean =
     toEpochSecond == other.toEpochSecond && toLocalTime.getNano == other.toLocalTime.getNano
 
-  /**
-    * Checks if this date-time is equal to another date-time.
+  /** Checks if this date-time is equal to another date-time.
     *
     * The comparison is based on the local date-time and the offset.
     * To compare for the same instant on the time-line, use {@link #isEqual}.
@@ -1558,15 +1478,13 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
       case _                     => false
     }
 
-  /**
-    * A hash code for this date-time.
+  /** A hash code for this date-time.
     *
     * @return a suitable hash code
     */
   override def hashCode: Int = dateTime.hashCode ^ offset.hashCode
 
-  /**
-    * Outputs this date-time as a {@code String}, such as {@code 2007-12-03T10:15:30+01:00}.
+  /** Outputs this date-time as a {@code String}, such as {@code 2007-12-03T10:15:30+01:00}.
     *
     * The output will be one of the following ISO-8601 formats:
     *<ul>
@@ -1583,8 +1501,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     */
   override def toString: String = dateTime.toString + offset.toString
 
-  /**
-    * Outputs this date-time as a {@code String} using the formatter.
+  /** Outputs this date-time as a {@code String} using the formatter.
     *
     * This date-time will be passed to the formatter
     * {@link DateTimeFormatter#format(TemporalAccessor) print method}.
@@ -1600,8 +1517,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
 
   private def writeReplace: AnyRef = new Ser(Ser.OFFSET_DATE_TIME_TYPE, this)
 
-  /**
-    * Defend against malicious streams.
+  /** Defend against malicious streams.
     *
     * @return never
     * @throws InvalidObjectException always

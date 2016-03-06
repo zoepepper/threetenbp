@@ -47,9 +47,7 @@ import org.threeten.bp.DayOfWeek
 import org.threeten.bp.LocalDate
 import org.threeten.bp.Month
 
-/**
-  * Test DateTimeAdjusters.
-  */
+/** Test DateTimeAdjusters. */
 @Test class TestTemporalAdjusters extends TestNGSuite {
   @Test def factory_firstDayOfMonth(): Unit = {
     assertNotNull(TemporalAdjusters.firstDayOfMonth)

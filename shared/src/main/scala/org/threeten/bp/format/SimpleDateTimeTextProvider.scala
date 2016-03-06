@@ -45,8 +45,7 @@ import java.util.concurrent.ConcurrentMap
 import org.threeten.bp.temporal.IsoFields
 import org.threeten.bp.temporal.TemporalField
 
-/**
-  * The Service Provider Implementation to obtain date-time text for a field.
+/** The Service Provider Implementation to obtain date-time text for a field.
   *
   * This implementation is based on extraction of data from a {@link DateFormatSymbols}.
   *
@@ -61,8 +60,7 @@ object SimpleDateTimeTextProvider {
   private val COMPARATOR: Comparator[java.util.Map.Entry[String, Long]] =
     (obj1: java.util.Map.Entry[String, Long], obj2: java.util.Map.Entry[String, Long]) => obj2.getKey.length - obj1.getKey.length
 
-  /**
-    * Helper method to create an immutable entry.
+  /** Helper method to create an immutable entry.
     *
     * @param text  the text, not null
     * @param field  the field, not null
@@ -79,8 +77,7 @@ object SimpleDateTimeTextProvider {
     new SimpleDateTimeTextProvider.LocaleStore(valueTextMap)
   }
 
-  /**
-    * Stores the text for a single locale.
+  /** Stores the text for a single locale.
     *
     * Some fields have a textual representation, such as day-of-week or month-of-year.
     * These textual representations can be captured in this class for printing
@@ -93,8 +90,7 @@ object SimpleDateTimeTextProvider {
     * @param valueTextMap  the map of values to text to store, assigned and not altered, not null
     */
   private[format] final class LocaleStore private[format](private val valueTextMap: java.util.Map[TextStyle, java.util.Map[Long, String]]) {
-    /**
-      * Parsable data.
+    /** Parsable data.
       */
     private final val parsable: java.util.Map[TextStyle, java.util.List[java.util.Map.Entry[String, Long]]] = {
       val map: java.util.Map[TextStyle, java.util.List[java.util.Map.Entry[String, Long]]] = new java.util.HashMap[TextStyle, java.util.List[java.util.Map.Entry[String, Long]]]
@@ -121,8 +117,7 @@ object SimpleDateTimeTextProvider {
     }
 
 
-    /**
-      * Gets the text for the specified field value, locale and style
+    /** Gets the text for the specified field value, locale and style
       * for the purpose of printing.
       *
       * @param value  the value to get text for, not null
@@ -134,8 +129,7 @@ object SimpleDateTimeTextProvider {
       if (map != null) map.get(value) else null
     }
 
-    /**
-      * Gets an iterator of text to field for the specified style for the purpose of parsing.
+    /** Gets an iterator of text to field for the specified style for the purpose of parsing.
       *
       * The iterator must be returned in order from the longest text to the shortest.
       *

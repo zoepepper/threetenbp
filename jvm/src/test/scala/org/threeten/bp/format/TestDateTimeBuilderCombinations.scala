@@ -55,9 +55,7 @@ import org.threeten.bp.temporal.TemporalAccessor
 import org.threeten.bp.temporal.TemporalField
 import org.threeten.bp.temporal.TemporalQuery
 
-/**
-  * Test.
-  */
+/** Test. */
 object TestDateTimeBuilderCombinations {
   private val PARIS: ZoneId = ZoneId.of("Europe/Paris")
 

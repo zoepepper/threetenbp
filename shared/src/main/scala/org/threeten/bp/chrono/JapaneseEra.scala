@@ -49,8 +49,7 @@ import sun.util.calendar.LocalGregorianCalendar
 
 import scala.annotation.meta.field
 
-/**
-  * An era in the Japanese Imperial calendar system.
+/** An era in the Japanese Imperial calendar system.
   *
   * This class defines the valid eras for the Japanese chronology.
   * Japan introduced the Gregorian calendar starting with Meiji 6.
@@ -64,31 +63,26 @@ import scala.annotation.meta.field
 object JapaneseEra {
   private[chrono] val ERA_OFFSET: Int = 2
   private[chrono] val ERA_CONFIG: Array[sun.util.calendar.Era] = CalendarSystem.forName("japanese").asInstanceOf[LocalGregorianCalendar].getEras
-  /**
-    * The singleton instance for the 'Meiji' era (1868-09-08 - 1912-07-29)
+  /** The singleton instance for the 'Meiji' era (1868-09-08 - 1912-07-29)
     * which has the value -1.
     */
   val MEIJI: JapaneseEra = new JapaneseEra(-1, LocalDate.of(1868, 9, 8))
-  /**
-    * The singleton instance for the 'Taisho' era (1912-07-30 - 1926-12-24)
+  /** The singleton instance for the 'Taisho' era (1912-07-30 - 1926-12-24)
     * which has the value 0.
     */
   val TAISHO: JapaneseEra = new JapaneseEra(0, LocalDate.of(1912, 7, 30))
-  /**
-    * The singleton instance for the 'Showa' era (1926-12-25 - 1989-01-07)
+  /** The singleton instance for the 'Showa' era (1926-12-25 - 1989-01-07)
     * which has the value 1.
     */
   val SHOWA: JapaneseEra = new JapaneseEra(1, LocalDate.of(1926, 12, 25))
-  /**
-    * The singleton instance for the 'Heisei' era (1989-01-08 - current)
+  /** The singleton instance for the 'Heisei' era (1989-01-08 - current)
     * which has the value 2.
     */
   val HEISEI: JapaneseEra = new JapaneseEra(2, LocalDate.of(1989, 1, 8))
   private val N_ERA_CONSTANTS: Int = HEISEI.getValue + ERA_OFFSET + 1
   private val KNOWN_ERAS: Array[JapaneseEra] = Array(MEIJI, TAISHO, SHOWA, HEISEI)
 
-  /**
-    * Obtains an instance of {@code JapaneseEra} from an {@code int} value.
+  /** Obtains an instance of {@code JapaneseEra} from an {@code int} value.
     *
     * The {@link #SHOWA} era that contains 1970-01-01 (ISO calendar system) has the value 1
     * Later era is numbered 2 ({@link #HEISEI}). Earlier eras are numbered 0 ({@link #TAISHO}),
@@ -104,8 +98,7 @@ object JapaneseEra {
     else
       KNOWN_ERAS(ordinal(japaneseEra))
 
-  /**
-    * Returns the {@code JapaneseEra} with the name.
+  /** Returns the {@code JapaneseEra} with the name.
     *
     * The string must match exactly the name of the era.
     * (Extraneous whitespace characters are not permitted.)
@@ -123,8 +116,7 @@ object JapaneseEra {
     throw new IllegalArgumentException("Era not found: " + japaneseEra)
   }
 
-  /**
-    * Returns an array of JapaneseEras.
+  /** Returns an array of JapaneseEras.
     *
     * This method may be used to iterate over the JapaneseEras as follows:
     * <pre>
@@ -136,8 +128,7 @@ object JapaneseEra {
     */
   def values: Array[JapaneseEra] = Arrays.copyOf(KNOWN_ERAS, KNOWN_ERAS.length)
 
-  /**
-    * Obtains an instance of {@code JapaneseEra} from a date.
+  /** Obtains an instance of {@code JapaneseEra} from a date.
     *
     * @param date  the date, not null
     * @return the Era singleton, never null
@@ -180,8 +171,7 @@ object JapaneseEra {
     null
   }
 
-  /**
-    * Returns the index into the arrays from the Era value.
+  /** Returns the index into the arrays from the Era value.
     * the eraValue is a valid Era number, -999, -1..2.
     * @param eraValue the era value to convert to the index
     * @return the index of the current Era
@@ -201,8 +191,7 @@ object JapaneseEra {
   }
 }
 
-/**
-  * Creates an instance.
+/** Creates an instance.
   *
   * @param eraValue  the era value, validated
   * @param since  the date representing the first date of the era, validated not null
@@ -210,8 +199,7 @@ object JapaneseEra {
 @SerialVersionUID(1466499369062886794L)
 final class JapaneseEra private(private val eraValue: Int, @(transient @field) private val since: LocalDate) extends Era with Serializable {
 
-  /**
-    * Returns the singleton {@code JapaneseEra} corresponding to this object.
+  /** Returns the singleton {@code JapaneseEra} corresponding to this object.
     * It's possible that this version of {@code JapaneseEra} doesn't support the latest era value.
     * In that case, this method throws an {@code ObjectStreamException}.
     *
@@ -229,22 +217,19 @@ final class JapaneseEra private(private val eraValue: Int, @(transient @field) p
     }
   }
 
-  /**
-    * Returns the Sun private Era instance corresponding to this {@code JapaneseEra}.
+  /** Returns the Sun private Era instance corresponding to this {@code JapaneseEra}.
     * SEIREKI doesn't have its corresponding one.
     *
     * @return the Sun private Era instance for this { @code JapaneseEra}
     */
   private[chrono] def getPrivateEra: sun.util.calendar.Era = JapaneseEra.ERA_CONFIG(JapaneseEra.ordinal(eraValue))
 
-  /**
-    * Returns the start date of the era.
+  /** Returns the start date of the era.
     * @return the start date
     */
   private[chrono] def startDate: LocalDate = since
 
-  /**
-    * Returns the start date of the era.
+  /** Returns the start date of the era.
     * @return the start date
     */
   private[chrono] def endDate: LocalDate = {
@@ -256,8 +241,7 @@ final class JapaneseEra private(private val eraValue: Int, @(transient @field) p
       eras(ordinal + 1).startDate.minusDays(1)
   }
 
-  /**
-    * Returns the numeric value of this {@code JapaneseEra}.
+  /** Returns the numeric value of this {@code JapaneseEra}.
     *
     * The {@link #SHOWA} era that contains 1970-01-01 (ISO calendar system) has the value 1.
     * Later eras are numbered from 2 ({@link #HEISEI}).

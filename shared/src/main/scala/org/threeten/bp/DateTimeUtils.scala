@@ -37,22 +37,19 @@ import java.util.Date
 import java.util.GregorianCalendar
 import java.util.TimeZone
 
-/**
-  * A set of utilities to assist in bridging the gap to Java 8.
+/** A set of utilities to assist in bridging the gap to Java 8.
   *
   * This class is not found in Java SE 8 but provides methods that are.
   */
 object DateTimeUtils {
-  /**
-    * Converts a {@code java.util.Date} to an {@code Instant}.
+  /** Converts a {@code java.util.Date} to an {@code Instant}.
     *
     * @param utilDate  the util date, not null
     * @return the instant, not null
     */
   def toInstant(utilDate: Date): Instant = Instant.ofEpochMilli(utilDate.getTime)
 
-  /**
-    * Converts an {@code Instant} to a {@code java.util.Date}.
+  /** Converts an {@code Instant} to a {@code java.util.Date}.
     *
     * Fractions of the instant smaller than milliseconds will be dropped.
     *
@@ -66,16 +63,14 @@ object DateTimeUtils {
       case ex: ArithmeticException => throw new IllegalArgumentException(ex)
     }
 
-  /**
-    * Converts a {@code Calendar} to an {@code Instant}.
+  /** Converts a {@code Calendar} to an {@code Instant}.
     *
     * @param calendar  the calendar, not null
     * @return the instant, not null
     */
   def toInstant(calendar: Calendar): Instant = Instant.ofEpochMilli(calendar.getTimeInMillis)
 
-  /**
-    * Converts a {@code Calendar} to a {@code ZonedDateTime}.
+  /** Converts a {@code Calendar} to a {@code ZonedDateTime}.
     *
     * Note that {@code GregorianCalendar} supports a Julian-Gregorian cutover
     * date and {@code ZonedDateTime} does not so some differences will occur.
@@ -89,8 +84,7 @@ object DateTimeUtils {
     ZonedDateTime.ofInstant(instant, zone)
   }
 
-  /**
-    * Converts a {@code ZonedDateTime} to a {@code Calendar}.
+  /** Converts a {@code ZonedDateTime} to a {@code Calendar}.
     *
     * The resulting {@code GregorianCalendar} is pure Gregorian and uses
     * ISO week definitions, starting on Monday and with 4 days in a minimal week.
@@ -114,16 +108,14 @@ object DateTimeUtils {
     cal
   }
 
-  /**
-    * Converts a {@code TimeZone} to a {@code ZoneId}.
+  /** Converts a {@code TimeZone} to a {@code ZoneId}.
     *
     * @param timeZone  the time-zone, not null
     * @return the zone, not null
     */
   def toZoneId(timeZone: TimeZone): ZoneId = ZoneId.of(timeZone.getID, ZoneId.SHORT_IDS)
 
-  /**
-    * Converts a {@code ZoneId} to a {@code TimeZone}.
+  /** Converts a {@code ZoneId} to a {@code TimeZone}.
     *
     * @param zoneId  the zone, not null
     * @return the time-zone, not null
@@ -137,40 +129,35 @@ object DateTimeUtils {
     TimeZone.getTimeZone(tzid)
   }
 
-  /**
-    * Converts a {@code java.sql.Date} to a {@code LocalDate}.
+  /** Converts a {@code java.sql.Date} to a {@code LocalDate}.
     *
     * @param sqlDate  the SQL date, not null
     * @return the local date, not null
     */
   def toLocalDate(sqlDate: Date): LocalDate = LocalDate.of(sqlDate.getYear + 1900, sqlDate.getMonth + 1, sqlDate.getDate)
 
-  /**
-    * Converts a {@code LocalDate} to a {@code java.sql.Date}.
+  /** Converts a {@code LocalDate} to a {@code java.sql.Date}.
     *
     * @param date  the local date, not null
     * @return the SQL date, not null
     */
   def toSqlDate(date: LocalDate): Date = new Date(date.getYear - 1900, date.getMonthValue - 1, date.getDayOfMonth)
 
-  /**
-    * Converts a {@code java.sql.Time} to a {@code LocalTime}.
+  /** Converts a {@code java.sql.Time} to a {@code LocalTime}.
     *
     * @param sqlTime  the SQL time, not null
     * @return the local time, not null
     */
   def toLocalTime(sqlTime: Time): LocalTime = LocalTime.of(sqlTime.getHours, sqlTime.getMinutes, sqlTime.getSeconds)
 
-  /**
-    * Converts a {@code LocalTime} to a {@code java.sql.Time}.
+  /** Converts a {@code LocalTime} to a {@code java.sql.Time}.
     *
     * @param time  the local time, not null
     * @return the SQL time, not null
     */
   def toSqlTime(time: LocalTime): Time = new Time(time.getHour, time.getMinute, time.getSecond)
 
-  /**
-    * Converts a {@code LocalDateTime} to a {@code java.sql.Timestamp}.
+  /** Converts a {@code LocalDateTime} to a {@code java.sql.Timestamp}.
     *
     * @param dateTime  the local date-time, not null
     * @return the SQL timestamp, not null
@@ -178,8 +165,7 @@ object DateTimeUtils {
   def toSqlTimestamp(dateTime: LocalDateTime): Timestamp =
     new Timestamp(dateTime.getYear - 1900, dateTime.getMonthValue - 1, dateTime.getDayOfMonth, dateTime.getHour, dateTime.getMinute, dateTime.getSecond, dateTime.getNano)
 
-  /**
-    * Converts a {@code java.sql.Timestamp} to a {@code LocalDateTime}.
+  /** Converts a {@code java.sql.Timestamp} to a {@code LocalDateTime}.
     *
     * @param sqlTimestamp  the SQL timestamp, not null
     * @return the local date-time, not null
@@ -187,8 +173,7 @@ object DateTimeUtils {
   def toLocalDateTime(sqlTimestamp: Timestamp): LocalDateTime =
     LocalDateTime.of(sqlTimestamp.getYear + 1900, sqlTimestamp.getMonth + 1, sqlTimestamp.getDate, sqlTimestamp.getHours, sqlTimestamp.getMinutes, sqlTimestamp.getSeconds, sqlTimestamp.getNanos)
 
-  /**
-    * Converts an {@code Instant} to a {@code java.sql.Timestamp}.
+  /** Converts an {@code Instant} to a {@code java.sql.Timestamp}.
     *
     * @param instant  the instant, not null
     * @return the SQL timestamp, not null
@@ -204,8 +189,7 @@ object DateTimeUtils {
     }
   }
 
-  /**
-    * Converts a {@code java.sql.Timestamp} to an {@code Instant}.
+  /** Converts a {@code java.sql.Timestamp} to an {@code Instant}.
     *
     * @param sqlTimestamp  the SQL timestamp, not null
     * @return the instant, not null
