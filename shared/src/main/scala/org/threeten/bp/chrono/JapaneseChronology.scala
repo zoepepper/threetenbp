@@ -64,16 +64,16 @@ import org.threeten.bp.temporal.ValueRange
 
 /**
   * The Japanese Imperial calendar system.
-  * <p>
+  *
   * This chronology defines the rules of the Japanese Imperial calendar system.
   * This calendar system is primarily used in Japan.
   * The Japanese Imperial calendar system is the same as the ISO calendar system
   * apart from the era-based year numbering.
-  * <p>
+  *
   * Japan introduced the Gregorian calendar starting with Meiji 6.
   * Only Meiji and later eras are supported;
   * dates before Meiji 6, January 1 are not supported.
-  * <p>
+  *
   * The supported {@code ChronoField} instances are:
   * <ul>
   * <li>{@code DAY_OF_WEEK}
@@ -147,7 +147,7 @@ final class JapaneseChronology private() extends Chronology with Serializable {
 
   /**
     * Gets the ID of the chronology - 'Japanese'.
-    * <p>
+    *
     * The ID uniquely identifies the {@code Chronology}.
     * It can be used to lookup the {@code Chronology} using {@link #of(String)}.
     *
@@ -158,7 +158,7 @@ final class JapaneseChronology private() extends Chronology with Serializable {
 
   /**
     * Gets the calendar type of the underlying calendar system - 'japanese'.
-    * <p>
+    *
     * The calendar type is an identifier defined by the
     * <em>Unicode Locale Data Markup Language (LDML)</em> specification.
     * It can be used to lookup the {@code Chronology} using {@link #of(String)}.
@@ -182,7 +182,7 @@ final class JapaneseChronology private() extends Chronology with Serializable {
   /**
     * Obtains a local date in Japanese calendar system from the
     * era, year-of-era and day-of-year fields.
-    * <p>
+    *
     * The day-of-year in this factory is expressed relative to the start of the year-of-era.
     * This definition changes the normal meaning of day-of-year only in those years
     * where the year-of-era is reset to one due to a change in the era.
@@ -210,7 +210,7 @@ final class JapaneseChronology private() extends Chronology with Serializable {
   /**
     * Obtains a local date in Japanese calendar system from the
     * proleptic-year and day-of-year fields.
-    * <p>
+    *
     * The day-of-year in this factory is expressed relative to the start of the proleptic year.
     * The Japanese proleptic year and day-of-year are the same as those in the ISO calendar system.
     * They are not reset when the era changes.
@@ -253,7 +253,7 @@ final class JapaneseChronology private() extends Chronology with Serializable {
 
   /**
     * Checks if the specified year is a leap year.
-    * <p>
+    *
     * Japanese calendar leap years occur exactly in line with ISO leap years.
     * This method does not validate the year passed in, and only has a
     * well-defined result for years in the supported range.

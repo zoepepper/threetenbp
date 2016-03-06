@@ -98,10 +98,10 @@ object LocalDate {
 
   /**
     * Obtains the current date from the system clock in the default time-zone.
-    * <p>
+    *
     * This will query the {@link Clock#systemDefaultZone() system clock} in the default
     * time-zone to obtain the current date.
-    * <p>
+    *
     * Using this method will prevent the ability to use an alternate clock for testing
     * because the clock is hard-coded.
     *
@@ -111,10 +111,10 @@ object LocalDate {
 
   /**
     * Obtains the current date from the system clock in the specified time-zone.
-    * <p>
+    *
     * This will query the {@link Clock#system(ZoneId) system clock} to obtain the current date.
     * Specifying the time-zone avoids dependence on the default time-zone.
-    * <p>
+    *
     * Using this method will prevent the ability to use an alternate clock for testing
     * because the clock is hard-coded.
     *
@@ -125,7 +125,7 @@ object LocalDate {
 
   /**
     * Obtains the current date from the specified clock.
-    * <p>
+    *
     * This will query the specified clock to obtain the current date - today.
     * Using this method allows the use of an alternate clock for testing.
     * The alternate clock may be introduced using {@link Clock dependency injection}.
@@ -144,7 +144,7 @@ object LocalDate {
 
   /**
     * Obtains an instance of {@code LocalDate} from a year, month and day.
-    * <p>
+    *
     * The day must be valid for the year and month, otherwise an exception will be thrown.
     *
     * @param year  the year to represent, from MIN_YEAR to MAX_YEAR
@@ -163,7 +163,7 @@ object LocalDate {
 
   /**
     * Obtains an instance of {@code LocalDate} from a year, month and day.
-    * <p>
+    *
     * The day must be valid for the year and month, otherwise an exception will be thrown.
     *
     * @param year  the year to represent, from MIN_YEAR to MAX_YEAR
@@ -182,7 +182,7 @@ object LocalDate {
 
   /**
     * Obtains an instance of {@code LocalDate} from a year and day-of-year.
-    * <p>
+    *
     * The day-of-year must be valid for the year, otherwise an exception will be thrown.
     *
     * @param year  the year to represent, from MIN_YEAR to MAX_YEAR
@@ -209,7 +209,7 @@ object LocalDate {
 
   /**
     * Obtains an instance of {@code LocalDate} from the epoch day count.
-    * <p>
+    *
     * The Epoch Day count is a simple incrementing count of days
     * where day 0 is 1970-01-01. Negative numbers represent earlier days.
     *
@@ -244,13 +244,13 @@ object LocalDate {
 
   /**
     * Obtains an instance of {@code LocalDate} from a temporal object.
-    * <p>
+    *
     * A {@code TemporalAccessor} represents some form of date and time information.
     * This factory converts the arbitrary temporal object to an instance of {@code LocalDate}.
-    * <p>
+    *
     * The conversion uses the {@link TemporalQueries#localDate()} query, which relies
     * on extracting the {@link ChronoField#EPOCH_DAY EPOCH_DAY} field.
-    * <p>
+    *
     * This method matches the signature of the functional interface {@link TemporalQuery}
     * allowing it to be used as a query via method reference, {@code LocalDate::from}.
     *
@@ -268,7 +268,7 @@ object LocalDate {
 
   /**
     * Obtains an instance of {@code LocalDate} from a text string such as {@code 2007-12-03}.
-    * <p>
+    *
     * The string must represent a valid date and is parsed using
     * {@link org.threeten.bp.format.DateTimeFormatter#ISO_LOCAL_DATE}.
     *
@@ -282,7 +282,7 @@ object LocalDate {
 
   /**
     * Obtains an instance of {@code LocalDate} from a text string using a specific formatter.
-    * <p>
+    *
     * The text is parsed using the formatter, returning a date.
     *
     * @param text  the text to parse, not null
@@ -346,17 +346,17 @@ object LocalDate {
 
 /** A date without a time-zone in the ISO-8601 calendar system,
   * such as {@code 2007-12-03}.
-  * <p>
+  *
   * {@code LocalDate} is an immutable date-time object that represents a date,
   * often viewed as year-month-day. Other date fields, such as day-of-year,
   * day-of-week and week-of-year, can also be accessed.
   * For example, the value "2nd October 2007" can be stored in a {@code LocalDate}.
-  * <p>
+  *
   * This class does not store or represent a time or time-zone.
   * Instead, it is a description of the date, as used for birthdays.
   * It cannot represent an instant on the time-line without additional information
   * such as an offset or time-zone.
-  * <p>
+  *
   * The ISO-8601 calendar system is the modern civil calendar system used today
   * in most of the world. It is equivalent to the proleptic Gregorian calendar
   * system, in which today's rules for leap years are applied for all time.
@@ -386,11 +386,11 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
 
   /**
     * Checks if the specified field is supported.
-    * <p>
+    *
     * This checks if this date can be queried for the specified field.
     * If false, then calling the {@link #range(TemporalField) range} and
     * {@link #get(TemporalField) get} methods will throw an exception.
-    * <p>
+    *
     * If the field is a {@link ChronoField} then the query is implemented here.
     * The {@link #isSupported(TemporalField) supported fields} will return valid
     * values based on this date-time.
@@ -411,7 +411,7 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
     * <li>{@code ERA}
     * </ul>
     * All other {@code ChronoField} instances will return false.
-    * <p>
+    *
     * If the field is not a {@code ChronoField}, then the result of this method
     * is obtained by invoking {@code TemporalField.isSupportedBy(TemporalAccessor)}
     * passing {@code this} as the argument.
@@ -424,17 +424,17 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
 
   /**
     * Gets the range of valid values for the specified field.
-    * <p>
+    *
     * The range object expresses the minimum and maximum valid values for a field.
     * This date is used to enhance the accuracy of the returned range.
     * If it is not possible to return the range, because the field is not supported
     * or for some other reason, an exception is thrown.
-    * <p>
+    *
     * If the field is a {@link ChronoField} then the query is implemented here.
     * The {@link #isSupported(TemporalField) supported fields} will return
     * appropriate range instances.
     * All other {@code ChronoField} instances will throw a {@code DateTimeException}.
-    * <p>
+    *
     * If the field is not a {@code ChronoField}, then the result of this method
     * is obtained by invoking {@code TemporalField.rangeRefinedBy(TemporalAccessor)}
     * passing {@code this} as the argument.
@@ -467,18 +467,18 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
 
   /**
     * Gets the value of the specified field from this date as an {@code int}.
-    * <p>
+    *
     * This queries this date for the value for the specified field.
     * The returned value will always be within the valid range of values for the field.
     * If it is not possible to return the value, because the field is not supported
     * or for some other reason, an exception is thrown.
-    * <p>
+    *
     * If the field is a {@link ChronoField} then the query is implemented here.
     * The {@link #isSupported(TemporalField) supported fields} will return valid
     * values based on this date, except {@code EPOCH_DAY} and {@code EPOCH_MONTH}
     * which are too large to fit in an {@code int} and throw a {@code DateTimeException}.
     * All other {@code ChronoField} instances will throw a {@code DateTimeException}.
-    * <p>
+    *
     * If the field is not a {@code ChronoField}, then the result of this method
     * is obtained by invoking {@code TemporalField.getFrom(TemporalAccessor)}
     * passing {@code this} as the argument. Whether the value can be obtained,
@@ -497,16 +497,16 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
 
   /**
     * Gets the value of the specified field from this date as a {@code long}.
-    * <p>
+    *
     * This queries this date for the value for the specified field.
     * If it is not possible to return the value, because the field is not supported
     * or for some other reason, an exception is thrown.
-    * <p>
+    *
     * If the field is a {@link ChronoField} then the query is implemented here.
     * The {@link #isSupported(TemporalField) supported fields} will return valid
     * values based on this date.
     * All other {@code ChronoField} instances will throw a {@code DateTimeException}.
-    * <p>
+    *
     * If the field is not a {@code ChronoField}, then the result of this method
     * is obtained by invoking {@code TemporalField.getFrom(TemporalAccessor)}
     * passing {@code this} as the argument. Whether the value can be obtained,
@@ -553,7 +553,7 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
 
   /**
     * Gets the chronology of this date, which is the ISO calendar system.
-    * <p>
+    *
     * The {@code Chronology} represents the calendar system in use.
     * The ISO-8601 calendar system is the modern civil calendar system used today
     * in most of the world. It is equivalent to the proleptic Gregorian calendar
@@ -565,17 +565,17 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
 
   /**
     * Gets the era applicable at this date.
-    * <p>
+    *
     * The official ISO-8601 standard does not define eras, however {@code IsoChronology} does.
     * It defines two eras, 'CE' from year one onwards and 'BCE' from year zero backwards.
     * Since dates before the Julian-Gregorian cutover are not in line with history,
     * the cutover between 'BCE' and 'CE' is also not aligned with the commonly used
     * eras, often referred to using 'BC' and 'AD'.
-    * <p>
+    *
     * Users of this class should typically ignore this method as it exists primarily
     * to fulfill the {@link ChronoLocalDate} contract where it is necessary to support
     * the Japanese calendar system.
-    * <p>
+    *
     * The returned era will be a singleton capable of being compared with the constants
     * in {@link IsoChronology} using the {@code ==} operator.
     *
@@ -585,9 +585,9 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
 
   /**
     * Gets the year field.
-    * <p>
+    *
     * This method returns the primitive {@code int} value for the year.
-    * <p>
+    *
     * The year returned by this method is proleptic as per {@code get(YEAR)}.
     * To obtain the year-of-era, use {@code get(YEAR_OF_ERA}.
     *
@@ -597,7 +597,7 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
 
   /**
     * Gets the month-of-year field from 1 to 12.
-    * <p>
+    *
     * This method returns the month as an {@code int} from 1 to 12.
     * Application code is frequently clearer if the enum {@link Month}
     * is used by calling {@link #getMonth()}.
@@ -609,7 +609,7 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
 
   /**
     * Gets the month-of-year field using the {@code Month} enum.
-    * <p>
+    *
     * This method returns the enum {@link Month} for the month.
     * This avoids confusion as to what {@code int} values mean.
     * If you need access to the primitive {@code int} value then the enum
@@ -622,7 +622,7 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
 
   /**
     * Gets the day-of-month field.
-    * <p>
+    *
     * This method returns the primitive {@code int} value for the day-of-month.
     *
     * @return the day-of-month, from 1 to 31
@@ -631,7 +631,7 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
 
   /**
     * Gets the day-of-year field.
-    * <p>
+    *
     * This method returns the primitive {@code int} value for the day-of-year.
     *
     * @return the day-of-year, from 1 to 365, or 366 in a leap year
@@ -640,12 +640,12 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
 
   /**
     * Gets the day-of-week field, which is an enum {@code DayOfWeek}.
-    * <p>
+    *
     * This method returns the enum {@link DayOfWeek} for the day-of-week.
     * This avoids confusion as to what {@code int} values mean.
     * If you need access to the primitive {@code int} value then the enum
     * provides the {@link DayOfWeek#getValue() int value}.
-    * <p>
+    *
     * Additional information can be obtained from the {@code DayOfWeek}.
     * This includes textual names of the values.
     *
@@ -659,16 +659,16 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
   /**
     * Checks if the year is a leap year, according to the ISO proleptic
     * calendar system rules.
-    * <p>
+    *
     * This method applies the current rules for leap years across the whole time-line.
     * In general, a year is a leap year if it is divisible by four without
     * remainder. However, years divisible by 100, are not leap years, with
     * the exception of years divisible by 400 which are.
-    * <p>
+    *
     * For example, 1904 is a leap year it is divisible by 4.
     * 1900 was not a leap year as it is divisible by 100, however 2000 was a
     * leap year as it is divisible by 400.
-    * <p>
+    *
     * The calculation is proleptic - applying the same rules into the far future and far past.
     * This is historically inaccurate, but is correct for the ISO-8601 standard.
     *
@@ -678,7 +678,7 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
 
   /**
     * Returns the length of the month represented by this date.
-    * <p>
+    *
     * This returns the length of the month in days.
     * For example, a date in January would return 31.
     *
@@ -693,7 +693,7 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
 
   /**
     * Returns the length of the year represented by this date.
-    * <p>
+    *
     * This returns the length of the year in days, either 365 or 366.
     *
     * @return 366 if the year is leap, 365 otherwise
@@ -702,11 +702,11 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
 
   /**
     * Returns an adjusted copy of this date.
-    * <p>
+    *
     * This returns a new {@code LocalDate}, based on this one, with the date adjusted.
     * The adjustment takes place using the specified adjuster strategy object.
     * Read the documentation of the adjuster to understand what adjustment will be made.
-    * <p>
+    *
     * A simple adjuster might simply set the one of the fields, such as the year field.
     * A more complex adjuster might set the date to the last day of the month.
     * A selection of common adjustments is provided in {@link TemporalAdjusters}.
@@ -715,7 +715,7 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
     * such as {@link Month} and {@link MonthDay}.
     * The adjuster is responsible for handling special cases, such as the varying
     * lengths of month and leap years.
-    * <p>
+    *
     * For example this code returns a date on the last day of July:
     * <pre>
     * import static org.threeten.bp.Month.*;
@@ -723,11 +723,11 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
     *
     * result = localDate.with(JULY).with(lastDayOfMonth());
     * </pre>
-    * <p>
+    *
     * The result of this method is obtained by invoking the
     * {@link TemporalAdjuster#adjustInto(Temporal)} method on the
     * specified adjuster passing {@code this} as the argument.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param adjuster the adjuster to use, not null
@@ -743,18 +743,18 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
 
   /**
     * Returns a copy of this date with the specified field set to a new value.
-    * <p>
+    *
     * This returns a new {@code LocalDate}, based on this one, with the value
     * for the specified field changed.
     * This can be used to change any supported field, such as the year, month or day-of-month.
     * If it is not possible to set the value, because the field is not supported or for
     * some other reason, an exception is thrown.
-    * <p>
+    *
     * In some cases, changing the specified field can cause the resulting date to become invalid,
     * such as changing the month from 31st January to February would make the day-of-month invalid.
     * In cases like this, the field is responsible for resolving the date. Typically it will choose
     * the previous valid date, which would be the last valid day of February in this example.
-    * <p>
+    *
     * If the field is a {@link ChronoField} then the adjustment is implemented here.
     * The supported fields behave as follows:
     * <ul>
@@ -825,17 +825,17 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
     * unless it would be invalid for the new month and year. In that case, the
     * day-of-month is adjusted to the maximum valid value for the new month and year.
     * </ul>
-    * <p>
+    *
     * In all cases, if the new value is outside the valid range of values for the field
     * then a {@code DateTimeException} will be thrown.
-    * <p>
+    *
     * All other {@code ChronoField} instances will throw a {@code DateTimeException}.
-    * <p>
+    *
     * If the field is not a {@code ChronoField}, then the result of this method
     * is obtained by invoking {@code TemporalField.adjustInto(Temporal, long)}
     * passing {@code this} as the argument. In this case, the field determines
     * whether and how to adjust the instant.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param field  the field to set in the result, not null
@@ -872,7 +872,7 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
   /**
     * Returns a copy of this date with the year altered.
     * If the day-of-month is invalid for the year, it will be changed to the last valid day of the month.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param year  the year to set in the result, from MIN_YEAR to MAX_YEAR
@@ -890,7 +890,7 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
   /**
     * Returns a copy of this date with the month-of-year altered.
     * If the day-of-month is invalid for the year, it will be changed to the last valid day of the month.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param month  the month-of-year to set in the result, from 1 (January) to 12 (December)
@@ -908,7 +908,7 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
   /**
     * Returns a copy of this date with the day-of-month altered.
     * If the resulting date is invalid, an exception is thrown.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param dayOfMonth  the day-of-month to set in the result, from 1 to 28-31
@@ -925,7 +925,7 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
   /**
     * Returns a copy of this date with the day-of-year altered.
     * If the resulting date is invalid, an exception is thrown.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param dayOfYear  the day-of-year to set in the result, from 1 to 365-366
@@ -941,13 +941,13 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
 
   /**
     * Returns a copy of this date with the specified period added.
-    * <p>
+    *
     * This method returns a new date based on this date with the specified period added.
     * The amount is typically {@link Period} but may be any other type implementing
     * the {@link TemporalAmount} interface.
     * The calculation is delegated to the specified adjuster, which typically calls
     * back to {@link #plus(long, TemporalUnit)}.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param amount  the amount to add, not null
@@ -959,12 +959,12 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
 
   /**
     * Returns a copy of this date with the specified period added.
-    * <p>
+    *
     * This method returns a new date based on this date with the specified period added.
     * This can be used to add any period that is defined by a unit, for example to add years, months or days.
     * The unit is responsible for the details of the calculation, including the resolution
     * of any edge cases in the calculation.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param amountToAdd  the amount of the unit to add to the result, may be negative
@@ -994,18 +994,18 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
 
   /**
     * Returns a copy of this {@code LocalDate} with the specified period in years added.
-    * <p>
+    *
     * This method adds the specified amount to the years field in three steps:
     * <ol>
     * <li>Add the input years to the year field</li>
     * <li>Check if the resulting date would be invalid</li>
     * <li>Adjust the day-of-month to the last valid day if necessary</li>
     * </ol>
-    * <p>
+    *
     * For example, 2008-02-29 (leap year) plus one year would result in the
     * invalid date 2009-02-29 (standard year). Instead of returning an invalid
     * result, the last valid day of the month, 2009-02-28, is selected instead.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param yearsToAdd  the years to add, may be negative
@@ -1021,18 +1021,18 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
 
   /**
     * Returns a copy of this {@code LocalDate} with the specified period in months added.
-    * <p>
+    *
     * This method adds the specified amount to the months field in three steps:
     * <ol>
     * <li>Add the input months to the month-of-year field</li>
     * <li>Check if the resulting date would be invalid</li>
     * <li>Adjust the day-of-month to the last valid day if necessary</li>
     * </ol>
-    * <p>
+    *
     * For example, 2007-03-31 plus one month would result in the invalid date
     * 2007-04-31. Instead of returning an invalid result, the last valid day
     * of the month, 2007-04-30, is selected instead.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param monthsToAdd  the months to add, may be negative
@@ -1051,13 +1051,13 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
 
   /**
     * Returns a copy of this {@code LocalDate} with the specified period in weeks added.
-    * <p>
+    *
     * This method adds the specified amount in weeks to the days field incrementing
     * the month and year fields as necessary to ensure the result remains valid.
     * The result is only invalid if the maximum/minimum year is exceeded.
-    * <p>
+    *
     * For example, 2008-12-31 plus one week would result in 2009-01-07.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param weeksToAdd  the weeks to add, may be negative
@@ -1069,13 +1069,13 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
 
   /**
     * Returns a copy of this {@code LocalDate} with the specified number of days added.
-    * <p>
+    *
     * This method adds the specified amount to the days field incrementing the
     * month and year fields as necessary to ensure the result remains valid.
     * The result is only invalid if the maximum/minimum year is exceeded.
-    * <p>
+    *
     * For example, 2008-12-31 plus one day would result in 2009-01-01.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param daysToAdd  the days to add, may be negative
@@ -1091,13 +1091,13 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
 
   /**
     * Returns a copy of this date with the specified period subtracted.
-    * <p>
+    *
     * This method returns a new date based on this date with the specified period subtracted.
     * The amount is typically {@link Period} but may be any other type implementing
     * the {@link TemporalAmount} interface.
     * The calculation is delegated to the specified adjuster, which typically calls
     * back to {@link #minus(long, TemporalUnit)}.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param amount  the amount to subtract, not null
@@ -1110,12 +1110,12 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
 
   /**
     * Returns a copy of this date with the specified period subtracted.
-    * <p>
+    *
     * This method returns a new date based on this date with the specified period subtracted.
     * This can be used to subtract any period that is defined by a unit, for example to subtract years, months or days.
     * The unit is responsible for the details of the calculation, including the resolution
     * of any edge cases in the calculation.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param amountToSubtract  the amount of the unit to subtract from the result, may be negative
@@ -1129,18 +1129,18 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
 
   /**
     * Returns a copy of this {@code LocalDate} with the specified period in years subtracted.
-    * <p>
+    *
     * This method subtracts the specified amount from the years field in three steps:
     * <ol>
     * <li>Subtract the input years to the year field</li>
     * <li>Check if the resulting date would be invalid</li>
     * <li>Adjust the day-of-month to the last valid day if necessary</li>
     * </ol>
-    * <p>
+    *
     * For example, 2008-02-29 (leap year) minus one year would result in the
     * invalid date 2007-02-29 (standard year). Instead of returning an invalid
     * result, the last valid day of the month, 2007-02-28, is selected instead.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param yearsToSubtract  the years to subtract, may be negative
@@ -1153,18 +1153,18 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
 
   /**
     * Returns a copy of this {@code LocalDate} with the specified period in months subtracted.
-    * <p>
+    *
     * This method subtracts the specified amount from the months field in three steps:
     * <ol>
     * <li>Subtract the input months to the month-of-year field</li>
     * <li>Check if the resulting date would be invalid</li>
     * <li>Adjust the day-of-month to the last valid day if necessary</li>
     * </ol>
-    * <p>
+    *
     * For example, 2007-03-31 minus one month would result in the invalid date
     * 2007-02-31. Instead of returning an invalid result, the last valid day
     * of the month, 2007-02-28, is selected instead.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param monthsToSubtract  the months to subtract, may be negative
@@ -1177,13 +1177,13 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
 
   /**
     * Returns a copy of this {@code LocalDate} with the specified period in weeks subtracted.
-    * <p>
+    *
     * This method subtracts the specified amount in weeks from the days field decrementing
     * the month and year fields as necessary to ensure the result remains valid.
     * The result is only invalid if the maximum/minimum year is exceeded.
-    * <p>
+    *
     * For example, 2009-01-07 minus one week would result in 2008-12-31.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param weeksToSubtract  the weeks to subtract, may be negative
@@ -1196,13 +1196,13 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
 
   /**
     * Returns a copy of this {@code LocalDate} with the specified number of days subtracted.
-    * <p>
+    *
     * This method subtracts the specified amount from the days field decrementing the
     * month and year fields as necessary to ensure the result remains valid.
     * The result is only invalid if the maximum/minimum year is exceeded.
-    * <p>
+    *
     * For example, 2009-01-01 minus one day would result in 2008-12-31.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param daysToSubtract  the days to subtract, may be negative
@@ -1215,12 +1215,12 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
 
   /**
     * Queries this date using the specified query.
-    * <p>
+    *
     * This queries this date using the specified query strategy object.
     * The {@code TemporalQuery} object defines the logic to be used to
     * obtain the result. Read the documentation of the query to understand
     * what the result of this method will be.
-    * <p>
+    *
     * The result of this method is obtained by invoking the
     * {@link TemporalQuery#queryFrom(TemporalAccessor)} method on the
     * specified query passing {@code this} as the argument.
@@ -1239,13 +1239,13 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
 
   /**
     * Adjusts the specified temporal object to have the same date as this object.
-    * <p>
+    *
     * This returns a temporal object of the same observable type as the input
     * with the date changed to be the same as this.
-    * <p>
+    *
     * The adjustment is equivalent to using {@link Temporal#with(TemporalField, long)}
     * passing {@link ChronoField#EPOCH_DAY} as the field.
-    * <p>
+    *
     * In most cases, it is clearer to reverse the calling pattern by using
     * {@link Temporal#with(TemporalAdjuster)}:
     * <pre>
@@ -1253,7 +1253,7 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
     * temporal = thisLocalDate.adjustInto(temporal);
     * temporal = temporal.with(thisLocalDate);
     * </pre>
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param temporal  the target object to be adjusted, not null
@@ -1266,19 +1266,19 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
   /**
     * Calculates the period between this date and another date in
     * terms of the specified unit.
-    * <p>
+    *
     * This calculates the period between two dates in terms of a single unit.
     * The start and end points are {@code this} and the specified date.
     * The result will be negative if the end is before the start.
     * The {@code Temporal} passed to this method must be a {@code LocalDate}.
     * For example, the period in days between two dates can be calculated
     * using {@code startDate.until(endDate, DAYS)}.
-    * <p>
+    *
     * The calculation returns a whole number, representing the number of
     * complete units between the two dates.
     * For example, the period in months between 2012-06-15 and 2012-08-14
     * will only be one month as it is one day short of two months.
-    * <p>
+    *
     * This method operates in association with {@link TemporalUnit#between}.
     * The result of this method is a {@code long} representing the amount of
     * the specified unit. By contrast, the result of {@code between} is an
@@ -1287,17 +1287,17 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
     * long period = start.until(end, MONTHS);   // this method
     * dateTime.plus(MONTHS.between(start, end));      // use in plus/minus
     * </pre>
-    * <p>
+    *
     * The calculation is implemented in this method for {@link ChronoUnit}.
     * The units {@code DAYS}, {@code WEEKS}, {@code MONTHS}, {@code YEARS},
     * {@code DECADES}, {@code CENTURIES}, {@code MILLENNIA} and {@code ERAS}
     * are supported. Other {@code ChronoUnit} values will throw an exception.
-    * <p>
+    *
     * If the unit is not a {@code ChronoUnit}, then the result of this method
     * is obtained by invoking {@code TemporalUnit.between(Temporal, Temporal)}
     * passing {@code this} as the first argument and the input temporal as
     * the second argument.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param endExclusive  the end date, which is converted to a { @code LocalDate}, not null
@@ -1337,14 +1337,14 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
 
   /**
     * Calculates the period between this date and another date as a {@code Period}.
-    * <p>
+    *
     * This calculates the period between two dates in terms of years, months and days.
     * The start and end points are {@code this} and the specified date.
     * The result will be negative if the end is before the start.
-    * <p>
+    *
     * The calculation is performed using the ISO calendar system.
     * If necessary, the input date will be converted to ISO.
-    * <p>
+    *
     * The start date is included, but the end date is not.
     * The period is calculated by removing complete months, then calculating
     * the remaining number of days, adjusting to ensure that both have the same sign.
@@ -1352,10 +1352,10 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
     * A month is considered to be complete if the end day-of-month is greater
     * than or equal to the start day-of-month.
     * For example, from {@code 2010-01-15} to {@code 2011-03-18} is "1 year, 2 months and 3 days".
-    * <p>
+    *
     * The result of this method can be a negative period if the end is before the start.
     * The negative sign will be the same in each of year, month and day.
-    * <p>
+    *
     * There are two equivalent ways of using this method.
     * The first is to invoke this method.
     * The second is to use {@link Period#between(LocalDate, LocalDate)}:
@@ -1389,7 +1389,7 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
 
   /**
     * Combines this date with a time to create a {@code LocalDateTime}.
-    * <p>
+    *
     * This returns a {@code LocalDateTime} formed from this date at the specified time.
     * All possible combinations of date and time are valid.
     *
@@ -1400,7 +1400,7 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
 
   /**
     * Combines this date with a time to create a {@code LocalDateTime}.
-    * <p>
+    *
     * This returns a {@code LocalDateTime} formed from this date at the
     * specified hour and minute.
     * The seconds and nanosecond fields will be set to zero.
@@ -1416,7 +1416,7 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
 
   /**
     * Combines this date with a time to create a {@code LocalDateTime}.
-    * <p>
+    *
     * This returns a {@code LocalDateTime} formed from this date at the
     * specified hour, minute and second.
     * The nanosecond field will be set to zero.
@@ -1433,7 +1433,7 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
 
   /**
     * Combines this date with a time to create a {@code LocalDateTime}.
-    * <p>
+    *
     * This returns a {@code LocalDateTime} formed from this date at the
     * specified hour, minute, second and nanosecond.
     * The individual time fields must be within their valid range.
@@ -1451,7 +1451,7 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
 
   /**
     * Combines this date with an offset time to create an {@code OffsetDateTime}.
-    * <p>
+    *
     * This returns an {@code OffsetDateTime} formed from this date at the specified time.
     * All possible combinations of date and time are valid.
     *
@@ -1464,7 +1464,7 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
   /**
     * Combines this date with the time of midnight to create a {@code LocalDateTime}
     * at the start of this date.
-    * <p>
+    *
     * This returns a {@code LocalDateTime} formed from this date at the time of
     * midnight, 00:00, at the start of this date.
     *
@@ -1475,21 +1475,21 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
   /**
     * Combines this date with a time-zone to create a {@code ZonedDateTime}
     * at the start of the day
-    * <p>
+    *
     * This returns a {@code ZonedDateTime} formed from this date at the
     * specified zone, with the time set to be the earliest valid time according
     * to the rules in the time-zone.
-    * <p>
+    *
     * Time-zone rules, such as daylight savings, mean that not every local date-time
     * is valid for the specified zone, thus the local date-time may not be midnight.
-    * <p>
+    *
     * In most cases, there is only one valid offset for a local date-time.
     * In the case of an overlap, there are two valid offsets, and the earlier one is used,
     * corresponding to the first occurrence of midnight on the date.
     * In the case of a gap, the zoned date-time will represent the instant just after the gap.
-    * <p>
+    *
     * If the zone ID is a {@link ZoneOffset}, then the result always has a time of midnight.
-    * <p>
+    *
     * To convert to a specific time in a given time-zone call {@link #atTime(LocalTime)}
     * followed by {@link LocalDateTime#atZone(ZoneId)}.
     *
@@ -1533,10 +1533,10 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
 
   /**
     * Compares this date to another date.
-    * <p>
+    *
     * The comparison is primarily based on the date, from earliest to latest.
     * It is "consistent with equals", as defined by {@link Comparable}.
-    * <p>
+    *
     * If all the dates being compared are instances of {@code LocalDate},
     * then the comparison will be entirely based on the date.
     * If some dates being compared are in different chronologies, then the
@@ -1564,7 +1564,7 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
 
   /**
     * Checks if this date is after the specified date.
-    * <p>
+    *
     * This checks to see if this date represents a point on the
     * local time-line after the other date.
     * <pre>
@@ -1574,7 +1574,7 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
     * a.isAfter(a) == false
     * b.isAfter(a) == true
     * </pre>
-    * <p>
+    *
     * This method only considers the position of the two dates on the local time-line.
     * It does not take into account the chronology, or calendar system.
     * This is different from the comparison in {@link #compareTo(ChronoLocalDate)},
@@ -1591,7 +1591,7 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
 
   /**
     * Checks if this date is before the specified date.
-    * <p>
+    *
     * This checks to see if this date represents a point on the
     * local time-line before the other date.
     * <pre>
@@ -1601,7 +1601,7 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
     * a.isBefore(a) == false
     * b.isBefore(a) == false
     * </pre>
-    * <p>
+    *
     * This method only considers the position of the two dates on the local time-line.
     * It does not take into account the chronology, or calendar system.
     * This is different from the comparison in {@link #compareTo(ChronoLocalDate)},
@@ -1618,7 +1618,7 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
 
   /**
     * Checks if this date is equal to the specified date.
-    * <p>
+    *
     * This checks to see if this date represents the same point on the
     * local time-line as the other date.
     * <pre>
@@ -1628,7 +1628,7 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
     * a.isEqual(a) == true
     * b.isEqual(a) == false
     * </pre>
-    * <p>
+    *
     * This method only considers the position of the two dates on the local time-line.
     * It does not take into account the chronology, or calendar system.
     * This is different from the comparison in {@link #compareTo(ChronoLocalDate)}
@@ -1645,9 +1645,9 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
 
   /**
     * Checks if this date is equal to another date.
-    * <p>
+    *
     * Compares this {@code LocalDate} with another ensuring that the date is the same.
-    * <p>
+    *
     * Only objects of type {@code LocalDate} are compared, other types return false.
     * To compare the dates of two {@code TemporalAccessor} instances, including dates
     * in two different chronologies, use {@link ChronoField#EPOCH_DAY} as a comparator.
@@ -1675,7 +1675,7 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
 
   /**
     * Outputs this date as a {@code String}, such as {@code 2007-12-03}.
-    * <p>
+    *
     * The output will be in the ISO-8601 format {@code yyyy-MM-dd}.
     *
     * @return a string representation of this date, not null
@@ -1702,7 +1702,7 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
 
   /**
     * Outputs this date as a {@code String} using the formatter.
-    * <p>
+    *
     * This date will be passed to the formatter
     * {@link DateTimeFormatter#format(TemporalAccessor) print method}.
     *

@@ -47,7 +47,7 @@ import org.threeten.bp.zone.ZoneRulesException
 import org.threeten.bp.zone.ZoneRulesProvider
 
 /** A time-zone ID, such as {@code Europe/Paris}.
-  * <p>
+  *
   * A {@code ZoneId} is used to identify the rules used to convert between
   * an {@link Instant} and a {@link LocalDateTime}.
   * There are two distinct types of ID:
@@ -60,12 +60,12 @@ import org.threeten.bp.zone.ZoneRulesProvider
   * Most fixed offsets are represented by {@link ZoneOffset}.
   * Calling {@link #normalized()} on any {@code ZoneId} will ensure that a
   * fixed offset ID will be represented as a {@code ZoneOffset}.
-  * <p>
+  *
   * The actual rules, describing when and how the offset changes, are defined by {@link ZoneRules}.
   * This class is simply an ID used to obtain the underlying rules.
   * This approach is taken because rules are defined by governments and change
   * frequently, whereas the ID is stable.
-  * <p>
+  *
   * The distinction has other effects. Serializing the {@code ZoneId} will only send
   * the ID, whereas serializing the rules sends the entire data set.
   * Similarly, a comparison of two IDs only examines the ID, whereas
@@ -74,32 +74,32 @@ import org.threeten.bp.zone.ZoneRulesProvider
   * <h3>Time-zone IDs</h3>
   * The ID is unique within the system.
   * There are three types of ID.
-  * <p>
+  *
   * The simplest type of ID is that from {@code ZoneOffset}.
   * This consists of 'Z' and IDs starting with '+' or '-'.
-  * <p>
+  *
   * The next type of ID are offset-style IDs with some form of prefix,
   * such as 'GMT+2' or 'UTC+01:00'.
   * The recognised prefixes are 'UTC', 'GMT' and 'UT'.
   * The offset is the suffix and will be normalized during creation.
   * These IDs can be normalized to a {@code ZoneOffset} using {@code normalized()}.
-  * <p>
+  *
   * The third type of ID are region-based IDs. A region-based ID must be of
   * two or more characters, and not start with 'UTC', 'GMT', 'UT' '+' or '-'.
   * Region-based IDs are defined by configuration, see {@link ZoneRulesProvider}.
   * The configuration focuses on providing the lookup from the ID to the
   * underlying {@code ZoneRules}.
-  * <p>
+  *
   * Time-zone rules are defined by governments and change frequently.
   * There are a number of organizations, known here as groups, that monitor
   * time-zone changes and collate them.
   * The default group is the IANA Time Zone Database (TZDB).
   * Other organizations include IATA (the airline industry body) and Microsoft.
-  * <p>
+  *
   * Each group defines its own format for the region ID it provides.
   * The TZDB group defines IDs such as 'Europe/London' or 'America/New_York'.
   * TZDB IDs take precedence over other groups.
-  * <p>
+  *
   * It is strongly recommended that the group name is included in all IDs supplied by
   * groups other than TZDB to avoid conflicts. For example, IATA airline time-zone
   * region IDs are typically the same as the three letter airport code.
@@ -111,7 +111,7 @@ import org.threeten.bp.zone.ZoneRulesProvider
   * This class can be serialized and stores the string zone ID in the external form.
   * The {@code ZoneOffset} subclass uses a dedicated format that only stores the
   * offset from UTC/Greenwich.
-  * <p>
+  *
   * A {@code ZoneId} can be deserialized in a Java Runtime where the ID is unknown.
   * For example, if a server-side Java Runtime has been updated with a new zone ID, but
   * the client-side Java Runtime has not been updated. In this case, the {@code ZoneId}
@@ -131,17 +131,17 @@ object ZoneId {
 
   /**
     * A map of zone overrides to enable the short time-zone names to be used.
-    * <p>
+    *
     * Use of short zone IDs has been deprecated in {@code java.util.TimeZone}.
     * This map allows the IDs to continue to be used via the
     * {@link #of(String, Map)} factory method.
-    * <p>
+    *
     * This map contains a mapping of the IDs that is in line with TZDB 2005r and
     * later, where 'EST', 'MST' and 'HST' map to IDs which do not include daylight
     * savings.
-    * <p>
+    *
     * This maps as follows:
-    * <p><ul>
+    *<ul>
     * <li>EST - -05:00</li>
     * <li>HST - -10:00</li>
     * <li>MST - -07:00</li>
@@ -208,7 +208,7 @@ object ZoneId {
 
   /**
     * Gets the system default time-zone.
-    * <p>
+    *
     * This queries {@link TimeZone#getDefault()} to find the default time-zone
     * and converts it to a {@code ZoneId}. If the system default time-zone is changed,
     * then the result of this method will also change.
@@ -221,11 +221,11 @@ object ZoneId {
 
   /**
     * Gets the set of available zone IDs.
-    * <p>
+    *
     * This set includes the string form of all available region-based IDs.
     * Offset-based zone IDs are not included in the returned set.
     * The ID can be passed to {@link #of(String)} to create a {@code ZoneId}.
-    * <p>
+    *
     * The set of zone IDs can increase over time, although in a typical application
     * the set of IDs is fixed. Each call to this method is thread-safe.
     *
@@ -236,7 +236,7 @@ object ZoneId {
   /**
     * Obtains an instance of {@code ZoneId} using its ID using a map
     * of aliases to supplement the standard zone IDs.
-    * <p>
+    *
     * Many users of time-zones use short abbreviations, such as PST for
     * 'Pacific Standard Time' and PDT for 'Pacific Daylight Time'.
     * These abbreviations are not unique, and so cannot be used as IDs.
@@ -260,11 +260,11 @@ object ZoneId {
   /**
     * Obtains an instance of {@code ZoneId} from an ID ensuring that the
     * ID is valid and available for use.
-    * <p>
+    *
     * This method parses the ID producing a {@code ZoneId} or {@code ZoneOffset}.
     * A {@code ZoneOffset} is returned if the ID is 'Z', or starts with '+' or '-'.
     * The result will always be a valid ID for which {@link ZoneRules} can be obtained.
-    * <p>
+    *
     * Parsing matches the zone ID step by step as follows.
     * <ul>
     * <li>If the zone ID equals 'Z', the result is {@code ZoneOffset.UTC}.
@@ -324,7 +324,7 @@ object ZoneId {
 
   /**
     * Obtains an instance of {@code ZoneId} wrapping an offset.
-    * <p>
+    *
     * If the prefix is "GMT", "UTC", or "UT" a {@code ZoneId}
     * with the prefix and the non-zero offset is returned.
     * If the prefix is empty {@code ""} the {@code ZoneOffset} is returned.
@@ -352,13 +352,13 @@ object ZoneId {
 
   /**
     * Obtains an instance of {@code ZoneId} from a temporal object.
-    * <p>
+    *
     * A {@code TemporalAccessor} represents some form of date and time information.
     * This factory converts the arbitrary temporal object to an instance of {@code ZoneId}.
-    * <p>
+    *
     * The conversion will try to obtain the zone in a way that favours region-based
     * zones over offset-based zones using {@link TemporalQueries#zone()}.
-    * <p>
+    *
     * This method matches the signature of the functional interface {@link TemporalQuery}
     * allowing it to be used in queries via method reference, {@code ZoneId::from}.
     *
@@ -382,7 +382,7 @@ abstract class ZoneId private[bp]() extends Serializable {
 
   /**
     * Gets the unique time-zone ID.
-    * <p>
+    *
     * This ID uniquely defines this object.
     * The format of an offset based ID is defined by {@link ZoneOffset#getId()}.
     *
@@ -392,19 +392,19 @@ abstract class ZoneId private[bp]() extends Serializable {
 
   /**
     * Gets the time-zone rules for this ID allowing calculations to be performed.
-    * <p>
+    *
     * The rules provide the functionality associated with a time-zone,
     * such as finding the offset for a given instant or local date-time.
-    * <p>
+    *
     * A time-zone can be invalid if it is deserialized in a Java Runtime which
     * does not have the same rules loaded as the Java Runtime that stored it.
     * In this case, calling this method will throw a {@code ZoneRulesException}.
-    * <p>
+    *
     * The rules are supplied by {@link ZoneRulesProvider}. An advanced provider may
     * support dynamic updates to the rules without restarting the Java Runtime.
     * If so, then the result of this method may change over time.
     * Each individual call will be still remain thread-safe.
-    * <p>
+    *
     * {@link ZoneOffset} will always return a set of rules where the offset never changes.
     *
     * @return the rules, not null
@@ -415,11 +415,11 @@ abstract class ZoneId private[bp]() extends Serializable {
   /**
     * Gets the textual representation of the zone, such as 'British Time' or
     * '+02:00'.
-    * <p>
+    *
     * This returns the textual name used to identify the time-zone ID,
     * suitable for presentation to the user.
     * The parameters control the style of the returned text and the locale.
-    * <p>
+    *
     * If no textual mapping is found then the {@link #getId() full ID} is returned.
     *
     * @param style  the length of the text required, not null
@@ -442,11 +442,11 @@ abstract class ZoneId private[bp]() extends Serializable {
 
   /**
     * Normalizes the time-zone ID, returning a {@code ZoneOffset} where possible.
-    * <p>
+    *
     * The returns a normalized {@code ZoneId} that can be used in place of this ID.
     * The result will have {@code ZoneRules} equivalent to those returned by this object,
     * however the ID returned by {@code getId()} may be different.
-    * <p>
+    *
     * The normalization checks if the rules of this {@code ZoneId} have a fixed offset.
     * If they do, then the {@code ZoneOffset} equal to that offset is returned.
     * Otherwise {@code this} is returned.
@@ -467,7 +467,7 @@ abstract class ZoneId private[bp]() extends Serializable {
 
   /**
     * Checks if this time-zone ID is equal to another time-zone ID.
-    * <p>
+    *
     * The comparison is based on the ID.
     *
     * @param obj  the object to check, null returns false

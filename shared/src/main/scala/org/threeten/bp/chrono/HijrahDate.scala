@@ -74,16 +74,16 @@ import org.threeten.bp.temporal.ValueRange
 
 /**
   * A date in the Hijrah calendar system.
-  * <p>
+  *
   * This implements {@code ChronoLocalDate} for the {@link HijrahChronology Hijrah calendar}.
-  * <p>
+  *
   * The Hijrah calendar has a different total of days in a year than
   * Gregorian calendar, and a month is based on the period of a complete
   * revolution of the moon around the earth (as between successive new moons).
   * The calendar cycles becomes longer and unstable, and sometimes a manual
   * adjustment (for entering deviation) is necessary for correctness
   * because of the complex algorithm.
-  * <p>
+  *
   * HijrahDate supports the manual adjustment feature by providing a configuration
   * file. The configuration file contains the adjustment (deviation) data with following format.
   * <pre>
@@ -340,10 +340,10 @@ object HijrahDate {
   /**
     * Obtains the current {@code HijrahDate} of the Islamic Umm Al-Qura calendar
     * in the default time-zone.
-    * <p>
+    *
     * This will query the {@link Clock#systemDefaultZone() system clock} in the default
     * time-zone to obtain the current date.
-    * <p>
+    *
     * Using this method will prevent the ability to use an alternate clock for testing
     * because the clock is hard-coded.
     *
@@ -354,10 +354,10 @@ object HijrahDate {
   /**
     * Obtains the current {@code HijrahDate} of the Islamic Umm Al-Qura calendar
     * in the specified time-zone.
-    * <p>
+    *
     * This will query the {@link Clock#system(ZoneId) system clock} to obtain the current date.
     * Specifying the time-zone avoids dependence on the default time-zone.
-    * <p>
+    *
     * Using this method will prevent the ability to use an alternate clock for testing
     * because the clock is hard-coded.
     *
@@ -369,7 +369,7 @@ object HijrahDate {
   /**
     * Obtains the current {@code HijrahDate} of the Islamic Umm Al-Qura calendar
     * from the specified clock.
-    * <p>
+    *
     * This will query the specified clock to obtain the current date - today.
     * Using this method allows the use of an alternate clock for testing.
     * The alternate clock may be introduced using {@linkplain Clock dependency injection}.
@@ -452,14 +452,14 @@ object HijrahDate {
 
   /**
     * Obtains a {@code HijrahDate} of the Islamic Umm Al-Qura calendar from a temporal object.
-    * <p>
+    *
     * This obtains a date in the Hijrah calendar system based on the specified temporal.
     * A {@code TemporalAccessor} represents an arbitrary set of date and time information,
     * which this factory converts to an instance of {@code HijrahDate}.
-    * <p>
+    *
     * The conversion typically uses the {@link ChronoField#EPOCH_DAY EPOCH_DAY}
     * field, which is standardized across calendar systems.
-    * <p>
+    *
     * This method matches the signature of the functional interface {@link TemporalQuery}
     * allowing it to be used as a query via method reference, {@code HijrahDate::from}.
     *

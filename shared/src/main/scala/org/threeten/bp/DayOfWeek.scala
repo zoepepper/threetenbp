@@ -48,23 +48,23 @@ import org.threeten.bp.temporal.ValueRange
 
 /**
   * A day-of-week, such as 'Tuesday'.
-  * <p>
+  *
   * {@code DayOfWeek} is an enum representing the 7 days of the week -
   * Monday, Tuesday, Wednesday, Thursday, Friday, Saturday and Sunday.
-  * <p>
+  *
   * In addition to the textual enum name, each day-of-week has an {@code int} value.
   * The {@code int} value follows the ISO-8601 standard, from 1 (Monday) to 7 (Sunday).
   * It is recommended that applications use the enum rather than the {@code int} value
   * to ensure code clarity.
-  * <p>
+  *
   * This enum provides access to the localized textual form of the day-of-week.
   * Some locales also assign different numeric values to the days, declaring
   * Sunday to have the value 1, however this class provides no support for this.
   * See {@link WeekFields} for localized week-numbering.
-  * <p>
+  *
   * <b>Do not use {@code ordinal()} to obtain the numeric representation of {@code DayOfWeek}.
   * Use {@code getValue()} instead.</b>
-  * <p>
+  *
   * This enum represents a common concept that is found in many calendar systems.
   * As such, this enum may be used by any calendar system that has the day-of-week
   * concept defined exactly equivalent to the ISO calendar system.
@@ -123,7 +123,7 @@ object DayOfWeek {
 
   /**
     * Obtains an instance of {@code DayOfWeek} from an {@code int} value.
-    * <p>
+    *
     * {@code DayOfWeek} is an enum representing the 7 days of the week.
     * This factory allows the enum to be obtained from the {@code int} value.
     * The {@code int} value follows the ISO-8601 standard, from 1 (Monday) to 7 (Sunday).
@@ -140,12 +140,12 @@ object DayOfWeek {
 
   /**
     * Obtains an instance of {@code DayOfWeek} from a temporal object.
-    * <p>
+    *
     * A {@code TemporalAccessor} represents some form of date and time information.
     * This factory converts the arbitrary temporal object to an instance of {@code DayOfWeek}.
-    * <p>
+    *
     * The conversion extracts the {@link ChronoField#DAY_OF_WEEK DAY_OF_WEEK} field.
-    * <p>
+    *
     * This method matches the signature of the functional interface {@link TemporalQuery}
     * allowing it to be used as a query via method reference, {@code DayOfWeek::from}.
     *
@@ -167,7 +167,7 @@ object DayOfWeek {
 final class DayOfWeek(name: String, ordinal: Int) extends Enum[DayOfWeek](name, ordinal) with TemporalAccessor with TemporalAdjuster {
   /**
     * Gets the day-of-week {@code int} value.
-    * <p>
+    *
     * The values are numbered following the ISO-8601 standard, from 1 (Monday) to 7 (Sunday).
     * See {@link WeekFields#dayOfWeek} for localized week-numbering.
     *
@@ -177,10 +177,10 @@ final class DayOfWeek(name: String, ordinal: Int) extends Enum[DayOfWeek](name, 
 
   /**
     * Gets the textual representation, such as 'Mon' or 'Friday'.
-    * <p>
+    *
     * This returns the textual name used to identify the day-of-week.
     * The parameters control the length of the returned text and the locale.
-    * <p>
+    *
     * If no textual mapping is found then the {@link #getValue() numeric value} is returned.
     *
     * @param style  the length of the text required, not null
@@ -192,15 +192,15 @@ final class DayOfWeek(name: String, ordinal: Int) extends Enum[DayOfWeek](name, 
 
   /**
     * Checks if the specified field is supported.
-    * <p>
+    *
     * This checks if this day-of-week can be queried for the specified field.
     * If false, then calling the {@link #range(TemporalField) range} and
     * {@link #get(TemporalField) get} methods will throw an exception.
-    * <p>
+    *
     * If the field is {@link ChronoField#DAY_OF_WEEK DAY_OF_WEEK} then
     * this method returns true.
     * All other {@code ChronoField} instances will return false.
-    * <p>
+    *
     * If the field is not a {@code ChronoField}, then the result of this method
     * is obtained by invoking {@code TemporalField.isSupportedBy(TemporalAccessor)}
     * passing {@code this} as the argument.
@@ -217,16 +217,16 @@ final class DayOfWeek(name: String, ordinal: Int) extends Enum[DayOfWeek](name, 
 
   /**
     * Gets the range of valid values for the specified field.
-    * <p>
+    *
     * The range object expresses the minimum and maximum valid values for a field.
     * This day-of-week is used to enhance the accuracy of the returned range.
     * If it is not possible to return the range, because the field is not supported
     * or for some other reason, an exception is thrown.
-    * <p>
+    *
     * If the field is {@link ChronoField#DAY_OF_WEEK DAY_OF_WEEK} then the
     * range of the day-of-week, from 1 to 7, will be returned.
     * All other {@code ChronoField} instances will throw a {@code DateTimeException}.
-    * <p>
+    *
     * If the field is not a {@code ChronoField}, then the result of this method
     * is obtained by invoking {@code TemporalField.rangeRefinedBy(TemporalAccessor)}
     * passing {@code this} as the argument.
@@ -246,16 +246,16 @@ final class DayOfWeek(name: String, ordinal: Int) extends Enum[DayOfWeek](name, 
 
   /**
     * Gets the value of the specified field from this day-of-week as an {@code int}.
-    * <p>
+    *
     * This queries this day-of-week for the value for the specified field.
     * The returned value will always be within the valid range of values for the field.
     * If it is not possible to return the value, because the field is not supported
     * or for some other reason, an exception is thrown.
-    * <p>
+    *
     * If the field is {@link ChronoField#DAY_OF_WEEK DAY_OF_WEEK} then the
     * value of the day-of-week, from 1 to 7, will be returned.
     * All other {@code ChronoField} instances will throw a {@code DateTimeException}.
-    * <p>
+    *
     * If the field is not a {@code ChronoField}, then the result of this method
     * is obtained by invoking {@code TemporalField.getFrom(TemporalAccessor)}
     * passing {@code this} as the argument. Whether the value can be obtained,
@@ -276,15 +276,15 @@ final class DayOfWeek(name: String, ordinal: Int) extends Enum[DayOfWeek](name, 
 
   /**
     * Gets the value of the specified field from this day-of-week as a {@code long}.
-    * <p>
+    *
     * This queries this day-of-week for the value for the specified field.
     * If it is not possible to return the value, because the field is not supported
     * or for some other reason, an exception is thrown.
-    * <p>
+    *
     * If the field is {@link ChronoField#DAY_OF_WEEK DAY_OF_WEEK} then the
     * value of the day-of-week, from 1 to 7, will be returned.
     * All other {@code ChronoField} instances will throw a {@code DateTimeException}.
-    * <p>
+    *
     * If the field is not a {@code ChronoField}, then the result of this method
     * is obtained by invoking {@code TemporalField.getFrom(TemporalAccessor)}
     * passing {@code this} as the argument. Whether the value can be obtained,
@@ -305,10 +305,10 @@ final class DayOfWeek(name: String, ordinal: Int) extends Enum[DayOfWeek](name, 
 
   /**
     * Returns the day-of-week that is the specified number of days after this one.
-    * <p>
+    *
     * The calculation rolls around the end of the week from Sunday to Monday.
     * The specified period may be negative.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param days  the days to add, positive or negative
@@ -321,10 +321,10 @@ final class DayOfWeek(name: String, ordinal: Int) extends Enum[DayOfWeek](name, 
 
   /**
     * Returns the day-of-week that is the specified number of days before this one.
-    * <p>
+    *
     * The calculation rolls around the start of the year from Monday to Sunday.
     * The specified period may be negative.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param days  the days to subtract, positive or negative
@@ -334,12 +334,12 @@ final class DayOfWeek(name: String, ordinal: Int) extends Enum[DayOfWeek](name, 
 
   /**
     * Queries this day-of-week using the specified query.
-    * <p>
+    *
     * This queries this day-of-week using the specified query strategy object.
     * The {@code TemporalQuery} object defines the logic to be used to
     * obtain the result. Read the documentation of the query to understand
     * what the result of this method will be.
-    * <p>
+    *
     * The result of this method is obtained by invoking the
     * {@link TemporalQuery#queryFrom(TemporalAccessor)} method on the
     * specified query passing {@code this} as the argument.
@@ -360,17 +360,17 @@ final class DayOfWeek(name: String, ordinal: Int) extends Enum[DayOfWeek](name, 
 
   /**
     * Adjusts the specified temporal object to have this day-of-week.
-    * <p>
+    *
     * This returns a temporal object of the same observable type as the input
     * with the day-of-week changed to be the same as this.
-    * <p>
+    *
     * The adjustment is equivalent to using {@link Temporal#with(TemporalField, long)}
     * passing {@link ChronoField#DAY_OF_WEEK} as the field.
     * Note that this adjusts forwards or backwards within a Monday to Sunday week.
     * See {@link WeekFields#dayOfWeek} for localized week start days.
     * See {@link TemporalAdjusters} for other adjusters
     * with more control, such as {@code next(MONDAY)}.
-    * <p>
+    *
     * In most cases, it is clearer to reverse the calling pattern by using
     * {@link Temporal#with(TemporalAdjuster)}:
     * <pre>
@@ -378,7 +378,7 @@ final class DayOfWeek(name: String, ordinal: Int) extends Enum[DayOfWeek](name, 
     * temporal = thisDayOfWeek.adjustInto(temporal);
     * temporal = temporal.with(thisDayOfWeek);
     * </pre>
-    * <p>
+    *
     * For example, given a date that is a Wednesday, the following are output:
     * <pre>
     * dateOnWed.with(MONDAY);     // two days earlier
@@ -389,7 +389,7 @@ final class DayOfWeek(name: String, ordinal: Int) extends Enum[DayOfWeek](name, 
     * dateOnWed.with(SATURDAY);   // three days later
     * dateOnWed.with(SUNDAY);     // four days later
     * </pre>
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param temporal  the target object to be adjusted, not null

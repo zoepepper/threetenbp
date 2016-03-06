@@ -50,7 +50,7 @@ import org.threeten.bp.temporal.ValueRange
 
 /**
   * Context object used during date and time printing.
-  * <p>
+  *
   * This class provides a single wrapper to items used in the print.
   *
   * <h3>Specification for implementors</h3>
@@ -165,7 +165,7 @@ final class DateTimePrintContext private[format](private var temporal: TemporalA
 
   /**
     * Gets the locale.
-    * <p>
+    *
     * This locale is used to control localization in the print output except
     * where localization is controlled by the symbols.
     *
@@ -175,7 +175,7 @@ final class DateTimePrintContext private[format](private var temporal: TemporalA
 
   /**
     * Gets the formatting symbols.
-    * <p>
+    *
     * The symbols control the localization of numeric output.
     *
     * @return the formatting symbols, not null
@@ -209,7 +209,7 @@ final class DateTimePrintContext private[format](private var temporal: TemporalA
 
   /**
     * Gets the value of the specified field.
-    * <p>
+    *
     * This will return the value for the specified field.
     *
     * @param field  the field to find, not null
@@ -242,7 +242,7 @@ final class DateTimePrintContext private[format](private var temporal: TemporalA
 
   /**
     * Sets the locale.
-    * <p>
+    *
     * This locale is used to control localization in the print output except
     * where localization is controlled by the symbols.
     *

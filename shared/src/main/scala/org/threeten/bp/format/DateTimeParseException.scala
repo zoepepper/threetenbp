@@ -35,7 +35,7 @@ import org.threeten.bp.DateTimeException
 
 /**
   * An exception thrown when an error occurs during parsing.
-  * <p>
+  *
   * This exception includes the text being parsed and the error index.
   *
   * <h3>Specification for implementors</h3>

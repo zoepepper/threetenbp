@@ -50,10 +50,10 @@ import org.threeten.bp.temporal.ValueRange
 
 /**
   * An era in the Hijrah calendar system.
-  * <p>
+  *
   * The Hijrah calendar system has two eras.
   * The date {@code 0001-01-01 (Hijrah)} is {@code 622-06-19 (ISO)}.
-  * <p>
+  *
   * <b>Do not use {@code ordinal()} to obtain the numeric representation of {@code HijrahEra}.
   * Use {@code getValue()} instead.</b>
   *
@@ -75,7 +75,7 @@ object HijrahEra {
 
   /**
     * Obtains an instance of {@code HijrahEra} from a value.
-    * <p>
+    *
     * The current era (from ISO date 622-06-19 onwards) has the value 1
     * The previous era has the value 0.
     *
@@ -100,7 +100,7 @@ object HijrahEra {
 final class HijrahEra(name: String, ordinal: Int) extends Enum[HijrahEra](name, ordinal) with Era {
   /**
     * Gets the era numeric value.
-    * <p>
+    *
     * The current era (from ISO date 622-06-19 onwards) has the value 1.
     * The previous era has the value 0.
     *

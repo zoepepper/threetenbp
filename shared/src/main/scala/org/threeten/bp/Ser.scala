@@ -111,16 +111,16 @@ private object Ser {
   * be serialized.  This byte can also be used for versioning the serialization format.  In this case another
   * byte flag would be used in order to specify an alternative version of the type format.
   * For example {@code LOCAL_DATE_TYPE_VERSION_2 = 21}.
-  * <p>
+  *
   * In order to serialise the object it writes its byte and then calls back to the appropriate class where
   * the serialisation is performed.  In order to deserialise the object it read in the type byte, switching
   * in order to select which class to call back into.
-  * <p>
+  *
   * The serialisation format is determined on a per class basis.  In the case of field based classes each
   * of the fields is written out with an appropriate size format in descending order of the field's size.  For
   * example in the case of {@link LocalDate} year is written before month.  Composite classes, such as
   * {@link LocalDateTime} are serialised as one object.
-  * <p>
+  *
   * This class is mutable and should be created once per serialization.
   *
   * @constructor Creates an instance for serialization.

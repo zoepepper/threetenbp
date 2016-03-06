@@ -40,7 +40,7 @@ import org.threeten.bp.chrono.Chronology
 
 /**
   * The Service Provider Implementation to obtain date-time formatters for a style.
-  * <p>
+  *
   * This implementation is based on extraction of data from a {@link SimpleDateFormat}.
   *
   * <h3>Specification for implementors</h3>

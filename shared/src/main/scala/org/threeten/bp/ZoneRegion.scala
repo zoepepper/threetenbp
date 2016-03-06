@@ -51,10 +51,10 @@ private object ZoneRegion {
 
   /** Obtains an instance of {@code ZoneRegion} from an identifier without checking
     * if the time-zone has available rules.
-    * <p>
+    *
     * This method parses the ID and applies any appropriate normalization.
     * It does not validate the ID against the known set of IDsfor which rules are available.
-    * <p>
+    *
     * This method is intended for advanced use cases.
     * For example, consider a system that always retrieves time-zone rules from a remote server.
     * Using this factory would allow a {@code ZoneRegion}, and thus a {@code ZonedDateTime},
@@ -123,13 +123,13 @@ private object ZoneRegion {
 }
 
 /** A geographical region where the same time-zone rules apply.
-  * <p>
+  *
   * Time-zone information is categorized as a set of rules defining when and
   * how the offset from UTC/Greenwich changes. These rules are accessed using
   * identifiers based on geographical regions, such as countries or states.
   * The most common region classification is the Time Zone Database (TZDB),
   * which defines regions such as 'Europe/Paris' and 'Asia/Tokyo'.
-  * <p>
+  *
   * The region identifier, modeled by this class, is distinct from the
   * underlying rules, modeled by {@link ZoneRules}.
   * The rules are defined by governments and change frequently.

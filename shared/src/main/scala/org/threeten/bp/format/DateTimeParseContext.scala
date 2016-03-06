@@ -40,11 +40,11 @@ import org.threeten.bp.temporal._
 
 /**
   * Context object used during date and time parsing.
-  * <p>
+  *
   * This class represents the current state of the parse.
   * It has the ability to store and retrieve the parsed values and manage optional segments.
   * It also provides key information to the parsing methods.
-  * <p>
+  *
   * Once parsing is complete, the {@link #toBuilder()} is typically used
   * to obtain a builder that can combine the separate parsed fields into meaningful values.
   *
@@ -104,7 +104,7 @@ final class DateTimeParseContext private[format](private var locale: Locale,
 
   /**
     * Gets the locale.
-    * <p>
+    *
     * This locale is used to control localization in the parse except
     * where localization is controlled by the symbols.
     *
@@ -114,7 +114,7 @@ final class DateTimeParseContext private[format](private var locale: Locale,
 
   /**
     * Gets the formatting symbols.
-    * <p>
+    *
     * The symbols control the localization of numeric parsing.
     *
     * @return the formatting symbols, not null
@@ -211,7 +211,7 @@ final class DateTimeParseContext private[format](private var locale: Locale,
 
   /**
     * Checks if parsing is strict.
-    * <p>
+    *
     * Strict parsing requires exact matching of the text and sign styles.
     *
     * @return true if parsing is strict, false if lenient
@@ -250,7 +250,7 @@ final class DateTimeParseContext private[format](private var locale: Locale,
 
   /**
     * Gets the first value that was parsed for the specified field.
-    * <p>
+    *
     * This searches the results of the parse, returning the first value found
     * for the specified field. No attempt is made to derive a value.
     * The field may have an out of range value.
@@ -263,7 +263,7 @@ final class DateTimeParseContext private[format](private var locale: Locale,
 
   /**
     * Stores the parsed field.
-    * <p>
+    *
     * This stores a field-value pair that has been parsed.
     * The value stored may be out of range for the field - no checks are performed.
     *
@@ -281,7 +281,7 @@ final class DateTimeParseContext private[format](private var locale: Locale,
 
   /**
     * Stores the parsed chronology.
-    * <p>
+    *
     * This stores the chronology that has been parsed.
     * No validation is performed other than ensuring it is not null.
     *
@@ -311,7 +311,7 @@ final class DateTimeParseContext private[format](private var locale: Locale,
 
   /**
     * Stores the parsed zone.
-    * <p>
+    *
     * This stores the zone that has been parsed.
     * No validation is performed other than ensuring it is not null.
     *
@@ -390,7 +390,7 @@ final class DateTimeParseContext private[format](private var locale: Locale,
     /**
       * Returns a {@code DateTimeBuilder} that can be used to interpret
       * the results of the parse.
-      * <p>
+      *
       * This method is typically used once parsing is complete to obtain the parsed data.
       * Parsing will typically result in separate fields, such as year, month and day.
       * The returned builder can be used to combine the parsed data into meaningful
@@ -415,7 +415,7 @@ final class DateTimeParseContext private[format](private var locale: Locale,
 
   /**
     * Sets the locale.
-    * <p>
+    *
     * This locale is used to control localization in the print output except
     * where localization is controlled by the symbols.
     *

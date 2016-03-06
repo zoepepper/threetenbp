@@ -51,7 +51,7 @@ import scala.annotation.meta.field
 
 /**
   * An era in the Japanese Imperial calendar system.
-  * <p>
+  *
   * This class defines the valid eras for the Japanese chronology.
   * Japan introduced the Gregorian calendar starting with Meiji 6.
   * Only Meiji and later eras are supported;
@@ -89,7 +89,7 @@ object JapaneseEra {
 
   /**
     * Obtains an instance of {@code JapaneseEra} from an {@code int} value.
-    * <p>
+    *
     * The {@link #SHOWA} era that contains 1970-01-01 (ISO calendar system) has the value 1
     * Later era is numbered 2 ({@link #HEISEI}). Earlier eras are numbered 0 ({@link #TAISHO}),
     * -1 ({@link #MEIJI}), only Meiji and later eras are supported.
@@ -106,7 +106,7 @@ object JapaneseEra {
 
   /**
     * Returns the {@code JapaneseEra} with the name.
-    * <p>
+    *
     * The string must match exactly the name of the era.
     * (Extraneous whitespace characters are not permitted.)
     *
@@ -125,7 +125,7 @@ object JapaneseEra {
 
   /**
     * Returns an array of JapaneseEras.
-    * <p>
+    *
     * This method may be used to iterate over the JapaneseEras as follows:
     * <pre>
     * for (JapaneseEra c : JapaneseEra.values())
@@ -258,7 +258,7 @@ final class JapaneseEra private(private val eraValue: Int, @(transient @field) p
 
   /**
     * Returns the numeric value of this {@code JapaneseEra}.
-    * <p>
+    *
     * The {@link #SHOWA} era that contains 1970-01-01 (ISO calendar system) has the value 1.
     * Later eras are numbered from 2 ({@link #HEISEI}).
     * Earlier eras are numbered 0 ({@link #TAISHO}) and -1 ({@link #MEIJI}).

@@ -48,11 +48,11 @@ import org.threeten.bp.zone.ZoneOffsetTransitionRule.TimeDefinition
 
 /**
   * A mutable builder used to create all the rules for a historic time-zone.
-  * <p>
+  *
   * The rules of a time-zone describe how the offset changes over time.
   * The rules are created by building windows on the time-line within which
   * the different rules apply. The rules may be one of two kinds:
-  * <p><ul>
+  *<ul>
   * <li>Fixed savings - A single fixed amount of savings from the standard offset will apply.</li>
   * <li>Rules - A set of one or more rules describe how daylight savings changes during the window.</li>
   * </ul><p>
@@ -63,11 +63,11 @@ import org.threeten.bp.zone.ZoneOffsetTransitionRule.TimeDefinition
   * The created instances are immutable and thread-safe.
   *
   * Constructs an instance of the builder that can be used to create zone rules.
-  * <p>
+  *
   * The builder is used by adding one or more windows representing portions
   * of the time-line. The standard offset from UTC/Greenwich will be constant
   * within a window, although two adjacent windows can have the same standard offset.
-  * <p>
+  *
   * Within each window, there can either be a
   * {@link #setFixedSavingsToWindow fixed savings amount} or a
   * {@link #addRuleToWindow list of rules}.
@@ -84,12 +84,12 @@ class ZoneRulesBuilder() {
 
   /**
     * Adds a window to the builder that can be used to filter a set of rules.
-    * <p>
+    *
     * This method defines and adds a window to the zone where the standard offset is specified.
     * The window limits the effect of subsequent additions of transition rules
     * or fixed savings. If neither rules or fixed savings are added to the window
     * then the window will default to no savings.
-    * <p>
+    *
     * Each window must be added sequentially, as the start instant of the window
     * is derived from the until instant of the previous window.
     *
@@ -115,12 +115,12 @@ class ZoneRulesBuilder() {
   /**
     * Adds a window that applies until the end of time to the builder that can be
     * used to filter a set of rules.
-    * <p>
+    *
     * This method defines and adds a window to the zone where the standard offset is specified.
     * The window limits the effect of subsequent additions of transition rules
     * or fixed savings. If neither rules or fixed savings are added to the window
     * then the window will default to no savings.
-    * <p>
+    *
     * This must be added after all other windows.
     * No more windows can be added after this one.
     *
@@ -134,11 +134,11 @@ class ZoneRulesBuilder() {
 
   /**
     * Sets the previously added window to have fixed savings.
-    * <p>
+    *
     * Setting a window to have fixed savings simply means that a single daylight
     * savings amount applies throughout the window. The window could be small,
     * such as a single summer, or large, such as a multi-year daylight savings.
-    * <p>
+    *
     * A window can either have fixed savings or rules but not both.
     *
     * @param fixedSavingAmountSecs  the amount of saving to use for the whole window, not null
@@ -157,7 +157,7 @@ class ZoneRulesBuilder() {
 
   /**
     * Adds a single transition rule to the current window.
-    * <p>
+    *
     * This adds a rule such that the offset, expressed as a daylight savings amount,
     * changes at the specified date-time.
     *
@@ -176,7 +176,7 @@ class ZoneRulesBuilder() {
 
   /**
     * Adds a single transition rule to the current window.
-    * <p>
+    *
     * This adds a rule such that the offset, expressed as a daylight savings amount,
     * changes at the specified date-time.
     *
@@ -199,7 +199,7 @@ class ZoneRulesBuilder() {
 
   /**
     * Adds a multi-year transition rule to the current window.
-    * <p>
+    *
     * This adds a rule such that the offset, expressed as a daylight savings amount,
     * changes at the specified date-time for each year in the range.
     *
@@ -240,7 +240,7 @@ class ZoneRulesBuilder() {
 
   /**
     * Completes the build converting the builder to a set of time-zone rules.
-    * <p>
+    *
     * Calling this method alters the state of the builder.
     * Further rules should not be added to this builder once this method is called.
     *
@@ -253,7 +253,7 @@ class ZoneRulesBuilder() {
 
   /**
     * Completes the build converting the builder to a set of time-zone rules.
-    * <p>
+    *
     * Calling this method alters the state of the builder.
     * Further rules should not be added to this builder once this method is called.
     *

@@ -83,11 +83,11 @@ object OffsetTime {
 
   /**
     * Obtains the current time from the system clock in the default time-zone.
-    * <p>
+    *
     * This will query the {@link Clock#systemDefaultZone() system clock} in the default
     * time-zone to obtain the current time.
     * The offset will be calculated from the time-zone in the clock.
-    * <p>
+    *
     * Using this method will prevent the ability to use an alternate clock for testing
     * because the clock is hard-coded.
     *
@@ -97,11 +97,11 @@ object OffsetTime {
 
   /**
     * Obtains the current time from the system clock in the specified time-zone.
-    * <p>
+    *
     * This will query the {@link Clock#system(ZoneId) system clock} to obtain the current time.
     * Specifying the time-zone avoids dependence on the default time-zone.
     * The offset will be calculated from the specified time-zone.
-    * <p>
+    *
     * Using this method will prevent the ability to use an alternate clock for testing
     * because the clock is hard-coded.
     *
@@ -112,10 +112,10 @@ object OffsetTime {
 
   /**
     * Obtains the current time from the specified clock.
-    * <p>
+    *
     * This will query the specified clock to obtain the current time.
     * The offset will be calculated from the time-zone in the clock.
-    * <p>
+    *
     * Using this method allows the use of an alternate clock for testing.
     * The alternate clock may be introduced using {@link Clock dependency injection}.
     *
@@ -139,9 +139,9 @@ object OffsetTime {
 
   /**
     * Obtains an instance of {@code OffsetTime} from an hour, minute, second and nanosecond.
-    * <p>
+    *
     * This creates an offset time with the four specified fields.
-    * <p>
+    *
     * This method exists primarily for writing test cases.
     * Non test-code will typically use other methods to create an offset time.
     * {@code LocalTime} has two additional convenience variants of the
@@ -161,11 +161,11 @@ object OffsetTime {
 
   /**
     * Obtains an instance of {@code OffsetTime} from an {@code Instant} and zone ID.
-    * <p>
+    *
     * This creates an offset time with the same instant as that specified.
     * Finding the offset from UTC/Greenwich is simple as there is only one valid
     * offset for each instant.
-    * <p>
+    *
     * The date component of the instant is dropped during the conversion.
     * This means that the conversion can never fail due to the instant being
     * out of the valid range of dates.
@@ -190,12 +190,12 @@ object OffsetTime {
 
   /**
     * Obtains an instance of {@code OffsetTime} from a temporal object.
-    * <p>
+    *
     * A {@code TemporalAccessor} represents some form of date and time information.
     * This factory converts the arbitrary temporal object to an instance of {@code OffsetTime}.
-    * <p>
+    *
     * The conversion extracts and combines {@code LocalTime} and {@code ZoneOffset}.
-    * <p>
+    *
     * This method matches the signature of the functional interface {@link TemporalQuery}
     * allowing it to be used in queries via method reference, {@code OffsetTime::from}.
     *
@@ -218,7 +218,7 @@ object OffsetTime {
 
   /**
     * Obtains an instance of {@code OffsetTime} from a text string such as {@code 10:15:30+01:00}.
-    * <p>
+    *
     * The string must represent a valid time and is parsed using
     * {@link org.threeten.bp.format.DateTimeFormatter#ISO_OFFSET_TIME}.
     *
@@ -230,7 +230,7 @@ object OffsetTime {
 
   /**
     * Obtains an instance of {@code OffsetTime} from a text string using a specific formatter.
-    * <p>
+    *
     * The text is parsed using the formatter, returning a time.
     *
     * @param text  the text to parse, not null
@@ -253,7 +253,7 @@ object OffsetTime {
 
 /** A time with an offset from UTC/Greenwich in the ISO-8601 calendar system,
   * such as {@code 10:15:30+01:00}.
-  * <p>
+  *
   * {@code OffsetTime} is an immutable date-time object that represents a time, often
   * viewed as hour-minute-second-offset.
   * This class stores all time fields, to a precision of nanoseconds,
@@ -288,11 +288,11 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
 
   /**
     * Checks if the specified field is supported.
-    * <p>
+    *
     * This checks if this time can be queried for the specified field.
     * If false, then calling the {@link #range(TemporalField) range} and
     * {@link #get(TemporalField) get} methods will throw an exception.
-    * <p>
+    *
     * If the field is a {@link ChronoField} then the query is implemented here.
     * The supported fields are:
     * <ul>
@@ -314,7 +314,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     * <li>{@code OFFSET_SECONDS}
     * </ul>
     * All other {@code ChronoField} instances will return false.
-    * <p>
+    *
     * If the field is not a {@code ChronoField}, then the result of this method
     * is obtained by invoking {@code TemporalField.isSupportedBy(TemporalAccessor)}
     * passing {@code this} as the argument.
@@ -337,17 +337,17 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
 
   /**
     * Gets the range of valid values for the specified field.
-    * <p>
+    *
     * The range object expresses the minimum and maximum valid values for a field.
     * This time is used to enhance the accuracy of the returned range.
     * If it is not possible to return the range, because the field is not supported
     * or for some other reason, an exception is thrown.
-    * <p>
+    *
     * If the field is a {@link ChronoField} then the query is implemented here.
     * The {@link #isSupported(TemporalField) supported fields} will return
     * appropriate range instances.
     * All other {@code ChronoField} instances will throw a {@code DateTimeException}.
-    * <p>
+    *
     * If the field is not a {@code ChronoField}, then the result of this method
     * is obtained by invoking {@code TemporalField.rangeRefinedBy(TemporalAccessor)}
     * passing {@code this} as the argument.
@@ -369,18 +369,18 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
 
   /**
     * Gets the value of the specified field from this time as an {@code int}.
-    * <p>
+    *
     * This queries this time for the value for the specified field.
     * The returned value will always be within the valid range of values for the field.
     * If it is not possible to return the value, because the field is not supported
     * or for some other reason, an exception is thrown.
-    * <p>
+    *
     * If the field is a {@link ChronoField} then the query is implemented here.
     * The {@link #isSupported(TemporalField) supported fields} will return valid
     * values based on this time, except {@code NANO_OF_DAY} and {@code MICRO_OF_DAY}
     * which are too large to fit in an {@code int} and throw a {@code DateTimeException}.
     * All other {@code ChronoField} instances will throw a {@code DateTimeException}.
-    * <p>
+    *
     * If the field is not a {@code ChronoField}, then the result of this method
     * is obtained by invoking {@code TemporalField.getFrom(TemporalAccessor)}
     * passing {@code this} as the argument. Whether the value can be obtained,
@@ -395,16 +395,16 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
 
   /**
     * Gets the value of the specified field from this time as a {@code long}.
-    * <p>
+    *
     * This queries this time for the value for the specified field.
     * If it is not possible to return the value, because the field is not supported
     * or for some other reason, an exception is thrown.
-    * <p>
+    *
     * If the field is a {@link ChronoField} then the query is implemented here.
     * The {@link #isSupported(TemporalField) supported fields} will return valid
     * values based on this time.
     * All other {@code ChronoField} instances will throw a {@code DateTimeException}.
-    * <p>
+    *
     * If the field is not a {@code ChronoField}, then the result of this method
     * is obtained by invoking {@code TemporalField.getFrom(TemporalAccessor)}
     * passing {@code this} as the argument. Whether the value can be obtained,
@@ -427,7 +427,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
 
   /**
     * Gets the zone offset, such as '+01:00'.
-    * <p>
+    *
     * This is the offset of the local time from UTC/Greenwich.
     *
     * @return the zone offset, not null
@@ -437,15 +437,15 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
   /**
     * Returns a copy of this {@code OffsetTime} with the specified offset ensuring
     * that the result has the same local time.
-    * <p>
+    *
     * This method returns an object with the same {@code LocalTime} and the specified {@code ZoneOffset}.
     * No calculation is needed or performed.
     * For example, if this time represents {@code 10:30+02:00} and the offset specified is
     * {@code +03:00}, then this method will return {@code 10:30+03:00}.
-    * <p>
+    *
     * To take into account the difference between the offsets, and adjust the time fields,
     * use {@link #withOffsetSameInstant}.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param offset  the zone offset to change to, not null
@@ -458,16 +458,16 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
   /**
     * Returns a copy of this {@code OffsetTime} with the specified offset ensuring
     * that the result is at the same instant on an implied day.
-    * <p>
+    *
     * This method returns an object with the specified {@code ZoneOffset} and a {@code LocalTime}
     * adjusted by the difference between the two offsets.
     * This will result in the old and new objects representing the same instant an an implied day.
     * This is useful for finding the local time in a different offset.
     * For example, if this time represents {@code 10:30+02:00} and the offset specified is
     * {@code +03:00}, then this method will return {@code 11:30+03:00}.
-    * <p>
+    *
     * To change the offset without adjusting the local time use {@link #withOffsetSameLocal}.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param offset  the zone offset to change to, not null
@@ -512,25 +512,25 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
 
   /**
     * Returns an adjusted copy of this time.
-    * <p>
+    *
     * This returns a new {@code OffsetTime}, based on this one, with the time adjusted.
     * The adjustment takes place using the specified adjuster strategy object.
     * Read the documentation of the adjuster to understand what adjustment will be made.
-    * <p>
+    *
     * A simple adjuster might simply set the one of the fields, such as the hour field.
     * A more complex adjuster might set the time to the last hour of the day.
-    * <p>
+    *
     * The classes {@link LocalTime} and {@link ZoneOffset} implement {@code TemporalAdjuster},
     * thus this method can be used to change the time or offset:
     * <pre>
     * result = offsetTime.with(time);
     * result = offsetTime.with(offset);
     * </pre>
-    * <p>
+    *
     * The result of this method is obtained by invoking the
     * {@link TemporalAdjuster#adjustInto(Temporal)} method on the
     * specified adjuster passing {@code this} as the argument.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param adjuster the adjuster to use, not null
@@ -548,30 +548,30 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
 
   /**
     * Returns a copy of this time with the specified field set to a new value.
-    * <p>
+    *
     * This returns a new {@code OffsetTime}, based on this one, with the value
     * for the specified field changed.
     * This can be used to change any supported field, such as the hour, minute or second.
     * If it is not possible to set the value, because the field is not supported or for
     * some other reason, an exception is thrown.
-    * <p>
+    *
     * If the field is a {@link ChronoField} then the adjustment is implemented here.
-    * <p>
+    *
     * The {@code OFFSET_SECONDS} field will return a time with the specified offset.
     * The local time is unaltered. If the new offset value is outside the valid range
     * then a {@code DateTimeException} will be thrown.
-    * <p>
+    *
     * The other {@link #isSupported(TemporalField) supported fields} will behave as per
     * the matching method on {@link LocalTime#with(TemporalField, long)} LocalTime}.
     * In this case, the offset is not part of the calculation and will be unchanged.
-    * <p>
+    *
     * All other {@code ChronoField} instances will throw a {@code DateTimeException}.
-    * <p>
+    *
     * If the field is not a {@code ChronoField}, then the result of this method
     * is obtained by invoking {@code TemporalField.adjustInto(Temporal, long)}
     * passing {@code this} as the argument. In this case, the field determines
     * whether and how to adjust the instant.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param field  the field to set in the result, not null
@@ -594,9 +594,9 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
 
   /**
     * Returns a copy of this {@code OffsetTime} with the hour-of-day value altered.
-    * <p>
+    *
     * The offset does not affect the calculation and will be the same in the result.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param hour  the hour-of-day to set in the result, from 0 to 23
@@ -607,9 +607,9 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
 
   /**
     * Returns a copy of this {@code OffsetTime} with the minute-of-hour value altered.
-    * <p>
+    *
     * The offset does not affect the calculation and will be the same in the result.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param minute  the minute-of-hour to set in the result, from 0 to 59
@@ -620,9 +620,9 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
 
   /**
     * Returns a copy of this {@code OffsetTime} with the second-of-minute value altered.
-    * <p>
+    *
     * The offset does not affect the calculation and will be the same in the result.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param second  the second-of-minute to set in the result, from 0 to 59
@@ -633,9 +633,9 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
 
   /**
     * Returns a copy of this {@code OffsetTime} with the nano-of-second value altered.
-    * <p>
+    *
     * The offset does not affect the calculation and will be the same in the result.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param nanoOfSecond  the nano-of-second to set in the result, from 0 to 999,999,999
@@ -646,19 +646,19 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
 
   /**
     * Returns a copy of this {@code OffsetTime} with the time truncated.
-    * <p>
+    *
     * Truncation returns a copy of the original time with fields
     * smaller than the specified unit set to zero.
     * For example, truncating with the {@link ChronoUnit#MINUTES minutes} unit
     * will set the second-of-minute and nano-of-second field to zero.
-    * <p>
+    *
     * The unit must have a {@linkplain TemporalUnit#getDuration() duration}
     * that divides into the length of a standard day without remainder.
     * This includes all supplied time units on {@link ChronoUnit} and
     * {@link ChronoUnit#DAYS DAYS}. Other units throw an exception.
-    * <p>
+    *
     * The offset does not affect the calculation and will be the same in the result.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param unit  the unit to truncate to, not null
@@ -669,14 +669,14 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
 
   /**
     * Returns a copy of this date with the specified period added.
-    * <p>
+    *
     * This method returns a new time based on this time with the specified period added.
     * The amount is typically {@link Period} but may be any other type implementing
     * the {@link TemporalAmount} interface.
     * The calculation is delegated to the specified adjuster, which typically calls
     * back to {@link #plus(long, TemporalUnit)}.
     * The offset is not part of the calculation and will be unchanged in the result.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param amount  the amount to add, not null
@@ -688,13 +688,13 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
 
   /**
     * Returns a copy of this time with the specified period added.
-    * <p>
+    *
     * This method returns a new time based on this time with the specified period added.
     * This can be used to add any period that is defined by a unit, for example to add hours, minutes or seconds.
     * The unit is responsible for the details of the calculation, including the resolution
     * of any edge cases in the calculation.
     * The offset is not part of the calculation and will be unchanged in the result.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param amountToAdd  the amount of the unit to add to the result, may be negative
@@ -710,10 +710,10 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
 
   /**
     * Returns a copy of this {@code OffsetTime} with the specified period in hours added.
-    * <p>
+    *
     * This adds the specified number of hours to this time, returning a new time.
     * The calculation wraps around midnight.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param hours  the hours to add, may be negative
@@ -723,10 +723,10 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
 
   /**
     * Returns a copy of this {@code OffsetTime} with the specified period in minutes added.
-    * <p>
+    *
     * This adds the specified number of minutes to this time, returning a new time.
     * The calculation wraps around midnight.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param minutes  the minutes to add, may be negative
@@ -736,10 +736,10 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
 
   /**
     * Returns a copy of this {@code OffsetTime} with the specified period in seconds added.
-    * <p>
+    *
     * This adds the specified number of seconds to this time, returning a new time.
     * The calculation wraps around midnight.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param seconds  the seconds to add, may be negative
@@ -749,10 +749,10 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
 
   /**
     * Returns a copy of this {@code OffsetTime} with the specified period in nanoseconds added.
-    * <p>
+    *
     * This adds the specified number of nanoseconds to this time, returning a new time.
     * The calculation wraps around midnight.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param nanos  the nanos to add, may be negative
@@ -762,14 +762,14 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
 
   /**
     * Returns a copy of this time with the specified period subtracted.
-    * <p>
+    *
     * This method returns a new time based on this time with the specified period subtracted.
     * The amount is typically {@link Period} but may be any other type implementing
     * the {@link TemporalAmount} interface.
     * The calculation is delegated to the specified adjuster, which typically calls
     * back to {@link #minus(long, TemporalUnit)}.
     * The offset is not part of the calculation and will be unchanged in the result.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param amount  the amount to subtract, not null
@@ -781,13 +781,13 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
 
   /**
     * Returns a copy of this time with the specified period subtracted.
-    * <p>
+    *
     * This method returns a new time based on this time with the specified period subtracted.
     * This can be used to subtract any period that is defined by a unit, for example to subtract hours, minutes or seconds.
     * The unit is responsible for the details of the calculation, including the resolution
     * of any edge cases in the calculation.
     * The offset is not part of the calculation and will be unchanged in the result.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param amountToSubtract  the amount of the unit to subtract from the result, may be negative
@@ -800,10 +800,10 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
 
   /**
     * Returns a copy of this {@code OffsetTime} with the specified period in hours subtracted.
-    * <p>
+    *
     * This subtracts the specified number of hours from this time, returning a new time.
     * The calculation wraps around midnight.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param hours  the hours to subtract, may be negative
@@ -813,10 +813,10 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
 
   /**
     * Returns a copy of this {@code OffsetTime} with the specified period in minutes subtracted.
-    * <p>
+    *
     * This subtracts the specified number of minutes from this time, returning a new time.
     * The calculation wraps around midnight.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param minutes  the minutes to subtract, may be negative
@@ -826,10 +826,10 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
 
   /**
     * Returns a copy of this {@code OffsetTime} with the specified period in seconds subtracted.
-    * <p>
+    *
     * This subtracts the specified number of seconds from this time, returning a new time.
     * The calculation wraps around midnight.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param seconds  the seconds to subtract, may be negative
@@ -839,10 +839,10 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
 
   /**
     * Returns a copy of this {@code OffsetTime} with the specified period in nanoseconds subtracted.
-    * <p>
+    *
     * This subtracts the specified number of nanoseconds from this time, returning a new time.
     * The calculation wraps around midnight.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param nanos  the nanos to subtract, may be negative
@@ -852,12 +852,12 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
 
   /**
     * Queries this time using the specified query.
-    * <p>
+    *
     * This queries this time using the specified query strategy object.
     * The {@code TemporalQuery} object defines the logic to be used to
     * obtain the result. Read the documentation of the query to understand
     * what the result of this method will be.
-    * <p>
+    *
     * The result of this method is obtained by invoking the
     * {@link TemporalQuery#queryFrom(TemporalAccessor)} method on the
     * specified query passing {@code this} as the argument.
@@ -883,14 +883,14 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
   /**
     * Adjusts the specified temporal object to have the same offset and time
     * as this object.
-    * <p>
+    *
     * This returns a temporal object of the same observable type as the input
     * with the offset and time changed to be the same as this.
-    * <p>
+    *
     * The adjustment is equivalent to using {@link Temporal#with(TemporalField, long)}
     * twice, passing {@link ChronoField#NANO_OF_DAY} and
     * {@link ChronoField#OFFSET_SECONDS} as the fields.
-    * <p>
+    *
     * In most cases, it is clearer to reverse the calling pattern by using
     * {@link Temporal#with(TemporalAdjuster)}:
     * <pre>
@@ -898,7 +898,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     * temporal = thisOffsetTime.adjustInto(temporal);
     * temporal = temporal.with(thisOffsetTime);
     * </pre>
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param temporal  the target object to be adjusted, not null
@@ -912,22 +912,22 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
   /**
     * Calculates the period between this time and another time in
     * terms of the specified unit.
-    * <p>
+    *
     * This calculates the period between two times in terms of a single unit.
     * The start and end points are {@code this} and the specified time.
     * The result will be negative if the end is before the start.
     * For example, the period in hours between two times can be calculated
     * using {@code startTime.until(endTime, HOURS)}.
-    * <p>
+    *
     * The {@code Temporal} passed to this method must be an {@code OffsetTime}.
     * If the offset differs between the two times, then the specified
     * end time is normalized to have the same offset as this time.
-    * <p>
+    *
     * The calculation returns a whole number, representing the number of
     * complete units between the two times.
     * For example, the period in hours between 11:30Z and 13:29Z will only
     * be one hour as it is one minute short of two hours.
-    * <p>
+    *
     * This method operates in association with {@link TemporalUnit#between}.
     * The result of this method is a {@code long} representing the amount of
     * the specified unit. By contrast, the result of {@code between} is an
@@ -936,17 +936,17 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     * long period = start.until(end, HOURS);   // this method
     * dateTime.plus(HOURS.between(start, end));      // use in plus/minus
     * </pre>
-    * <p>
+    *
     * The calculation is implemented in this method for {@link ChronoUnit}.
     * The units {@code NANOS}, {@code MICROS}, {@code MILLIS}, {@code SECONDS},
     * {@code MINUTES}, {@code HOURS} and {@code HALF_DAYS} are supported.
     * Other {@code ChronoUnit} values will throw an exception.
-    * <p>
+    *
     * If the unit is not a {@code ChronoUnit}, then the result of this method
     * is obtained by invoking {@code TemporalUnit.between(Temporal, Temporal)}
     * passing {@code this} as the first argument and the input temporal as
     * the second argument.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param endExclusive  the end time, which is converted to an { @code OffsetTime}, not null
@@ -978,7 +978,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
 
   /**
     * Combines this time with a date to create an {@code OffsetDateTime}.
-    * <p>
+    *
     * This returns an {@code OffsetDateTime} formed from this time and the specified date.
     * All possible combinations of date and time are valid.
     *
@@ -989,7 +989,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
 
   /**
     * Gets the {@code LocalTime} part of this date-time.
-    * <p>
+    *
     * This returns a {@code LocalTime} with the same hour, minute, second and
     * nanosecond as this date-time.
     *
@@ -1010,10 +1010,10 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
 
   /**
     * Compares this {@code OffsetTime} to another time.
-    * <p>
+    *
     * The comparison is based first on the UTC equivalent instant, then on the local time.
     * It is "consistent with equals", as defined by {@link Comparable}.
-    * <p>
+    *
     * For example, the following is the comparator order:
     * <ol>
     * <li>{@code 10:30+01:00}</li>
@@ -1027,7 +1027,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     * When two values represent the same instant, the local time is compared
     * to distinguish them. This step is needed to make the ordering
     * consistent with {@code equals()}.
-    * <p>
+    *
     * To compare the underlying local time of two {@code TemporalAccessor} instances,
     * use {@link ChronoField#NANO_OF_DAY} as a comparator.
     *
@@ -1048,7 +1048,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
   /**
     * Checks if the instant of this {@code OffsetTime} is after that of the
     * specified time applying both times to a common date.
-    * <p>
+    *
     * This method differs from the comparison in {@link #compareTo} in that it
     * only compares the instant of the time. This is equivalent to converting both
     * times to an instant using the same date and comparing the instants.
@@ -1061,7 +1061,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
   /**
     * Checks if the instant of this {@code OffsetTime} is before that of the
     * specified time applying both times to a common date.
-    * <p>
+    *
     * This method differs from the comparison in {@link #compareTo} in that it
     * only compares the instant of the time. This is equivalent to converting both
     * times to an instant using the same date and comparing the instants.
@@ -1074,7 +1074,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
   /**
     * Checks if the instant of this {@code OffsetTime} is equal to that of the
     * specified time applying both times to a common date.
-    * <p>
+    *
     * This method differs from the comparison in {@link #compareTo} and {@link #equals}
     * in that it only compares the instant of the time. This is equivalent to converting both
     * times to an instant using the same date and comparing the instants.
@@ -1086,10 +1086,10 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
 
   /**
     * Checks if this time is equal to another time.
-    * <p>
+    *
     * The comparison is based on the local-time and the offset.
     * To compare for the same instant on the time-line, use {@link #isEqual(OffsetTime)}.
-    * <p>
+    *
     * Only objects of type {@code OffsetTime} are compared, other types return false.
     * To compare the underlying local time of two {@code TemporalAccessor} instances,
     * use {@link ChronoField#NANO_OF_DAY} as a comparator.
@@ -1112,9 +1112,9 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
 
   /**
     * Outputs this time as a {@code String}, such as {@code 10:15:30+01:00}.
-    * <p>
+    *
     * The output will be one of the following ISO-8601 formats:
-    * <p><ul>
+    *<ul>
     * <li>{@code HH:mmXXXXX}</li>
     * <li>{@code HH:mm:ssXXXXX}</li>
     * <li>{@code HH:mm:ss.SSSXXXXX}</li>
@@ -1130,7 +1130,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
 
   /**
     * Outputs this time as a {@code String} using the formatter.
-    * <p>
+    *
     * This time will be passed to the formatter
     * {@link DateTimeFormatter#format(TemporalAccessor) print method}.
     *

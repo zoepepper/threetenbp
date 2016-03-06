@@ -70,12 +70,12 @@ import org.threeten.bp.format.SignStyle._
 import scala.annotation.tailrec
 
 /** Builder to create date-time formatters.
-  * <p>
+  *
   * This allows a {@code DateTimeFormatter} to be created.
   * All date-time formatters are created ultimately using this builder.
-  * <p>
+  *
   * The basic elements of date-time can all be added:
-  * <p><ul>
+  *<ul>
   * <li>Value - a numeric value</li>
   * <li>Fraction - a fractional value including the decimal place. Always use this when
   * outputting fractions to ensure that the fraction is parsed correctly</li>
@@ -88,7 +88,7 @@ import scala.annotation.tailrec
   * <li>Other - the printer and parser interfaces can be used to add user supplied formatting</li>
   * </ul><p>
   * In addition, any of the elements may be decorated by padding, either with spaces or any other character.
-  * <p>
+  *
   * Finally, a shorthand pattern, mostly compatible with {@code java.text.SimpleDateFormat SimpleDateFormat}
   * can be used, see {@link #appendPattern(String)}.
   * In practice, this simply parses the pattern and calls other methods on the builder.
@@ -165,18 +165,18 @@ object DateTimeFormatterBuilder {
   }
 
   /** Strategy for printing/parsing date-time information.
-    * <p>
+    *
     * The printer may print any part, or the whole, of the input date-time object.
     * Typically, a complete print is constructed from a number of smaller
     * units, each outputting a single field.
-    * <p>
+    *
     * The parser may parse any piece of text from the input, storing the result
     * in the context. Typically, each individual parser will just parse one
     * field, such as the day-of-month, storing the value in the context.
     * Once the parse is complete, the caller will then convert the context
     * to a {@link DateTimeBuilder} to merge the parsed values to create the
     * desired object, such as a {@code LocalDate}.
-    * <p>
+    *
     * The parse position will be updated during the parse. Parsing will start at
     * the specified index and the return value specifies the new parse position
     * for the next parser. If an error occurs, the returned index will be negative
@@ -185,17 +185,17 @@ object DateTimeFormatterBuilder {
     * <h3>Specification for implementors</h3>
     * This interface must be implemented with care to ensure other classes operate correctly.
     * All implementations that can be instantiated must be final, immutable and thread-safe.
-    * <p>
+    *
     * The context is not a thread-safe object and a new instance will be created
     * for each print that occurs. The context must not be stored in an instance
     * variable or shared with any other threads.
     */
   private[format] trait DateTimePrinterParser {
     /** Prints the date-time object to the buffer.
-      * <p>
+      *
       * The context holds information to use during the print.
       * It also contains the date-time information to be printed.
-      * <p>
+      *
       * The buffer must not be mutated beyond the content controlled by the implementation.
       *
       * @param context  the context to print using, not null
@@ -206,7 +206,7 @@ object DateTimeFormatterBuilder {
     def print(context: DateTimePrintContext, buf: StringBuilder): Boolean
 
     /** Parses text into date-time information.
-      * <p>
+      *
       * The context holds information to use during the parse.
       * It is also used to store the parsed date-time information.
       *
@@ -873,13 +873,13 @@ object DateTimeFormatterBuilder {
     }
 
     /** Converts a value for this field to a fraction between 0 and 1.
-      * <p>
+      *
       * The fractional value is between 0 (inclusive) and 1 (exclusive).
       * It can only be returned if the {@link TemporalField#range() value range} is fixed.
       * The fraction is obtained by calculation from the field range using 9 decimal
       * places and a rounding mode of {@link RoundingMode#FLOOR FLOOR}.
       * The calculation is inaccurate if the values do not run continuously from smallest to largest.
-      * <p>
+      *
       * For example, the second-of-minute value of 15 would be returned as 0.25,
       * assuming the standard definition of 60 seconds in a minute.
       *
@@ -898,13 +898,13 @@ object DateTimeFormatterBuilder {
     }
 
     /** Converts a fraction from 0 to 1 for this field to a value.
-      * <p>
+      *
       * The fractional value must be between 0 (inclusive) and 1 (exclusive).
       * It can only be returned if the {@link TemporalField#range() value range} is fixed.
       * The value is obtained by calculation from the field range and a rounding
       * mode of {@link RoundingMode#FLOOR FLOOR}.
       * The calculation is inaccurate if the values do not run continuously from smallest to largest.
-      * <p>
+      *
       * For example, the fractional second-of-minute of 0.25 would be converted to 15,
       * assuming the standard definition of 60 seconds in a minute.
       *
@@ -1428,14 +1428,14 @@ object DateTimeFormatterBuilder {
     /** Model a tree of substrings to make the parsing easier. Due to the nature
       * of time-zone names, it can be faster to parse based in unique substrings
       * rather than just a character by character match.
-      * <p>
+      *
       * For example, to parse America/Denver we can look at the first two
       * character "Am". We then notice that the shortest time-zone that starts
       * with Am is America/Nome which is 12 characters long. Checking the first
       * 12 characters of America/Denver gives America/Denv which is a substring
       * of only 1 time-zone: America/Denver. Thus, with just 3 comparisons that
       * match can be found.
-      * <p>
+      *
       * This structure maps substrings to substrings of a longer length. Each
       * node of the tree contains a length and a map of valid substrings to
       * sub-nodes. The parser gets the length from the root node. It then
@@ -1517,7 +1517,7 @@ object DateTimeFormatterBuilder {
     /** This implementation looks for the longest matching string.
       * For example, parsing Etc/GMT-2 will return Etc/GMC-2 rather than just
       * Etc/GMC although both are valid.
-      * <p>
+      *
       * This implementation uses a tree to search for valid time-zone names in
       * the parseText. The top level node of the tree has a length equal to the
       * length of the shortest time-zone as well as the beginning characters of
@@ -1798,17 +1798,17 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
   private var valueParserIndex: Int = -1
 
   /** Changes the parse style to be case sensitive for the remainder of the formatter.
-    * <p>
+    *
     * Parsing can be case sensitive or insensitive - by default it is case sensitive.
     * This method allows the case sensitivity setting of parsing to be changed.
-    * <p>
+    *
     * Calling this method changes the state of the builder such that all
     * subsequent builder method calls will parse text in case sensitive mode.
     * See {@link #parseCaseInsensitive} for the opposite setting.
     * The parse case sensitive/insensitive methods may be called at any point
     * in the builder, thus the parser can swap between case parsing modes
     * multiple times during the parse.
-    * <p>
+    *
     * Since the default is case sensitive, this method should only be used after
     * a previous call to {@code #parseCaseInsensitive}.
     *
@@ -1820,10 +1820,10 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
   }
 
   /** Changes the parse style to be case insensitive for the remainder of the formatter.
-    * <p>
+    *
     * Parsing can be case sensitive or insensitive - by default it is case sensitive.
     * This method allows the case sensitivity setting of parsing to be changed.
-    * <p>
+    *
     * Calling this method changes the state of the builder such that all
     * subsequent builder method calls will parse text in case sensitive mode.
     * See {@link #parseCaseSensitive()} for the opposite setting.
@@ -1839,10 +1839,10 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
   }
 
   /** Changes the parse style to be strict for the remainder of the formatter.
-    * <p>
+    *
     * Parsing can be strict or lenient - by default its strict.
     * This controls the degree of flexibility in matching the text and sign styles.
-    * <p>
+    *
     * When used, this method changes the parsing to be strict from this point onwards.
     * As strict is the default, this is normally only needed after calling {@link #parseLenient()}.
     * The change will remain in force until the end of the formatter that is eventually
@@ -1857,11 +1857,11 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
 
   /** Changes the parse style to be lenient for the remainder of the formatter.
     * Note that case sensitivity is set separately to this method.
-    * <p>
+    *
     * Parsing can be strict or lenient - by default its strict.
     * This controls the degree of flexibility in matching the text and sign styles.
     * Applications calling this method should typically also call {@link #parseCaseInsensitive()}.
-    * <p>
+    *
     * When used, this method changes the parsing to be strict from this point onwards.
     * The change will remain in force until the end of the formatter that is eventually
     * constructed or until {@code parseStrict} is called.
@@ -1874,20 +1874,20 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
   }
 
   /** Appends a default value for a field to the formatter for use in parsing.
-    * <p>
+    *
     * This appends an instruction to the builder to inject a default value
     * into the parsed result. This is especially useful in conjunction with
     * optional parts of the formatter.
-    * <p>
+    *
     * For example, consider a formatter that parses the year, followed by
     * an optional month, with a further optional day-of-month. Using such a
     * formatter would require the calling code to check whether a full date,
     * year-month or just a year had been parsed. This method can be used to
     * default the month and day-of-month to a sensible value, such as the
     * first of the month, allowing the calling code to always get a date.
-    * <p>
+    *
     * During formatting, this method has no effect.
-    * <p>
+    *
     * During parsing, the current state of the parse is inspected.
     * If the specified field has no associated value, because it has not been
     * parsed successfully at that point, then the specified value is injected
@@ -1907,13 +1907,13 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
 
   /** Appends the value of a date-time field to the formatter using a normal
     * output style.
-    * <p>
+    *
     * The value of the field will be output during a print.
     * If the value cannot be obtained then an exception will be thrown.
-    * <p>
+    *
     * The value will be printed as per the normal print of an integer value.
     * Only negative numbers will be signed. No padding will be added.
-    * <p>
+    *
     * The parser for a variable width value such as this normally behaves greedily,
     * requiring one digit, but accepting as many digits as possible.
     * This behavior can be affected by 'adjacent value parsing'.
@@ -1930,26 +1930,26 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
 
   /** Appends the value of a date-time field to the formatter using a fixed
     * width, zero-padded approach.
-    * <p>
+    *
     * The value of the field will be output during a print.
     * If the value cannot be obtained then an exception will be thrown.
-    * <p>
+    *
     * The value will be zero-padded on the left. If the size of the value
     * means that it cannot be printed within the width then an exception is thrown.
     * If the value of the field is negative then an exception is thrown during printing.
-    * <p>
+    *
     * This method supports a special technique of parsing known as 'adjacent value parsing'.
     * This technique solves the problem where a variable length value is followed by one or more
     * fixed length values. The standard parser is greedy, and thus it would normally
     * steal the digits that are needed by the fixed width value parsers that follow the
     * variable width one.
-    * <p>
+    *
     * No action is required to initiate 'adjacent value parsing'.
     * When a call to {@code appendValue} with a variable width is made, the builder
     * enters adjacent value parsing setup mode. If the immediately subsequent method
     * call or calls on the same builder are to this method, then the parser will reserve
     * space so that the fixed width values can be parsed.
-    * <p>
+    *
     * For example, consider {@code builder.appendValue(YEAR).appendValue(MONTH_OF_YEAR, 2);}
     * The year is a variable width parse of between 1 and 19 digits.
     * The month is a fixed width parse of 2 digits.
@@ -1958,14 +1958,14 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     * Thus, the text '201106' will correctly parse to a year of 2011 and a month of 6.
     * Without adjacent value parsing, the year would greedily parse all six digits and leave
     * nothing for the month.
-    * <p>
+    *
     * Adjacent value parsing applies to each set of fixed width not-negative values in the parser
     * that immediately follow any kind of variable width value.
     * Calling any other append method will end the setup of adjacent value parsing.
     * Thus, in the unlikely event that you need to avoid adjacent value parsing behavior,
     * simply add the {@code appendValue} to another {@code DateTimeFormatterBuilder}
     * and add that to this builder.
-    * <p>
+    *
     * If adjacent parsing is active, then parsing must match exactly the specified
     * number of digits in both strict and lenient modes.
     * In addition, no positive or negative sign is permitted.
@@ -1986,21 +1986,21 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
 
   /** Appends the value of a date-time field to the formatter providing full
     * control over printing.
-    * <p>
+    *
     * The value of the field will be output during a print.
     * If the value cannot be obtained then an exception will be thrown.
-    * <p>
+    *
     * This method provides full control of the numeric formatting, including
     * zero-padding and the positive/negative sign.
-    * <p>
+    *
     * The parser for a variable width value such as this normally behaves greedily,
     * accepting as many digits as possible.
     * This behavior can be affected by 'adjacent value parsing'.
     * See {@link #appendValue(TemporalField, int)} for full details.
-    * <p>
+    *
     * In strict parsing mode, the minimum number of parsed digits is {@code minWidth}.
     * In lenient parsing mode, the minimum number of parsed digits is one.
-    * <p>
+    *
     * If this method is invoked with equal minimum and maximum widths and a sign style of
     * {@code NOT_NEGATIVE} then it delegates to {@code appendValue(TemporalField,int)}.
     * In this scenario, the printing and parsing behavior described there occur.
@@ -2029,12 +2029,12 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
   }
 
   /** Appends the reduced value of a date-time field to the formatter.
-    * <p>
+    *
     * Since fields such as year vary by chronology, it is recommended to use the
     * {@link #appendValueReduced(TemporalField, int, int, ChronoLocalDate)} date}
     * variant of this method in most cases. This variant is suitable for
     * simple fields or working with only the ISO chronology.
-    * <p>
+    *
     * For formatting, the {@code width} and {@code maxWidth} are used to
     * determine the number of characters to format.
     * If they are equal then the format is fixed width.
@@ -2042,7 +2042,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     * {@code width} characters then the reduced value is formatted otherwise the value is
     * truncated to fit {@code maxWidth}.
     * The rightmost characters are output to match the width, left padding with zero.
-    * <p>
+    *
     * For strict parsing, the number of characters allowed by {@code width} to {@code maxWidth} are parsed.
     * For lenient parsing, the number of characters must be at least 1 and less than 10.
     * If the number of digits parsed is equal to {@code width} and the value is positive,
@@ -2051,7 +2051,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     * otherwise the value parsed is the field value.
     * This allows a reduced value to be entered for values in range of the baseValue
     * and width and absolute values can be entered for values outside the range.
-    * <p>
+    *
     * For example, a base value of {@code 1980} and a width of {@code 2} will have
     * valid values from {@code 1980} to {@code 2079}.
     * During parsing, the text {@code "12"} will result in the value {@code 2012} as that
@@ -2073,9 +2073,9 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
   }
 
   /** Appends the reduced value of a date-time field to the formatter.
-    * <p>
+    *
     * This is typically used for formatting and parsing a two digit year.
-    * <p>
+    *
     * The base date is used to calculate the full value during parsing.
     * For example, if the base date is 1950-01-01 then parsed values for
     * a two digit year parse will be in the range 1950-01-01 to 2049-12-31.
@@ -2084,14 +2084,14 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     * This behavior is necessary to support fields such as week-based-year
     * or other calendar systems where the parsed value does not align with
     * standard ISO years.
-    * <p>
+    *
     * The exact behavior is as follows. Parse the full set of fields and
     * determine the effective chronology using the last chronology if
     * it appears more than once. Then convert the base date to the
     * effective chronology. Then extract the specified field from the
     * chronology-specific base date and use it to determine the
     * {@code baseValue} used below.
-    * <p>
+    *
     * For formatting, the {@code width} and {@code maxWidth} are used to
     * determine the number of characters to format.
     * If they are equal then the format is fixed width.
@@ -2099,7 +2099,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     * {@code width} characters then the reduced value is formatted otherwise the value is
     * truncated to fit {@code maxWidth}.
     * The rightmost characters are output to match the width, left padding with zero.
-    * <p>
+    *
     * For strict parsing, the number of characters allowed by {@code width} to {@code maxWidth} are parsed.
     * For lenient parsing, the number of characters must be at least 1 and less than 10.
     * If the number of digits parsed is equal to {@code width} and the value is positive,
@@ -2108,7 +2108,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     * otherwise the value parsed is the field value.
     * This allows a reduced value to be entered for values in range of the baseValue
     * and width and absolute values can be entered for values outside the range.
-    * <p>
+    *
     * For example, a base value of {@code 1980} and a width of {@code 2} will have
     * valid values from {@code 1980} to {@code 2079}.
     * During parsing, the text {@code "12"} will result in the value {@code 2012} as that
@@ -2158,21 +2158,21 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
   }
 
   /** Appends the fractional value of a date-time field to the formatter.
-    * <p>
+    *
     * The fractional value of the field will be output including the
     * preceding decimal point. The preceding value is not output.
     * For example, the second-of-minute value of 15 would be output as {@code .25}.
-    * <p>
+    *
     * The width of the printed fraction can be controlled. Setting the
     * minimum width to zero will cause no output to be generated.
     * The printed fraction will have the minimum width necessary between
     * the minimum and maximum widths - trailing zeroes are omitted.
     * No rounding occurs due to the maximum width - digits are simply dropped.
-    * <p>
+    *
     * When parsing in strict mode, the number of parsed digits must be between
     * the minimum and maximum width. When parsing in lenient mode, the minimum
     * width is considered to be zero and the maximum is nine.
-    * <p>
+    *
     * If the value cannot be obtained then an exception will be thrown.
     * If the value is negative an exception will be thrown.
     * If the field does not have a fixed set of valid values then an
@@ -2195,12 +2195,12 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
 
   /** Appends the text of a date-time field to the formatter using the full
     * text style.
-    * <p>
+    *
     * The text of the field will be output during a print.
     * The value must be within the valid range of the field.
     * If the value cannot be obtained then an exception will be thrown.
     * If the field has no textual representation, then the numeric value will be used.
-    * <p>
+    *
     * The value will be printed as per the normal print of an integer value.
     * Only negative numbers will be signed. No padding will be added.
     *
@@ -2210,12 +2210,12 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
   def appendText(field: TemporalField): DateTimeFormatterBuilder = appendText(field, TextStyle.FULL)
 
   /** Appends the text of a date-time field to the formatter.
-    * <p>
+    *
     * The text of the field will be output during a print.
     * The value must be within the valid range of the field.
     * If the value cannot be obtained then an exception will be thrown.
     * If the field has no textual representation, then the numeric value will be used.
-    * <p>
+    *
     * The value will be printed as per the normal print of an integer value.
     * Only negative numbers will be signed. No padding will be added.
     *
@@ -2232,12 +2232,12 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
 
   /** Appends the text of a date-time field to the formatter using the specified
     * map to supply the text.
-    * <p>
+    *
     * The standard text outputting methods use the localized text in the JDK.
     * This method allows that text to be specified directly.
     * The supplied map is not validated by the builder to ensure that printing or
     * parsing is possible, thus an invalid map may throw an error during later use.
-    * <p>
+    *
     * Supplying the map of text provides considerable flexibility in printing and parsing.
     * For example, a legacy application might require or supply the months of the
     * year as "JNY", "FBY", "MCH" etc. These do not match the standard set of text
@@ -2251,10 +2251,10 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     * ...
     * builder.appendText(MONTH_OF_YEAR, map);
     * </pre>
-    * <p>
+    *
     * Other uses might be to output the value with a suffix, such as "1st", "2nd", "3rd",
     * or as Roman numerals "I", "II", "III", "IV".
-    * <p>
+    *
     * During printing, the value is obtained and checked that it is in the valid range.
     * If text is not available for the value then it is output as a number.
     * During parsing, the parser will match against the map of text and numeric values.
@@ -2284,23 +2284,23 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
 
   /** Appends an instant using ISO-8601 to the formatter, formatting fractional
     * digits in groups of three.
-    * <p>
+    *
     * Instants have a fixed output format.
     * They are converted to a date-time with a zone-offset of UTC and formatted
     * using the standard ISO-8601 format.
     * With this method, formatting nano-of-second outputs zero, three, six
     * or nine digits digits as necessary.
     * The localized decimal style is not used.
-    * <p>
+    *
     * The instant is obtained using {@link ChronoField#INSTANT_SECONDS INSTANT_SECONDS}
     * and optionally (@code NANO_OF_SECOND). The value of {@code INSTANT_SECONDS}
     * may be outside the maximum range of {@code LocalDateTime}.
-    * <p>
+    *
     * The {@linkplain ResolverStyle resolver style} has no effect on instant parsing.
     * The end-of-day time of '24:00' is handled as midnight at the start of the following day.
     * The leap-second time of '23:59:59' is handled to some degree, see
     * {@link DateTimeFormatter#parsedLeapSecond()} for full details.
-    * <p>
+    *
     * An alternative to this method is to format/parse the instant as a single
     * epoch-seconds value. That is achieved using {@code appendValue(INSTANT_SECONDS)}.
     *
@@ -2313,31 +2313,31 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
 
   /** Appends an instant using ISO-8601 to the formatter with control over
     * the number of fractional digits.
-    * <p>
+    *
     * Instants have a fixed output format, although this method provides some
     * control over the fractional digits. They are converted to a date-time
     * with a zone-offset of UTC and printed using the standard ISO-8601 format.
     * The localized decimal style is not used.
-    * <p>
+    *
     * The {@code fractionalDigits} parameter allows the output of the fractional
     * second to be controlled. Specifying zero will cause no fractional digits
     * to be output. From 1 to 9 will output an increasing number of digits, using
     * zero right-padding if necessary. The special value -1 is used to output as
     * many digits as necessary to avoid any trailing zeroes.
-    * <p>
+    *
     * When parsing in strict mode, the number of parsed digits must match the
     * fractional digits. When parsing in lenient mode, any number of fractional
     * digits from zero to nine are accepted.
-    * <p>
+    *
     * The instant is obtained using {@link ChronoField#INSTANT_SECONDS INSTANT_SECONDS}
     * and optionally (@code NANO_OF_SECOND). The value of {@code INSTANT_SECONDS}
     * may be outside the maximum range of {@code LocalDateTime}.
-    * <p>
+    *
     * The {@linkplain ResolverStyle resolver style} has no effect on instant parsing.
     * The end-of-day time of '24:00' is handled as midnight at the start of the following day.
     * The leap-second time of '23:59:59' is handled to some degree, see
     * {@link DateTimeFormatter#parsedLeapSecond()} for full details.
-    * <p>
+    *
     * An alternative to this method is to format/parse the instant as a single
     * epoch-seconds value. That is achieved using {@code appendValue(INSTANT_SECONDS)}.
     *
@@ -2354,7 +2354,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     }
 
   /** Appends the zone offset, such as '+01:00', to the formatter.
-    * <p>
+    *
     * This appends an instruction to print/parse the offset ID to the builder.
     * This is equivalent to calling {@code appendOffset("HH:MM:ss", "Z")}.
     *
@@ -2366,22 +2366,22 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
   }
 
   /** Appends the zone offset, such as '+01:00', to the formatter.
-    * <p>
+    *
     * This appends an instruction to print/parse the offset ID to the builder.
-    * <p>
+    *
     * During printing, the offset is obtained using a mechanism equivalent
     * to querying the temporal with {@link TemporalQueries#offset()}.
     * It will be printed using the format defined below.
     * If the offset cannot be obtained then an exception is thrown unless the
     * section of the formatter is optional.
-    * <p>
+    *
     * During parsing, the offset is parsed using the format defined below.
     * If the offset cannot be parsed then an exception is thrown unless the
     * section of the formatter is optional.
-    * <p>
+    *
     * The format of the offset is controlled by a pattern which must be one
     * of the following:
-    * <p><ul>
+    *<ul>
     * <li>{@code +HH} - hour only, ignoring minute and second
     * <li>{@code +HHmm} - hour, with minute if non-zero, ignoring second, no colon
     * <li>{@code +HH:mm} - hour, with minute if non-zero, ignoring second, with colon
@@ -2408,7 +2408,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
   }
 
   /** Appends the localized zone offset, such as 'GMT+01:00', to the formatter.
-    * <p>
+    *
     * This appends a localized zone offset to the builder, the format of the
     * localized offset is controlled by the specified {@link FormatStyle style}
     * to this method:
@@ -2420,16 +2420,16 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     * such as 'GMT, hour without leading zero, optional 2-digit minute and
     * second if non-zero, and colon.
     * </ul>
-    * <p>
+    *
     * During formatting, the offset is obtained using a mechanism equivalent
     * to querying the temporal with {@link TemporalQueries#offset()}.
     * If the offset cannot be obtained then an exception is thrown unless the
     * section of the formatter is optional.
-    * <p>
+    *
     * During parsing, the offset is parsed using the format defined above.
     * If the offset cannot be parsed then an exception is thrown unless the
     * section of the formatter is optional.
-    * <p>
+    *
     * @param style  the format style to use, not null
     * @return this, for chaining, not null
     * @throws IllegalArgumentException if style is neither { @link TextStyle#FULL
@@ -2444,18 +2444,18 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
   }
 
   /** Appends the time-zone ID, such as 'Europe/Paris' or '+02:00', to the formatter.
-    * <p>
+    *
     * This appends an instruction to print/parse the zone ID to the builder.
     * The zone ID is obtained in a strict manner suitable for {@code ZonedDateTime}.
     * By contrast, {@code OffsetDateTime} does not have a zone ID suitable
     * for use with this method, see {@link #appendZoneOrOffsetId()}.
-    * <p>
+    *
     * During printing, the zone is obtained using a mechanism equivalent
     * to querying the temporal with {@link TemporalQueries#zoneId()}.
     * It will be printed using the result of {@link ZoneId#getId()}.
     * If the zone cannot be obtained then an exception is thrown unless the
     * section of the formatter is optional.
-    * <p>
+    *
     * During parsing, the zone is parsed and must match a known zone or offset.
     * If the zone cannot be parsed then an exception is thrown unless the
     * section of the formatter is optional.
@@ -2470,17 +2470,17 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
 
   /** Appends the time-zone region ID, such as 'Europe/Paris', to the formatter,
     * rejecting the zone ID if it is a {@code ZoneOffset}.
-    * <p>
+    *
     * This appends an instruction to print/parse the zone ID to the builder
     * only if it is a region-based ID.
-    * <p>
+    *
     * During printing, the zone is obtained using a mechanism equivalent
     * to querying the temporal with {@link TemporalQueries#zoneId()}.
     * If the zone is a {@code ZoneOffset} or it cannot be obtained then
     * an exception is thrown unless the section of the formatter is optional.
     * If the zone is not an offset, then the zone will be printed using
     * the zone ID from {@link ZoneId#getId()}.
-    * <p>
+    *
     * During parsing, the zone is parsed and must match a known zone or offset.
     * If the zone cannot be parsed then an exception is thrown unless the
     * section of the formatter is optional.
@@ -2497,23 +2497,23 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
 
   /** Appends the time-zone ID, such as 'Europe/Paris' or '+02:00', to
     * the formatter, using the best available zone ID.
-    * <p>
+    *
     * This appends an instruction to print/parse the best available
     * zone or offset ID to the builder.
     * The zone ID is obtained in a lenient manner that first attempts to
     * find a true zone ID, such as that on {@code ZonedDateTime}, and
     * then attempts to find an offset, such as that on {@code OffsetDateTime}.
-    * <p>
+    *
     * During printing, the zone is obtained using a mechanism equivalent
     * to querying the temporal with {@link TemporalQueries#zone()}.
     * It will be printed using the result of {@link ZoneId#getId()}.
     * If the zone cannot be obtained then an exception is thrown unless the
     * section of the formatter is optional.
-    * <p>
+    *
     * During parsing, the zone is parsed and must match a known zone or offset.
     * If the zone cannot be parsed then an exception is thrown unless the
     * section of the formatter is optional.
-    * <p>
+    *
     * This method is is identical to {@code appendZoneId()} except in the
     * mechanism used to obtain the zone.
     *
@@ -2526,9 +2526,9 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
   }
 
   /** Appends the time-zone name, such as 'British Summer Time', to the formatter.
-    * <p>
+    *
     * This appends an instruction to print the textual name of the zone to the builder.
-    * <p>
+    *
     * During printing, the zone is obtained using a mechanism equivalent
     * to querying the temporal with {@link TemporalQueries#zoneId()}.
     * If the zone is a {@code ZoneOffset} it will be printed using the
@@ -2541,7 +2541,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     * {@link ZoneId#getId() ID} will be printed instead.
     * If the zone cannot be obtained then an exception is thrown unless the
     * section of the formatter is optional.
-    * <p>
+    *
     * Parsing is not currently supported.
     *
     * @param textStyle  the text style to use, not null
@@ -2553,10 +2553,10 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
   }
 
   /** Appends the time-zone name, such as 'British Summer Time', to the formatter.
-    * <p>
+    *
     * This appends an instruction to format/parse the textual name of the zone to
     * the builder.
-    * <p>
+    *
     * During formatting, the zone is obtained using a mechanism equivalent
     * to querying the temporal with {@link TemporalQueries#zoneId()}.
     * If the zone is a {@code ZoneOffset} it will be printed using the
@@ -2569,7 +2569,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     * {@link ZoneId#getId() ID} will be printed instead.
     * If the zone cannot be obtained then an exception is thrown unless the
     * section of the formatter is optional.
-    * <p>
+    *
     * During parsing, either the textual zone name, the zone ID or the offset
     * is accepted. Many textual zone names are not unique, such as CST can be
     * for both "Central Standard Time" and "China Standard Time". In this
@@ -2579,7 +2579,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     * zone. This method also allows a set of preferred {@link ZoneId} to be
     * specified for parsing. The matched preferred zone id will be used if the
     * textual zone name being parsed is not unique.
-    * <p>
+    *
     * If the zone cannot be parsed then an exception is thrown unless the
     * section of the formatter is optional.
     *
@@ -2594,7 +2594,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
   }
 
   /** Appends the chronology ID to the formatter.
-    * <p>
+    *
     * The chronology ID will be output during a print.
     * If the chronology cannot be obtained then an exception will be thrown.
     *
@@ -2606,15 +2606,15 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
   }
 
   /** Appends the chronology ID, such as 'ISO' or 'ThaiBuddhist', to the formatter.
-    * <p>
+    *
     * This appends an instruction to format/parse the chronology ID to the builder.
-    * <p>
+    *
     * During printing, the chronology is obtained using a mechanism equivalent
     * to querying the temporal with {@link TemporalQueries#chronology()}.
     * It will be printed using the result of {@link Chronology#getId()}.
     * If the chronology cannot be obtained then an exception is thrown unless the
     * section of the formatter is optional.
-    * <p>
+    *
     * During parsing, the chronology is parsed and must match one of the chronologies
     * in {@link Chronology#getAvailableChronologies()}.
     * If the chronology cannot be parsed then an exception is thrown unless the
@@ -2630,11 +2630,11 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
   }
 
   /** Appends a localized date-time pattern to the formatter.
-    * <p>
+    *
     * This appends a localized section to the builder, suitable for outputting
     * a date, time or date-time combination. The format of the localized
     * section is lazily looked up based on four items:
-    * <p><ul>
+    *<ul>
     * <li>the {@code dateStyle} specified to this method
     * <li>the {@code timeStyle} specified to this method
     * <li>the {@code Locale} of the {@code DateTimeFormatter}
@@ -2643,11 +2643,11 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     * During formatting, the chronology is obtained from the temporal object
     * being formatted, which may have been overridden by
     * {@link DateTimeFormatter#withChronology(Chronology)}.
-    * <p>
+    *
     * During parsing, if a chronology has already been parsed, then it is used.
     * Otherwise the default from {@code DateTimeFormatter.withChronology(Chronology)}
     * is used, with {@code IsoChronology} as the fallback.
-    * <p>
+    *
     * Note that this method provides similar functionality to methods on
     * {@code DateFormat} such as {@link DateFormat#getDateTimeInstance(int, int)}.
     *
@@ -2664,7 +2664,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
   }
 
   /** Appends a character literal to the formatter.
-    * <p>
+    *
     * This character will be output during a print.
     *
     * @param literal  the literal to append, not null
@@ -2676,9 +2676,9 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
   }
 
   /** Appends a string literal to the formatter.
-    * <p>
+    *
     * This string will be output during a print.
-    * <p>
+    *
     * If the literal is empty, nothing is added to the formatter.
     *
     * @param literal  the literal to append, not null
@@ -2695,7 +2695,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
   }
 
   /** Appends all the elements of a formatter to the builder.
-    * <p>
+    *
     * This method has the same effect as appending each of the constituent
     * parts of the formatter directly to this builder.
     *
@@ -2709,11 +2709,11 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
   }
 
   /** Appends a formatter to the builder which will optionally print/parse.
-    * <p>
+    *
     * This method has the same effect as appending each of the constituent
     * parts directly to this builder surrounded by an {@link #optionalStart()} and
     * {@link #optionalEnd()}.
-    * <p>
+    *
     * The formatter will print if data is available for all the fields contained within it.
     * The formatter will parse if the string matches, otherwise no error is returned.
     *
@@ -2727,7 +2727,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
   }
 
   /** Appends the elements defined by the specified pattern to the builder.
-    * <p>
+    *
     * All letters 'A' to 'Z' and 'a' to 'z' are reserved as pattern letters.
     * The characters '{' and '}' are reserved for future use.
     * The characters '[' and ']' indicate optional patterns.
@@ -2776,21 +2776,21 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     * ]       optional section end
     * {}      reserved for future use
     * </pre>
-    * <p>
+    *
     * The count of pattern letters determine the format.
-    * <p>
+    *
     * <b>Text</b>: The text style is determined based on the number of pattern letters used.
     * Less than 4 pattern letters will use the {@link TextStyle#SHORT short form}.
     * Exactly 4 pattern letters will use the {@link TextStyle#FULL full form}.
     * Exactly 5 pattern letters will use the {@link TextStyle#NARROW narrow form}.
-    * <p>
+    *
     * <b>Number</b>: If the count of letters is one, then the value is printed using the minimum number
     * of digits and without padding as per {@link #appendValue(TemporalField)}. Otherwise, the
     * count of digits is used as the width of the output field as per {@link #appendValue(TemporalField, int)}.
-    * <p>
+    *
     * <b>Number/Text</b>: If the count of pattern letters is 3 or greater, use the Text rules above.
     * Otherwise use the Number rules above.
-    * <p>
+    *
     * <b>Fraction</b>: Outputs the nano-of-second field as a fraction-of-second.
     * The nano-of-second value has nine digits, thus the count of pattern letters is from 1 to 9.
     * If it is less than 9, then the nano-of-second value is truncated, with only the most
@@ -2798,7 +2798,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     * When parsing in strict mode, the number of parsed digits must match the count of pattern letters.
     * When parsing in lenient mode, the number of parsed digits must be at least the count of pattern
     * letters, up to 9 digits.
-    * <p>
+    *
     * <b>Year</b>: The count of letters determines the minimum field width below which padding is used.
     * If the count of letters is two, then a {@link #appendValueReduced reduced} two digit form is used.
     * For printing, this outputs the rightmost two digits. For parsing, this will parse using the
@@ -2806,7 +2806,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     * If the count of letters is less than four (but not two), then the sign is only output for negative
     * years as per {@link SignStyle#NORMAL}.
     * Otherwise, the sign is output if the pad width is exceeded, as per {@link SignStyle#EXCEEDS_PAD}
-    * <p>
+    *
     * <b>ZoneId</b>: This outputs the time-zone ID, such as 'Europe/Paris'.
     * If the count of letters is two, then the time-zone ID is output.
     * Any other count of letters throws {@code IllegalArgumentException}.
@@ -2814,7 +2814,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     * Pattern     Equivalent builder methods
     * VV          appendZoneId()
     * </pre>
-    * <p>
+    *
     * <b>Zone names</b>: This outputs the display name of the time-zone ID.
     * If the count of letters is one, two or three, then the short name is output.
     * If the count of letters is four, then the full name is output.
@@ -2826,7 +2826,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     * zzz         appendZoneText(TextStyle.SHORT)
     * zzzz        appendZoneText(TextStyle.FULL)
     * </pre>
-    * <p>
+    *
     * <b>Offset X and x</b>: This formats the offset based on the number of pattern letters.
     * One letter outputs just the hour', such as '+01', unless the minute is non-zero
     * in which case the minute is also output, such as '+0130'.
@@ -2850,7 +2850,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     * xxxx        appendOffset("+HHMMss","+0000")
     * xxxxx       appendOffset("+HH:MM:ss","+00:00")
     * </pre>
-    * <p>
+    *
     * <b>Offset Z</b>: This formats the offset based on the number of pattern letters.
     * One, two or three letters outputs the hour and minute, without a colon, such as '+0130'.
     * Four or more letters throws {@code IllegalArgumentException}.
@@ -2861,21 +2861,21 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     * ZZ          appendOffset("+HHMM","+0000")
     * ZZZ         appendOffset("+HHMM","+0000")
     * </pre>
-    * <p>
+    *
     * <b>Optional section</b>: The optional section markers work exactly like calling {@link #optionalStart()}
     * and {@link #optionalEnd()}.
-    * <p>
+    *
     * <b>Pad modifier</b>: Modifies the pattern that immediately follows to be padded with spaces.
     * The pad width is determined by the number of pattern letters.
     * This is the same as calling {@link #padNext(int)}.
-    * <p>
+    *
     * For example, 'ppH' outputs the hour-of-day padded on the left with spaces to a width of 2.
-    * <p>
+    *
     * Any unrecognized letter is an error.
     * Any non-letter character, other than '[', ']', '{', '}' and the single quote will be output directly.
     * Despite this, it is recommended to use single quotes around all characters that you want to
     * output directly to ensure that future changes do not break your application.
-    * <p>
+    *
     * Note that the pattern string is similar, but not identical, to
     * {@link java.text.SimpleDateFormat SimpleDateFormat}.
     * The pattern string is also similar, but not identical, to that defined by the
@@ -3139,13 +3139,13 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
   }
 
   /** Causes the next added printer/parser to pad to a fixed width using a space.
-    * <p>
+    *
     * This padding will pad to a fixed width using spaces.
-    * <p>
+    *
     * During formatting, the decorated element will be output and then padded
     * to the specified width. An exception will be thrown during printing if
     * the pad width is exceeded.
-    * <p>
+    *
     * During parsing, the padding and decorated element are parsed.
     * If parsing is lenient, then the pad width is treated as a maximum.
     * If parsing is case insensitive, then the pad character is matched ignoring case.
@@ -3159,14 +3159,14 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
   def padNext(padWidth: Int): DateTimeFormatterBuilder = padNext(padWidth, ' ')
 
   /** Causes the next added printer/parser to pad to a fixed width.
-    * <p>
+    *
     * This padding is intended for padding other than zero-padding.
     * Zero-padding should be achieved using the appendValue methods.
-    * <p>
+    *
     * During formatting, the decorated element will be output and then padded
     * to the specified width. An exception will be thrown during printing if
     * the pad width is exceeded.
-    * <p>
+    *
     * During parsing, the padding and decorated element are parsed.
     * If parsing is lenient, then the pad width is treated as a maximum.
     * If parsing is case insensitive, then the pad character is matched ignoring case.
@@ -3188,16 +3188,16 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
   }
 
   /** Mark the start of an optional section.
-    * <p>
+    *
     * The output of printing can include optional sections, which may be nested.
     * An optional section is started by calling this method and ended by calling
     * {@link #optionalEnd()} or by ending the build process.
-    * <p>
+    *
     * All elements in the optional section are treated as optional.
     * During printing, the section is only output if data is available in the
     * {@code TemporalAccessor} for all the elements in the section.
     * During parsing, the whole section may be missing from the parsed string.
-    * <p>
+    *
     * For example, consider a builder setup as
     * {@code builder.appendValue(HOUR_OF_DAY,2).optionalStart().appendValue(MINUTE_OF_HOUR,2)}.
     * The optional section ends automatically at the end of the builder.
@@ -3213,21 +3213,21 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
   }
 
   /** Ends an optional section.
-    * <p>
+    *
     * The output of printing can include optional sections, which may be nested.
     * An optional section is started by calling {@link #optionalStart()} and ended
     * using this method (or at the end of the builder).
-    * <p>
+    *
     * Calling this method without having previously called {@code optionalStart}
     * will throw an exception.
     * Calling this method immediately after calling {@code optionalStart} has no effect
     * on the formatter other than ending the (empty) optional section.
-    * <p>
+    *
     * All elements in the optional section are treated as optional.
     * During printing, the section is only output if data is available in the
     * {@code TemporalAccessor} for all the elements in the section.
     * During parsing, the whole section may be missing from the parsed string.
-    * <p>
+    *
     * For example, consider a builder setup as
     * {@code builder.appendValue(HOUR_OF_DAY,2).optionalStart().appendValue(MINUTE_OF_HOUR,2).optionalEnd()}.
     * During printing, the minute will only be output if its value can be obtained from the date-time.
@@ -3269,13 +3269,13 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
   }
 
   /** Completes this builder by creating the DateTimeFormatter using the default locale.
-    * <p>
+    *
     * This will create a formatter with the default locale.
     * Numbers will be printed and parsed using the standard non-localized set of symbols.
-    * <p>
+    *
     * Calling this method will end any open optional sections by repeatedly
     * calling {@link #optionalEnd()} before creating the formatter.
-    * <p>
+    *
     * This builder can still be used after creating the formatter if desired,
     * although the state may have been changed by calls to {@code optionalEnd}.
     *
@@ -3284,13 +3284,13 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
   def toFormatter: DateTimeFormatter = toFormatter(Locale.getDefault)
 
   /** Completes this builder by creating the DateTimeFormatter using the specified locale.
-    * <p>
+    *
     * This will create a formatter with the specified locale.
     * Numbers will be printed and parsed using the standard non-localized set of symbols.
-    * <p>
+    *
     * Calling this method will end any open optional sections by repeatedly
     * calling {@link #optionalEnd()} before creating the formatter.
-    * <p>
+    *
     * This builder can still be used after creating the formatter if desired,
     * although the state may have been changed by calls to {@code optionalEnd}.
     *

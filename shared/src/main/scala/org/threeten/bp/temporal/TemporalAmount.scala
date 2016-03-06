@@ -35,22 +35,22 @@ import org.threeten.bp.DateTimeException
 
 /** Framework-level interface defining an amount of time,
   * such as "6 hours", "8 days" or "2 years and 3 months".
-  * <p>
+  *
   * This is the base interface type for amounts of time.
   * An amount is distinct from a date or time-of-day in that it is not tied
   * to any specific point on the time-line.
-  * <p>
+  *
   * The amount can be thought of as a Map of {@code TemporalUnit} to long,
   * exposed via {@link #getUnits()} and {@link #get(TemporalUnit)}.
   * A simple case might have a single unit-value pair, such as "6 hours".
   * A more complex case may have multiple unit-value pairs, such as "7 years, 3 months and 5 days".
-  * <p>
+  *
   * There are two common implementations.
   * {@link Period} is a date-based implementation, storing years, months and days.
   * {@link Duration} is a time-based implementation, storing seconds and
   * nanoseconds, but providing some access using other duration based units
   * such as minutes, hours and fixed 24-hour days.
-  * <p>
+  *
   * This interface is a framework-level interface that should not be widely used
   * in application code. Instead, applications should create and pass around
   * instances of concrete types, such as {@code Period} and {@code Duration}.
@@ -75,10 +75,10 @@ trait TemporalAmount {
   def get(unit: TemporalUnit): Long
 
   /** Adds to the specified temporal object.
-    * <p>
+    *
     * This adds to the specified temporal object using the logic
     * encapsulated in the implementing class.
-    * <p>
+    *
     * There are two equivalent ways of using this method.
     * The first is to invoke this method directly.
     * The second is to use {@link Temporal#plus(TemporalAmount)}:
@@ -96,15 +96,15 @@ trait TemporalAmount {
     * documenting that logic. It may use any method on {@code Temporal} to
     * query the temporal object and perform the addition.
     * The returned object must have the same observable type as the input object
-    * <p>
+    *
     * The input object must not be altered.
     * Instead, an adjusted copy of the original must be returned.
     * This provides equivalent, safe behavior for immutable and mutable temporal objects.
-    * <p>
+    *
     * The input temporal object may be in a calendar system other than ISO.
     * Implementations may choose to document compatibility with other calendar systems,
     * or reject non-ISO temporal objects by {@link TemporalQueries#chronology() querying the chronology}.
-    * <p>
+    *
     * This method may be called from multiple threads in parallel.
     * It must be thread-safe when invoked.
     *
@@ -116,10 +116,10 @@ trait TemporalAmount {
   def addTo(temporal: Temporal): Temporal
 
   /** Subtracts this object from the specified temporal object.
-    * <p>
+    *
     * This adds to the specified temporal object using the logic
     * encapsulated in the implementing class.
-    * <p>
+    *
     * There are two equivalent ways of using this method.
     * The first is to invoke this method directly.
     * The second is to use {@link Temporal#minus(TemporalAmount)}:
@@ -137,15 +137,15 @@ trait TemporalAmount {
     * documenting that logic. It may use any method on {@code Temporal} to
     * query the temporal object and perform the subtraction.
     * The returned object must have the same observable type as the input object
-    * <p>
+    *
     * The input object must not be altered.
     * Instead, an adjusted copy of the original must be returned.
     * This provides equivalent, safe behavior for immutable and mutable temporal objects.
-    * <p>
+    *
     * The input temporal object may be in a calendar system other than ISO.
     * Implementations may choose to document compatibility with other calendar systems,
     * or reject non-ISO temporal objects by {@link TemporalQueries#chronology() querying the chronology}.
-    * <p>
+    *
     * This method may be called from multiple threads in parallel.
     * It must be thread-safe when invoked.
     *

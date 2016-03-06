@@ -43,15 +43,15 @@ import org.threeten.bp.ZoneOffset
 
 /**
   * A transition between two offsets caused by a discontinuity in the local time-line.
-  * <p>
+  *
   * A transition between two offsets is normally the result of a daylight savings cutover.
   * The discontinuity is normally a gap in spring and an overlap in autumn.
   * {@code ZoneOffsetTransition} models the transition between the two offsets.
-  * <p>
+  *
   * Gaps occur where there are local date-times that simply do not not exist.
   * An example would be when the offset changes from {@code +03:00} to {@code +04:00}.
   * This might be described as 'the clocks will move forward one hour tonight at 1am'.
-  * <p>
+  *
   * Overlaps occur where there are local date-times that exist twice.
   * An example would be when the offset changes from {@code +04:00} to {@code +03:00}.
   * This might be described as 'the clocks will move back one hour tonight at 2am'.
@@ -63,7 +63,7 @@ import org.threeten.bp.ZoneOffset
 object ZoneOffsetTransition {
   /**
     * Obtains an instance defining a transition between two offsets.
-    * <p>
+    *
     * Applications should normally obtain an instance from {@link ZoneRules}.
     * This factory is only intended for use when creating {@link ZoneRules}.
     *
@@ -150,10 +150,10 @@ final class ZoneOffsetTransition private[zone](private val transition: LocalDate
 
   /**
     * Gets the transition instant.
-    * <p>
+    *
     * This is the instant of the discontinuity, which is defined as the first
     * instant that the 'after' offset applies.
-    * <p>
+    *
     * The methods {@link #getInstant()}, {@link #getDateTimeBefore()} and {@link #getDateTimeAfter()}
     * all represent the same instant.
     *
@@ -170,11 +170,11 @@ final class ZoneOffsetTransition private[zone](private val transition: LocalDate
 
   /**
     * Gets the local transition date-time, as would be expressed with the 'before' offset.
-    * <p>
+    *
     * This is the date-time where the discontinuity begins expressed with the 'before' offset.
     * At this instant, the 'after' offset is actually used, therefore the combination of this
     * date-time and the 'before' offset will never occur.
-    * <p>
+    *
     * The combination of the 'before' date-time and offset represents the same instant
     * as the 'after' date-time and offset.
     *
@@ -184,9 +184,9 @@ final class ZoneOffsetTransition private[zone](private val transition: LocalDate
 
   /**
     * Gets the local transition date-time, as would be expressed with the 'after' offset.
-    * <p>
+    *
     * This is the first date-time after the discontinuity, when the new offset applies.
-    * <p>
+    *
     * The combination of the 'before' date-time and offset represents the same instant
     * as the 'after' date-time and offset.
     *
@@ -196,7 +196,7 @@ final class ZoneOffsetTransition private[zone](private val transition: LocalDate
 
   /**
     * Gets the offset before the transition.
-    * <p>
+    *
     * This is the offset in use before the instant of the transition.
     *
     * @return the offset before the transition, not null
@@ -205,7 +205,7 @@ final class ZoneOffsetTransition private[zone](private val transition: LocalDate
 
   /**
     * Gets the offset after the transition.
-    * <p>
+    *
     * This is the offset in use on and after the instant of the transition.
     *
     * @return the offset after the transition, not null
@@ -214,7 +214,7 @@ final class ZoneOffsetTransition private[zone](private val transition: LocalDate
 
   /**
     * Gets the duration of the transition.
-    * <p>
+    *
     * In most cases, the transition duration is one hour, however this is not always the case.
     * The duration will be positive for a gap and negative for an overlap.
     * Time-zones are second-based, so the nanosecond part of the duration will be zero.
@@ -232,7 +232,7 @@ final class ZoneOffsetTransition private[zone](private val transition: LocalDate
 
   /**
     * Does this transition represent a gap in the local time-line.
-    * <p>
+    *
     * Gaps occur where there are local date-times that simply do not not exist.
     * An example would be when the offset changes from {@code +01:00} to {@code +02:00}.
     * This might be described as 'the clocks will move forward one hour tonight at 1am'.
@@ -243,7 +243,7 @@ final class ZoneOffsetTransition private[zone](private val transition: LocalDate
 
   /**
     * Does this transition represent a gap in the local time-line.
-    * <p>
+    *
     * Overlaps occur where there are local date-times that exist twice.
     * An example would be when the offset changes from {@code +02:00} to {@code +01:00}.
     * This might be described as 'the clocks will move back one hour tonight at 2am'.
@@ -254,7 +254,7 @@ final class ZoneOffsetTransition private[zone](private val transition: LocalDate
 
   /**
     * Checks if the specified offset is valid during this transition.
-    * <p>
+    *
     * This checks to see if the given offset will be valid at some point in the transition.
     * A gap will always return false.
     * An overlap will return true if the offset is either the before or after offset.
@@ -267,7 +267,7 @@ final class ZoneOffsetTransition private[zone](private val transition: LocalDate
 
   /**
     * Gets the valid offsets during this transition.
-    * <p>
+    *
     * A gap will return an empty list, while an overlap will return both offsets.
     *
     * @return the list of valid offsets
@@ -280,7 +280,7 @@ final class ZoneOffsetTransition private[zone](private val transition: LocalDate
 
   /**
     * Compares this transition to another based on the transition instant.
-    * <p>
+    *
     * This compares the instants of each transition.
     * The offsets are ignored, making this order inconsistent with equals.
     *
@@ -291,7 +291,7 @@ final class ZoneOffsetTransition private[zone](private val transition: LocalDate
 
   /**
     * Checks if this object equals another.
-    * <p>
+    *
     * The entire state of the object is compared.
     *
     * @param other  the other object to compare to, null returns false

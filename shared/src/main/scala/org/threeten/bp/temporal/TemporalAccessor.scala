@@ -35,25 +35,25 @@ import org.threeten.bp.DateTimeException
 
 /** Framework-level interface defining read-only access to a temporal object,
   * such as a date, time, offset or some combination of these.
-  * <p>
+  *
   * This is the base interface type for date, time and offset objects.
   * It is implemented by those classes that can provide information
   * as {@link TemporalField fields} or {@link TemporalQuery queries}.
-  * <p>
+  *
   * Most date and time information can be represented as a number.
   * These are modeled using {@code TemporalField} with the number held using
   * a {@code long} to handle large values. Year, month and day-of-month are
   * simple examples of fields, but they also include instant and offsets.
   * See {@link ChronoField} for the standard set of fields.
-  * <p>
+  *
   * Two pieces of date/time information cannot be represented by numbers,
   * the {@link Chronology chronology} and the {@link ZoneId time-zone}.
   * These can be accessed via {@link #query(TemporalQuery) queries} using
   * the static methods defined on {@link TemporalQueries}.
-  * <p>
+  *
   * A sub-interface, {@link Temporal}, extends this definition to one that also
   * supports adjustment and manipulation on more complete temporal objects.
-  * <p>
+  *
   * This interface is a framework-level interface that should not be widely
   * used in application code. Instead, applications should create and pass
   * around instances of concrete types, such as {@code LocalDate}.
@@ -67,7 +67,7 @@ import org.threeten.bp.DateTimeException
   */
 trait TemporalAccessor {
   /** Checks if the specified field is supported.
-    * <p>
+    *
     * This checks if the date-time can be queried for the specified field.
     * If false, then calling the {@link #range(TemporalField) range} and {@link #get(TemporalField) get}
     * methods will throw an exception.
@@ -75,11 +75,11 @@ trait TemporalAccessor {
     * <h3>Specification for implementors</h3>
     * Implementations must check and handle all fields defined in {@link ChronoField}.
     * If the field is supported, then true is returned, otherwise false
-    * <p>
+    *
     * If the field is not a {@code ChronoField}, then the result of this method
     * is obtained by invoking {@code TemporalField.isSupportedBy(TemporalAccessor)}
     * passing {@code this} as the argument.
-    * <p>
+    *
     * Implementations must not alter this object.
     *
     * @param field  the field to check, null returns false
@@ -88,13 +88,13 @@ trait TemporalAccessor {
   def isSupported(field: TemporalField): Boolean
 
   /** Gets the range of valid values for the specified field.
-    * <p>
+    *
     * All fields can be expressed as a {@code long} integer.
     * This method returns an object that describes the valid range for that value.
     * The value of this temporal object is used to enhance the accuracy of the returned range.
     * If the date-time cannot return the range, because the field is unsupported or for
     * some other reason, an exception will be thrown.
-    * <p>
+    *
     * Note that the result only describes the minimum and maximum valid values
     * and it is important not to read too much into them. For example, there
     * could be values within the range that are invalid for the field.
@@ -103,11 +103,11 @@ trait TemporalAccessor {
     * Implementations must check and handle all fields defined in {@link ChronoField}.
     * If the field is supported, then the range of the field must be returned.
     * If unsupported, then a {@code DateTimeException} must be thrown.
-    * <p>
+    *
     * If the field is not a {@code ChronoField}, then the result of this method
     * is obtained by invoking {@code TemporalField.rangeRefinedBy(TemporalAccessorl)}
     * passing {@code this} as the argument.
-    * <p>
+    *
     * Implementations must not alter either this object.
     *
     * @param field  the field to query the range for, not null
@@ -124,7 +124,7 @@ trait TemporalAccessor {
       field.rangeRefinedBy(this)
 
   /** Gets the value of the specified field as an {@code int}.
-    * <p>
+    *
     * This queries the date-time for the value for the specified field.
     * The returned value will always be within the valid range of values for the field.
     * If the date-time cannot return the value, because the field is unsupported or for
@@ -135,11 +135,11 @@ trait TemporalAccessor {
     * If the field is supported and has an {@code int} range, then the value of
     * the field must be returned.
     * If unsupported, then a {@code DateTimeException} must be thrown.
-    * <p>
+    *
     * If the field is not a {@code ChronoField}, then the result of this method
     * is obtained by invoking {@code TemporalField.getFrom(TemporalAccessor)}
     * passing {@code this} as the argument.
-    * <p>
+    *
     * Implementations must not alter either this object.
     *
     * @param field  the field to get, not null
@@ -152,7 +152,7 @@ trait TemporalAccessor {
   def get(field: TemporalField): Int = range(field).checkValidIntValue(getLong(field), field)
 
   /** Gets the value of the specified field as a {@code long}.
-    * <p>
+    *
     * This queries the date-time for the value for the specified field.
     * The returned value may be outside the valid range of values for the field.
     * If the date-time cannot return the value, because the field is unsupported or for
@@ -162,11 +162,11 @@ trait TemporalAccessor {
     * Implementations must check and handle all fields defined in {@link ChronoField}.
     * If the field is supported, then the value of the field must be returned.
     * If unsupported, then a {@code DateTimeException} must be thrown.
-    * <p>
+    *
     * If the field is not a {@code ChronoField}, then the result of this method
     * is obtained by invoking {@code TemporalField.getFrom(TemporalAccessor)}
     * passing {@code this} as the argument.
-    * <p>
+    *
     * Implementations must not alter either this object.
     *
     * @param field  the field to get, not null
@@ -177,15 +177,15 @@ trait TemporalAccessor {
   def getLong(field: TemporalField): Long
 
   /** Queries this date-time.
-    * <p>
+    *
     * This queries this date-time using the specified query strategy object.
-    * <p>
+    *
     * Queries are a key tool for extracting information from date-times.
     * They exists to externalize the process of querying, permitting different
     * approaches, as per the strategy design pattern.
     * Examples might be a query that checks if the date is the day before February 29th
     * in a leap year, or calculates the number of days to your next birthday.
-    * <p>
+    *
     * The most common query implementations are method references, such as
     * {@code LocalDate::from} and {@code ZoneId::from}.
     * Further implementations are on {@link TemporalQueries}.

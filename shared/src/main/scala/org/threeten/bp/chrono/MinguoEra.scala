@@ -50,10 +50,10 @@ import org.threeten.bp.temporal.ValueRange
 
 /**
   * An era in the Minguo calendar system.
-  * <p>
+  *
   * The Minguo calendar system has two eras.
   * The date {@code 0001-01-01 (Minguo)} is equal to {@code 1912-01-01 (ISO)}.
-  * <p>
+  *
   * <b>Do not use {@code ordinal()} to obtain the numeric representation of {@code MinguoEra}.
   * Use {@code getValue()} instead.</b>
   *
@@ -76,7 +76,7 @@ object MinguoEra {
 
   /**
     * Obtains an instance of {@code MinguoEra} from an {@code int} value.
-    * <p>
+    *
     * {@code MinguoEra} is an enum representing the Minguo eras of BEFORE_ROC/ROC.
     * This factory allows the enum to be obtained from the {@code int} value.
     *
@@ -101,7 +101,7 @@ object MinguoEra {
 final class MinguoEra(name: String, ordinal: Int) extends Enum[MinguoEra](name, ordinal) with Era {
   /**
     * Gets the numeric era {@code int} value.
-    * <p>
+    *
     * The era BEFORE_ROC has the value 0, while the era ROC has the value 1.
     *
     * @return the era value, from 0 (BEFORE_ROC) to 1 (ROC)

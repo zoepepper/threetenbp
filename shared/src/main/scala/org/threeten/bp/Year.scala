@@ -83,10 +83,10 @@ object Year {
 
   /**
     * Obtains the current year from the system clock in the default time-zone.
-    * <p>
+    *
     * This will query the {@link Clock#systemDefaultZone() system clock} in the default
     * time-zone to obtain the current year.
-    * <p>
+    *
     * Using this method will prevent the ability to use an alternate clock for testing
     * because the clock is hard-coded.
     *
@@ -96,10 +96,10 @@ object Year {
 
   /**
     * Obtains the current year from the system clock in the specified time-zone.
-    * <p>
+    *
     * This will query the {@link Clock#system(ZoneId) system clock} to obtain the current year.
     * Specifying the time-zone avoids dependence on the default time-zone.
-    * <p>
+    *
     * Using this method will prevent the ability to use an alternate clock for testing
     * because the clock is hard-coded.
     *
@@ -110,7 +110,7 @@ object Year {
 
   /**
     * Obtains the current year from the specified clock.
-    * <p>
+    *
     * This will query the specified clock to obtain the current year.
     * Using this method allows the use of an alternate clock for testing.
     * The alternate clock may be introduced using {@link Clock dependency injection}.
@@ -125,9 +125,9 @@ object Year {
 
   /**
     * Obtains an instance of {@code Year}.
-    * <p>
+    *
     * This method accepts a year value from the proleptic ISO calendar system.
-    * <p>
+    *
     * The year 2AD/CE is represented by 2.<br>
     * The year 1AD/CE is represented by 1.<br>
     * The year 1BC/BCE is represented by 0.<br>
@@ -144,14 +144,14 @@ object Year {
 
   /**
     * Obtains an instance of {@code Year} from a temporal object.
-    * <p>
+    *
     * A {@code TemporalAccessor} represents some form of date and time information.
     * This factory converts the arbitrary temporal object to an instance of {@code Year}.
-    * <p>
+    *
     * The conversion extracts the {@link ChronoField#YEAR year} field.
     * The extraction is only permitted if the temporal object has an ISO
     * chronology, or can be converted to a {@code LocalDate}.
-    * <p>
+    *
     * This method matches the signature of the functional interface {@link TemporalQuery}
     * allowing it to be used in queries via method reference, {@code Year::from}.
     *
@@ -178,7 +178,7 @@ object Year {
 
   /**
     * Obtains an instance of {@code Year} from a text string such as {@code 2007}.
-    * <p>
+    *
     * The string must represent a valid year.
     * Years outside the range 0000 to 9999 must be prefixed by the plus or minus symbol.
     *
@@ -190,7 +190,7 @@ object Year {
 
   /**
     * Obtains an instance of {@code Year} from a text string using a specific formatter.
-    * <p>
+    *
     * The text is parsed using the formatter, returning a year.
     *
     * @param text  the text to parse, not null
@@ -206,16 +206,16 @@ object Year {
   /**
     * Checks if the year is a leap year, according to the ISO proleptic
     * calendar system rules.
-    * <p>
+    *
     * This method applies the current rules for leap years across the whole time-line.
     * In general, a year is a leap year if it is divisible by four without
     * remainder. However, years divisible by 100, are not leap years, with
     * the exception of years divisible by 400 which are.
-    * <p>
+    *
     * For example, 1904 is a leap year it is divisible by 4.
     * 1900 was not a leap year as it is divisible by 100, however 2000 was a
     * leap year as it is divisible by 400.
-    * <p>
+    *
     * The calculation is proleptic - applying the same rules into the far future and far past.
     * This is historically inaccurate, but is correct for the ISO-8601 standard.
     *
@@ -229,21 +229,21 @@ object Year {
 }
 
 /** A year in the ISO-8601 calendar system, such as {@code 2007}.
-  * <p>
+  *
   * {@code Year} is an immutable date-time object that represents a year.
   * Any field that can be derived from a year can be obtained.
-  * <p>
+  *
   * <b>Note that years in the ISO chronology only align with years in the
   * Gregorian-Julian system for modern years. Parts of Russia did not switch to the
   * modern Gregorian/ISO rules until 1920.
   * As such, historical years must be treated with caution.</b>
-  * <p>
+  *
   * This class does not store or represent a month, day, time or time-zone.
   * For example, the value "2007" can be stored in a {@code Year}.
-  * <p>
+  *
   * Years represented by this class follow the ISO-8601 standard and use
   * the proleptic numbering system. Year 1 is preceded by year 0, then by year -1.
-  * <p>
+  *
   * The ISO-8601 calendar system is the modern civil calendar system used today
   * in most of the world. It is equivalent to the proleptic Gregorian calendar
   * system, in which today's rules for leap years are applied for all time.
@@ -263,7 +263,7 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
 
   /**
     * Gets the year value.
-    * <p>
+    *
     * The year returned by this method is proleptic as per {@code get(YEAR)}.
     *
     * @return the year, { @code MIN_VALUE} to { @code MAX_VALUE}
@@ -272,11 +272,11 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
 
   /**
     * Checks if the specified field is supported.
-    * <p>
+    *
     * This checks if this year can be queried for the specified field.
     * If false, then calling the {@link #range(TemporalField) range} and
     * {@link #get(TemporalField) get} methods will throw an exception.
-    * <p>
+    *
     * If the field is a {@link ChronoField} then the query is implemented here.
     * The {@link #isSupported(TemporalField) supported fields} will return valid
     * values based on this date-time.
@@ -287,7 +287,7 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
     * <li>{@code ERA}
     * </ul>
     * All other {@code ChronoField} instances will return false.
-    * <p>
+    *
     * If the field is not a {@code ChronoField}, then the result of this method
     * is obtained by invoking {@code TemporalField.isSupportedBy(TemporalAccessor)}
     * passing {@code this} as the argument.
@@ -310,17 +310,17 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
 
   /**
     * Gets the range of valid values for the specified field.
-    * <p>
+    *
     * The range object expresses the minimum and maximum valid values for a field.
     * This year is used to enhance the accuracy of the returned range.
     * If it is not possible to return the range, because the field is not supported
     * or for some other reason, an exception is thrown.
-    * <p>
+    *
     * If the field is a {@link ChronoField} then the query is implemented here.
     * The {@link #isSupported(TemporalField) supported fields} will return
     * appropriate range instances.
     * All other {@code ChronoField} instances will throw a {@code DateTimeException}.
-    * <p>
+    *
     * If the field is not a {@code ChronoField}, then the result of this method
     * is obtained by invoking {@code TemporalField.rangeRefinedBy(TemporalAccessor)}
     * passing {@code this} as the argument.
@@ -339,17 +339,17 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
 
   /**
     * Gets the value of the specified field from this year as an {@code int}.
-    * <p>
+    *
     * This queries this year for the value for the specified field.
     * The returned value will always be within the valid range of values for the field.
     * If it is not possible to return the value, because the field is not supported
     * or for some other reason, an exception is thrown.
-    * <p>
+    *
     * If the field is a {@link ChronoField} then the query is implemented here.
     * The {@link #isSupported(TemporalField) supported fields} will return valid
     * values based on this year.
     * All other {@code ChronoField} instances will throw a {@code DateTimeException}.
-    * <p>
+    *
     * If the field is not a {@code ChronoField}, then the result of this method
     * is obtained by invoking {@code TemporalField.getFrom(TemporalAccessor)}
     * passing {@code this} as the argument. Whether the value can be obtained,
@@ -364,16 +364,16 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
 
   /**
     * Gets the value of the specified field from this year as a {@code long}.
-    * <p>
+    *
     * This queries this year for the value for the specified field.
     * If it is not possible to return the value, because the field is not supported
     * or for some other reason, an exception is thrown.
-    * <p>
+    *
     * If the field is a {@link ChronoField} then the query is implemented here.
     * The {@link #isSupported(TemporalField) supported fields} will return valid
     * values based on this year.
     * All other {@code ChronoField} instances will throw a {@code DateTimeException}.
-    * <p>
+    *
     * If the field is not a {@code ChronoField}, then the result of this method
     * is obtained by invoking {@code TemporalField.getFrom(TemporalAccessor)}
     * passing {@code this} as the argument. Whether the value can be obtained,
@@ -398,16 +398,16 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
   /**
     * Checks if the year is a leap year, according to the ISO proleptic
     * calendar system rules.
-    * <p>
+    *
     * This method applies the current rules for leap years across the whole time-line.
     * In general, a year is a leap year if it is divisible by four without
     * remainder. However, years divisible by 100, are not leap years, with
     * the exception of years divisible by 400 which are.
-    * <p>
+    *
     * For example, 1904 is a leap year it is divisible by 4.
     * 1900 was not a leap year as it is divisible by 100, however 2000 was a
     * leap year as it is divisible by 400.
-    * <p>
+    *
     * The calculation is proleptic - applying the same rules into the far future and far past.
     * This is historically inaccurate, but is correct for the ISO-8601 standard.
     *
@@ -417,7 +417,7 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
 
   /**
     * Checks if the month-day is valid for this year.
-    * <p>
+    *
     * This method checks whether this year and the input month and day form
     * a valid date.
     *
@@ -435,15 +435,15 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
 
   /**
     * Returns an adjusted copy of this year.
-    * <p>
+    *
     * This returns a new {@code Year}, based on this one, with the year adjusted.
     * The adjustment takes place using the specified adjuster strategy object.
     * Read the documentation of the adjuster to understand what adjustment will be made.
-    * <p>
+    *
     * The result of this method is obtained by invoking the
     * {@link TemporalAdjuster#adjustInto(Temporal)} method on the
     * specified adjuster passing {@code this} as the argument.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param adjuster the adjuster to use, not null
@@ -455,12 +455,12 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
 
   /**
     * Returns a copy of this year with the specified field set to a new value.
-    * <p>
+    *
     * This returns a new {@code Year}, based on this one, with the value
     * for the specified field changed.
     * If it is not possible to set the value, because the field is not supported or for
     * some other reason, an exception is thrown.
-    * <p>
+    *
     * If the field is a {@link ChronoField} then the adjustment is implemented here.
     * The supported fields behave as follows:
     * <ul>
@@ -474,17 +474,17 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
     * Returns a {@code Year} with the specified era.
     * The year-of-era will be unchanged.
     * </ul>
-    * <p>
+    *
     * In all cases, if the new value is outside the valid range of values for the field
     * then a {@code DateTimeException} will be thrown.
-    * <p>
+    *
     * All other {@code ChronoField} instances will throw a {@code DateTimeException}.
-    * <p>
+    *
     * If the field is not a {@code ChronoField}, then the result of this method
     * is obtained by invoking {@code TemporalField.adjustInto(Temporal, long)}
     * passing {@code this} as the argument. In this case, the field determines
     * whether and how to adjust the instant.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param field  the field to set in the result, not null
@@ -512,13 +512,13 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
 
   /**
     * Returns a copy of this year with the specified period added.
-    * <p>
+    *
     * This method returns a new year based on this year with the specified period added.
     * The adder is typically {@link Period} but may be any other type implementing
     * the {@link TemporalAmount} interface.
     * The calculation is delegated to the specified adjuster, which typically calls
     * back to {@link #plus(long, TemporalUnit)}.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param amount  the amount to add, not null
@@ -554,7 +554,7 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
 
   /**
     * Returns a copy of this year with the specified number of years added.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param yearsToAdd  the years to add, may be negative
@@ -570,13 +570,13 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
 
   /**
     * Returns a copy of this year with the specified period subtracted.
-    * <p>
+    *
     * This method returns a new year based on this year with the specified period subtracted.
     * The subtractor is typically {@link Period} but may be any other type implementing
     * the {@link TemporalAmount} interface.
     * The calculation is delegated to the specified adjuster, which typically calls
     * back to {@link #minus(long, TemporalUnit)}.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param amount  the amount to subtract, not null
@@ -596,7 +596,7 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
 
   /**
     * Returns a copy of this year with the specified number of years subtracted.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param yearsToSubtract  the years to subtract, may be negative
@@ -608,12 +608,12 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
 
   /**
     * Queries this year using the specified query.
-    * <p>
+    *
     * This queries this year using the specified query strategy object.
     * The {@code TemporalQuery} object defines the logic to be used to
     * obtain the result. Read the documentation of the query to understand
     * what the result of this method will be.
-    * <p>
+    *
     * The result of this method is obtained by invoking the
     * {@link TemporalQuery#queryFrom(TemporalAccessor)} method on the
     * specified query passing {@code this} as the argument.
@@ -639,15 +639,15 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
 
   /**
     * Adjusts the specified temporal object to have this year.
-    * <p>
+    *
     * This returns a temporal object of the same observable type as the input
     * with the year changed to be the same as this.
-    * <p>
+    *
     * The adjustment is equivalent to using {@link Temporal#with(TemporalField, long)}
     * passing {@link ChronoField#YEAR} as the field.
     * If the specified temporal object does not use the ISO calendar system then
     * a {@code DateTimeException} is thrown.
-    * <p>
+    *
     * In most cases, it is clearer to reverse the calling pattern by using
     * {@link Temporal#with(TemporalAdjuster)}:
     * <pre>
@@ -655,7 +655,7 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
     * temporal = thisYear.adjustInto(temporal);
     * temporal = temporal.with(thisYear);
     * </pre>
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param temporal  the target object to be adjusted, not null
@@ -673,19 +673,19 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
   /**
     * Calculates the period between this year and another year in
     * terms of the specified unit.
-    * <p>
+    *
     * This calculates the period between two years in terms of a single unit.
     * The start and end points are {@code this} and the specified year.
     * The result will be negative if the end is before the start.
     * The {@code Temporal} passed to this method must be a {@code Year}.
     * For example, the period in decades between two year can be calculated
     * using {@code startYear.until(endYear, DECADES)}.
-    * <p>
+    *
     * The calculation returns a whole number, representing the number of
     * complete units between the two years.
     * For example, the period in decades between 2012 and 2031
     * will only be one decade as it is one year short of two decades.
-    * <p>
+    *
     * This method operates in association with {@link TemporalUnit#between}.
     * The result of this method is a {@code long} representing the amount of
     * the specified unit. By contrast, the result of {@code between} is an
@@ -694,17 +694,17 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
     * long period = start.until(end, YEARS);   // this method
     * dateTime.plus(YEARS.between(start, end));      // use in plus/minus
     * </pre>
-    * <p>
+    *
     * The calculation is implemented in this method for {@link ChronoUnit}.
     * The units {@code YEARS}, {@code DECADES}, {@code CENTURIES},
     * {@code MILLENNIA} and {@code ERAS} are supported.
     * Other {@code ChronoUnit} values will throw an exception.
-    * <p>
+    *
     * If the unit is not a {@code ChronoUnit}, then the result of this method
     * is obtained by invoking {@code TemporalUnit.between(Temporal, Temporal)}
     * passing {@code this} as the first argument and the input temporal as
     * the second argument.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param endExclusive  the end year, which is converted to a { @code Year}, not null
@@ -736,9 +736,9 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
 
   /**
     * Combines this year with a day-of-year to create a {@code LocalDate}.
-    * <p>
+    *
     * This returns a {@code LocalDate} formed from this year and the specified day-of-year.
-    * <p>
+    *
     * The day-of-year value 366 is only valid in a leap year.
     *
     * @param dayOfYear  the day-of-year to use, not null
@@ -752,10 +752,10 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
 
   /**
     * Combines this year with a month to create a {@code YearMonth}.
-    * <p>
+    *
     * This returns a {@code YearMonth} formed from this year and the specified month.
     * All possible combinations of year and month are valid.
-    * <p>
+    *
     * This method can be used as part of a chain to produce a date:
     * <pre>
     * LocalDate date = year.atMonth(month).atDay(day);
@@ -770,10 +770,10 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
 
   /**
     * Combines this year with a month to create a {@code YearMonth}.
-    * <p>
+    *
     * This returns a {@code YearMonth} formed from this year and the specified month.
     * All possible combinations of year and month are valid.
-    * <p>
+    *
     * This method can be used as part of a chain to produce a date:
     * <pre>
     * LocalDate date = year.atMonth(month).atDay(day);
@@ -789,9 +789,9 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
 
   /**
     * Combines this year with a month-day to create a {@code LocalDate}.
-    * <p>
+    *
     * This returns a {@code LocalDate} formed from this year and the specified month-day.
-    * <p>
+    *
     * A month-day of February 29th will be adjusted to February 28th in the resulting
     * date if the year is not a leap year.
     *
@@ -804,7 +804,7 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
 
   /**
     * Compares this year to another year.
-    * <p>
+    *
     * The comparison is based on the value of the year.
     * It is "consistent with equals", as defined by {@link Comparable}.
     *
@@ -837,7 +837,7 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
 
   /**
     * Checks if this year is equal to another year.
-    * <p>
+    *
     * The comparison is based on the time-line position of the years.
     *
     * @param obj  the object to check, null returns false
@@ -865,7 +865,7 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
 
   /**
     * Outputs this year as a {@code String} using the formatter.
-    * <p>
+    *
     * This year will be passed to the formatter
     * {@link DateTimeFormatter#format(TemporalAccessor) print method}.
     *

@@ -54,10 +54,10 @@ import org.threeten.bp.temporal.TemporalQuery
 
 /**
   * Builder that can holds date and time fields and related date and time objects.
-  * <p>
+  *
   * The builder is used to hold onto different elements of date and time.
   * It is designed as two separate maps:
-  * <p><ul>
+  *<ul>
   * <li>from {@link TemporalField} to {@code long} value, where the value may be
   * outside the valid range for the field
   * <li>from {@code Class} to {@link TemporalAccessor}, holding larger scale objects
@@ -102,7 +102,7 @@ final class DateTimeBuilder() extends TemporalAccessor with Cloneable {
 
   /**
     * Creates a new instance of the builder with a single field-value.
-    * <p>
+    *
     * This is equivalent to using {@link #addFieldValue(TemporalField, long)} on an empty builder.
     *
     * @param field  the field to add, not null
@@ -119,7 +119,7 @@ final class DateTimeBuilder() extends TemporalAccessor with Cloneable {
 
   /**
     * Adds a field-value pair to the builder.
-    * <p>
+    *
     * This adds a field to the builder.
     * If the field is not already present, then the field-value pair is added to the map.
     * If the field is already present and it has the same value as that specified, no action occurs.
@@ -151,7 +151,7 @@ final class DateTimeBuilder() extends TemporalAccessor with Cloneable {
 
   /**
     * Resolves the builder, evaluating the date and time.
-    * <p>
+    *
     * This examines the contents of the builder and resolves it to produce the best
     * available date and time, throwing an exception if a problem occurs.
     * Calling this method changes the state of the builder.
@@ -547,7 +547,7 @@ final class DateTimeBuilder() extends TemporalAccessor with Cloneable {
 
   /**
     * Builds the specified type from the values in this builder.
-    * <p>
+    *
     * This attempts to build the specified type from this builder.
     * If the builder cannot return the type, an exception is thrown.
     *

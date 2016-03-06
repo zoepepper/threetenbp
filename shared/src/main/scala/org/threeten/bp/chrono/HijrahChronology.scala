@@ -65,11 +65,11 @@ import org.threeten.bp.temporal.ValueRange
 
 /**
   * The Hijrah calendar system.
-  * <p>
+  *
   * This chronology defines the rules of the Hijrah calendar system.
-  * <p>
+  *
   * The implementation follows the Freeman-Grenville algorithm (*1) and has following features.
-  * <p><ul>
+  *<ul>
   * <li>A year has 12 months.</li>
   * <li>Over a cycle of 30 years there are 11 leap years.</li>
   * <li>There are 30 days in month number 1, 3, 5, 7, 9, and 11,
@@ -79,7 +79,7 @@ import org.threeten.bp.temporal.ValueRange
   * 26, and 29 are leap years.</li>
   * <li>Total of 10631 days in a 30 years cycle.</li>
   * </ul><p>
-  * <P>
+  *
   * The table shows the features described above.
   * <blockquote>
   * <table border="1">
@@ -153,10 +153,10 @@ import org.threeten.bp.temporal.ValueRange
   * </tbody>
   * </table>
   * </blockquote>
-  * <p>
+  *
   * (*1) The algorithm is taken from the book,
   * The Muslim and Christian Calendars by G.S.P. Freeman-Grenville.
-  * <p>
+  *
   *
   * <h3>Specification for implementors</h3>
   * This class is immutable and thread-safe.
@@ -212,7 +212,7 @@ final class HijrahChronology private() extends Chronology with Serializable {
 
   /**
     * Gets the ID of the chronology - 'Hijrah-umalqura'.
-    * <p>
+    *
     * The ID uniquely identifies the {@code Chronology}.
     * It can be used to lookup the {@code Chronology} using {@link #of(String)}.
     *
@@ -223,7 +223,7 @@ final class HijrahChronology private() extends Chronology with Serializable {
 
   /**
     * Gets the calendar type of the underlying calendar system - 'islamic-umalqura'.
-    * <p>
+    *
     * The calendar type is an identifier defined by the
     * <em>Unicode Locale Data Markup Language (LDML)</em> specification.
     * It can be used to lookup the {@code Chronology} using {@link #of(String)}.

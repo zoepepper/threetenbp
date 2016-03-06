@@ -34,13 +34,13 @@ package org.threeten.bp.temporal
 import org.threeten.bp.DateTimeException
 
 /** Strategy for adjusting a temporal object.
-  * <p>
+  *
   * Adjusters are a key tool for modifying temporal objects.
   * They exist to externalize the process of adjustment, permitting different
   * approaches, as per the strategy design pattern.
   * Examples might be an adjuster that sets the date avoiding weekends, or one that
   * sets the date to the last day of the month.
-  * <p>
+  *
   * There are two equivalent ways of using a {@code TemporalAdjuster}.
   * The first is to invoke the method on this interface directly.
   * The second is to use {@link Temporal#with(TemporalAdjuster)}:
@@ -51,7 +51,7 @@ import org.threeten.bp.DateTimeException
   * </pre>
   * It is recommended to use the second approach, {@code with(TemporalAdjuster)},
   * as it is a lot clearer to read in code.
-  * <p>
+  *
   * See {@link TemporalAdjusters} for a standard set of adjusters, including finding the
   * last day of the month.
   * Adjusters may also be defined by applications.
@@ -62,12 +62,12 @@ import org.threeten.bp.DateTimeException
   */
 trait TemporalAdjuster {
   /** Adjusts the specified temporal object.
-    * <p>
+    *
     * This adjusts the specified temporal object using the logic
     * encapsulated in the implementing class.
     * Examples might be an adjuster that sets the date avoiding weekends, or one that
     * sets the date to the last day of the month.
-    * <p>
+    *
     * There are two equivalent ways of using this method.
     * The first is to invoke this method directly.
     * The second is to use {@link Temporal#with(TemporalAdjuster)}:
@@ -85,15 +85,15 @@ trait TemporalAdjuster {
     * documenting that logic. It may use any method on {@code Temporal} to
     * query the temporal object and perform the adjustment.
     * The returned object must have the same observable type as the input object
-    * <p>
+    *
     * The input object must not be altered.
     * Instead, an adjusted copy of the original must be returned.
     * This provides equivalent, safe behavior for immutable and mutable temporal objects.
-    * <p>
+    *
     * The input temporal object may be in a calendar system other than ISO.
     * Implementations may choose to document compatibility with other calendar systems,
     * or reject non-ISO temporal objects by {@link TemporalQueries#chronology() querying the chronology}.
-    * <p>
+    *
     * This method may be called from multiple threads in parallel.
     * It must be thread-safe when invoked.
     *

@@ -63,7 +63,7 @@ abstract class DateTimeTextProvider {
   /**
     * Gets the text for the specified field, locale and style
     * for the purpose of printing.
-    * <p>
+    *
     * The text associated with the value is returned.
     * The null return value should be used if there is no applicable text, or
     * if the text would be a numeric representation of the value.
@@ -79,9 +79,9 @@ abstract class DateTimeTextProvider {
   /**
     * Gets an iterator of text to field for the specified field, locale and style
     * for the purpose of parsing.
-    * <p>
+    *
     * The iterator must be returned in order from the longest text to the shortest.
-    * <p>
+    *
     * The null return value should be used if there is no applicable parsable text, or
     * if the text would be a numeric representation of the value.
     * Text can only be parsed if all the values for that field-style-locale combination are unique.

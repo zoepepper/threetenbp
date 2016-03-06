@@ -50,9 +50,9 @@ import org.threeten.bp.temporal.ValueRange
 
 /**
   * An era in the Thai Buddhist calendar system.
-  * <p>
+  *
   * The Thai Buddhist calendar system has two eras.
-  * <p>
+  *
   * <b>Do not use ordinal() to obtain the numeric representation of a ThaiBuddhistEra
   * instance. Use getValue() instead.</b>
   *
@@ -74,7 +74,7 @@ object ThaiBuddhistEra {
 
   /**
     * Obtains an instance of {@code ThaiBuddhistEra} from a value.
-    * <p>
+    *
     * The current era (from ISO year -543 onwards) has the value 1
     * The previous era has the value 0.
     *
@@ -99,7 +99,7 @@ object ThaiBuddhistEra {
 final class ThaiBuddhistEra(name: String, ordinal: Int) extends Enum[ThaiBuddhistEra](name, ordinal) with Era {
   /**
     * Gets the era numeric value.
-    * <p>
+    *
     * The current era (from ISO year -543 onwards) has the value 1
     * The previous era has the value 0.
     *

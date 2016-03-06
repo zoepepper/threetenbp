@@ -56,7 +56,7 @@ import org.threeten.bp.temporal.ValueRange
 
 /**
   * A date in the Minguo calendar system.
-  * <p>
+  *
   * This date operates using the {@linkplain MinguoChronology Minguo calendar}.
   * This calendar system is primarily used in the Republic of China, often known as Taiwan.
   * Dates are aligned such that {@code 0001-01-01 (Minguo)} is {@code 1912-01-01 (ISO)}.
@@ -68,10 +68,10 @@ import org.threeten.bp.temporal.ValueRange
 object MinguoDate {
   /**
     * Obtains the current {@code MinguoDate} from the system clock in the default time-zone.
-    * <p>
+    *
     * This will query the {@link Clock#systemDefaultZone() system clock} in the default
     * time-zone to obtain the current date.
-    * <p>
+    *
     * Using this method will prevent the ability to use an alternate clock for testing
     * because the clock is hard-coded.
     *
@@ -81,10 +81,10 @@ object MinguoDate {
 
   /**
     * Obtains the current {@code MinguoDate} from the system clock in the specified time-zone.
-    * <p>
+    *
     * This will query the {@link Clock#system(ZoneId) system clock} to obtain the current date.
     * Specifying the time-zone avoids dependence on the default time-zone.
-    * <p>
+    *
     * Using this method will prevent the ability to use an alternate clock for testing
     * because the clock is hard-coded.
     *
@@ -95,7 +95,7 @@ object MinguoDate {
 
   /**
     * Obtains the current {@code MinguoDate} from the specified clock.
-    * <p>
+    *
     * This will query the specified clock to obtain the current date - today.
     * Using this method allows the use of an alternate clock for testing.
     * The alternate clock may be introduced using {@linkplain Clock dependency injection}.
@@ -109,7 +109,7 @@ object MinguoDate {
   /**
     * Obtains a {@code MinguoDate} representing a date in the Minguo calendar
     * system from the proleptic-year, month-of-year and day-of-month fields.
-    * <p>
+    *
     * This returns a {@code MinguoDate} with the specified fields.
     * The day must be valid for the year and month, otherwise an exception will be thrown.
     *
@@ -125,14 +125,14 @@ object MinguoDate {
 
   /**
     * Obtains a {@code MinguoDate} from a temporal object.
-    * <p>
+    *
     * This obtains a date in the Minguo calendar system based on the specified temporal.
     * A {@code TemporalAccessor} represents an arbitrary set of date and time information,
     * which this factory converts to an instance of {@code MinguoDate}.
-    * <p>
+    *
     * The conversion typically uses the {@link ChronoField#EPOCH_DAY EPOCH_DAY}
     * field, which is standardized across calendar systems.
-    * <p>
+    *
     * This method matches the signature of the functional interface {@link TemporalQuery}
     * allowing it to be used as a query via method reference, {@code MinguoDate::from}.
     *

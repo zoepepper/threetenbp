@@ -65,13 +65,13 @@ import org.threeten.bp.temporal.ValueRange
 
 /**
   * The ISO calendar system.
-  * <p>
+  *
   * This chronology defines the rules of the ISO calendar system.
   * This calendar system is based on the ISO-8601 standard, which is the
   * <i>de facto</i> world calendar.
-  * <p>
+  *
   * The fields are defined as follows:
-  * <p><ul>
+  *<ul>
   * <li>era - There are two eras, 'Current Era' (CE) and 'Before Current Era' (BCE).
   * <li>year-of-era - The year-of-era is the same as the proleptic-year for the current CE era.
   * For the BCE era before the ISO epoch the year increases from 1 upwards as time goes backwards.
@@ -110,7 +110,7 @@ final class IsoChronology private() extends Chronology with Serializable {
 
   /**
     * Gets the ID of the chronology - 'ISO'.
-    * <p>
+    *
     * The ID uniquely identifies the {@code Chronology}.
     * It can be used to lookup the {@code Chronology} using {@link #of(String)}.
     *
@@ -121,7 +121,7 @@ final class IsoChronology private() extends Chronology with Serializable {
 
   /**
     * Gets the calendar type of the underlying calendar system - 'iso8601'.
-    * <p>
+    *
     * The calendar type is an identifier defined by the
     * <em>Unicode Locale Data Markup Language (LDML)</em> specification.
     * It can be used to lookup the {@code Chronology} using {@link #of(String)}.
@@ -151,7 +151,7 @@ final class IsoChronology private() extends Chronology with Serializable {
   /**
     * Obtains an ISO local date from the proleptic-year, month-of-year
     * and day-of-month fields.
-    * <p>
+    *
     * This is equivalent to {@link LocalDate#of(int, int, int)}.
     *
     * @param prolepticYear  the ISO proleptic-year
@@ -179,7 +179,7 @@ final class IsoChronology private() extends Chronology with Serializable {
 
   /**
     * Obtains an ISO local date from the proleptic-year and day-of-year fields.
-    * <p>
+    *
     * This is equivalent to {@link LocalDate#ofYearDay(int, int)}.
     *
     * @param prolepticYear  the ISO proleptic-year
@@ -197,7 +197,7 @@ final class IsoChronology private() extends Chronology with Serializable {
 
   /**
     * Obtains an ISO local date from another date-time object.
-    * <p>
+    *
     * This is equivalent to {@link LocalDate#from(TemporalAccessor)}.
     *
     * @param temporal  the date-time object to convert, not null
@@ -210,7 +210,7 @@ final class IsoChronology private() extends Chronology with Serializable {
 
   /**
     * Obtains an ISO local date-time from another date-time object.
-    * <p>
+    *
     * This is equivalent to {@link LocalDateTime#from(TemporalAccessor)}.
     *
     * @param temporal  the date-time object to convert, not null
@@ -223,7 +223,7 @@ final class IsoChronology private() extends Chronology with Serializable {
 
   /**
     * Obtains an ISO zoned date-time from another date-time object.
-    * <p>
+    *
     * This is equivalent to {@link ZonedDateTime#from(TemporalAccessor)}.
     *
     * @param temporal  the date-time object to convert, not null
@@ -236,7 +236,7 @@ final class IsoChronology private() extends Chronology with Serializable {
 
   /**
     * Obtains an ISO zoned date-time from an instant.
-    * <p>
+    *
     * This is equivalent to {@link ZonedDateTime#ofInstant(Instant, ZoneId)}.
     *
     * @param instant  the instant to convert, not null
@@ -250,10 +250,10 @@ final class IsoChronology private() extends Chronology with Serializable {
 
   /**
     * Obtains the current ISO local date from the system clock in the default time-zone.
-    * <p>
+    *
     * This will query the {@link Clock#systemDefaultZone() system clock} in the default
     * time-zone to obtain the current date.
-    * <p>
+    *
     * Using this method will prevent the ability to use an alternate clock for testing
     * because the clock is hard-coded.
     *
@@ -266,10 +266,10 @@ final class IsoChronology private() extends Chronology with Serializable {
 
   /**
     * Obtains the current ISO local date from the system clock in the specified time-zone.
-    * <p>
+    *
     * This will query the {@link Clock#system(ZoneId) system clock} to obtain the current date.
     * Specifying the time-zone avoids dependence on the default time-zone.
-    * <p>
+    *
     * Using this method will prevent the ability to use an alternate clock for testing
     * because the clock is hard-coded.
     *
@@ -282,7 +282,7 @@ final class IsoChronology private() extends Chronology with Serializable {
 
   /**
     * Obtains the current ISO local date from the specified clock.
-    * <p>
+    *
     * This will query the specified clock to obtain the current date - today.
     * Using this method allows the use of an alternate clock for testing.
     * The alternate clock may be introduced using {@link Clock dependency injection}.
@@ -299,16 +299,16 @@ final class IsoChronology private() extends Chronology with Serializable {
   /**
     * Checks if the year is a leap year, according to the ISO proleptic
     * calendar system rules.
-    * <p>
+    *
     * This method applies the current rules for leap years across the whole time-line.
     * In general, a year is a leap year if it is divisible by four without
     * remainder. However, years divisible by 100, are not leap years, with
     * the exception of years divisible by 400 which are.
-    * <p>
+    *
     * For example, 1904 is a leap year it is divisible by 4.
     * 1900 was not a leap year as it is divisible by 100, however 2000 was a
     * leap year as it is divisible by 400.
-    * <p>
+    *
     * The calculation is proleptic - applying the same rules into the far future and far past.
     * This is historically inaccurate, but is correct for the ISO-8601 standard.
     *

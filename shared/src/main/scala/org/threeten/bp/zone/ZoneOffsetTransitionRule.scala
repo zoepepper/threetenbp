@@ -48,10 +48,10 @@ import org.threeten.bp.chrono.IsoChronology
 
 /**
   * A rule expressing how to create a transition.
-  * <p>
+  *
   * This class allows rules for identifying future transitions to be expressed.
   * A rule might be written in many forms:
-  * <p><ul>
+  *<ul>
   * <li>the 16th March
   * <li>the Sunday on or after the 16th March
   * <li>the Sunday on or before the 16th March
@@ -66,7 +66,7 @@ import org.threeten.bp.chrono.IsoChronology
 object ZoneOffsetTransitionRule {
   /**
     * Obtains an instance defining the yearly rule to create transitions between two offsets.
-    * <p>
+    *
     * Applications should normally obtain an instance from {@link ZoneRules}.
     * This factory is only intended for use when creating {@link ZoneRules}.
     *
@@ -128,9 +128,9 @@ object ZoneOffsetTransitionRule {
   /**
     * A definition of the way a local time can be converted to the actual
     * transition date-time.
-    * <p>
+    *
     * Time zone rules are expressed in one of three ways:
-    * <p><ul>
+    *<ul>
     * <li>Relative to UTC</li>
     * <li>Relative to the standard offset in force</li>
     * <li>Relative to the wall offset (what you would see on a clock on the wall)</li>
@@ -151,10 +151,10 @@ object ZoneOffsetTransitionRule {
     /**
       * Converts the specified local date-time to the local date-time actually
       * seen on a wall clock.
-      * <p>
+      *
       * This method converts using the type of this enum.
       * The output is defined relative to the 'before' offset of the transition.
-      * <p>
+      *
       * The UTC type uses the UTC offset.
       * The STANDARD type uses the standard offset.
       * The WALL type returns the input date-time.
@@ -255,9 +255,9 @@ final class ZoneOffsetTransitionRule private[zone](private val month: Month,
 
   /**
     * Gets the month of the transition.
-    * <p>
+    *
     * If the rule defines an exact date then the month is the month of that date.
-    * <p>
+    *
     * If the rule defines a week where the transition might occur, then the month
     * if the month of either the earliest or latest possible date of the cutover.
     *
@@ -267,16 +267,16 @@ final class ZoneOffsetTransitionRule private[zone](private val month: Month,
 
   /**
     * Gets the indicator of the day-of-month of the transition.
-    * <p>
+    *
     * If the rule defines an exact date then the day is the month of that date.
-    * <p>
+    *
     * If the rule defines a week where the transition might occur, then the day
     * defines either the start of the end of the transition week.
-    * <p>
+    *
     * If the value is positive, then it represents a normal day-of-month, and is the
     * earliest possible date that the transition can be.
     * The date may refer to 29th February which should be treated as 1st March in non-leap years.
-    * <p>
+    *
     * If the value is negative, then it represents the number of days back from the
     * end of the month where {@code -1} is the last day of the month.
     * In this case, the day identified is the latest possible date that the transition can be.
@@ -287,9 +287,9 @@ final class ZoneOffsetTransitionRule private[zone](private val month: Month,
 
   /**
     * Gets the day-of-week of the transition.
-    * <p>
+    *
     * If the rule defines an exact date then this returns null.
-    * <p>
+    *
     * If the rule defines a week where the cutover might occur, then this method
     * returns the day-of-week that the month-day will be adjusted to.
     * If the day is positive then the adjustment is later.
@@ -302,7 +302,7 @@ final class ZoneOffsetTransitionRule private[zone](private val month: Month,
   /**
     * Gets the local time of day of the transition which must be checked with
     * {@link #isMidnightEndOfDay()}.
-    * <p>
+    *
     * The time is converted into an instant using the time definition.
     *
     * @return the local time of day of the transition, not null
@@ -311,7 +311,7 @@ final class ZoneOffsetTransitionRule private[zone](private val month: Month,
 
   /**
     * Is the transition local time midnight at the end of day.
-    * <p>
+    *
     * The transition may be represented as occurring at 24:00.
     *
     * @return whether a local time of midnight is at the start or end of the day
@@ -320,7 +320,7 @@ final class ZoneOffsetTransitionRule private[zone](private val month: Month,
 
   /**
     * Gets the time definition, specifying how to convert the time to an instant.
-    * <p>
+    *
     * The local time can be converted to an instant using the standard offset,
     * the wall offset or UTC.
     *
@@ -351,7 +351,7 @@ final class ZoneOffsetTransitionRule private[zone](private val month: Month,
 
   /**
     * Creates a transition instance for the specified year.
-    * <p>
+    *
     * Calculations are performed using the ISO-8601 chronology.
     *
     * @param year  the year to create a transition for, not null
@@ -381,7 +381,7 @@ final class ZoneOffsetTransitionRule private[zone](private val month: Month,
 
   /**
     * Checks if this object equals another.
-    * <p>
+    *
     * The entire state of the object is compared.
     *
     * @param otherRule  the other object to compare to, null returns false

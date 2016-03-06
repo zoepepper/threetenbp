@@ -61,11 +61,11 @@ object DateTimeFormatter {
   /**
     * Returns the ISO date formatter that prints/parses a date without an offset,
     * such as '2011-12-03'.
-    * <p>
+    *
     * This returns an immutable formatter capable of printing and parsing
     * the ISO-8601 extended local date format.
     * The format consists of:
-    * <p><ul>
+    *<ul>
     * <li>Four digits or more for the {@link ChronoField#YEAR year}.
     * Years in the range 0000 to 9999 will be pre-padded by zero to ensure four digits.
     * Years outside that range will have a prefixed positive or negative symbol.
@@ -81,11 +81,11 @@ object DateTimeFormatter {
   /**
     * Returns the ISO date formatter that prints/parses a date with an offset,
     * such as '2011-12-03+01:00'.
-    * <p>
+    *
     * This returns an immutable formatter capable of printing and parsing
     * the ISO-8601 extended offset date format.
     * The format consists of:
-    * <p><ul>
+    *<ul>
     * <li>The {@link #ISO_LOCAL_DATE}
     * <li>The {@link ZoneOffset#getId() offset ID}. If the offset has seconds then
     * they will be handled even though this is not part of the ISO-8601 standard.
@@ -96,11 +96,11 @@ object DateTimeFormatter {
   /**
     * Returns the ISO date formatter that prints/parses a date with the
     * offset if available, such as '2011-12-03' or '2011-12-03+01:00'.
-    * <p>
+    *
     * This returns an immutable formatter capable of printing and parsing
     * the ISO-8601 extended date format.
     * The format consists of:
-    * <p><ul>
+    *<ul>
     * <li>The {@link #ISO_LOCAL_DATE}
     * <li>If the offset is not available to print/parse then the format is complete.
     * <li>The {@link ZoneOffset#getId() offset ID}. If the offset has seconds then
@@ -114,11 +114,11 @@ object DateTimeFormatter {
   /**
     * Returns the ISO time formatter that prints/parses a time without an offset,
     * such as '10:15' or '10:15:30'.
-    * <p>
+    *
     * This returns an immutable formatter capable of printing and parsing
     * the ISO-8601 extended local time format.
     * The format consists of:
-    * <p><ul>
+    *<ul>
     * <li>Two digits for the {@link ChronoField#HOUR_OF_DAY hour-of-day}.
     * This is pre-padded by zero to ensure two digits.
     * <li>A colon
@@ -138,11 +138,11 @@ object DateTimeFormatter {
   /**
     * Returns the ISO time formatter that prints/parses a time with an offset,
     * such as '10:15+01:00' or '10:15:30+01:00'.
-    * <p>
+    *
     * This returns an immutable formatter capable of printing and parsing
     * the ISO-8601 extended offset time format.
     * The format consists of:
-    * <p><ul>
+    *<ul>
     * <li>The {@link #ISO_LOCAL_TIME}
     * <li>The {@link ZoneOffset#getId() offset ID}. If the offset has seconds then
     * they will be handled even though this is not part of the ISO-8601 standard.
@@ -153,11 +153,11 @@ object DateTimeFormatter {
   /**
     * Returns the ISO time formatter that prints/parses a time, with the
     * offset if available, such as '10:15', '10:15:30' or '10:15:30+01:00'.
-    * <p>
+    *
     * This returns an immutable formatter capable of printing and parsing
     * the ISO-8601 extended offset time format.
     * The format consists of:
-    * <p><ul>
+    *<ul>
     * <li>The {@link #ISO_LOCAL_TIME}
     * <li>If the offset is not available to print/parse then the format is complete.
     * <li>The {@link ZoneOffset#getId() offset ID}. If the offset has seconds then
@@ -171,11 +171,11 @@ object DateTimeFormatter {
   /**
     * Returns the ISO date formatter that prints/parses a date-time
     * without an offset, such as '2011-12-03T10:15:30'.
-    * <p>
+    *
     * This returns an immutable formatter capable of printing and parsing
     * the ISO-8601 extended offset date-time format.
     * The format consists of:
-    * <p><ul>
+    *<ul>
     * <li>The {@link #ISO_LOCAL_DATE}
     * <li>The letter 'T'. Parsing is case insensitive.
     * <li>The {@link #ISO_LOCAL_TIME}
@@ -185,11 +185,11 @@ object DateTimeFormatter {
   /**
     * Returns the ISO date formatter that prints/parses a date-time
     * with an offset, such as '2011-12-03T10:15:30+01:00'.
-    * <p>
+    *
     * This returns an immutable formatter capable of printing and parsing
     * the ISO-8601 extended offset date-time format.
     * The format consists of:
-    * <p><ul>
+    *<ul>
     * <li>The {@link #ISO_LOCAL_DATE_TIME}
     * <li>The {@link ZoneOffset#getId() offset ID}. If the offset has seconds then
     * they will be handled even though this is not part of the ISO-8601 standard.
@@ -200,12 +200,12 @@ object DateTimeFormatter {
   /**
     * Returns the ISO date formatter that prints/parses a date-time with
     * offset and zone, such as '2011-12-03T10:15:30+01:00[Europe/Paris]'.
-    * <p>
+    *
     * This returns an immutable formatter capable of printing and parsing
     * a format that extends the ISO-8601 extended offset date-time format
     * to add the time-zone.
     * The format consists of:
-    * <p><ul>
+    *<ul>
     * <li>The {@link #ISO_OFFSET_DATE_TIME}
     * <li>If the zone ID is not available or is a {@code ZoneOffset} then the format is complete.
     * <li>An open square bracket '['.
@@ -219,11 +219,11 @@ object DateTimeFormatter {
     * Returns the ISO date formatter that prints/parses a date-time
     * with the offset and zone if available, such as '2011-12-03T10:15:30',
     * '2011-12-03T10:15:30+01:00' or '2011-12-03T10:15:30+01:00[Europe/Paris]'.
-    * <p>
+    *
     * This returns an immutable formatter capable of printing and parsing
     * the ISO-8601 extended offset date-time format.
     * The format consists of:
-    * <p><ul>
+    *<ul>
     * <li>The {@link #ISO_LOCAL_DATE_TIME}
     * <li>If the offset is not available to print/parse then the format is complete.
     * <li>The {@link ZoneOffset#getId() offset ID}. If the offset has seconds then
@@ -241,11 +241,11 @@ object DateTimeFormatter {
   /**
     * Returns the ISO date formatter that prints/parses the ordinal date
     * without an offset, such as '2012-337'.
-    * <p>
+    *
     * This returns an immutable formatter capable of printing and parsing
     * the ISO-8601 extended ordinal date format.
     * The format consists of:
-    * <p><ul>
+    *<ul>
     * <li>Four digits or more for the {@link ChronoField#YEAR year}.
     * Years in the range 0000 to 9999 will be pre-padded by zero to ensure four digits.
     * Years outside that range will have a prefixed positive or negative symbol.
@@ -264,11 +264,11 @@ object DateTimeFormatter {
   /**
     * Returns the ISO date formatter that prints/parses the week-based date
     * without an offset, such as '2012-W48-6'.
-    * <p>
+    *
     * This returns an immutable formatter capable of printing and parsing
     * the ISO-8601 extended week-based date format.
     * The format consists of:
-    * <p><ul>
+    *<ul>
     * <li>Four digits or more for the {@link IsoFields#WEEK_BASED_YEAR week-based-year}.
     * Years in the range 0000 to 9999 will be pre-padded by zero to ensure four digits.
     * Years outside that range will have a prefixed positive or negative symbol.
@@ -291,7 +291,7 @@ object DateTimeFormatter {
   /**
     * The ISO instant formatter that formats or parses an instant in UTC,
     * such as '2011-12-03T10:15:30Z'.
-    * <p>
+    *
     * This returns an immutable formatter capable of formatting and parsing
     * the ISO-8601 instant format.
     * When formatting, the second-of-minute is always output.
@@ -299,7 +299,7 @@ object DateTimeFormatter {
     * When parsing, time to at least the seconds field is required.
     * Fractional seconds from zero to nine are parsed.
     * The localized decimal style is not used.
-    * <p>
+    *
     * This is a special case formatter intended to allow a human readable form
     * of an {@link org.threeten.bp.Instant Instant}.
     * The {@code Instant} class is designed to
@@ -308,14 +308,14 @@ object DateTimeFormatter {
     * formatted as a date or time without providing some form of time-zone.
     * This formatter allows the {@code Instant} to be formatted, by providing
     * a suitable conversion using {@code ZoneOffset.UTC}.
-    * <p>
+    *
     * The format consists of:
     * <ul>
     * <li>The {@link #ISO_OFFSET_DATE_TIME} where the instant is converted from
     * {@link ChronoField#INSTANT_SECONDS} and {@link ChronoField#NANO_OF_SECOND}
     * using the {@code UTC} offset. Parsing is case insensitive.
     * </ul>
-    * <p>
+    *
     * The returned formatter has no override chronology or zone.
     * It uses the {@link ResolverStyle#STRICT STRICT} resolver style.
     */
@@ -323,11 +323,11 @@ object DateTimeFormatter {
   /**
     * Returns the ISO date formatter that prints/parses a date without an offset,
     * such as '20111203'.
-    * <p>
+    *
     * This returns an immutable formatter capable of printing and parsing
     * the ISO-8601 basic local date format.
     * The format consists of:
-    * <p><ul>
+    *<ul>
     * <li>Four digits for the {@link ChronoField#YEAR year}.
     * Only years in the range 0000 to 9999 are supported.
     * <li>Two digits for the {@link ChronoField#MONTH_OF_YEAR month-of-year}.
@@ -345,16 +345,16 @@ object DateTimeFormatter {
   val BASIC_ISO_DATE: DateTimeFormatter = new DateTimeFormatterBuilder().parseCaseInsensitive.appendValue(YEAR, 4).appendValue(MONTH_OF_YEAR, 2).appendValue(DAY_OF_MONTH, 2).optionalStart().appendOffset("+HHMMss", "Z").toFormatter(ResolverStyle.STRICT).withChronology(IsoChronology.INSTANCE)
   /**
     * Returns the RFC-1123 date-time formatter, such as 'Tue, 3 Jun 2008 11:05:30 GMT'.
-    * <p>
+    *
     * This returns an immutable formatter capable of printing and parsing
     * most of the RFC-1123 format.
     * RFC-1123 updates RFC-822 changing the year from two digits to four.
     * This implementation requires a four digit year.
     * This implementation also does not handle North American or military zone
     * names, only 'GMT' and offset amounts.
-    * <p>
+    *
     * The format consists of:
-    * <p><ul>
+    *<ul>
     * <li>If the day-of-week is not available to print/parse then jump to day-of-month.
     * <li>Three letter {@link ChronoField#DAY_OF_WEEK day-of-week} in English.
     * <li>A comma
@@ -408,13 +408,13 @@ object DateTimeFormatter {
 
   /**
     * Creates a formatter using the specified pattern.
-    * <p>
+    *
     * This method will create a formatter based on a simple pattern of letters and symbols.
     * For example, {@code d MMM yyyy} will format 2011-12-03 as '3 Dec 2011'.
-    * <p>
+    *
     * The returned formatter will use the default locale, but this can be changed
     * using {@link DateTimeFormatter#withLocale(Locale)}.
-    * <p>
+    *
     * All letters 'A' to 'Z' and 'a' to 'z' are reserved as pattern letters.
     * The following pattern letters are defined:
     * <pre>
@@ -461,22 +461,22 @@ object DateTimeFormatter {
     * ]       optional section end
     * {}      reserved for future use
     * </pre>
-    * <p>
+    *
     * The count of pattern letters determine the format.
-    * <p>
+    *
     * <b>Text</b>: The text style is determined based on the number of pattern letters used.
     * Less than 4 pattern letters will use the {@link TextStyle#SHORT short form}.
     * Exactly 4 pattern letters will use the {@link TextStyle#FULL full form}.
     * Exactly 5 pattern letters will use the {@link TextStyle#NARROW narrow form}.
-    * <p>
+    *
     * <b>Number</b>: If the count of letters is one, then the value is printed using the minimum number
     * of digits and without padding as per {@link DateTimeFormatterBuilder#appendValue(TemporalField)}.
     * Otherwise, the count of digits is used as the width of the output field as per
     * {@link DateTimeFormatterBuilder#appendValue(TemporalField, int)}.
-    * <p>
+    *
     * <b>Number/Text</b>: If the count of pattern letters is 3 or greater, use the Text rules above.
     * Otherwise use the Number rules above.
-    * <p>
+    *
     * <b>Fraction</b>: Outputs the nano-of-second field as a fraction-of-second.
     * The nano-of-second value has nine digits, thus the count of pattern letters is from 1 to 9.
     * If it is less than 9, then the nano-of-second value is truncated, with only the most
@@ -484,7 +484,7 @@ object DateTimeFormatter {
     * When parsing in strict mode, the number of parsed digits must match the count of pattern letters.
     * When parsing in lenient mode, the number of parsed digits must be at least the count of pattern
     * letters, up to 9 digits.
-    * <p>
+    *
     * <b>Year</b>: The count of letters determines the minimum field width below which padding is used.
     * If the count of letters is two, then a {@link DateTimeFormatterBuilder#appendValueReduced reduced}
     * two digit form is used.
@@ -493,16 +493,16 @@ object DateTimeFormatter {
     * If the count of letters is less than four (but not two), then the sign is only output for negative
     * years as per {@link SignStyle#NORMAL}.
     * Otherwise, the sign is output if the pad width is exceeded, as per {@link SignStyle#EXCEEDS_PAD}
-    * <p>
+    *
     * <b>ZoneId</b>: This outputs the time-zone ID, such as 'Europe/Paris'.
     * If the count of letters is two, then the time-zone ID is output.
     * Any other count of letters throws {@code IllegalArgumentException}.
-    * <p>
+    *
     * <b>Zone names</b>: This outputs the display name of the time-zone ID.
     * If the count of letters is one, two or three, then the short name is output.
     * If the count of letters is four, then the full name is output.
     * Five or more letters throws {@code IllegalArgumentException}.
-    * <p>
+    *
     * <b>Offset X and x</b>: This formats the offset based on the number of pattern letters.
     * One letter outputs just the hour', such as '+01', unless the minute is non-zero
     * in which case the minute is also output, such as '+0130'.
@@ -513,21 +513,21 @@ object DateTimeFormatter {
     * Six or more letters throws {@code IllegalArgumentException}.
     * Pattern letter 'X' (upper case) will output 'Z' when the offset to be output would be zero,
     * whereas pattern letter 'x' (lower case) will output '+00', '+0000', or '+00:00'.
-    * <p>
+    *
     * <b>Offset Z</b>: This formats the offset based on the number of pattern letters.
     * One, two or three letters outputs the hour and minute, without a colon, such as '+0130'.
     * Four or more letters throws {@code IllegalArgumentException}.
     * The output will be '+0000' when the offset is zero.
-    * <p>
+    *
     * <b>Optional section</b>: The optional section markers work exactly like calling
     * {@link DateTimeFormatterBuilder#optionalStart()} and {@link DateTimeFormatterBuilder#optionalEnd()}.
-    * <p>
+    *
     * <b>Pad modifier</b>: Modifies the pattern that immediately follows to be padded with spaces.
     * The pad width is determined by the number of pattern letters.
     * This is the same as calling {@link DateTimeFormatterBuilder#padNext(int)}.
-    * <p>
+    *
     * For example, 'ppH' outputs the hour-of-day padded on the left with spaces to a width of 2.
-    * <p>
+    *
     * Any unrecognized letter is an error.
     * Any non-letter character, other than '[', ']', '{', '}' and the single quote will be output directly.
     * Despite this, it is recommended to use single quotes around all characters that you want to
@@ -543,12 +543,12 @@ object DateTimeFormatter {
 
   /**
     * Creates a formatter using the specified pattern.
-    * <p>
+    *
     * This method will create a formatter based on a simple pattern of letters and symbols.
     * For example, {@code d MMM yyyy} will format 2011-12-03 as '3 Dec 2011'.
-    * <p>
+    *
     * See {@link #ofPattern(String)} for details of the pattern.
-    * <p>
+    *
     * The returned formatter will use the specified locale, but this can be changed
     * using {@link DateTimeFormatter#withLocale(Locale)}.
     *
@@ -563,15 +563,15 @@ object DateTimeFormatter {
 
   /**
     * Returns a locale specific date format.
-    * <p>
+    *
     * This returns a formatter that will print/parse a date.
     * The exact format pattern used varies by locale.
-    * <p>
+    *
     * The locale is determined from the formatter. The formatter returned directly by
     * this method will use the {@link Locale#getDefault() default locale}.
     * The locale can be controlled using {@link DateTimeFormatter#withLocale(Locale) withLocale(Locale)}
     * on the result of this method.
-    * <p>
+    *
     * Note that the localized pattern is looked up lazily.
     * This {@code DateTimeFormatter} holds the style required and the locale,
     * looking up the pattern required on demand.
@@ -586,15 +586,15 @@ object DateTimeFormatter {
 
   /**
     * Returns a locale specific time format.
-    * <p>
+    *
     * This returns a formatter that will print/parse a time.
     * The exact format pattern used varies by locale.
-    * <p>
+    *
     * The locale is determined from the formatter. The formatter returned directly by
     * this method will use the {@link Locale#getDefault() default locale}.
     * The locale can be controlled using {@link DateTimeFormatter#withLocale(Locale) withLocale(Locale)}
     * on the result of this method.
-    * <p>
+    *
     * Note that the localized pattern is looked up lazily.
     * This {@code DateTimeFormatter} holds the style required and the locale,
     * looking up the pattern required on demand.
@@ -609,15 +609,15 @@ object DateTimeFormatter {
 
   /**
     * Returns a locale specific date-time format, which is typically of short length.
-    * <p>
+    *
     * This returns a formatter that will print/parse a date-time.
     * The exact format pattern used varies by locale.
-    * <p>
+    *
     * The locale is determined from the formatter. The formatter returned directly by
     * this method will use the {@link Locale#getDefault() default locale}.
     * The locale can be controlled using {@link DateTimeFormatter#withLocale(Locale) withLocale(Locale)}
     * on the result of this method.
-    * <p>
+    *
     * Note that the localized pattern is looked up lazily.
     * This {@code DateTimeFormatter} holds the style required and the locale,
     * looking up the pattern required on demand.
@@ -632,15 +632,15 @@ object DateTimeFormatter {
 
   /**
     * Returns a locale specific date and time format.
-    * <p>
+    *
     * This returns a formatter that will print/parse a date-time.
     * The exact format pattern used varies by locale.
-    * <p>
+    *
     * The locale is determined from the formatter. The formatter returned directly by
     * this method will use the {@link Locale#getDefault() default locale}.
     * The locale can be controlled using {@link DateTimeFormatter#withLocale(Locale) withLocale(Locale)}
     * on the result of this method.
-    * <p>
+    *
     * Note that the localized pattern is looked up lazily.
     * This {@code DateTimeFormatter} holds the style required and the locale,
     * looking up the pattern required on demand.
@@ -657,11 +657,11 @@ object DateTimeFormatter {
 
   /**
     * A query that provides access to the excess days that were parsed.
-    * <p>
+    *
     * This returns a singleton {@linkplain TemporalQuery query} that provides
     * access to additional information from the parse. The query always returns
     * a non-null period, with a zero period returned instead of null.
-    * <p>
+    *
     * There are two situations where this query may return a non-zero period.
     * <ul>
     * <li>If the {@code ResolverStyle} is {@code LENIENT} and a time is parsed
@@ -673,11 +673,11 @@ object DateTimeFormatter {
     * the parse consists of a {@code LocalTime} of 00:00:00 and an excess
     * {@code Period} of one day.
     * </ul>
-    * <p>
+    *
     * In both cases, if a complete {@code ChronoLocalDateTime} or {@code Instant}
     * is parsed, then the excess days are added to the date part.
     * As a result, this query will return a zero period.
-    * <p>
+    *
     * The {@code SMART} behaviour handles the common "end of day" 24:00 value.
     * Processing in {@code LENIENT} mode also produces the same result:
     * <pre>
@@ -704,18 +704,18 @@ object DateTimeFormatter {
 
   /**
     * A query that provides access to whether a leap-second was parsed.
-    * <p>
+    *
     * This returns a singleton {@linkplain TemporalQuery query} that provides
     * access to additional information from the parse. The query always returns
     * a non-null boolean, true if parsing saw a leap-second, false if not.
-    * <p>
+    *
     * Instant parsing handles the special "leap second" time of '23:59:60'.
     * Leap seconds occur at '23:59:60' in the UTC time-zone, but at other
     * local times in different time-zones. To avoid this potential ambiguity,
     * the handling of leap-seconds is limited to
     * {@link DateTimeFormatterBuilder#appendInstant()}, as that method
     * always parses the instant with the UTC zone offset.
-    * <p>
+    *
     * If the time '23:59:60' is received, then a simple conversion is applied,
     * replacing the second-of-minute of 60 with 59. This query can be used
     * on the parse result to determine if the leap-second adjustment was made.
@@ -810,17 +810,17 @@ object DateTimeFormatter {
 }
 
 /** Formatter for printing and parsing date-time objects.
-  * <p>
+  *
   * This class provides the main application entry point for printing and parsing.
   * Common instances of {@code DateTimeFormatter} are provided:
-  * <p><ul>
+  *<ul>
   * <li>Using pattern letters, such as {@code yyyy-MMM-dd}
   * <li>Using localized styles, such as {@code long} or {@code medium}
   * <li>Using predefined constants, such as {@link #ISO_LOCAL_DATE}
   * </ul><p>
-  * <p>
+  *
   * For more complex formatters, a {@link DateTimeFormatterBuilder builder} is provided.
-  * <p>
+  *
   * In most cases, it is not necessary to use this class directly when formatting.
   * The main date-time classes provide two methods - one for formatting,
   * {@code format(DateTimeFormatter formatter)}, and one for parsing,
@@ -832,7 +832,7 @@ object DateTimeFormatter {
   * Some aspects of printing and parsing are dependent on the locale.
   * The locale can be changed using the {@link #withLocale(Locale)} method
   * which returns a new formatter in the requested locale.
-  * <p>
+  *
   * Some applications may need to use the older {@link Format} class for formatting.
   * The {@link #toFormat()} method returns an implementation of the old API.
   *
@@ -864,7 +864,7 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
 
   /**
     * Gets the locale to be used during formatting.
-    * <p>
+    *
     * This is used to lookup any part of the formatter needing specific
     * localization, such as the text or localized pattern.
     *
@@ -874,10 +874,10 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
 
   /**
     * Returns a copy of this formatter with a new locale.
-    * <p>
+    *
     * This is used to lookup any part of the formatter needing specific
     * localization, such as the text or localized pattern.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param locale  the new locale, not null
@@ -898,7 +898,7 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
 
   /**
     * Returns a copy of this formatter with a new decimal style.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param decimalStyle  the new decimal style, not null
@@ -912,7 +912,7 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
 
   /**
     * Gets the overriding chronology to be used during formatting.
-    * <p>
+    *
     * This returns the override chronology, used to convert dates.
     * By default, a formatter has no override chronology, returning null.
     * See {@link #withChronology(Chronology)} for more details on overriding.
@@ -923,23 +923,23 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
 
   /**
     * Returns a copy of this formatter with a new override chronology.
-    * <p>
+    *
     * This returns a formatter with similar state to this formatter but
     * with the override chronology set.
     * By default, a formatter has no override chronology, returning null.
-    * <p>
+    *
     * If an override is added, then any date that is printed or parsed will be affected.
-    * <p>
+    *
     * When printing, if the {@code Temporal} object contains a date then it will
     * be converted to a date in the override chronology.
     * Any time or zone will be retained unless overridden.
     * The converted result will behave in a manner equivalent to an implementation
     * of {@code ChronoLocalDate},{@code ChronoLocalDateTime} or {@code ChronoZonedDateTime}.
-    * <p>
+    *
     * When parsing, the override chronology will be used to interpret the
     * {@linkplain ChronoField fields} into a date unless the
     * formatter directly parses a valid chronology.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param chrono  the new chronology, not null
@@ -953,7 +953,7 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
 
   /**
     * Gets the overriding zone to be used during formatting.
-    * <p>
+    *
     * This returns the override zone, used to convert instants.
     * By default, a formatter has no override zone, returning null.
     * See {@link #withZone(ZoneId)} for more details on overriding.
@@ -964,13 +964,13 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
 
   /**
     * Returns a copy of this formatter with a new override zone.
-    * <p>
+    *
     * This returns a formatter with similar state to this formatter but
     * with the override zone set.
     * By default, a formatter has no override zone, returning null.
-    * <p>
+    *
     * If an override is added, then any instant that is printed or parsed will be affected.
-    * <p>
+    *
     * When printing, if the {@code Temporal} object contains an instant then it will
     * be converted to a zoned date-time using the override zone.
     * If the input has a chronology then it will be retained unless overridden.
@@ -978,11 +978,11 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
     * the ISO chronology will be used.
     * The converted result will behave in a manner equivalent to an implementation
     * of {@code ChronoZonedDateTime}.
-    * <p>
+    *
     * When parsing, the override zone will be used to interpret the
     * {@linkplain ChronoField fields} into an instant unless the
     * formatter directly parses a valid zone.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param zone  the new override zone, not null
@@ -996,7 +996,7 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
 
   /**
     * Gets the resolver style to use during parsing.
-    * <p>
+    *
     * This returns the resolver style, used during the second phase of parsing
     * when fields are resolved into dates and times.
     * By default, a formatter has the {@link ResolverStyle#SMART SMART} resolver style.
@@ -1008,18 +1008,18 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
 
   /**
     * Returns a copy of this formatter with a new resolver style.
-    * <p>
+    *
     * This returns a formatter with similar state to this formatter but
     * with the resolver style set. By default, a formatter has the
     * {@link ResolverStyle#SMART SMART} resolver style.
-    * <p>
+    *
     * Changing the resolver style only has an effect during parsing.
     * Parsing a text string occurs in two phases.
     * Phase 1 is a basic text parse according to the fields added to the builder.
     * Phase 2 resolves the parsed field-value pairs into date and/or time objects.
     * The resolver style is used to control how phase 2, resolving, happens.
     * See {@code ResolverStyle} for more information on the options available.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param resolverStyle  the new resolver style, not null
@@ -1035,7 +1035,7 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
 
   /**
     * Gets the resolver fields to use during parsing.
-    * <p>
+    *
     * This returns the resolver fields, used during the second phase of parsing
     * when fields are resolved into dates and times.
     * By default, a formatter has no resolver fields, and thus returns null.
@@ -1047,16 +1047,16 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
 
   /**
     * Returns a copy of this formatter with a new set of resolver fields.
-    * <p>
+    *
     * This returns a formatter with similar state to this formatter but with
     * the resolver fields set. By default, a formatter has no resolver fields.
-    * <p>
+    *
     * Changing the resolver fields only has an effect during parsing.
     * Parsing a text string occurs in two phases.
     * Phase 1 is a basic text parse according to the fields added to the builder.
     * Phase 2 resolves the parsed field-value pairs into date and/or time objects.
     * The resolver fields are used to filter the field-value pairs between phase 1 and 2.
-    * <p>
+    *
     * This can be used to select between two or more ways that a date or time might
     * be resolved. For example, if the formatter consists of year, month, day-of-month
     * and day-of-year, then there are two ways to resolve a date.
@@ -1064,7 +1064,7 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
     * {@link ChronoField#DAY_OF_YEAR DAY_OF_YEAR} will ensure that the date is
     * resolved using the year and day-of-year, effectively meaning that the month
     * and day-of-month are ignored during the resolving phase.
-    * <p>
+    *
     * In a similar manner, this method can be used to ignore secondary fields that
     * would otherwise be cross-checked. For example, if the formatter consists of year,
     * month, day-of-month and day-of-week, then there is only one way to resolve a
@@ -1073,12 +1073,12 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
     * {@link ChronoField#MONTH_OF_YEAR MONTH_OF_YEAR} and
     * {@link ChronoField#DAY_OF_MONTH DAY_OF_MONTH} will ensure that the date is
     * resolved correctly, but without any cross-check for the day-of-week.
-    * <p>
+    *
     * In implementation terms, this method behaves as follows. The result of the
     * parsing phase can be considered to be a map of field to value. The behavior
     * of this method is to cause that map to be filtered between phase 1 and 2,
     * removing all fields other than those specified as arguments to this method.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param resolverFields  the new set of resolver fields, null if no fields
@@ -1096,16 +1096,16 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
 
   /**
     * Returns a copy of this formatter with a new set of resolver fields.
-    * <p>
+    *
     * This returns a formatter with similar state to this formatter but with
     * the resolver fields set. By default, a formatter has no resolver fields.
-    * <p>
+    *
     * Changing the resolver fields only has an effect during parsing.
     * Parsing a text string occurs in two phases.
     * Phase 1 is a basic text parse according to the fields added to the builder.
     * Phase 2 resolves the parsed field-value pairs into date and/or time objects.
     * The resolver fields are used to filter the field-value pairs between phase 1 and 2.
-    * <p>
+    *
     * This can be used to select between two or more ways that a date or time might
     * be resolved. For example, if the formatter consists of year, month, day-of-month
     * and day-of-year, then there are two ways to resolve a date.
@@ -1113,7 +1113,7 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
     * {@link ChronoField#DAY_OF_YEAR DAY_OF_YEAR} will ensure that the date is
     * resolved using the year and day-of-year, effectively meaning that the month
     * and day-of-month are ignored during the resolving phase.
-    * <p>
+    *
     * In a similar manner, this method can be used to ignore secondary fields that
     * would otherwise be cross-checked. For example, if the formatter consists of year,
     * month, day-of-month and day-of-week, then there is only one way to resolve a
@@ -1122,12 +1122,12 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
     * {@link ChronoField#MONTH_OF_YEAR MONTH_OF_YEAR} and
     * {@link ChronoField#DAY_OF_MONTH DAY_OF_MONTH} will ensure that the date is
     * resolved correctly, but without any cross-check for the day-of-week.
-    * <p>
+    *
     * In implementation terms, this method behaves as follows. The result of the
     * parsing phase can be considered to be a map of field to value. The behavior
     * of this method is to cause that map to be filtered between phase 1 and 2,
     * removing all fields other than those specified as arguments to this method.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param resolverFields  the new set of resolver fields, null if no fields
@@ -1145,7 +1145,7 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
 
   /**
     * Formats a date-time object using this formatter.
-    * <p>
+    *
     * This formats the date-time to a String using the rules of the formatter.
     *
     * @param temporal  the temporal object to print, not null
@@ -1160,12 +1160,12 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
 
   /**
     * Formats a date-time object to an {@code Appendable} using this formatter.
-    * <p>
+    *
     * This formats the date-time to the specified destination.
     * {@link Appendable} is a general purpose interface that is implemented by all
     * key character output classes including {@code StringBuffer}, {@code StringBuilder},
     * {@code PrintStream} and {@code Writer}.
-    * <p>
+    *
     * Although {@code Appendable} methods throw an {@code IOException}, this method does not.
     * Instead, any {@code IOException} is wrapped in a runtime exception.
     *
@@ -1193,12 +1193,12 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
 
   /**
     * Fully parses the text producing a temporal object.
-    * <p>
+    *
     * This parses the entire text producing a temporal object.
     * It is typically more useful to use {@link #parse(CharSequence, TemporalQuery)}.
     * The result of this method is {@code TemporalAccessor} which has been resolved,
     * applying basic validation checks to help ensure a valid date-time.
-    * <p>
+    *
     * If the parse completes without reading the entire length of the text,
     * or a problem occurs during parsing or merging, then an exception is thrown.
     *
@@ -1217,16 +1217,16 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
 
   /**
     * Parses the text using this formatter, providing control over the text position.
-    * <p>
+    *
     * This parses the text without requiring the parse to start from the beginning
     * of the string or finish at the end.
     * The result of this method is {@code TemporalAccessor} which has been resolved,
     * applying basic validation checks to help ensure a valid date-time.
-    * <p>
+    *
     * The text will be parsed from the specified start {@code ParsePosition}.
     * The entire length of the text does not have to be parsed, the {@code ParsePosition}
     * will be updated with the index at the end of parsing.
-    * <p>
+    *
     * The operation of this method is slightly different to similar methods using
     * {@code ParsePosition} on {@code java.text.Format}. That class will return
     * errors using the error index on the {@code ParsePosition}. By contrast, this
@@ -1234,7 +1234,7 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
     * the exception containing the error index.
     * This change in behavior is necessary due to the increased complexity of
     * parsing and resolving dates/times in this API.
-    * <p>
+    *
     * If the formatter parses the same field more than once with different values,
     * the result will be an error.
     *
@@ -1258,7 +1258,7 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
 
   /**
     * Fully parses the text producing an object of the specified type.
-    * <p>
+    *
     * Most applications should use this method for parsing.
     * It parses the entire text to produce the required date-time.
     * For example:
@@ -1289,13 +1289,13 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
 
   /**
     * Fully parses the text producing an object of one of the specified types.
-    * <p>
+    *
     * This parse method is convenient for use when the parser can handle optional elements.
     * For example, a pattern of 'yyyy[-MM[-dd]]' can be fully parsed to a {@code LocalDate},
     * or partially parsed to a {@code YearMonth} or a {@code Year}.
     * The types must be specified in order, starting from the best matching full-parse option
     * and ending with the worst matching minimal parse option.
-    * <p>
+    *
     * The result is associated with the first type that successfully parses.
     * Normally, applications will use {@code instanceof} to check the result.
     * For example:
@@ -1349,7 +1349,7 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
 
   /**
     * Parses the text to a builder.
-    * <p>
+    *
     * This parses to a {@code DateTimeBuilder} ensuring that the text is fully parsed.
     * This method throws {@link DateTimeParseException} if unable to parse, or
     * some other {@code DateTimeException} if another date/time problem occurs.
@@ -1380,31 +1380,31 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
   /**
     * Parses the text using this formatter, without resolving the result, intended
     * for advanced use cases.
-    * <p>
+    *
     * Parsing is implemented as a two-phase operation.
     * First, the text is parsed using the layout defined by the formatter, producing
     * a {@code Map} of field to value, a {@code ZoneId} and a {@code Chronology}.
     * Second, the parsed data is <em>resolved</em>, by validating, combining and
     * simplifying the various fields into more useful ones.
     * This method performs the parsing stage but not the resolving stage.
-    * <p>
+    *
     * The result of this method is {@code TemporalAccessor} which represents the
     * data as seen in the input. Values are not validated, thus parsing a date string
     * of '2012-00-65' would result in a temporal with three fields - year of '2012',
     * month of '0' and day-of-month of '65'.
-    * <p>
+    *
     * The text will be parsed from the specified start {@code ParsePosition}.
     * The entire length of the text does not have to be parsed, the {@code ParsePosition}
     * will be updated with the index at the end of parsing.
-    * <p>
+    *
     * Errors are returned using the error index field of the {@code ParsePosition}
     * instead of {@code DateTimeParseException}.
     * The returned error index will be set to an index indicative of the error.
     * Callers must check for errors before using the context.
-    * <p>
+    *
     * If the formatter parses the same field more than once with different values,
     * the result will be an error.
-    * <p>
+    *
     * This method is intended for advanced use cases that need access to the
     * internal state during parsing. Typical application code should use
     * {@link #parse(CharSequence, TemporalQuery)} or the parse method on the target type.
@@ -1444,10 +1444,10 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
 
   /**
     * Returns this formatter as a {@code java.text.Format} instance.
-    * <p>
+    *
     * The returned {@link Format} instance will print any {@link TemporalAccessor}
     * and parses to a resolved {@link TemporalAccessor}.
-    * <p>
+    *
     * Exceptions will follow the definitions of {@code Format}, see those methods
     * for details about {@code IllegalArgumentException} during formatting and
     * {@code ParseException} or null during parsing.
@@ -1460,11 +1460,11 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
   /**
     * Returns this formatter as a {@code java.text.Format} instance that will
     * parse to the specified type.
-    * <p>
+    *
     * The returned {@link Format} instance will print any {@link TemporalAccessor}
     * and parses to the type specified.
     * The type must be one that is supported by {@link #parse}.
-    * <p>
+    *
     * Exceptions will follow the definitions of {@code Format}, see those methods
     * for details about {@code IllegalArgumentException} during formatting and
     * {@code ParseException} or null during parsing.

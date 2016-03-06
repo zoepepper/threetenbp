@@ -121,11 +121,11 @@ object ChronoLocalDateTimeImpl {
 
 /**
   * A date-time without a time-zone for the calendar neutral API.
-  * <p>
+  *
   * {@code ChronoLocalDateTime} is an immutable date-time object that represents a date-time, often
   * viewed as year-month-day-hour-minute-second. This object can also access other
   * fields such as day-of-year, day-of-week and week-of-year.
-  * <p>
+  *
   * This class stores all date and time fields, to a precision of nanoseconds.
   * It does not store or represent a time-zone. For example, the value
   * "2nd October 2007 at 13:45.30.123456789" can be stored in an {@code ChronoLocalDateTime}.

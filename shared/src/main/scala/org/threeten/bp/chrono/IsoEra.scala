@@ -47,11 +47,11 @@ import org.threeten.bp.temporal.ValueRange
 
 /**
   * An era in the ISO calendar system.
-  * <p>
+  *
   * The ISO-8601 standard does not define eras.
   * A definition has therefore been created with two eras - 'Current era' (CE) for
   * years from 0001-01-01 (ISO) and 'Before current era' (BCE) for years before that.
-  * <p>
+  *
   * <b>Do not use {@code ordinal()} to obtain the numeric representation of {@code IsoEra}.
   * Use {@code getValue()} instead.</b>
   *
@@ -78,7 +78,7 @@ object IsoEra {
 
   /**
     * Obtains an instance of {@code IsoEra} from an {@code int} value.
-    * <p>
+    *
     * {@code IsoEra} is an enum representing the ISO eras of BCE/CE.
     * This factory allows the enum to be obtained from the {@code int} value.
     *
@@ -98,7 +98,7 @@ object IsoEra {
 final class IsoEra(name: String, ordinal: Int) extends Enum[IsoEra](name, ordinal) with Era {
   /**
     * Gets the numeric era {@code int} value.
-    * <p>
+    *
     * The era BCE has the value 0, while the era CE has the value 1.
     *
     * @return the era value, from 0 (BCE) to 1 (CE)

@@ -44,7 +44,7 @@ object ZoneRulesProvider {
   private val ZONES: ConcurrentMap[String, ZoneRulesProvider] = new ConcurrentHashMap[String, ZoneRulesProvider](512, 0.75f, 2)
 
   /** Gets the set of available zone IDs.
-    * <p>
+    *
     * These zone IDs are loaded and available for use by {@code ZoneId}.
     *
     * @return a modifiable copy of the set of zone IDs, not null
@@ -52,12 +52,12 @@ object ZoneRulesProvider {
   def getAvailableZoneIds: java.util.Set[String] = new java.util.HashSet[String](ZONES.keySet)
 
   /** Gets the rules for the zone ID.
-    * <p>
+    *
     * This returns the latest available rules for the zone ID.
-    * <p>
+    *
     * This method relies on time-zone data provider files that are configured.
     * These are loaded using a {@code ServiceLoader}.
-    * <p>
+    *
     * The caching flag is designed to allow provider implementations to
     * prevent the rules being cached in {@code ZoneId}.
     * Under normal circumstances, the caching of zone rules is highly desirable
@@ -79,18 +79,18 @@ object ZoneRulesProvider {
   }
 
   /** Gets the history of rules for the zone ID.
-    * <p>
+    *
     * Time-zones are defined by governments and change frequently.
     * This method allows applications to find the history of changes to the
     * rules for a single zone ID. The map is keyed by a string, which is the
     * version string associated with the rules.
-    * <p>
+    *
     * The exact meaning and format of the version is provider specific.
     * The version must follow lexicographical order, thus the returned map will
     * be order from the oldest known rules to the newest available rules.
     * The default 'TZDB' group uses version numbering consisting of the year
     * followed by a letter, such as '2009e' or '2012f'.
-    * <p>
+    *
     * Implementations must provide a result for each valid zone ID, however
     * they do not have to provide a history of rules.
     * Thus the map will always contain one element, and will only contain more
@@ -124,13 +124,13 @@ object ZoneRulesProvider {
   }
 
   /** Registers a zone rules provider.
-    * <p>
+    *
     * This adds a new provider to those currently available.
     * A provider supplies rules for one or more zone IDs.
     * A provider cannot be registered if it supplies a zone ID that has already been
     * registered. See the notes on time-zone IDs in {@link ZoneId}, especially
     * the section on using the concept of a "group" to make IDs unique.
-    * <p>
+    *
     * To ensure the integrity of time-zones already created, there is no way
     * to deregister providers.
     *
@@ -162,12 +162,12 @@ object ZoneRulesProvider {
   }
 
   /** Refreshes the rules from the underlying data provider.
-    * <p>
+    *
     * This method is an extension point that allows providers to refresh their
     * rules dynamically at a time of the applications choosing.
     * After calling this method, the offset stored in any {@link ZonedDateTime}
     * may be invalid for the zone ID.
-    * <p>
+    *
     * Dynamic behavior is entirely optional and most providers, including the
     * default provider, do not support it.
     *
@@ -197,14 +197,14 @@ object ZoneRulesProvider {
 }
 
 /** Provider of time-zone rules to the system.
-  * <p>
+  *
   * This class manages the configuration of time-zone rules.
   * The static methods provide the public API that can be used to manage the providers.
   * The abstract methods provide the SPI that allows rules to be provided.
-  * <p>
+  *
   * Rules are looked up primarily by zone ID, as used by {@link ZoneId}.
   * Only zone region IDs may be used, zone offset IDs are not used here.
-  * <p>
+  *
   * Time-zone rules are political, thus the data can change at any time.
   * Each provider will provide the latest rules for each zone ID, but they
   * may also provide the history of how the rules changed.
@@ -212,10 +212,10 @@ object ZoneRulesProvider {
   * <h3>Specification for implementors</h3>
   * This interface is a service provider that can be called by multiple threads.
   * Implementations must be immutable and thread-safe.
-  * <p>
+  *
   * Providers must ensure that once a rule has been seen by the application, the
   * rule must continue to be available.
-  * <p>
+  *
   * Many systems would like to update time-zone rules dynamically without stopping the JVM.
   * When examined in detail, this is a complex problem.
   * Providers may choose to handle dynamic updates, however the default provider does not.
@@ -223,10 +223,10 @@ object ZoneRulesProvider {
 abstract class ZoneRulesProvider protected() {
 
   /** SPI method to get the available zone IDs.
-    * <p>
+    *
     * This obtains the IDs that this {@code ZoneRulesProvider} provides.
     * A provider should provide data for at least one region.
-    * <p>
+    *
     * The returned regions remain available and valid for the lifetime of the application.
     * A dynamic provider may increase the set of regions as more data becomes available.
     *
@@ -236,7 +236,7 @@ abstract class ZoneRulesProvider protected() {
   protected def provideZoneIds: java.util.Set[String]
 
   /** SPI method to get the rules for the zone ID.
-    * <p>
+    *
     * This loads the rules for the region and version specified.
     * The version may be null to indicate the "latest" version.
     *
@@ -247,19 +247,19 @@ abstract class ZoneRulesProvider protected() {
   protected def provideRules(regionId: String, forCaching: Boolean): ZoneRules
 
   /** SPI method to get the history of rules for the zone ID.
-    * <p>
+    *
     * This returns a map of historical rules keyed by a version string.
     * The exact meaning and format of the version is provider specific.
     * The version must follow lexicographical order, thus the returned map will
     * be order from the oldest known rules to the newest available rules.
     * The default 'TZDB' group uses version numbering consisting of the year
     * followed by a letter, such as '2009e' or '2012f'.
-    * <p>
+    *
     * Implementations must provide a result for each valid zone ID, however
     * they do not have to provide a history of rules.
     * Thus the map will always contain one element, and will only contain more
     * than one element if historical rule information is available.
-    * <p>
+    *
     * The returned versions remain available and valid for the lifetime of the application.
     * A dynamic provider may increase the set of versions as more data becomes available.
     *
@@ -271,12 +271,12 @@ abstract class ZoneRulesProvider protected() {
   protected def provideVersions(zoneId: String): java.util.NavigableMap[String, ZoneRules]
 
   /** SPI method to refresh the rules from the underlying data provider.
-    * <p>
+    *
     * This method provides the opportunity for a provider to dynamically
     * recheck the underlying data provider to find the latest rules.
     * This could be used to load new rules without stopping the JVM.
     * Dynamic behavior is entirely optional and most providers do not support it.
-    * <p>
+    *
     * This implementation returns false.
     *
     * @return true if the rules were updated

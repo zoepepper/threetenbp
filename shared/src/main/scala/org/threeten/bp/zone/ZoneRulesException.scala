@@ -35,7 +35,7 @@ import org.threeten.bp.DateTimeException
 
 /**
   * Thrown to indicate a problem with time-zone configuration.
-  * <p>
+  *
   * This exception is used to indicate a problems with the configured
   * time-zone rules.
   *

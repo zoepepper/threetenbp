@@ -54,13 +54,13 @@ import scala.collection.JavaConverters._
 
 /**
   * The Thai Buddhist calendar system.
-  * <p>
+  *
   * This chronology defines the rules of the Thai Buddhist calendar system.
   * This calendar system is primarily used in Thailand.
   * Dates are aligned such that {@code 2484-01-01 (Buddhist)} is {@code 1941-01-01 (ISO)}.
-  * <p>
+  *
   * The fields are defined as follows:
-  * <p><ul>
+  *<ul>
   * <li>era - There are two eras, the current 'Buddhist' (BE) and the previous era (BEFORE_BE).
   * <li>year-of-era - The year-of-era for the current era increases uniformly from the epoch at year one.
   * For the previous era the year increases from one as time goes backwards.
@@ -139,7 +139,7 @@ final class ThaiBuddhistChronology private() extends Chronology with Serializabl
 
   /**
     * Gets the ID of the chronology - 'ThaiBuddhist'.
-    * <p>
+    *
     * The ID uniquely identifies the {@code Chronology}.
     * It can be used to lookup the {@code Chronology} using {@link #of(String)}.
     *
@@ -150,7 +150,7 @@ final class ThaiBuddhistChronology private() extends Chronology with Serializabl
 
   /**
     * Gets the calendar type of the underlying calendar system - 'buddhist'.
-    * <p>
+    *
     * The calendar type is an identifier defined by the
     * <em>Unicode Locale Data Markup Language (LDML)</em> specification.
     * It can be used to lookup the {@code Chronology} using {@link #of(String)}.
@@ -203,7 +203,7 @@ final class ThaiBuddhistChronology private() extends Chronology with Serializabl
 
   /**
     * Checks if the specified year is a leap year.
-    * <p>
+    *
     * Thai Buddhist leap years occur exactly in line with ISO leap years.
     * This method does not validate the year passed in, and only has a
     * well-defined result for years in the supported range.

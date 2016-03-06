@@ -39,7 +39,7 @@ import java.util.TimeZone
 
 /**
   * A set of utilities to assist in bridging the gap to Java 8.
-  * <p>
+  *
   * This class is not found in Java SE 8 but provides methods that are.
   */
 object DateTimeUtils {
@@ -53,7 +53,7 @@ object DateTimeUtils {
 
   /**
     * Converts an {@code Instant} to a {@code java.util.Date}.
-    * <p>
+    *
     * Fractions of the instant smaller than milliseconds will be dropped.
     *
     * @param instant  the instant, not null
@@ -76,7 +76,7 @@ object DateTimeUtils {
 
   /**
     * Converts a {@code Calendar} to a {@code ZonedDateTime}.
-    * <p>
+    *
     * Note that {@code GregorianCalendar} supports a Julian-Gregorian cutover
     * date and {@code ZonedDateTime} does not so some differences will occur.
     *
@@ -91,10 +91,10 @@ object DateTimeUtils {
 
   /**
     * Converts a {@code ZonedDateTime} to a {@code Calendar}.
-    * <p>
+    *
     * The resulting {@code GregorianCalendar} is pure Gregorian and uses
     * ISO week definitions, starting on Monday and with 4 days in a minimal week.
-    * <p>
+    *
     * Fractions of the instant smaller than milliseconds will be dropped.
     *
     * @param zdt  the zoned date-time, not null

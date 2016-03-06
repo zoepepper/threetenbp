@@ -37,10 +37,10 @@ import org.threeten.bp.chrono.ChronoLocalDateTime
 import org.threeten.bp.chrono.ChronoZonedDateTime
 
 /** A standard set of date periods units.
-  * <p>
+  *
   * This set of units provide unit-based access to manipulate a date, time or date-time.
   * The standard set of units can be extended by implementing {@link TemporalUnit}.
-  * <p>
+  *
   * These units are intended to be applicable in multiple calendar systems.
   * For example, most non-ISO calendar systems define units of years, months and days,
   * just with slightly different rules.
@@ -82,7 +82,7 @@ object ChronoUnit {
   /** Unit that represents the concept of a day.
     * For the ISO calendar system, it is the standard day from midnight to midnight.
     * The estimated duration of a day is {@code 24 Hours}.
-    * <p>
+    *
     * When used with other calendar systems it must correspond to the day defined by
     * the rising and setting of the Sun on Earth. It is not required that days begin
     * at midnight - when converting between calendar systems, the date should be
@@ -92,42 +92,42 @@ object ChronoUnit {
   /**
     * Unit that represents the concept of a week.
     * For the ISO calendar system, it is equal to 7 days.
-    * <p>
+    *
     * When used with other calendar systems it must correspond to an integral number of days.
     */
   val WEEKS     = new ChronoUnit("Weeks",      8, Duration.ofSeconds(7 * 86400L))
   /** Unit that represents the concept of a month.
     * For the ISO calendar system, the length of the month varies by month-of-year.
     * The estimated duration of a month is one twelfth of {@code 365.2425 Days}.
-    * <p>
+    *
     * When used with other calendar systems it must correspond to an integral number of days.
     */
   val MONTHS    = new ChronoUnit("Months",     9, Duration.ofSeconds(31556952L / 12))
   /** Unit that represents the concept of a year.
     * For the ISO calendar system, it is equal to 12 months.
     * The estimated duration of a year is {@code 365.2425 Days}.
-    * <p>
+    *
     * When used with other calendar systems it must correspond to an integral number of days
     * or months roughly equal to a year defined by the passage of the Earth around the Sun.
     */
   val YEARS     = new ChronoUnit("Years",     10, Duration.ofSeconds(31556952L))
   /** Unit that represents the concept of a decade.
     * For the ISO calendar system, it is equal to 10 years.
-    * <p>
+    *
     * When used with other calendar systems it must correspond to an integral number of days
     * and is normally an integral number of years.
     */
   val DECADES   = new ChronoUnit("Decades",   11, Duration.ofSeconds(31556952L * 10L))
   /** Unit that represents the concept of a century.
     * For the ISO calendar system, it is equal to 100 years.
-    * <p>
+    *
     * When used with other calendar systems it must correspond to an integral number of days
     * and is normally an integral number of years.
     */
   val CENTURIES = new ChronoUnit("Centuries", 12, Duration.ofSeconds(31556952L * 100L))
   /** Unit that represents the concept of a millennium.
     * For the ISO calendar system, it is equal to 1000 years.
-    * <p>
+    *
     * When used with other calendar systems it must correspond to an integral number of days
     * and is normally an integral number of years.
     */
@@ -136,7 +136,7 @@ object ChronoUnit {
     * The ISO calendar system doesn't have eras thus it is impossible to add
     * an era to a date or date-time.
     * The estimated duration of the era is artificially defined as {@code 1,000,000,000 Years}.
-    * <p>
+    *
     * When used with other calendar systems there are no restrictions on the unit.
     */
   val ERAS      = new ChronoUnit("Eras",      14, Duration.ofSeconds(31556952L * 1000000000L))
@@ -156,7 +156,7 @@ object ChronoUnit {
 final class ChronoUnit private(name: String, ordinal: Int, private val duration: Duration) extends Enum[ChronoUnit](name, ordinal) with TemporalUnit {
 
   /** Gets the estimated duration of this unit in the ISO calendar system.
-    * <p>
+    *
     * All of the units in this class have an estimated duration.
     * Days vary due to daylight saving time, while months have different lengths.
     *
@@ -165,10 +165,10 @@ final class ChronoUnit private(name: String, ordinal: Int, private val duration:
   def getDuration: Duration = duration
 
   /** Checks if the duration of the unit is an estimate.
-    * <p>
+    *
     * All time units in this class are considered to be accurate, while all date
     * units in this class are considered to be estimated.
-    * <p>
+    *
     * This definition ignores leap seconds, but considers that Days vary due to
     * daylight saving time and months have different lengths.
     *

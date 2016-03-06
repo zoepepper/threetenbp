@@ -40,18 +40,18 @@ import org.threeten.bp.ZoneOffset
 
 /**
   * The rules defining how the zone offset varies for a single time-zone.
-  * <p>
+  *
   * The rules model all the historic and future transitions for a time-zone.
   * {@link ZoneOffsetTransition} is used for known transitions, typically historic.
   * {@link ZoneOffsetTransitionRule} is used for future transitions that are based
   * on the result of an algorithm.
-  * <p>
+  *
   * The rules are loaded via {@link ZoneRulesProvider} using a {@link ZoneId}.
   * The same rules may be shared internally between multiple zone IDs.
-  * <p>
+  *
   * Serializing an instance of {@code ZoneRules} will store the entire set of rules.
   * It does not store the zone ID as it is not part of the state of this object.
-  * <p>
+  *
   * A rule implementation may or may not store full information about historic
   * and future transitions, and the information stored is only as accurate as
   * that supplied to the implementation by the rules provider.
@@ -83,7 +83,7 @@ object ZoneRules {
 
   /**
     * Obtains an instance of {@code ZoneRules} that always uses the same offset.
-    * <p>
+    *
     * The returned rules always have the same offset.
     *
     * @param offset  the offset, not null
@@ -156,7 +156,7 @@ abstract class ZoneRules private[zone]() {
 
   /**
     * Gets the offset applicable at the specified instant in these rules.
-    * <p>
+    *
     * The mapping from an instant to an offset is simple, there is only
     * one valid offset for each instant.
     * This method returns that offset.
@@ -169,10 +169,10 @@ abstract class ZoneRules private[zone]() {
 
   /**
     * Gets a suitable offset for the specified local date-time in these rules.
-    * <p>
+    *
     * The mapping from a local date-time to an offset is not straightforward.
     * There are three cases:
-    * <p><ul>
+    *<ul>
     * <li>Normal, with one valid offset. For the vast majority of the year, the normal
     * case applies, where there is a single valid offset for the local date-time.</li>
     * <li>Gap, with zero valid offsets. This is when clocks jump forward typically
@@ -185,7 +185,7 @@ abstract class ZoneRules private[zone]() {
     * Thus, for any given local date-time there can be zero, one or two valid offsets.
     * This method returns the single offset in the Normal case, and in the Gap or Overlap
     * case it returns the offset before the transition.
-    * <p>
+    *
     * Since, in the case of Gap and Overlap, the offset returned is a "best" value, rather
     * than the "correct" value, it should be treated with care. Applications that care
     * about the correct offset should use a combination of this method,
@@ -199,10 +199,10 @@ abstract class ZoneRules private[zone]() {
 
   /**
     * Gets the offset applicable at the specified local date-time in these rules.
-    * <p>
+    *
     * The mapping from a local date-time to an offset is not straightforward.
     * There are three cases:
-    * <p><ul>
+    *<ul>
     * <li>Normal, with one valid offset. For the vast majority of the year, the normal
     * case applies, where there is a single valid offset for the local date-time.</li>
     * <li>Gap, with zero valid offsets. This is when clocks jump forward typically
@@ -216,7 +216,7 @@ abstract class ZoneRules private[zone]() {
     * This method returns that list of valid offsets, which is a list of size 0, 1 or 2.
     * In the case where there are two offsets, the earlier offset is returned at index 0
     * and the later offset at index 1.
-    * <p>
+    *
     * There are various ways to handle the conversion from a {@code LocalDateTime}.
     * One technique, using this method, would be:
     * <pre>
@@ -229,7 +229,7 @@ abstract class ZoneRules private[zone]() {
     * ZoneOffsetTransition trans = rules.getTransition(localDT);
     * }
     * </pre>
-    * <p>
+    *
     * In theory, it is possible for there to be more than two valid offsets.
     * This would happen if clocks to be put back more than once in quick succession.
     * This has never happened in the history of time-zones and thus has no special handling.
@@ -243,10 +243,10 @@ abstract class ZoneRules private[zone]() {
 
   /**
     * Gets the offset transition applicable at the specified local date-time in these rules.
-    * <p>
+    *
     * The mapping from a local date-time to an offset is not straightforward.
     * There are three cases:
-    * <p><ul>
+    *<ul>
     * <li>Normal, with one valid offset. For the vast majority of the year, the normal
     * case applies, where there is a single valid offset for the local date-time.</li>
     * <li>Gap, with zero valid offsets. This is when clocks jump forward typically
@@ -258,7 +258,7 @@ abstract class ZoneRules private[zone]() {
     * </ul><p>
     * A transition is used to model the cases of a Gap or Overlap.
     * The Normal case will return null.
-    * <p>
+    *
     * There are various ways to handle the conversion from a {@code LocalDateTime}.
     * One technique, using this method, would be:
     * <pre>
@@ -279,7 +279,7 @@ abstract class ZoneRules private[zone]() {
 
   /**
     * Gets the standard offset for the specified instant in this zone.
-    * <p>
+    *
     * This provides access to historic information on how the standard offset
     * has changed over time.
     * The standard offset is the offset before any daylight saving time is applied.
@@ -293,7 +293,7 @@ abstract class ZoneRules private[zone]() {
 
   /**
     * Gets the amount of daylight savings in use for the specified instant in this zone.
-    * <p>
+    *
     * This provides access to historic information on how the amount of daylight
     * savings has changed over time.
     * This is the difference between the standard offset and the actual offset.
@@ -308,7 +308,7 @@ abstract class ZoneRules private[zone]() {
 
   /**
     * Checks if the specified instant is in daylight savings.
-    * <p>
+    *
     * This checks if the standard and actual offsets are the same at the specified instant.
     *
     * @param instant  the instant to find the offset information for, not null, but null
@@ -319,7 +319,7 @@ abstract class ZoneRules private[zone]() {
 
   /**
     * Checks if the offset date-time is valid for these rules.
-    * <p>
+    *
     * To be valid, the local date-time must not be in a gap and the offset
     * must match the valid offsets.
     *
@@ -332,7 +332,7 @@ abstract class ZoneRules private[zone]() {
 
   /**
     * Gets the next transition after the specified instant.
-    * <p>
+    *
     * This returns details of the next transition after the specified instant.
     * For example, if the instant represents a point where "Summer" daylight savings time
     * applies, then the method will return the transition to the next "Winter" time.
@@ -345,7 +345,7 @@ abstract class ZoneRules private[zone]() {
 
   /**
     * Gets the previous transition before the specified instant.
-    * <p>
+    *
     * This returns details of the previous transition after the specified instant.
     * For example, if the instant represents a point where "summer" daylight saving time
     * applies, then the method will return the transition from the previous "winter" time.
@@ -358,11 +358,11 @@ abstract class ZoneRules private[zone]() {
 
   /**
     * Gets the complete list of fully defined transitions.
-    * <p>
+    *
     * The complete set of transitions for this rules instance is defined by this method
     * and {@link #getTransitionRules()}. This method returns those transitions that have
     * been fully defined. These are typically historical, but may be in the future.
-    * <p>
+    *
     * The list will be empty for fixed offset rules and for any time-zone where there has
     * only ever been a single offset. The list will also be empty if the transition rules are unknown.
     *
@@ -372,20 +372,20 @@ abstract class ZoneRules private[zone]() {
 
   /**
     * Gets the list of transition rules for years beyond those defined in the transition list.
-    * <p>
+    *
     * The complete set of transitions for this rules instance is defined by this method
     * and {@link #getTransitions()}. This method returns instances of {@link ZoneOffsetTransitionRule}
     * that define an algorithm for when transitions will occur.
-    * <p>
+    *
     * For any given {@code ZoneRules}, this list contains the transition rules for years
     * beyond those years that have been fully defined. These rules typically refer to future
     * daylight saving time rule changes.
-    * <p>
+    *
     * If the zone defines daylight savings into the future, then the list will normally
     * be of size two and hold information about entering and exiting daylight savings.
     * If the zone does not have daylight savings, or information about future changes
     * is uncertain, then the list will be empty.
-    * <p>
+    *
     * The list will be empty for fixed offset rules and for any time-zone where there is no
     * daylight saving time. The list will also be empty if the transition rules are unknown.
     *
@@ -395,11 +395,11 @@ abstract class ZoneRules private[zone]() {
 
   /**
     * Checks if this set of rules equals another.
-    * <p>
+    *
     * Two rule sets are equal if they will always result in the same output
     * for any given input instant or local date-time.
     * Rules from two different groups may return false even if they are in fact the same.
-    * <p>
+    *
     * This definition should result in implementations comparing their entire state.
     *
     * @param otherRules  the other rules, null returns false

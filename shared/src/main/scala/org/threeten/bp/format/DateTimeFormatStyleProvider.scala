@@ -63,7 +63,7 @@ abstract class DateTimeFormatStyleProvider {
 
   /**
     * Gets a localized date, time or date-time formatter.
-    * <p>
+    *
     * The formatter will be the most appropriate to use for the date and time style in the locale.
     * For example, some locales will use the month name while others will use the number.
     *

@@ -57,7 +57,7 @@ import org.threeten.bp.temporal.ValueRange
 object ChronoZonedDateTime {
   /** Gets a comparator that compares {@code ChronoZonedDateTime} in
     * time-line order ignoring the chronology.
-    * <p>
+    *
     * This comparator differs from the comparison in {@link #compareTo} in that it
     * only compares the underlying instant and not the chronology.
     * This allows dates in different calendar systems to be compared based
@@ -80,17 +80,17 @@ object ChronoZonedDateTime {
     }
 
   /** Obtains an instance of {@code ChronoZonedDateTime} from a temporal object.
-    * <p>
+    *
     * This creates a zoned date-time based on the specified temporal.
     * A {@code TemporalAccessor} represents an arbitrary set of date and time information,
     * which this factory converts to an instance of {@code ChronoZonedDateTime}.
-    * <p>
+    *
     * The conversion extracts and combines the chronology, date, time and zone
     * from the temporal object. The behavior is equivalent to using
     * {@link Chronology#zonedDateTime(TemporalAccessor)} with the extracted chronology.
     * Implementations are permitted to perform optimizations such as accessing
     * those fields that are equivalent to the relevant objects.
-    * <p>
+    *
     * This method matches the signature of the functional interface {@link TemporalQuery}
     * allowing it to be used as a query via method reference, {@code ChronoZonedDateTime::from}.
     *
@@ -114,10 +114,10 @@ object ChronoZonedDateTime {
 
 /** A date-time with a time-zone in an arbitrary chronology,
   * intended for advanced globalization use cases.
-  * <p>
+  *
   * <b>Most applications should declare method signatures, fields and variables
   * as {@link ZonedDateTime}, not this interface.</b>
-  * <p>
+  *
   * A {@code ChronoZonedDateTime} is the abstract representation of an offset date-time
   * where the {@code Chronology chronology}, or calendar system, is pluggable.
   * The date-time is defined in terms of fields expressed by {@link TemporalField},
@@ -129,7 +129,7 @@ object ChronoZonedDateTime {
   * The design of the API encourages the use of {@code ZonedDateTime} rather than this
   * interface, even in the case where the application needs to deal with multiple
   * calendar systems. The rationale for this is explored in detail in {@link ChronoLocalDate}.
-  * <p>
+  *
   * Ensure that the discussion in {@code ChronoLocalDate} has been read and understood
   * before using this interface.
   *
@@ -165,7 +165,7 @@ trait ChronoZonedDateTime[D <: ChronoLocalDate] extends Temporal with Ordered[Ch
     }
 
   /** Gets the local date part of this date-time.
-    * <p>
+    *
     * This returns a local date with the same year, month and day
     * as this date-time.
     *
@@ -174,7 +174,7 @@ trait ChronoZonedDateTime[D <: ChronoLocalDate] extends Temporal with Ordered[Ch
   def toLocalDate: D = toLocalDateTime.toLocalDate
 
   /** Gets the local time part of this date-time.
-    * <p>
+    *
     * This returns a local time with the same hour, minute, second and
     * nanosecond as this date-time.
     *
@@ -183,7 +183,7 @@ trait ChronoZonedDateTime[D <: ChronoLocalDate] extends Temporal with Ordered[Ch
   def toLocalTime: LocalTime = toLocalDateTime.toLocalTime
 
   /** Gets the local date-time part of this date-time.
-    * <p>
+    *
     * This returns a local date with the same year, month and day
     * as this date-time.
     *
@@ -192,7 +192,7 @@ trait ChronoZonedDateTime[D <: ChronoLocalDate] extends Temporal with Ordered[Ch
   def toLocalDateTime: ChronoLocalDateTime[D]
 
   /** Gets the chronology of this date-time.
-    * <p>
+    *
     * The {@code Chronology} represents the calendar system in use.
     * The era and other fields in {@link ChronoField} are defined by the chronology.
     *
@@ -201,7 +201,7 @@ trait ChronoZonedDateTime[D <: ChronoLocalDate] extends Temporal with Ordered[Ch
   def getChronology: Chronology = toLocalDate.getChronology
 
   /** Gets the zone offset, such as '+01:00'.
-    * <p>
+    *
     * This is the offset of the local date-time from UTC/Greenwich.
     *
     * @return the zone offset, not null
@@ -209,7 +209,7 @@ trait ChronoZonedDateTime[D <: ChronoLocalDate] extends Temporal with Ordered[Ch
   def getOffset: ZoneOffset
 
   /** Gets the zone ID, such as 'Europe/Paris'.
-    * <p>
+    *
     * This returns the stored time-zone id used to determine the time-zone rules.
     *
     * @return the zone ID, not null
@@ -218,15 +218,15 @@ trait ChronoZonedDateTime[D <: ChronoLocalDate] extends Temporal with Ordered[Ch
 
   /** Returns a copy of this date-time changing the zone offset to the
     * earlier of the two valid offsets at a local time-line overlap.
-    * <p>
+    *
     * This method only has any effect when the local time-line overlaps, such as
     * at an autumn daylight savings cutover. In this scenario, there are two
     * valid offsets for the local date-time. Calling this method will return
     * a zoned date-time with the earlier of the two selected.
-    * <p>
+    *
     * If this method is called when it is not an overlap, {@code this}
     * is returned.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @return a { @code ZoneChronoDateTime} based on this date-time with the earlier offset, not null
@@ -237,15 +237,15 @@ trait ChronoZonedDateTime[D <: ChronoLocalDate] extends Temporal with Ordered[Ch
 
   /** Returns a copy of this date-time changing the zone offset to the
     * later of the two valid offsets at a local time-line overlap.
-    * <p>
+    *
     * This method only has any effect when the local time-line overlaps, such as
     * at an autumn daylight savings cutover. In this scenario, there are two
     * valid offsets for the local date-time. Calling this method will return
     * a zoned date-time with the later of the two selected.
-    * <p>
+    *
     * If this method is called when it is not an overlap, {@code this}
     * is returned.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @return a { @code ChronoZonedDateTime} based on this date-time with the later offset, not null
@@ -256,13 +256,13 @@ trait ChronoZonedDateTime[D <: ChronoLocalDate] extends Temporal with Ordered[Ch
 
   /** Returns a copy of this ZonedDateTime with a different time-zone,
     * retaining the local date-time if possible.
-    * <p>
+    *
     * This method changes the time-zone and retains the local date-time.
     * The local date-time is only changed if it is invalid for the new zone.
-    * <p>
+    *
     * To change the zone and adjust the local date-time,
     * use {@link #withZoneSameInstant(ZoneId)}.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param zoneId  the time-zone to change to, not null
@@ -272,13 +272,13 @@ trait ChronoZonedDateTime[D <: ChronoLocalDate] extends Temporal with Ordered[Ch
 
   /** Returns a copy of this date-time with a different time-zone,
     * retaining the instant.
-    * <p>
+    *
     * This method changes the time-zone and retains the instant.
     * This normally results in a change to the local date-time.
-    * <p>
+    *
     * This method is based on retaining the same instant, thus gaps and overlaps
     * in the local time-line have no effect on the result.
-    * <p>
+    *
     * To change the offset while keeping the local time,
     * use {@link #withZoneSameLocal(ZoneId)}.
     *
@@ -332,7 +332,7 @@ trait ChronoZonedDateTime[D <: ChronoLocalDate] extends Temporal with Ordered[Ch
   }
 
   /** Converts this date-time to an {@code Instant}.
-    * <p>
+    *
     * This returns an {@code Instant} representing the same point on the
     * time-line as this date-time. The calculation combines the
     * {@linkplain #toLocalDateTime() local date-time} and
@@ -344,7 +344,7 @@ trait ChronoZonedDateTime[D <: ChronoLocalDate] extends Temporal with Ordered[Ch
 
   /** Converts this date-time to the number of seconds from the epoch
     * of 1970-01-01T00:00:00Z.
-    * <p>
+    *
     * This uses the {@linkplain #toLocalDateTime() local date-time} and
     * {@linkplain #getOffset() offset} to calculate the epoch-second value,
     * which is the number of elapsed seconds from 1970-01-01T00:00:00Z.
@@ -360,11 +360,11 @@ trait ChronoZonedDateTime[D <: ChronoLocalDate] extends Temporal with Ordered[Ch
   }
 
   /** Compares this date-time to another date-time, including the chronology.
-    * <p>
+    *
     * The comparison is based first on the instant, then on the local date-time,
     * then on the zone ID, then on the chronology.
     * It is "consistent with equals", as defined by {@link Comparable}.
-    * <p>
+    *
     * If all the date-time objects being compared are in the same chronology, then the
     * additional chronology stage is not required.
     *
@@ -388,7 +388,7 @@ trait ChronoZonedDateTime[D <: ChronoLocalDate] extends Temporal with Ordered[Ch
   }
 
   /** Checks if the instant of this date-time is after that of the specified date-time.
-    * <p>
+    *
     * This method differs from the comparison in {@link #compareTo} in that it
     * only compares the instant of the date-time. This is equivalent to using
     * {@code dateTime1.toInstant().isAfter(dateTime2.toInstant());}.
@@ -403,7 +403,7 @@ trait ChronoZonedDateTime[D <: ChronoLocalDate] extends Temporal with Ordered[Ch
   }
 
   /** Checks if the instant of this date-time is before that of the specified date-time.
-    * <p>
+    *
     * This method differs from the comparison in {@link #compareTo} in that it
     * only compares the instant of the date-time. This is equivalent to using
     * {@code dateTime1.toInstant().isBefore(dateTime2.toInstant());}.
@@ -418,7 +418,7 @@ trait ChronoZonedDateTime[D <: ChronoLocalDate] extends Temporal with Ordered[Ch
   }
 
   /** Checks if the instant of this date-time is equal to that of the specified date-time.
-    * <p>
+    *
     * This method differs from the comparison in {@link #compareTo} and {@link #equals}
     * in that it only compares the instant of the date-time. This is equivalent to using
     * {@code dateTime1.toInstant().equals(dateTime2.toInstant());}.
@@ -430,7 +430,7 @@ trait ChronoZonedDateTime[D <: ChronoLocalDate] extends Temporal with Ordered[Ch
     toEpochSecond == other.toEpochSecond && toLocalTime.getNano == other.toLocalTime.getNano
 
   /** Checks if this date-time is equal to another date-time.
-    * <p>
+    *
     * The comparison is based on the offset date-time and the zone.
     * To compare for the same instant on the time-line, use {@link #compareTo}.
     * Only objects of type {@code ChronoZoneDateTime} are compared, other types return false.
@@ -451,7 +451,7 @@ trait ChronoZonedDateTime[D <: ChronoLocalDate] extends Temporal with Ordered[Ch
   override def hashCode: Int = toLocalDateTime.hashCode ^ getOffset.hashCode ^ Integer.rotateLeft(getZone.hashCode, 3)
 
   /** Outputs this date-time as a {@code String}.
-    * <p>
+    *
     * The output will include the full zoned date-time and the chronology ID.
     *
     * @return a string representation of this date-time, not null

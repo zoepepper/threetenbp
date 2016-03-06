@@ -42,23 +42,23 @@ import org.threeten.bp.temporal.TemporalUnit
 
 /**
   * A date expressed in terms of a standard year-month-day calendar system.
-  * <p>
+  *
   * This class is used by applications seeking to handle dates in non-ISO calendar systems.
   * For example, the Japanese, Minguo, Thai Buddhist and others.
-  * <p>
+  *
   * {@code ChronoLocalDate} is built on the generic concepts of year, month and day.
   * The calendar system, represented by a {@link Chronology}, expresses the relationship between
   * the fields and this class allows the resulting date to be manipulated.
-  * <p>
+  *
   * Note that not all calendar systems are suitable for use with this class.
   * For example, the Mayan calendar uses a system that bears no relation to years, months and days.
-  * <p>
+  *
   * The API design encourages the use of {@code LocalDate} for the majority of the application.
   * This includes code to read and write from a persistent data store, such as a database,
   * and to send dates and times across a network. The {@code ChronoLocalDate} instance is then used
   * at the user interface level to deal with localized input/output.
   *
-  * <P>Example: </p>
+  *Example: </p>
   * <pre>
   * System.out.printf("Example()%n");
   * // Enumerate the list of available calendars and print today for each
@@ -88,11 +88,11 @@ import org.threeten.bp.temporal.TemporalUnit
   * </pre>
   *
   * <h4>Adding Calendars</h4>
-  * <p> The set of calendars is extensible by defining a subclass of {@link ChronoLocalDate}
+  * The set of calendars is extensible by defining a subclass of {@link ChronoLocalDate}
   * to represent a date instance and an implementation of {@code Chronology}
   * to be the factory for the ChronoLocalDate subclass.
   * </p>
-  * <p> To permit the discovery of the additional calendar types the implementation of
+  * To permit the discovery of the additional calendar types the implementation of
   * {@code Chronology} must be registered as a Service implementing the {@code Chronology} interface
   * in the {@code META-INF/Services} file as per the specification of {@link java.util.ServiceLoader}.
   * The subclass must function according to the {@code Chronology} class description and must provide its
@@ -136,12 +136,12 @@ abstract class ChronoDateImpl[D <: ChronoLocalDate] private[chrono]() extends Ch
 
   /**
     * Returns a copy of this date with the specified period in years added.
-    * <p>
+    *
     * This adds the specified period in years to the date.
     * In some cases, adding years can cause the resulting date to become invalid.
     * If this occurs, then other fields, typically the day-of-month, will be adjusted to ensure
     * that the result is valid. Typically this will select the last valid day of the month.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param yearsToAdd  the years to add, may be negative
@@ -152,12 +152,12 @@ abstract class ChronoDateImpl[D <: ChronoLocalDate] private[chrono]() extends Ch
 
   /**
     * Returns a copy of this date with the specified period in months added.
-    * <p>
+    *
     * This adds the specified period in months to the date.
     * In some cases, adding months can cause the resulting date to become invalid.
     * If this occurs, then other fields, typically the day-of-month, will be adjusted to ensure
     * that the result is valid. Typically this will select the last valid day of the month.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param monthsToAdd  the months to add, may be negative
@@ -168,13 +168,13 @@ abstract class ChronoDateImpl[D <: ChronoLocalDate] private[chrono]() extends Ch
 
   /**
     * Returns a copy of this date with the specified period in weeks added.
-    * <p>
+    *
     * This adds the specified period in weeks to the date.
     * In some cases, adding weeks can cause the resulting date to become invalid.
     * If this occurs, then other fields will be adjusted to ensure that the result is valid.
-    * <p>
+    *
     * The default implementation uses {@link #plusDays(long)} using a 7 day week.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param weeksToAdd  the weeks to add, may be negative
@@ -185,9 +185,9 @@ abstract class ChronoDateImpl[D <: ChronoLocalDate] private[chrono]() extends Ch
 
   /**
     * Returns a copy of this date with the specified number of days added.
-    * <p>
+    *
     * This adds the specified period in days to the date.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param daysToAdd  the days to add, may be negative
@@ -198,14 +198,14 @@ abstract class ChronoDateImpl[D <: ChronoLocalDate] private[chrono]() extends Ch
 
   /**
     * Returns a copy of this date with the specified period in years subtracted.
-    * <p>
+    *
     * This subtracts the specified period in years to the date.
     * In some cases, subtracting years can cause the resulting date to become invalid.
     * If this occurs, then other fields, typically the day-of-month, will be adjusted to ensure
     * that the result is valid. Typically this will select the last valid day of the month.
-    * <p>
+    *
     * The default implementation uses {@link #plusYears(long)}.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param yearsToSubtract  the years to subtract, may be negative
@@ -218,14 +218,14 @@ abstract class ChronoDateImpl[D <: ChronoLocalDate] private[chrono]() extends Ch
 
   /**
     * Returns a copy of this date with the specified period in months subtracted.
-    * <p>
+    *
     * This subtracts the specified period in months to the date.
     * In some cases, subtracting months can cause the resulting date to become invalid.
     * If this occurs, then other fields, typically the day-of-month, will be adjusted to ensure
     * that the result is valid. Typically this will select the last valid day of the month.
-    * <p>
+    *
     * The default implementation uses {@link #plusMonths(long)}.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param monthsToSubtract  the months to subtract, may be negative
@@ -238,13 +238,13 @@ abstract class ChronoDateImpl[D <: ChronoLocalDate] private[chrono]() extends Ch
 
   /**
     * Returns a copy of this date with the specified period in weeks subtracted.
-    * <p>
+    *
     * This subtracts the specified period in weeks to the date.
     * In some cases, subtracting weeks can cause the resulting date to become invalid.
     * If this occurs, then other fields will be adjusted to ensure that the result is valid.
-    * <p>
+    *
     * The default implementation uses {@link #plusWeeks(long)}.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param weeksToSubtract  the weeks to subtract, may be negative
@@ -257,11 +257,11 @@ abstract class ChronoDateImpl[D <: ChronoLocalDate] private[chrono]() extends Ch
 
   /**
     * Returns a copy of this date with the specified number of days subtracted.
-    * <p>
+    *
     * This subtracts the specified period in days to the date.
-    * <p>
+    *
     * The default implementation uses {@link #plusDays(long)}.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param daysToSubtract  the days to subtract, may be negative

@@ -84,7 +84,7 @@ object Duration {
 
   /**
     * Obtains an instance of {@code Duration} from a number of standard 24 hour days.
-    * <p>
+    *
     * The seconds are calculated based on the standard definition of a day,
     * where each day is 86400 seconds which implies a 24 hour day.
     * The nanosecond in second field is set to zero.
@@ -97,7 +97,7 @@ object Duration {
 
   /**
     * Obtains an instance of {@code Duration} from a number of standard length hours.
-    * <p>
+    *
     * The seconds are calculated based on the standard definition of an hour,
     * where each hour is 3600 seconds.
     * The nanosecond in second field is set to zero.
@@ -110,7 +110,7 @@ object Duration {
 
   /**
     * Obtains an instance of {@code Duration} from a number of standard length minutes.
-    * <p>
+    *
     * The seconds are calculated based on the standard definition of a minute,
     * where each minute is 60 seconds.
     * The nanosecond in second field is set to zero.
@@ -123,7 +123,7 @@ object Duration {
 
   /**
     * Obtains an instance of {@code Duration} from a number of seconds.
-    * <p>
+    *
     * The nanosecond in second field is set to zero.
     *
     * @param seconds  the number of seconds, positive or negative
@@ -134,7 +134,7 @@ object Duration {
   /**
     * Obtains an instance of {@code Duration} from a number of seconds
     * and an adjustment in nanoseconds.
-    * <p>
+    *
     * This method allows an arbitrary number of nanoseconds to be passed in.
     * The factory will alter the values of the second and nanosecond in order
     * to ensure that the stored nanosecond is in the range 0 to 999,999,999.
@@ -158,7 +158,7 @@ object Duration {
 
   /**
     * Obtains an instance of {@code Duration} from a number of milliseconds.
-    * <p>
+    *
     * The seconds and nanoseconds are extracted from the specified milliseconds.
     *
     * @param millis  the number of milliseconds, positive or negative
@@ -176,7 +176,7 @@ object Duration {
 
   /**
     * Obtains an instance of {@code Duration} from a number of nanoseconds.
-    * <p>
+    *
     * The seconds and nanoseconds are extracted from the specified nanoseconds.
     *
     * @param nanos  the number of nanoseconds, positive or negative
@@ -194,7 +194,7 @@ object Duration {
 
   /**
     * Obtains an instance of {@code Duration} from a duration in the specified unit.
-    * <p>
+    *
     * The parameters represent the two parts of a phrase like '6 Hours'. For example:
     * <pre>
     * Duration.of(3, SECONDS);
@@ -214,11 +214,11 @@ object Duration {
 
   /**
     * Obtains an instance of {@code Duration} from an amount.
-    * <p>
+    *
     * This obtains a duration based on the specified amount.
     * A TemporalAmount represents an amount of time, which may be date-based
     * or time-based, which this factory extracts to a duration.
-    * <p>
+    *
     * The conversion loops around the set of units from the amount and uses
     * the duration of the unit to calculate the total Duration.
     * Only a subset of units are accepted by this method.
@@ -242,13 +242,13 @@ object Duration {
 
   /**
     * Obtains an instance of {@code Duration} representing the duration between two instants.
-    * <p>
+    *
     * Obtains a {@code Duration} representing the duration between two instants.
     * This calculates the duration between two temporal objects of the same type.
     * The difference in seconds is calculated using {@link Temporal#until(Temporal, TemporalUnit)}.
     * The difference in nanoseconds is calculated using by querying the
     * {@link ChronoField#NANO_OF_SECOND NANO_OF_SECOND} field.
-    * <p>
+    *
     * The result of this method can be a negative period if the end is before the start.
     * To guarantee to obtain a positive duration call abs() on the result.
     *
@@ -286,12 +286,12 @@ object Duration {
 
   /**
     * Obtains a {@code Duration} from a text string such as {@code PnDTnHnMn.nS}.
-    * <p>
+    *
     * This will parse a textual representation of a duration, including the
     * string produced by {@code toString()}. The formats accepted are based
     * on the ISO-8601 duration format {@code PnDTnHnMn.nS} with days
     * considered to be exactly 24 hours.
-    * <p>
+    *
     * The string starts with an optional sign, denoted by the ASCII negative
     * or positive symbol. If negative, the whole period is negated.
     * The ASCII letter "P" is next in upper or lower case.
@@ -308,10 +308,10 @@ object Duration {
     * The number of seconds must parse to a {@code long} with optional fraction.
     * The decimal point may be either a dot or a comma.
     * The fractional part may have from zero to 9 digits.
-    * <p>
+    *
     * The leading plus/minus sign, and negative values for other units are
     * not part of the ISO-8601 standard.
-    * <p>
+    *
     * Examples:
     * <pre>
     * "PT20.345S" -> parses as "20.345 seconds"
@@ -442,22 +442,22 @@ object Duration {
 
 /**
   * A time-based amount of time, such as '34.5 seconds'.
-  * <p>
+  *
   * This class models a quantity or amount of time in terms of seconds and nanoseconds.
   * It can be accessed using other duration-based units, such as minutes and hours.
   * In addition, the {@link ChronoUnit#DAYS DAYS} unit can be used and is treated as
   * exactly equal to 24 hours, thus ignoring daylight savings effects.
   * See {@link Period} for the date-based equivalent to this class.
-  * <p>
+  *
   * A physical duration could be of infinite length.
   * For practicality, the duration is stored with constraints similar to {@link Instant}.
   * The duration uses nanosecond resolution with a maximum value of the seconds that can
   * be held in a {@code long}. This is greater than the current estimated age of the universe.
-  * <p>
+  *
   * The range of a duration requires the storage of a number larger than a {@code long}.
   * To achieve this, the class stores a {@code long} representing seconds and an {@code int}
   * representing nanosecond-of-second, which will always be between 0 and 999,999,999.
-  * <p>
+  *
   * The duration is measured in "seconds", but these are not necessarily identical to
   * the scientific "SI second" definition based on atomic clocks.
   * This difference only impacts durations measured near a leap-second and should not affect
@@ -487,7 +487,7 @@ final class Duration private(private val seconds: Long, private val nanos: Int) 
 
   /**
     * Checks if this duration is zero length.
-    * <p>
+    *
     * A {@code Duration} represents a directed distance between two points on
     * the time-line and can therefore be positive, zero or negative.
     * This method checks whether the length is zero.
@@ -498,7 +498,7 @@ final class Duration private(private val seconds: Long, private val nanos: Int) 
 
   /**
     * Checks if this duration is negative, excluding zero.
-    * <p>
+    *
     * A {@code Duration} represents a directed distance between two points on
     * the time-line and can therefore be positive, zero or negative.
     * This method checks whether the length is less than zero.
@@ -509,12 +509,12 @@ final class Duration private(private val seconds: Long, private val nanos: Int) 
 
   /**
     * Gets the number of seconds in this duration.
-    * <p>
+    *
     * The length of the duration is stored using two fields - seconds and nanoseconds.
     * The nanoseconds part is a value from 0 to 999,999,999 that is an adjustment to
     * the length in seconds.
     * The total duration is defined by calling this method and {@link #getNano()}.
-    * <p>
+    *
     * A {@code Duration} represents a directed distance between two points on the time-line.
     * A negative duration is expressed by the negative sign of the seconds part.
     * A duration of -1 nanosecond is stored as -1 seconds plus 999,999,999 nanoseconds.
@@ -525,12 +525,12 @@ final class Duration private(private val seconds: Long, private val nanos: Int) 
 
   /**
     * Gets the number of nanoseconds within the second in this duration.
-    * <p>
+    *
     * The length of the duration is stored using two fields - seconds and nanoseconds.
     * The nanoseconds part is a value from 0 to 999,999,999 that is an adjustment to
     * the length in seconds.
     * The total duration is defined by calling this method and {@link #getSeconds()}.
-    * <p>
+    *
     * A {@code Duration} represents a directed distance between two points on the time-line.
     * A negative duration is expressed by the negative sign of the seconds part.
     * A duration of -1 nanosecond is stored as -1 seconds plus 999,999,999 nanoseconds.
@@ -541,10 +541,10 @@ final class Duration private(private val seconds: Long, private val nanos: Int) 
 
   /**
     * Returns a copy of this duration with the specified amount of seconds.
-    * <p>
+    *
     * This returns a duration with the specified seconds, retaining the
     * nano-of-second part of this duration.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param seconds  the seconds to represent, may be negative
@@ -554,10 +554,10 @@ final class Duration private(private val seconds: Long, private val nanos: Int) 
 
   /**
     * Returns a copy of this duration with the specified nano-of-second.
-    * <p>
+    *
     * This returns a duration with the specified nano-of-second, retaining the
     * seconds part of this duration.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param nanoOfSecond  the nano-of-second to represent, from 0 to 999,999,999
@@ -571,7 +571,7 @@ final class Duration private(private val seconds: Long, private val nanos: Int) 
 
   /**
     * Returns a copy of this duration with the specified duration added.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param duration  the duration to add, positive or negative, not null
@@ -582,12 +582,12 @@ final class Duration private(private val seconds: Long, private val nanos: Int) 
 
   /**
     * Returns a copy of this duration with the specified duration added.
-    * <p>
+    *
     * The duration amount is measured in terms of the specified unit.
     * Only a subset of units are accepted by this method.
     * The unit must either have an {@link TemporalUnit#isDurationEstimated() exact duration} or
     * be {@link ChronoUnit#DAYS} which is treated as 24 hours. Other units throw an exception.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param amountToAdd  the amount of the period, measured in terms of the unit, positive or negative
@@ -623,7 +623,7 @@ final class Duration private(private val seconds: Long, private val nanos: Int) 
 
   /**
     * Returns a copy of this duration with the specified duration in 24 hour days added.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param daysToAdd  the days to add, positive or negative
@@ -636,7 +636,7 @@ final class Duration private(private val seconds: Long, private val nanos: Int) 
 
   /**
     * Returns a copy of this duration with the specified duration in hours added.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param hoursToAdd  the hours to add, positive or negative
@@ -649,7 +649,7 @@ final class Duration private(private val seconds: Long, private val nanos: Int) 
 
   /**
     * Returns a copy of this duration with the specified duration in minutes added.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param minutesToAdd  the minutes to add, positive or negative
@@ -662,7 +662,7 @@ final class Duration private(private val seconds: Long, private val nanos: Int) 
 
   /**
     * Returns a copy of this duration with the specified duration in seconds added.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param secondsToAdd  the seconds to add, positive or negative
@@ -675,7 +675,7 @@ final class Duration private(private val seconds: Long, private val nanos: Int) 
 
   /**
     * Returns a copy of this duration with the specified duration in milliseconds added.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param millisToAdd  the milliseconds to add, positive or negative
@@ -688,7 +688,7 @@ final class Duration private(private val seconds: Long, private val nanos: Int) 
 
   /**
     * Returns a copy of this duration with the specified duration in nanoseconds added.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param nanosToAdd  the nanoseconds to add, positive or negative
@@ -701,7 +701,7 @@ final class Duration private(private val seconds: Long, private val nanos: Int) 
 
   /**
     * Returns a copy of this duration with the specified duration added.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param secondsToAdd  the seconds to add, positive or negative
@@ -723,7 +723,7 @@ final class Duration private(private val seconds: Long, private val nanos: Int) 
 
   /**
     * Returns a copy of this duration with the specified duration subtracted.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param duration  the duration to subtract, positive or negative, not null
@@ -741,12 +741,12 @@ final class Duration private(private val seconds: Long, private val nanos: Int) 
 
   /**
     * Returns a copy of this duration with the specified duration subtracted.
-    * <p>
+    *
     * The duration amount is measured in terms of the specified unit.
     * Only a subset of units are accepted by this method.
     * The unit must either have an {@link TemporalUnit#isDurationEstimated() exact duration} or
     * be {@link ChronoUnit#DAYS} which is treated as 24 hours. Other units throw an exception.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param amountToSubtract  the amount of the period, measured in terms of the unit, positive or negative
@@ -759,7 +759,7 @@ final class Duration private(private val seconds: Long, private val nanos: Int) 
 
   /**
     * Returns a copy of this duration with the specified duration in 24 hour days subtracted.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param daysToSubtract  the days to subtract, positive or negative
@@ -771,7 +771,7 @@ final class Duration private(private val seconds: Long, private val nanos: Int) 
 
   /**
     * Returns a copy of this duration with the specified duration in hours subtracted.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param hoursToSubtract  the hours to subtract, positive or negative
@@ -783,7 +783,7 @@ final class Duration private(private val seconds: Long, private val nanos: Int) 
 
   /**
     * Returns a copy of this duration with the specified duration in minutes subtracted.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param minutesToSubtract  the minutes to subtract, positive or negative
@@ -795,7 +795,7 @@ final class Duration private(private val seconds: Long, private val nanos: Int) 
 
   /**
     * Returns a copy of this duration with the specified duration in seconds subtracted.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param secondsToSubtract  the seconds to subtract, positive or negative
@@ -807,7 +807,7 @@ final class Duration private(private val seconds: Long, private val nanos: Int) 
 
   /**
     * Returns a copy of this duration with the specified duration in milliseconds subtracted.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param millisToSubtract  the milliseconds to subtract, positive or negative
@@ -819,7 +819,7 @@ final class Duration private(private val seconds: Long, private val nanos: Int) 
 
   /**
     * Returns a copy of this duration with the specified duration in nanoseconds subtracted.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param nanosToSubtract  the nanoseconds to subtract, positive or negative
@@ -831,7 +831,7 @@ final class Duration private(private val seconds: Long, private val nanos: Int) 
 
   /**
     * Returns a copy of this duration multiplied by the scalar.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param multiplicand  the value to multiply the duration by, positive or negative
@@ -848,7 +848,7 @@ final class Duration private(private val seconds: Long, private val nanos: Int) 
 
   /**
     * Returns a copy of this duration divided by the specified value.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param divisor  the value to divide the duration by, positive or negative, not zero
@@ -874,10 +874,10 @@ final class Duration private(private val seconds: Long, private val nanos: Int) 
 
   /**
     * Returns a copy of this duration with the length negated.
-    * <p>
+    *
     * This method swaps the sign of the total length of this duration.
     * For example, {@code PT1.3S} will be returned as {@code PT-1.3S}.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @return a { @code Duration} based on this duration with the amount negated, not null
@@ -887,10 +887,10 @@ final class Duration private(private val seconds: Long, private val nanos: Int) 
 
   /**
     * Returns a copy of this duration with a positive length.
-    * <p>
+    *
     * This method returns a positive duration by effectively removing the sign from any negative total length.
     * For example, {@code PT-1.3S} will be returned as {@code PT1.3S}.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @return a { @code Duration} based on this duration with an absolute length, not null
@@ -900,10 +900,10 @@ final class Duration private(private val seconds: Long, private val nanos: Int) 
 
   /**
     * Adds this duration to the specified temporal object.
-    * <p>
+    *
     * This returns a temporal object of the same observable type as the input
     * with this duration added.
-    * <p>
+    *
     * In most cases, it is clearer to reverse the calling pattern by using
     * {@link Temporal#plus(TemporalAmount)}.
     * <pre>
@@ -911,10 +911,10 @@ final class Duration private(private val seconds: Long, private val nanos: Int) 
     * dateTime = thisDuration.addTo(dateTime);
     * dateTime = dateTime.plus(thisDuration);
     * </pre>
-    * <p>
+    *
     * The calculation will add the seconds, then nanos.
     * Only non-zero amounts will be added.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param temporal  the temporal object to adjust, not null
@@ -933,10 +933,10 @@ final class Duration private(private val seconds: Long, private val nanos: Int) 
 
   /**
     * Subtracts this duration from the specified temporal object.
-    * <p>
+    *
     * This returns a temporal object of the same observable type as the input
     * with this duration subtracted.
-    * <p>
+    *
     * In most cases, it is clearer to reverse the calling pattern by using
     * {@link Temporal#minus(TemporalAmount)}.
     * <pre>
@@ -944,10 +944,10 @@ final class Duration private(private val seconds: Long, private val nanos: Int) 
     * dateTime = thisDuration.subtractFrom(dateTime);
     * dateTime = dateTime.minus(thisDuration);
     * </pre>
-    * <p>
+    *
     * The calculation will subtract the seconds, then nanos.
     * Only non-zero amounts will be added.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param temporal  the temporal object to adjust, not null
@@ -966,11 +966,11 @@ final class Duration private(private val seconds: Long, private val nanos: Int) 
 
   /**
     * Gets the number of days in this duration.
-    * <p>
+    *
     * This returns the total number of days in the duration by dividing the
     * number of seconds by 86400.
     * This is based on the standard definition of a day as 24 hours.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @return the number of days in the duration, may be negative
@@ -979,10 +979,10 @@ final class Duration private(private val seconds: Long, private val nanos: Int) 
 
   /**
     * Gets the number of hours in this duration.
-    * <p>
+    *
     * This returns the total number of hours in the duration by dividing the
     * number of seconds by 3600.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @return the number of hours in the duration, may be negative
@@ -991,10 +991,10 @@ final class Duration private(private val seconds: Long, private val nanos: Int) 
 
   /**
     * Gets the number of minutes in this duration.
-    * <p>
+    *
     * This returns the total number of minutes in the duration by dividing the
     * number of seconds by 60.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @return the number of minutes in the duration, may be negative
@@ -1003,10 +1003,10 @@ final class Duration private(private val seconds: Long, private val nanos: Int) 
 
   /**
     * Converts this duration to the total length in milliseconds.
-    * <p>
+    *
     * If this duration is too large to fit in a {@code long} milliseconds, then an
     * exception is thrown.
-    * <p>
+    *
     * If this duration has greater than millisecond precision, then the conversion
     * will drop any excess precision information as though the amount in nanoseconds
     * was subject to integer division by one million.
@@ -1021,7 +1021,7 @@ final class Duration private(private val seconds: Long, private val nanos: Int) 
 
   /**
     * Converts this duration to the total length in nanoseconds expressed as a {@code long}.
-    * <p>
+    *
     * If this duration is too large to fit in a {@code long} nanoseconds, then an
     * exception is thrown.
     *
@@ -1035,7 +1035,7 @@ final class Duration private(private val seconds: Long, private val nanos: Int) 
 
   /**
     * Compares this duration to the specified {@code Duration}.
-    * <p>
+    *
     * The comparison is based on the total length of the durations.
     * It is "consistent with equals", as defined by {@link Comparable}.
     *
@@ -1052,7 +1052,7 @@ final class Duration private(private val seconds: Long, private val nanos: Int) 
 
   /**
     * Checks if this duration is equal to the specified {@code Duration}.
-    * <p>
+    *
     * The comparison is based on the total length of the durations.
     *
     * @param other  the other duration, null returns false
@@ -1074,13 +1074,13 @@ final class Duration private(private val seconds: Long, private val nanos: Int) 
   /**
     * A string representation of this duration using ISO-8601 seconds
     * based representation, such as {@code PT8H6M12.345S}.
-    * <p>
+    *
     * The format of the returned string will be {@code PTnHnMnS}, where n is
     * the relevant hours, minutes or seconds part of the duration.
     * Any fractional seconds are placed after a decimal point i the seconds section.
     * If a section has a zero value, it is omitted.
     * The hours, minutes and seconds will all have the same sign.
-    * <p>
+    *
     * Examples:
     * <pre>
     * "20.345 seconds"                 -> "PT20.345S

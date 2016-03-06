@@ -35,17 +35,17 @@ import org.threeten.bp.DateTimeException
 
 /**
   * Strategy for querying a temporal object.
-  * <p>
+  *
   * Queries are a key tool for extracting information from temporal objects.
   * They exist to externalize the process of querying, permitting different
   * approaches, as per the strategy design pattern.
   * Examples might be a query that checks if the date is the day before February 29th
   * in a leap year, or calculates the number of days to your next birthday.
-  * <p>
+  *
   * The {@link TemporalField} interface provides another mechanism for querying
   * temporal objects. That interface is limited to returning a {@code long}.
   * By contrast, queries can return any type.
-  * <p>
+  *
   * There are two equivalent ways of using a {@code TemporalQuery}.
   * The first is to invoke the method on this interface directly.
   * The second is to use {@link TemporalAccessor#query(TemporalQuery)}:
@@ -56,7 +56,7 @@ import org.threeten.bp.DateTimeException
   * </pre>
   * It is recommended to use the second approach, {@code query(TemporalQuery)},
   * as it is a lot clearer to read in code.
-  * <p>
+  *
   * The most common implementations are method references, such as
   * {@code LocalDate::from} and {@code ZoneId::from}.
   * Further implementations are on {@link TemporalQueries}.
@@ -69,12 +69,12 @@ import org.threeten.bp.DateTimeException
 trait TemporalQuery[+R] {
   /**
     * Queries the specified temporal object.
-    * <p>
+    *
     * This queries the specified temporal object to return an object using the logic
     * encapsulated in the implementing class.
     * Examples might be a query that checks if the date is the day before February 29th
     * in a leap year, or calculates the number of days to your next birthday.
-    * <p>
+    *
     * There are two equivalent ways of using this method.
     * The first is to invoke this method directly.
     * The second is to use {@link TemporalAccessor#query(TemporalQuery)}:
@@ -92,11 +92,11 @@ trait TemporalQuery[+R] {
     * documenting that logic.
     * It may use any method on {@code TemporalAccessor} to determine the result.
     * The input object must not be altered.
-    * <p>
+    *
     * The input temporal object may be in a calendar system other than ISO.
     * Implementations may choose to document compatibility with other calendar systems,
     * or reject non-ISO temporal objects by {@link TemporalQueries#chronology() querying the chronology}.
-    * <p>
+    *
     * This method may be called from multiple threads in parallel.
     * It must be thread-safe when invoked.
     *

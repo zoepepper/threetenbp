@@ -64,10 +64,10 @@ object JapaneseDate {
 
   /**
     * Obtains the current {@code JapaneseDate} from the system clock in the default time-zone.
-    * <p>
+    *
     * This will query the {@link Clock#systemDefaultZone() system clock} in the default
     * time-zone to obtain the current date.
-    * <p>
+    *
     * Using this method will prevent the ability to use an alternate clock for testing
     * because the clock is hard-coded.
     *
@@ -77,10 +77,10 @@ object JapaneseDate {
 
   /**
     * Obtains the current {@code JapaneseDate} from the system clock in the specified time-zone.
-    * <p>
+    *
     * This will query the {@link Clock#system(ZoneId) system clock} to obtain the current date.
     * Specifying the time-zone avoids dependence on the default time-zone.
-    * <p>
+    *
     * Using this method will prevent the ability to use an alternate clock for testing
     * because the clock is hard-coded.
     *
@@ -91,7 +91,7 @@ object JapaneseDate {
 
   /**
     * Obtains the current {@code JapaneseDate} from the specified clock.
-    * <p>
+    *
     * This will query the specified clock to obtain the current date - today.
     * Using this method allows the use of an alternate clock for testing.
     * The alternate clock may be introduced using {@linkplain Clock dependency injection}.
@@ -105,10 +105,10 @@ object JapaneseDate {
   /**
     * Obtains a {@code JapaneseDate} representing a date in the Japanese calendar
     * system from the era, year-of-era, month-of-year and day-of-month fields.
-    * <p>
+    *
     * This returns a {@code JapaneseDate} with the specified fields.
     * The day must be valid for the year and month, otherwise an exception will be thrown.
-    * <p>
+    *
     * The Japanese month and day-of-month are the same as those in the
     * ISO calendar system. They are not reset when the era changes.
     * For example:
@@ -145,7 +145,7 @@ object JapaneseDate {
   /**
     * Obtains a {@code JapaneseDate} representing a date in the Japanese calendar
     * system from the era, year-of-era and day-of-year fields.
-    * <p>
+    *
     * This returns a {@code JapaneseDate} with the specified fields.
     * The day must be valid for the year, otherwise an exception will be thrown.
     * The Japanese day-of-year is reset when the era changes.
@@ -179,10 +179,10 @@ object JapaneseDate {
   /**
     * Obtains a {@code JapaneseDate} representing a date in the Japanese calendar
     * system from the proleptic-year, month-of-year and day-of-month fields.
-    * <p>
+    *
     * This returns a {@code JapaneseDate} with the specified fields.
     * The day must be valid for the year and month, otherwise an exception will be thrown.
-    * <p>
+    *
     * The Japanese proleptic year, month and day-of-month are the same as those
     * in the ISO calendar system. They are not reset when the era changes.
     *
@@ -198,14 +198,14 @@ object JapaneseDate {
 
   /**
     * Obtains a {@code JapaneseDate} from a temporal object.
-    * <p>
+    *
     * This obtains a date in the Japanese calendar system based on the specified temporal.
     * A {@code TemporalAccessor} represents an arbitrary set of date and time information,
     * which this factory converts to an instance of {@code JapaneseDate}.
-    * <p>
+    *
     * The conversion typically uses the {@link ChronoField#EPOCH_DAY EPOCH_DAY}
     * field, which is standardized across calendar systems.
-    * <p>
+    *
     * This method matches the signature of the functional interface {@link TemporalQuery}
     * allowing it to be used as a query via method reference, {@code JapaneseDate::from}.
     *
@@ -225,17 +225,17 @@ object JapaneseDate {
 }
 
 /** A date in the Japanese Imperial calendar system.
-  * <p>
+  *
   * This date operates using the {@linkplain JapaneseChronology Japanese Imperial calendar}.
   * This calendar system is primarily used in Japan.
-  * <p>
+  *
   * The Japanese Imperial calendar system is the same as the ISO calendar system
   * apart from the era-based year numbering. The proleptic-year is defined to be
   * equal to the ISO proleptic-year.
-  * <p>
+  *
   * Japan introduced the Gregorian calendar starting with Meiji 6.
   * Only Meiji and later eras are supported.
-  * <p>
+  *
   * For example, the Japanese year "Heisei 24" corresponds to ISO year "2012".<br>
   * Calling {@code japaneseDate.get(YEAR_OF_ERA)} will return 24.<br>
   * Calling {@code japaneseDate.get(YEAR)} will return 2012.<br>
@@ -298,11 +298,11 @@ final class JapaneseDate private[chrono](@transient private var era: JapaneseEra
 
   /**
     * Checks if the specified field is supported.
-    * <p>
+    *
     * This checks if this date can be queried for the specified field.
     * If false, then calling the {@link #range(TemporalField) range} and
     * {@link #get(TemporalField) get} methods will throw an exception.
-    * <p>
+    *
     * If the field is a {@link ChronoField} then the query is implemented here.
     * The supported fields are:
     * <ul>
@@ -317,7 +317,7 @@ final class JapaneseDate private[chrono](@transient private var era: JapaneseEra
     * <li>{@code ERA}
     * </ul>
     * All other {@code ChronoField} instances will return false.
-    * <p>
+    *
     * If the field is not a {@code ChronoField}, then the result of this method
     * is obtained by invoking {@code TemporalField.isSupportedBy(TemporalAccessor)}
     * passing {@code this} as the argument.
@@ -429,11 +429,11 @@ final class JapaneseDate private[chrono](@transient private var era: JapaneseEra
 
   /**
     * Returns a copy of this date with the year altered.
-    * <p>
+    *
     * This method changes the year of the date.
     * If the month-day is invalid for the year, then the previous valid day
     * will be selected instead.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param era  the era to set in the result, not null
@@ -448,11 +448,11 @@ final class JapaneseDate private[chrono](@transient private var era: JapaneseEra
 
   /**
     * Returns a copy of this date with the year-of-era altered.
-    * <p>
+    *
     * This method changes the year-of-era of the date.
     * If the month-day is invalid for the year, then the previous valid day
     * will be selected instead.
-    * <p>
+    *
     * This instance is immutable and unaffected by this method call.
     *
     * @param year  the year to set in the returned date

@@ -52,20 +52,20 @@ import org.threeten.bp.format.ResolverStyle
 
 /** Fields and units specific to the ISO-8601 calendar system,
   * including quarter-of-year and week-based-year.
-  * <p>
+  *
   * This class defines fields and units that are specific to the ISO calendar system.
   *
   * <h3>Quarter of year</h3>
   * The ISO-8601 standard is based on the standard civic 12 month year.
   * This is commonly divided into four quarters, often abbreviated as Q1, Q2, Q3 and Q4.
-  * <p>
+  *
   * January, February and March are in Q1.
   * April, May and June are in Q2.
   * July, August and September are in Q3.
   * October, November and December are in Q4.
-  * <p>
+  *
   * The complete date is expressed using three fields:
-  * <p><ul>
+  *<ul>
   * <li>{@link #DAY_OF_QUARTER DAY_OF_QUARTER} - the day within the quarter, from 1 to 90, 91 or 92
   * <li>{@link #QUARTER_OF_YEAR QUARTER_OF_YEAR} - the week within the week-based-year
   * <li>{@link ChronoField#YEAR YEAR} - the standard ISO year
@@ -75,9 +75,9 @@ import org.threeten.bp.format.ResolverStyle
   * The ISO-8601 standard was originally intended as a data interchange format,
   * defining a string format for dates and times. However, it also defines an
   * alternate way of expressing the date, based on the concept of week-based-year.
-  * <p>
+  *
   * The date is expressed using three fields:
-  * <p><ul>
+  *<ul>
   * <li>{@link ChronoField#DAY_OF_WEEK DAY_OF_WEEK} - the standard field defining the
   * day-of-week from Monday (1) to Sunday (7)
   * <li>{@link #WEEK_OF_WEEK_BASED_YEAR} - the week within the week-based-year
@@ -85,10 +85,10 @@ import org.threeten.bp.format.ResolverStyle
   * </ul><p>
   * The week-based-year itself is defined relative to the standard ISO proleptic year.
   * It differs from the standard year in that it always starts on a Monday.
-  * <p>
+  *
   * The first week of a week-based-year is the first Monday-based week of the standard
   * ISO year that has at least 4 days in the new year.
-  * <p><ul>
+  *<ul>
   * <li>If January 1st is Monday then week 1 starts on January 1st
   * <li>If January 1st is Tuesday then week 1 starts on December 31st of the previous standard year
   * <li>If January 1st is Wednesday then week 1 starts on December 30th of the previous standard year
@@ -98,9 +98,9 @@ import org.threeten.bp.format.ResolverStyle
   * <li>If January 1st is Sunday then week 1 starts on January 2nd
   * </ul><p>
   * There are 52 weeks in most week-based years, however on occasion there are 53 weeks.
-  * <p>
+  *
   * For example:
-  * <p>
+  *
   * <table cellpadding="0" cellspacing="3" border="0" style="text-align: left; width: 50%;">
   * <caption>Examples of Week based Years</caption>
   * <tr><th>Date</th><th>Day-of-week</th><th>Field values</th></tr>
@@ -113,68 +113,68 @@ import org.threeten.bp.format.ResolverStyle
   * </table>
   *
   * <h3>Specification for implementors</h3>
-  * <p>
+  *
   * This class is immutable and thread-safe.
   */
 object IsoFields {
   /** The field that represents the day-of-quarter.
-    * <p>
+    *
     * This field allows the day-of-quarter value to be queried and set.
     * The day-of-quarter has values from 1 to 90 in Q1 of a standard year, from 1 to 91
     * in Q1 of a leap year, from 1 to 91 in Q2 and from 1 to 92 in Q3 and Q4.
-    * <p>
+    *
     * The day-of-quarter can only be calculated if the day-of-year, month-of-year and year
     * are available.
-    * <p>
+    *
     * When setting this field, the value is allowed to be partially lenient, taking any
     * value from 1 to 92. If the quarter has less than 92 days, then day 92, and
     * potentially day 91, is in the following quarter.
-    * <p>
+    *
     * This unit is an immutable and thread-safe singleton.
     */
   val DAY_OF_QUARTER: TemporalField = Field.DAY_OF_QUARTER
   /** The field that represents the quarter-of-year.
-    * <p>
+    *
     * This field allows the quarter-of-year value to be queried and set.
     * The quarter-of-year has values from 1 to 4.
-    * <p>
+    *
     * The day-of-quarter can only be calculated if the month-of-year is available.
-    * <p>
+    *
     * This unit is an immutable and thread-safe singleton.
     */
   val QUARTER_OF_YEAR: TemporalField = Field.QUARTER_OF_YEAR
   /** The field that represents the week-of-week-based-year.
-    * <p>
+    *
     * This field allows the week of the week-based-year value to be queried and set.
-    * <p>
+    *
     * This unit is an immutable and thread-safe singleton.
     */
   val WEEK_OF_WEEK_BASED_YEAR: TemporalField = Field.WEEK_OF_WEEK_BASED_YEAR
   /** The field that represents the week-based-year.
-    * <p>
+    *
     * This field allows the week-based-year value to be queried and set.
-    * <p>
+    *
     * This unit is an immutable and thread-safe singleton.
     */
   val WEEK_BASED_YEAR: TemporalField = Field.WEEK_BASED_YEAR
   /** The unit that represents week-based-years for the purpose of addition and subtraction.
-    * <p>
+    *
     * This allows a number of week-based-years to be added to, or subtracted from, a date.
     * The unit is equal to either 52 or 53 weeks.
     * The estimated duration of a week-based-year is the same as that of a standard ISO
     * year at {@code 365.2425 Days}.
-    * <p>
+    *
     * The rules for addition add the number of week-based-years to the existing value
     * for the week-based-year field. If the resulting week-based-year only has 52 weeks,
     * then the date will be in week 1 of the following week-based-year.
-    * <p>
+    *
     * This unit is an immutable and thread-safe singleton.
     */
   val WEEK_BASED_YEARS: TemporalUnit = Unit.WEEK_BASED_YEARS
   /** Unit that represents the concept of a quarter-year.
     * For the ISO calendar system, it is equal to 3 months.
     * The estimated duration of a quarter-year is one quarter of {@code 365.2425 Days}.
-    * <p>
+    *
     * This unit is an immutable and thread-safe singleton.
     */
   val QUARTER_YEARS: TemporalUnit = Unit.QUARTER_YEARS

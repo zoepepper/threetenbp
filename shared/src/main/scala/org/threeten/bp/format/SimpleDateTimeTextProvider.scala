@@ -47,7 +47,7 @@ import org.threeten.bp.temporal.TemporalField
 
 /**
   * The Service Provider Implementation to obtain date-time text for a field.
-  * <p>
+  *
   * This implementation is based on extraction of data from a {@link DateFormatSymbols}.
   *
   * <h3>Specification for implementors</h3>
@@ -81,11 +81,11 @@ object SimpleDateTimeTextProvider {
 
   /**
     * Stores the text for a single locale.
-    * <p>
+    *
     * Some fields have a textual representation, such as day-of-week or month-of-year.
     * These textual representations can be captured in this class for printing
     * and parsing.
-    * <p>
+    *
     * This class is immutable and thread-safe.
     *
     * @constructor
@@ -136,7 +136,7 @@ object SimpleDateTimeTextProvider {
 
     /**
       * Gets an iterator of text to field for the specified style for the purpose of parsing.
-      * <p>
+      *
       * The iterator must be returned in order from the longest text to the shortest.
       *
       * @param style  the style to get text for, null for all parsable text

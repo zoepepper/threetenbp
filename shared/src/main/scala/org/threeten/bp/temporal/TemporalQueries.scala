@@ -41,14 +41,14 @@ import org.threeten.bp.ZoneOffset
 import org.threeten.bp.chrono.Chronology
 
 /** Common implementations of {@code TemporalQuery}.
-  * <p>
+  *
   * This class provides common implementations of {@link TemporalQuery}.
   * These queries are primarily used as optimizations, allowing the internals
   * of other objects to be extracted effectively. Note that application code
   * can also use the {@code from(TemporalAccessor)} method on most temporal
   * objects as a method reference matching the query interface, such as
   * {@code LocalDate::from} and {@code ZoneId::from}.
-  * <p>
+  *
   * There are two equivalent ways of using a {@code TemporalQuery}.
   * The first is to invoke the method on the interface directly.
   * The second is to use {@link TemporalAccessor#query(TemporalQuery)}:
@@ -66,16 +66,16 @@ import org.threeten.bp.chrono.Chronology
   */
 object TemporalQueries {
   /** A strict query for the {@code ZoneId}.
-    * <p>
+    *
     * This queries a {@code TemporalAccessor} for the zone.
     * The zone is only returned if the date-time conceptually contains a {@code ZoneId}.
     * It will not be returned if the date-time only conceptually has an {@code ZoneOffset}.
     * Thus a {@link ZonedDateTime} will return the result of
     * {@code getZone()}, but an {@link OffsetDateTime} will
     * return null.
-    * <p>
+    *
     * In most cases, applications should use {@link #ZONE} as this query is too strict.
-    * <p>
+    *
     * The result from JDK classes implementing {@code TemporalAccessor} is as follows:<br>
     * {@code LocalDate} returns null<br>
     * {@code LocalTime} returns null<br>
@@ -104,13 +104,13 @@ object TemporalQueries {
   }
 
   /** A query for the {@code Chronology}.
-    * <p>
+    *
     * This queries a {@code TemporalAccessor} for the chronology.
     * If the target {@code TemporalAccessor} represents a date, or part of a date,
     * then it should return the chronology that the date is expressed in.
     * As a result of this definition, objects only representing time, such as
     * {@code LocalTime}, will return null.
-    * <p>
+    *
     * The result from JDK classes implementing {@code TemporalAccessor} is as follows:<br>
     * {@code LocalDate} returns {@code IsoChronology.INSTANCE}<br>
     * {@code LocalTime} returns null (does not represent a date)<br>
@@ -129,7 +129,7 @@ object TemporalQueries {
     * {@code MonthDay} returns null {@code IsoChronology.INSTANCE}<br>
     * {@code ZoneOffset} returns null (does not represent a date)<br>
     * {@code Instant} returns null (does not represent a date)<br>
-    * <p>
+    *
     * The method {@link Chronology#from(TemporalAccessor)} can be used as a
     * {@code TemporalQuery} via a method reference, {@code Chrono::from}.
     * That method is equivalent to this query, except that it throws an
@@ -144,7 +144,7 @@ object TemporalQueries {
   }
 
   /** A query for the smallest supported unit.
-    * <p>
+    *
     * This queries a {@code TemporalAccessor} for the time precision.
     * If the target {@code TemporalAccessor} represents a consistent or complete date-time,
     * date or time then this must return the smallest precision actually supported.
@@ -153,7 +153,7 @@ object TemporalQueries {
     * way to find the actual smallest supported unit.
     * For example, were {@code GregorianCalendar} to implement {@code TemporalAccessor}
     * it would return a precision of {@code MILLIS}.
-    * <p>
+    *
     * The result from JDK classes implementing {@code TemporalAccessor} is as follows:<br>
     * {@code LocalDate} returns {@code DAYS}<br>
     * {@code LocalTime} returns {@code NANOS}<br>
@@ -182,16 +182,16 @@ object TemporalQueries {
   }
 
   /** A lenient query for the {@code ZoneId}, falling back to the {@code ZoneOffset}.
-    * <p>
+    *
     * This queries a {@code TemporalAccessor} for the zone.
     * It first tries to obtain the zone, using {@link #zoneId()}.
     * If that is not found it tries to obtain the {@link #offset()}.
-    * <p>
+    *
     * In most cases, applications should use this query rather than {@code #zoneId()}.
-    * <p>
+    *
     * This query examines the {@link ChronoField#OFFSET_SECONDS offset-seconds}
     * field and uses it to create a {@code ZoneOffset}.
-    * <p>
+    *
     * The method {@link ZoneId#from(TemporalAccessor)} can be used as a
     * {@code TemporalQuery} via a method reference, {@code ZoneId::from}.
     * That method is equivalent to this query, except that it throws an
@@ -209,11 +209,11 @@ object TemporalQueries {
   }
 
   /** A query for {@code ZoneOffset} returning null if not found.
-    * <p>
+    *
     * This returns a {@code TemporalQuery} that can be used to query a temporal
     * object for the offset. The query will return null if the temporal
     * object cannot supply an offset.
-    * <p>
+    *
     * The query implementation examines the {@link ChronoField#OFFSET_SECONDS OFFSET_SECONDS}
     * field and uses it to create a {@code ZoneOffset}.
     *
@@ -230,11 +230,11 @@ object TemporalQueries {
   }
 
   /** A query for {@code LocalDate} returning null if not found.
-    * <p>
+    *
     * This returns a {@code TemporalQuery} that can be used to query a temporal
     * object for the local date. The query will return null if the temporal
     * object cannot supply a local date.
-    * <p>
+    *
     * The query implementation examines the {@link ChronoField#EPOCH_DAY EPOCH_DAY}
     * field and uses it to create a {@code LocalDate}.
     *
@@ -251,11 +251,11 @@ object TemporalQueries {
   }
 
   /** A query for {@code LocalTime} returning null if not found.
-    * <p>
+    *
     * This returns a {@code TemporalQuery} that can be used to query a temporal
     * object for the local time. The query will return null if the temporal
     * object cannot supply a local time.
-    * <p>
+    *
     * The query implementation examines the {@link ChronoField#NANO_OF_DAY NANO_OF_DAY}
     * field and uses it to create a {@code LocalTime}.
     *
