@@ -141,7 +141,7 @@ object Month {
     */
   def of(month: Int): Month =
     if (month < 1 || month > 12)
-      throw new DateTimeException("Invalid value for MonthOfYear: " + month)
+      throw new DateTimeException(s"Invalid value for MonthOfYear: $month")
     else
       ENUMS(month - 1)
 
@@ -171,7 +171,7 @@ object Month {
       of(_temporal.get(MONTH_OF_YEAR))
     } catch {
       case ex: DateTimeException =>
-        throw new DateTimeException("Unable to obtain Month from TemporalAccessor: " + _temporal + ", type " + _temporal.getClass.getName, ex)
+        throw new DateTimeException(s"Unable to obtain Month from TemporalAccessor: ${_temporal}, type ${_temporal.getClass.getName}", ex)
     }
   }
 }
@@ -250,7 +250,7 @@ final class Month private(name: String, ordinal: Int) extends Enum[Month](name, 
     if (field eq MONTH_OF_YEAR)
       field.range
     else if (field.isInstanceOf[ChronoField])
-      throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
+      throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
     else
       field.rangeRefinedBy(this)
 
@@ -307,7 +307,7 @@ final class Month private(name: String, ordinal: Int) extends Enum[Month](name, 
     if (field eq MONTH_OF_YEAR)
       getValue
     else if (field.isInstanceOf[ChronoField])
-      throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
+      throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
     else
       field.getFrom(this)
 

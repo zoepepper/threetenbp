@@ -54,7 +54,7 @@ final class ChronoPeriodImpl(private val chronology: Chronology, private val yea
     if (unit eq YEARS) years
     else if (unit eq MONTHS) months
     else if (unit eq DAYS) days
-    else throw new UnsupportedTemporalTypeException("Unsupported unit: " + unit)
+    else throw new UnsupportedTemporalTypeException(s"Unsupported unit: $unit")
 
   def getUnits: java.util.List[TemporalUnit] = Collections.unmodifiableList(Arrays.asList[TemporalUnit](YEARS, MONTHS, DAYS))
 
@@ -63,26 +63,23 @@ final class ChronoPeriodImpl(private val chronology: Chronology, private val yea
   def plus(amountToAdd: TemporalAmount): ChronoPeriod = {
     if (amountToAdd.isInstanceOf[ChronoPeriodImpl]) {
       val amount: ChronoPeriodImpl = amountToAdd.asInstanceOf[ChronoPeriodImpl]
-      if (amount.getChronology == getChronology) {
+      if (amount.getChronology == getChronology)
         return new ChronoPeriodImpl(chronology, Math.addExact(years, amount.years), Math.addExact(months, amount.months), Math.addExact(days, amount.days))
-      }
     }
-    throw new DateTimeException("Unable to add amount: " + amountToAdd)
+    throw new DateTimeException(s"Unable to add amount: $amountToAdd")
   }
 
   def minus(amountToSubtract: TemporalAmount): ChronoPeriod = {
     if (amountToSubtract.isInstanceOf[ChronoPeriodImpl]) {
       val amount: ChronoPeriodImpl = amountToSubtract.asInstanceOf[ChronoPeriodImpl]
-      if (amount.getChronology == getChronology) {
+      if (amount.getChronology == getChronology)
         return new ChronoPeriodImpl(chronology, Math.subtractExact(years, amount.years), Math.subtractExact(months, amount.months), Math.subtractExact(days, amount.days))
-      }
     }
-    throw new DateTimeException("Unable to subtract amount: " + amountToSubtract)
+    throw new DateTimeException(s"Unable to subtract amount: $amountToSubtract")
   }
 
-  def multipliedBy(scalar: Int): ChronoPeriod = {
+  def multipliedBy(scalar: Int): ChronoPeriod =
     new ChronoPeriodImpl(chronology, Math.multiplyExact(years, scalar), Math.multiplyExact(months, scalar), Math.multiplyExact(days, scalar))
-  }
 
   def normalized: ChronoPeriod = {
     if (chronology.range(ChronoField.MONTH_OF_YEAR).isFixed) {
@@ -99,18 +96,14 @@ final class ChronoPeriodImpl(private val chronology: Chronology, private val yea
     Objects.requireNonNull(temporal, "temporal")
     var _temporal = temporal
     val temporalChrono: Chronology = _temporal.query(TemporalQueries.chronology)
-    if (temporalChrono != null && !(chronology == temporalChrono)) {
-      throw new DateTimeException("Invalid chronology, required: " + chronology.getId + ", but was: " + temporalChrono.getId)
-    }
-    if (years != 0) {
+    if (temporalChrono != null && !(chronology == temporalChrono))
+      throw new DateTimeException(s"Invalid chronology, required: ${chronology.getId}, but was: ${temporalChrono.getId}")
+    if (years != 0)
       _temporal = _temporal.plus(years, YEARS)
-    }
-    if (months != 0) {
+    if (months != 0)
       _temporal = _temporal.plus(months, MONTHS)
-    }
-    if (days != 0) {
+    if (days != 0)
       _temporal = _temporal.plus(days, DAYS)
-    }
     _temporal
   }
 
@@ -118,18 +111,14 @@ final class ChronoPeriodImpl(private val chronology: Chronology, private val yea
     Objects.requireNonNull(temporal, "temporal")
     var _temporal = temporal
     val temporalChrono: Chronology = _temporal.query(TemporalQueries.chronology)
-    if (temporalChrono != null && !(chronology == temporalChrono)) {
-      throw new DateTimeException("Invalid chronology, required: " + chronology.getId + ", but was: " + temporalChrono.getId)
-    }
-    if (years != 0) {
+    if (temporalChrono != null && !(chronology == temporalChrono))
+      throw new DateTimeException(s"Invalid chronology, required: ${chronology.getId}, but was: ${temporalChrono.getId}")
+    if (years != 0)
       _temporal = _temporal.minus(years, YEARS)
-    }
-    if (months != 0) {
+    if (months != 0)
       _temporal = _temporal.minus(months, MONTHS)
-    }
-    if (days != 0) {
+    if (days != 0)
       _temporal = _temporal.minus(days, DAYS)
-    }
     _temporal
   }
 
@@ -146,15 +135,12 @@ final class ChronoPeriodImpl(private val chronology: Chronology, private val yea
     else {
       val buf: StringBuilder = new StringBuilder
       buf.append(chronology).append(' ').append('P')
-      if (years != 0) {
+      if (years != 0)
         buf.append(years).append('Y')
-      }
-      if (months != 0) {
+      if (months != 0)
         buf.append(months).append('M')
-      }
-      if (days != 0) {
+      if (days != 0)
         buf.append(days).append('D')
-      }
       buf.toString
     }
 }

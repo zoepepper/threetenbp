@@ -334,7 +334,7 @@ object LocalDateTime {
     }
     catch {
       case ex: DateTimeException =>
-        throw new DateTimeException("Unable to obtain LocalDateTime from TemporalAccessor: " + temporal + ", type " + temporal.getClass.getName)
+        throw new DateTimeException(s"Unable to obtain LocalDateTime from TemporalAccessor: $temporal, type ${temporal.getClass.getName}")
     }
   }
 
@@ -1350,7 +1350,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
                             return Math.addExact(amount, timeUntil / NANOS_PER_HOUR)
           case HALF_DAYS => amount = Math.multiplyExact(amount, 2)
                             return Math.addExact(amount, timeUntil / (NANOS_PER_HOUR * 12))
-          case _         => throw new UnsupportedTemporalTypeException("Unsupported unit: " + unit)
+          case _         => throw new UnsupportedTemporalTypeException(s"Unsupported unit: $unit")
 
         }
       }

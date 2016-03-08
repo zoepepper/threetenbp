@@ -258,7 +258,7 @@ final class ThaiBuddhistChronology private() extends Chronology with Serializabl
       else if (era.longValue == 0L)
         updateResolveMap(fieldValues, YEAR, Math.subtractExact(1, yoeLong))
       else
-        throw new DateTimeException("Invalid value for era: " + era)
+        throw new DateTimeException(s"Invalid value for era: $era")
     }
     else if (fieldValues.containsKey(ERA))
       ERA.checkValidValue(fieldValues.get(ERA))

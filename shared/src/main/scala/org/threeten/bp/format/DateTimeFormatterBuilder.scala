@@ -317,7 +317,7 @@ object DateTimeFormatterBuilder {
         return false
       val len: Int = buf.length - preLen
       if (len > padWidth)
-        throw new DateTimeException("Cannot print as output of " + len + " characters exceeds pad width of " + padWidth)
+        throw new DateTimeException(s"Cannot print as output of $len characters exceeds pad width of $padWidth")
       var i: Int = 0
       while (i < padWidth - len) {
         buf.insert(preLen, padChar)
@@ -351,7 +351,7 @@ object DateTimeFormatterBuilder {
       resultPos
     }
 
-    override def toString: String = "Pad(" + printerParser + "," + padWidth + (if (padChar == ' ') ")" else ",'" + padChar + "')")
+    override def toString: String = s"Pad($printerParser,$padWidth${(if (padChar == ' ') ")" else ",'" + padChar + "')")}"
   }
 
   /** Enumeration to apply simple parse settings. */
@@ -440,7 +440,7 @@ object DateTimeFormatterBuilder {
 
     override def toString: String = {
       val converted: String = literal.replace("'", "''")
-      "'" + converted + "'"
+      s"'$converted'"
     }
   }
 
@@ -922,7 +922,7 @@ object DateTimeFormatterBuilder {
 
     override def toString: String = {
       val decimal: String = if (decimalPoint) ",DecimalPoint" else ""
-      "Fraction(" + field + "," + minWidth + "," + maxWidth + decimal + ")"
+      s"Fraction($field,$minWidth,$maxWidth$decimal)"
     }
   }
 
@@ -989,9 +989,9 @@ object DateTimeFormatterBuilder {
 
     override def toString: String =
       if (textStyle eq TextStyle.FULL)
-        "Text(" + field + ")"
+        s"Text($field)"
       else
-        "Text(" + field + "," + textStyle + ")"
+        s"Text($field,$textStyle)"
   }
 
   /** Prints or parses an ISO-8601 instant. */
@@ -1005,12 +1005,10 @@ object DateTimeFormatterBuilder {
     def print(context: DateTimePrintContext, buf: StringBuilder): Boolean = {
       val inSecs: java.lang.Long = context.getValue(INSTANT_SECONDS)
       var inNanos: Long = 0L
-      if (context.getTemporal.isSupported(NANO_OF_SECOND)) {
+      if (context.getTemporal.isSupported(NANO_OF_SECOND))
         inNanos = context.getTemporal.getLong(NANO_OF_SECOND)
-      }
-      if (inSecs == null) {
+      if (inSecs == null)
         return false
-      }
       val inSec: Long = inSecs
       var inNano: Int = NANO_OF_SECOND.checkValidIntValue(inNanos)
       if (inSec >= -InstantPrinterParser.SECONDS_0000_TO_1970) {
@@ -1018,13 +1016,11 @@ object DateTimeFormatterBuilder {
         val hi: Long = Math.floorDiv(zeroSecs, InstantPrinterParser.SECONDS_PER_10000_YEARS) + 1
         val lo: Long = Math.floorMod(zeroSecs, InstantPrinterParser.SECONDS_PER_10000_YEARS)
         val ldt: LocalDateTime = LocalDateTime.ofEpochSecond(lo - InstantPrinterParser.SECONDS_0000_TO_1970, 0, ZoneOffset.UTC)
-        if (hi > 0) {
+        if (hi > 0)
           buf.append('+').append(hi)
-        }
         buf.append(ldt)
-        if (ldt.getSecond == 0) {
+        if (ldt.getSecond == 0)
           buf.append(":00")
-        }
       }
       else {
         val zeroSecs: Long = inSec + InstantPrinterParser.SECONDS_0000_TO_1970
@@ -1033,9 +1029,8 @@ object DateTimeFormatterBuilder {
         val ldt: LocalDateTime = LocalDateTime.ofEpochSecond(lo - InstantPrinterParser.SECONDS_0000_TO_1970, 0, ZoneOffset.UTC)
         val pos: Int = buf.length
         buf.append(ldt)
-        if (ldt.getSecond == 0) {
+        if (ldt.getSecond == 0)
           buf.append(":00")
-        }
         if (hi < 0) {
           if (ldt.getYear == -10000)
             buf.replace(pos, pos + 2, java.lang.Long.toString(hi - 1))
@@ -1048,15 +1043,12 @@ object DateTimeFormatterBuilder {
       if (fractionalDigits == -2) {
         if (inNano != 0) {
           buf.append('.')
-          if (inNano % 1000000 == 0) {
+          if (inNano % 1000000 == 0)
             buf.append(Integer.toString((inNano / 1000000) + 1000).substring(1))
-          }
-          else if (inNano % 1000 == 0) {
+          else if (inNano % 1000 == 0)
             buf.append(Integer.toString((inNano / 1000) + 1000000).substring(1))
-          }
-          else {
+          else
             buf.append(Integer.toString(inNano + 1000000000).substring(1))
-          }
         }
       }
       else if (fractionalDigits > 0 || (fractionalDigits == -1 && inNano > 0)) {
@@ -1081,9 +1073,8 @@ object DateTimeFormatterBuilder {
       val maxDigits: Int = if (fractionalDigits < 0) 9 else fractionalDigits
       val parser: DateTimeFormatterBuilder.CompositePrinterParser = new DateTimeFormatterBuilder().append(DateTimeFormatter.ISO_LOCAL_DATE).appendLiteral('T').appendValue(HOUR_OF_DAY, 2).appendLiteral(':').appendValue(MINUTE_OF_HOUR, 2).appendLiteral(':').appendValue(SECOND_OF_MINUTE, 2).appendFraction(NANO_OF_SECOND, minDigits, maxDigits, true).appendLiteral('Z').toFormatter.toPrinterParser(false)
       val pos: Int = parser.parse(newContext, text, position)
-      if (pos < 0) {
+      if (pos < 0)
         return pos
-      }
       val yearParsed: Long = newContext.getParsed(YEAR)
       val month: Int = newContext.getParsed(MONTH_OF_YEAR).intValue
       val day: Int = newContext.getParsed(DAY_OF_MONTH).intValue
@@ -1144,7 +1135,7 @@ object DateTimeFormatterBuilder {
           return i
         i += 1
       }
-      throw new IllegalArgumentException("Invalid zone offset pattern: " + pattern)
+      throw new IllegalArgumentException(s"Invalid zone offset pattern: $pattern")
     }
 
     def print(context: DateTimePrintContext, buf: StringBuilder): Boolean = {
@@ -1251,7 +1242,7 @@ object DateTimeFormatterBuilder {
 
     override def toString: String = {
       val converted: String = noOffsetText.replace("'", "''")
-      "Offset(" + OffsetIdPrinterParser.PATTERNS(`type`) + ",'" + converted + "')"
+      s"Offset(${OffsetIdPrinterParser.PATTERNS(`type`)},'$converted')"
     }
   }
 
@@ -1416,7 +1407,7 @@ object DateTimeFormatterBuilder {
       ~position
     }
 
-    override def toString: String = "ZoneText(" + textStyle + ")"
+    override def toString: String = s"ZoneText($textStyle)"
   }
 
   /** Prints or parses a zone ID. */
@@ -1706,7 +1697,7 @@ object DateTimeFormatterBuilder {
       DateTimeFormatStyleProvider.getInstance.getFormatter(dateStyle, timeStyle, chrono, locale)
 
     override def toString: String =
-      "Localized(" + (if (dateStyle != null) dateStyle else "") + "," + (if (timeStyle != null) timeStyle else "") + ")"
+      s"Localized(${(if (dateStyle != null) dateStyle else "")},${(if (timeStyle != null) timeStyle else "")})"
   }
 
   /** Prints or parses a localized pattern. */
@@ -1978,7 +1969,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
   def appendValue(field: TemporalField, width: Int): DateTimeFormatterBuilder = {
     Objects.requireNonNull(field, "field")
     if (width < 1 || width > 19)
-      throw new IllegalArgumentException("The width must be from 1 to 19 inclusive but was " + width)
+      throw new IllegalArgumentException(s"The width must be from 1 to 19 inclusive but was $width")
     val pp: DateTimeFormatterBuilder.NumberPrinterParser = new DateTimeFormatterBuilder.NumberPrinterParser(field, width, width, SignStyle.NOT_NEGATIVE)
     appendValue(pp)
     this
@@ -2018,11 +2009,11 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     Objects.requireNonNull(field, "field")
     Objects.requireNonNull(signStyle, "signStyle")
     if (minWidth < 1 || minWidth > 19)
-      throw new IllegalArgumentException("The minimum width must be from 1 to 19 inclusive but was " + minWidth)
+      throw new IllegalArgumentException(s"The minimum width must be from 1 to 19 inclusive but was $minWidth")
     if (maxWidth < 1 || maxWidth > 19)
-      throw new IllegalArgumentException("The maximum width must be from 1 to 19 inclusive but was " + maxWidth)
+      throw new IllegalArgumentException(s"The maximum width must be from 1 to 19 inclusive but was $maxWidth")
     if (maxWidth < minWidth)
-      throw new IllegalArgumentException("The maximum width must exceed or equal the minimum width but " + maxWidth + " < " + minWidth)
+      throw new IllegalArgumentException(s"The maximum width must exceed or equal the minimum width but $maxWidth < $minWidth")
     val pp: DateTimeFormatterBuilder.NumberPrinterParser = new DateTimeFormatterBuilder.NumberPrinterParser(field, minWidth, maxWidth, signStyle)
     appendValue(pp)
     this
@@ -2347,7 +2338,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     */
   def appendInstant(fractionalDigits: Int): DateTimeFormatterBuilder =
     if (fractionalDigits < -1 || fractionalDigits > 9)
-      throw new IllegalArgumentException("Invalid fractional digits: " + fractionalDigits)
+      throw new IllegalArgumentException(s"Invalid fractional digits: $fractionalDigits")
     else {
       appendInternal(new DateTimeFormatterBuilder.InstantPrinterParser(fractionalDigits))
       this
@@ -2922,7 +2913,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
             }
           }
           if (pad == 0)
-            throw new IllegalArgumentException("Pad letter 'p' must be followed by valid pad pattern: " + pattern)
+            throw new IllegalArgumentException(s"Pad letter 'p' must be followed by valid pad pattern: $pattern")
           padNext(pad)
         }
         val field: TemporalField = DateTimeFormatterBuilder.FIELD_MAP.get(cur)
@@ -2930,7 +2921,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
           parseField(cur, count, field)
         else if (cur == 'z') {
           if (count > 4)
-            throw new IllegalArgumentException("Too many pattern letters: " + cur)
+            throw new IllegalArgumentException(s"Too many pattern letters: $cur")
           else if (count == 4)
             appendZoneText(TextStyle.FULL)
           else
@@ -2938,7 +2929,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
         }
         else if (cur == 'V') {
           if (count != 2)
-            throw new IllegalArgumentException("Pattern letter count must be 2: " + cur)
+            throw new IllegalArgumentException(s"Pattern letter count must be 2: $cur")
           appendZoneId
         }
         else if (cur == 'Z') {
@@ -2949,7 +2940,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
           else if (count == 5)
             appendOffset("+HH:MM:ss", "Z")
           else
-            throw new IllegalArgumentException("Too many pattern letters: " + cur)
+            throw new IllegalArgumentException(s"Too many pattern letters: $cur")
         }
         else if (cur == 'O') {
           if (count == 1)
@@ -2957,34 +2948,34 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
           else if (count == 4)
             appendLocalizedOffset(TextStyle.FULL)
           else
-            throw new IllegalArgumentException("Pattern letter count must be 1 or 4: " + cur)
+            throw new IllegalArgumentException(s"Pattern letter count must be 1 or 4: $cur")
         }
         else if (cur == 'X') {
           if (count > 5)
-            throw new IllegalArgumentException("Too many pattern letters: " + cur)
+            throw new IllegalArgumentException(s"Too many pattern letters: $cur")
           appendOffset(DateTimeFormatterBuilder.OffsetIdPrinterParser.PATTERNS(count + (if (count == 1) 0 else 1)), "Z")
         }
         else if (cur == 'x') {
           if (count > 5)
-            throw new IllegalArgumentException("Too many pattern letters: " + cur)
+            throw new IllegalArgumentException(s"Too many pattern letters: $cur")
           val zero: String = if (count == 1) "+00" else if (count % 2 == 0) "+0000" else "+00:00"
           appendOffset(DateTimeFormatterBuilder.OffsetIdPrinterParser.PATTERNS(count + (if (count == 1) 0 else 1)), zero)
         }
         else if (cur == 'W') {
           if (count > 1)
-            throw new IllegalArgumentException("Too many pattern letters: " + cur)
+            throw new IllegalArgumentException(s"Too many pattern letters: $cur")
           appendInternal(new DateTimeFormatterBuilder.WeekFieldsPrinterParser('W', count))
         }
         else if (cur == 'w') {
           if (count > 2)
-            throw new IllegalArgumentException("Too many pattern letters: " + cur)
+            throw new IllegalArgumentException(s"Too many pattern letters: $cur")
           appendInternal(new DateTimeFormatterBuilder.WeekFieldsPrinterParser('w', count))
         }
         else if (cur == 'Y') {
           appendInternal(new DateTimeFormatterBuilder.WeekFieldsPrinterParser('Y', count))
         }
         else {
-          throw new IllegalArgumentException("Unknown pattern letter: " + cur)
+          throw new IllegalArgumentException(s"Unknown pattern letter: $cur")
         }
         pos -= 1
       }
@@ -3002,9 +2993,8 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
             pos += 1
           }
         }
-        if (pos >= pattern.length) {
-          throw new IllegalArgumentException("Pattern ends with an incomplete string literal: " + pattern)
-        }
+        if (pos >= pattern.length)
+          throw new IllegalArgumentException(s"Pattern ends with an incomplete string literal: $pattern")
         val str: String = pattern.substring(start + 1, pos)
         if (str.length == 0)
           appendLiteral('\'')
@@ -3019,7 +3009,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
         optionalEnd()
       }
       else if (cur == '{' || cur == '}' || cur == '#')
-        throw new IllegalArgumentException("Pattern includes reserved character: '" + cur + "'")
+        throw new IllegalArgumentException(s"Pattern includes reserved character: '$cur'")
       else
         appendLiteral(cur)
       pos += 1
@@ -3048,7 +3038,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
           case 5 =>
             appendText(field, TextStyle.NARROW)
           case _ =>
-            throw new IllegalArgumentException("Too many pattern letters: " + cur)
+            throw new IllegalArgumentException(s"Too many pattern letters: $cur")
         }
       case 'L' | 'q' =>
         count match {
@@ -3063,7 +3053,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
           case 5 =>
             appendText(field, TextStyle.NARROW_STANDALONE)
           case _ =>
-            throw new IllegalArgumentException("Too many pattern letters: " + cur)
+            throw new IllegalArgumentException(s"Too many pattern letters: $cur")
         }
       case 'e' =>
         count match {
@@ -3076,14 +3066,14 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
           case 5 =>
             appendText(field, TextStyle.NARROW)
           case _ =>
-            throw new IllegalArgumentException("Too many pattern letters: " + cur)
+            throw new IllegalArgumentException(s"Too many pattern letters: $cur")
         }
       case 'c' =>
         count match {
           case 1 =>
             appendInternal(new DateTimeFormatterBuilder.WeekFieldsPrinterParser('c', count))
           case 2 =>
-            throw new IllegalArgumentException("Invalid number of pattern letters: " + cur)
+            throw new IllegalArgumentException(s"Invalid number of pattern letters: $cur")
           case 3 =>
             appendText(field, TextStyle.SHORT_STANDALONE)
           case 4 =>
@@ -3091,13 +3081,13 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
           case 5 =>
             appendText(field, TextStyle.NARROW_STANDALONE)
           case _ =>
-            throw new IllegalArgumentException("Too many pattern letters: " + cur)
+            throw new IllegalArgumentException(s"Too many pattern letters: $cur")
         }
       case 'a' =>
         if (count == 1)
           appendText(field, TextStyle.SHORT)
         else
-          throw new IllegalArgumentException("Too many pattern letters: " + cur)
+          throw new IllegalArgumentException(s"Too many pattern letters: $cur")
       case 'E' | 'G' =>
         count match {
           case 1 | 2 | 3 =>
@@ -3107,7 +3097,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
           case 5 =>
             appendText(field, TextStyle.NARROW)
           case _ =>
-            throw new IllegalArgumentException("Too many pattern letters: " + cur)
+            throw new IllegalArgumentException(s"Too many pattern letters: $cur")
         }
       case 'S' =>
         appendFraction(NANO_OF_SECOND, count, count, false)
@@ -3115,21 +3105,21 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
         if (count == 1)
           appendValue(field)
         else
-          throw new IllegalArgumentException("Too many pattern letters: " + cur)
+          throw new IllegalArgumentException(s"Too many pattern letters: $cur")
       case 'd' | 'h' | 'H' | 'k' | 'K' | 'm' | 's' =>
         if (count == 1)
           appendValue(field)
         else if (count == 2)
           appendValue(field, count)
         else
-          throw new IllegalArgumentException("Too many pattern letters: " + cur)
+          throw new IllegalArgumentException(s"Too many pattern letters: $cur")
       case 'D' =>
         if (count == 1)
           appendValue(field)
         else if (count <= 3)
           appendValue(field, count)
         else
-          throw new IllegalArgumentException("Too many pattern letters: " + cur)
+          throw new IllegalArgumentException(s"Too many pattern letters: $cur")
       case _ =>
         if (count == 1)
           appendValue(field)
@@ -3180,7 +3170,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
     */
   def padNext(padWidth: Int, padChar: Char): DateTimeFormatterBuilder = {
     if (padWidth < 1)
-      throw new IllegalArgumentException("The pad width must be at least one but was " + padWidth)
+      throw new IllegalArgumentException(s"The pad width must be at least one but was $padWidth")
     active.padNextWidth = padWidth
     active.padNextChar = padChar
     active.valueParserIndex = -1

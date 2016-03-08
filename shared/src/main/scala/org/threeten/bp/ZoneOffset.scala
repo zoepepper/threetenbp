@@ -118,7 +118,7 @@ object ZoneOffset {
 
     // If we get a two character code such as "-9", pad the digits to "-09" and parse normally
     if (_offsetId.length == 2)
-      _offsetId = _offsetId.charAt(0) + "0" + _offsetId.charAt(1)
+      _offsetId = s"${_offsetId.charAt(0)}0${_offsetId.charAt(1)}"
 
     _offsetId.length match {
       case 3 =>
@@ -436,7 +436,7 @@ final class ZoneOffset private(private val totalSeconds: Int) extends ZoneId wit
     if (field eq OFFSET_SECONDS)
       field.range
     else if (field.isInstanceOf[ChronoField])
-      throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
+      throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
     else
       field.rangeRefinedBy(this)
 
@@ -465,7 +465,7 @@ final class ZoneOffset private(private val totalSeconds: Int) extends ZoneId wit
     if (field eq OFFSET_SECONDS)
       totalSeconds
     else if (field.isInstanceOf[ChronoField])
-      throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
+      throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
     else
       range(field).checkValidIntValue(getLong(field), field)
 
@@ -493,7 +493,7 @@ final class ZoneOffset private(private val totalSeconds: Int) extends ZoneId wit
     if (field eq OFFSET_SECONDS)
       totalSeconds
     else if (field.isInstanceOf[ChronoField])
-      throw new DateTimeException("Unsupported field: " + field)
+      throw new DateTimeException(s"Unsupported field: $field")
     else
       field.getFrom(this)
 
@@ -607,8 +607,7 @@ final class ZoneOffset private(private val totalSeconds: Int) extends ZoneId wit
     val offsetSecs: Int = totalSeconds
     val offsetByte: Int = if (offsetSecs % 900 == 0) offsetSecs / 900 else 127
     out.writeByte(offsetByte)
-    if (offsetByte == 127) {
+    if (offsetByte == 127)
       out.writeInt(offsetSecs)
-    }
   }
 }

@@ -94,16 +94,13 @@ object ChronoLocalDate {
     * @see Chronology#date(TemporalAccessor)
     */
   def from(temporal: TemporalAccessor): ChronoLocalDate = {
-    var _temporal = temporal
-    Objects.requireNonNull(_temporal, "temporal")
-    if (_temporal.isInstanceOf[ChronoLocalDate]) {
-      return _temporal.asInstanceOf[ChronoLocalDate]
-    }
-    val chrono: Chronology = _temporal.query(TemporalQueries.chronology)
-    if (chrono == null) {
-      throw new DateTimeException("No Chronology found to create ChronoLocalDate: " + _temporal.getClass)
-    }
-    chrono.date(_temporal)
+    Objects.requireNonNull(temporal, "temporal")
+    if (temporal.isInstanceOf[ChronoLocalDate])
+      return temporal.asInstanceOf[ChronoLocalDate]
+    val chrono: Chronology = temporal.query(TemporalQueries.chronology)
+    if (chrono == null)
+      throw new DateTimeException(s"No Chronology found to create ChronoLocalDate: ${temporal.getClass}")
+    chrono.date(temporal)
   }
 }
 
@@ -346,7 +343,7 @@ trait ChronoLocalDate extends Temporal with TemporalAdjuster with Ordered[Chrono
   override def minus(amountToSubtract: Long, unit: TemporalUnit): ChronoLocalDate =
     getChronology.ensureChronoLocalDate(super.minus(amountToSubtract, unit))
 
-  override def query[R >: Null](query: TemporalQuery[R]): R = {
+  override def query[R >: Null](query: TemporalQuery[R]): R =
     if (query eq TemporalQueries.chronology)
       getChronology.asInstanceOf[R]
     else if (query eq TemporalQueries.precision)
@@ -357,7 +354,6 @@ trait ChronoLocalDate extends Temporal with TemporalAdjuster with Ordered[Chrono
       null
     else
       super.query(query)
-  }
 
   def adjustInto(temporal: Temporal): Temporal = temporal.`with`(EPOCH_DAY, toEpochDay)
 

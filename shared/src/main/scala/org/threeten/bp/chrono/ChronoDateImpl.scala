@@ -75,7 +75,7 @@ import org.threeten.bp.temporal.TemporalUnit
   * int year = date.get(ChronoField.YEAR);
   * System.out.printf("  Today is %s %s %d-%s-%d%n", date.getChrono().getID(),
   * dow, day, month, year);
-
+  *
   * // Print today's date and the last day of the year
   * ChronoLocalDate now1 = Chrono.of("Hijrah").dateNow();
   * ChronoLocalDate first = now1.with(ChronoField.DAY_OF_MONTH, 1)
@@ -113,24 +113,18 @@ abstract class ChronoDateImpl[D <: ChronoLocalDate] private[chrono]() extends Ch
       val f: ChronoUnit = unit.asInstanceOf[ChronoUnit]
       import ChronoUnit._
       f match {
-        case DAYS =>
-          return plusDays(amountToAdd)
-        case WEEKS =>
-          return plusDays(Math.multiplyExact(amountToAdd, 7))
-        case MONTHS =>
-          return plusMonths(amountToAdd)
-        case YEARS =>
-          return plusYears(amountToAdd)
-        case DECADES =>
-          return plusYears(Math.multiplyExact(amountToAdd, 10))
-        case CENTURIES =>
-          return plusYears(Math.multiplyExact(amountToAdd, 100))
-        case MILLENNIA =>
-          return plusYears(Math.multiplyExact(amountToAdd, 1000))
+        case DAYS      => plusDays(amountToAdd)
+        case WEEKS     => plusDays(Math.multiplyExact(amountToAdd, 7))
+        case MONTHS    => plusMonths(amountToAdd)
+        case YEARS     => plusYears(amountToAdd)
+        case DECADES   => plusYears(Math.multiplyExact(amountToAdd, 10))
+        case CENTURIES => plusYears(Math.multiplyExact(amountToAdd, 100))
+        case MILLENNIA => plusYears(Math.multiplyExact(amountToAdd, 1000))
+        case _         => throw new DateTimeException(s"$unit not valid for chronology ${getChronology.getId}")
       }
-      throw new DateTimeException(unit + " not valid for chronology " + getChronology.getId)
+    } else {
+      getChronology.ensureChronoLocalDate(unit.addTo(this, amountToAdd)).asInstanceOf[ChronoDateImpl[D]]
     }
-    getChronology.ensureChronoLocalDate(unit.addTo(this, amountToAdd)).asInstanceOf[ChronoDateImpl[D]]
   }
 
   /** Returns a copy of this date with the specified period in years added.
@@ -267,10 +261,10 @@ abstract class ChronoDateImpl[D <: ChronoLocalDate] private[chrono]() extends Ch
 
   def until(endExclusive: Temporal, unit: TemporalUnit): Long = {
     val end: ChronoLocalDate = getChronology.date(endExclusive)
-    if (unit.isInstanceOf[ChronoUnit]) {
-      return LocalDate.from(this).until(end, unit)
-    }
-    unit.between(this, end)
+    if (unit.isInstanceOf[ChronoUnit])
+      LocalDate.from(this).until(end, unit)
+    else
+      unit.between(this, end)
   }
 
   def until(endDate: ChronoLocalDate): ChronoPeriod =

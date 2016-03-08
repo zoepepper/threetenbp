@@ -66,7 +66,7 @@ private object ZoneRegion {
     */
   private def ofLenient(zoneId: String): ZoneRegion = {
     if ((zoneId == "Z") || zoneId.startsWith("+") || zoneId.startsWith("-")) {
-      throw new DateTimeException("Invalid ID for region-based ZoneId, invalid format: " + zoneId)
+      throw new DateTimeException(s"Invalid ID for region-based ZoneId, invalid format: $zoneId")
     }
     if ((zoneId == "UTC") || (zoneId == "GMT") || (zoneId == "UT")) {
       return new ZoneRegion(zoneId, ZoneOffset.UTC.getRules)
@@ -83,7 +83,7 @@ private object ZoneRegion {
       if (offset.getTotalSeconds == 0) {
         return new ZoneRegion("UT", offset.getRules)
       }
-      return new ZoneRegion("UT" + offset.getId, offset.getRules)
+      return new ZoneRegion(s"UT${offset.getId}", offset.getRules)
     }
     ofId(zoneId, false)
   }
@@ -98,9 +98,8 @@ private object ZoneRegion {
     */
   private[bp] def ofId(zoneId: String, checkAvailable: Boolean): ZoneRegion = {
     Objects.requireNonNull(zoneId, "zoneId")
-    if (zoneId.length < 2 || !PATTERN.matcher(zoneId).matches) {
-      throw new DateTimeException("Invalid ID for region-based ZoneId, invalid format: " + zoneId)
-    }
+    if (zoneId.length < 2 || !PATTERN.matcher(zoneId).matches)
+      throw new DateTimeException(s"Invalid ID for region-based ZoneId, invalid format: $zoneId")
     var rules: ZoneRules = null
     try {
       rules = ZoneRulesProvider.getRules(zoneId, true)

@@ -409,7 +409,7 @@ class ZoneRulesBuilder() {
       */
     private[zone] def validateWindowOrder(previous: ZoneRulesBuilder#TZWindow): Unit =
       if (windowEnd.isBefore(previous.windowEnd))
-        throw new IllegalStateException("Windows must be added in date-time order: " + windowEnd + " < " + previous.windowEnd)
+        throw new IllegalStateException(s"Windows must be added in date-time order: $windowEnd < ${previous.windowEnd}")
 
     /** Adds rules to make the last rules all start from the same year.
       * Also add one more year to avoid weird case where penultimate year has odd offset.
@@ -418,9 +418,8 @@ class ZoneRulesBuilder() {
       * @throws IllegalStateException if there is only one rule defined as being forever
       */
     private[zone] def tidy(windowStartYear: Int): Unit = {
-      if (lastRuleList.size == 1) {
+      if (lastRuleList.size == 1)
         throw new IllegalStateException("Cannot have only one rule defined as being forever")
-      }
       if (windowEnd == LocalDateTime.MAX) {
         maxLastRuleStartYear = Math.max(maxLastRuleStartYear, windowStartYear) + 1
         import scala.collection.JavaConversions._
@@ -428,12 +427,10 @@ class ZoneRulesBuilder() {
           addRule(lastRule.year, maxLastRuleStartYear, lastRule.month, lastRule.dayOfMonthIndicator, lastRule.dayOfWeek, lastRule.time, lastRule.timeEndOfDay, lastRule.timeDefinition, lastRule.savingAmountSecs)
           lastRule.year = maxLastRuleStartYear + 1
         }
-        if (maxLastRuleStartYear == Year.MAX_VALUE) {
+        if (maxLastRuleStartYear == Year.MAX_VALUE)
           lastRuleList.clear()
-        }
-        else {
+        else
           maxLastRuleStartYear += 1
-        }
       }
       else {
         val endYear: Int = windowEnd.getYear

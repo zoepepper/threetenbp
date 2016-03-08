@@ -102,7 +102,7 @@ object ChronoLocalDateTime {
       return temporal.asInstanceOf[ChronoLocalDateTime[_]]
     val chrono: Chronology = temporal.query(TemporalQueries.chronology)
     if (chrono == null)
-      throw new DateTimeException("No Chronology found to create ChronoLocalDateTime: " + temporal.getClass)
+      throw new DateTimeException(s"No Chronology found to create ChronoLocalDateTime: ${temporal.getClass}")
     chrono.localDateTime(temporal)
   }
 }
@@ -269,9 +269,8 @@ abstract class ChronoLocalDateTime[D <: ChronoLocalDate] extends Temporal with T
     var cmp: Int = toLocalDate.compareTo(other.toLocalDate.asInstanceOf[ChronoLocalDate])
     if (cmp == 0) {
       cmp = toLocalTime.compareTo(other.toLocalTime)
-      if (cmp == 0) {
+      if (cmp == 0)
         cmp = getChronology.compareTo(other.getChronology)
-      }
     }
     cmp
   }
@@ -330,9 +329,8 @@ abstract class ChronoLocalDateTime[D <: ChronoLocalDate] extends Temporal with T
     */
   override def equals(obj: Any): Boolean =
     obj match {
-      case other: ChronoLocalDateTime[_] =>
-        (this eq other) || (compareTo(other) == 0)
-      case _ => false
+      case other: ChronoLocalDateTime[_] => (this eq other) || (compareTo(other) == 0)
+      case _                             => false
     }
 
   /** A hash code for this date-time.

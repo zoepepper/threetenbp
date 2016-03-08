@@ -337,20 +337,20 @@ final class DateTimeParseContext private[format](private var locale: Locale,
       cloned
     }
 
-    override def toString: String = fieldValues.toString + "," + chrono + "," + zone
+    override def toString: String = s"${fieldValues.toString},$chrono,$zone"
 
     def isSupported(field: TemporalField): Boolean = fieldValues.containsKey(field)
 
     override def get(field: TemporalField): Int = {
       if (!fieldValues.containsKey(field))
-        throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
+        throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
       val value: Long = fieldValues.get(field)
       Math.toIntExact(value)
     }
 
     def getLong(field: TemporalField): Long =
       if (!fieldValues.containsKey(field))
-        throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
+        throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
       else
         fieldValues.get(field)
 

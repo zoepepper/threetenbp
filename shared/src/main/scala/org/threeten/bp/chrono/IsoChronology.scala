@@ -351,7 +351,7 @@ final class IsoChronology private() extends Chronology with Serializable {
         updateResolveMap(fieldValues, YEAR, Math.subtractExact(1, yoeLong))
       }
       else {
-        throw new DateTimeException("Invalid value for era: " + era)
+        throw new DateTimeException(s"Invalid value for era: $era")
       }
     }
     else if (fieldValues.containsKey(ERA)) {

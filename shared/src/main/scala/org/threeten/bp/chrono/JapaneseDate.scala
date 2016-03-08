@@ -124,16 +124,14 @@ object JapaneseDate {
     */
   def of(era: JapaneseEra, yearOfEra: Int, month: Int, dayOfMonth: Int): JapaneseDate = {
     Objects.requireNonNull(era, "era")
-    if (yearOfEra < 1) {
-      throw new DateTimeException("Invalid YearOfEra: " + yearOfEra)
-    }
+    if (yearOfEra < 1)
+      throw new DateTimeException(s"Invalid YearOfEra: $yearOfEra")
     val eraStartDate: LocalDate = era.startDate
     val eraEndDate: LocalDate = era.endDate
     val yearOffset: Int = eraStartDate.getYear - 1
     val date: LocalDate = LocalDate.of(yearOfEra + yearOffset, month, dayOfMonth)
-    if (date.isBefore(eraStartDate) || date.isAfter(eraEndDate)) {
-      throw new DateTimeException("Requested date is outside bounds of era " + era)
-    }
+    if (date.isBefore(eraStartDate) || date.isAfter(eraEndDate))
+      throw new DateTimeException(s"Requested date is outside bounds of era $era")
     new JapaneseDate(era, yearOfEra, date)
   }
 
@@ -155,18 +153,18 @@ object JapaneseDate {
     var _dayOfYear = dayOfYear
     Objects.requireNonNull(era, "era")
     if (yearOfEra < 1)
-      throw new DateTimeException("Invalid YearOfEra: " + yearOfEra)
+      throw new DateTimeException(s"Invalid YearOfEra: $yearOfEra")
     val eraStartDate: LocalDate = era.startDate
     val eraEndDate: LocalDate = era.endDate
     if (yearOfEra == 1) {
       _dayOfYear += eraStartDate.getDayOfYear - 1
       if (_dayOfYear > eraStartDate.lengthOfYear)
-        throw new DateTimeException("DayOfYear exceeds maximum allowed in the first year of era " + era)
+        throw new DateTimeException(s"DayOfYear exceeds maximum allowed in the first year of era $era")
     }
     val yearOffset: Int = eraStartDate.getYear - 1
     val isoDate: LocalDate = LocalDate.ofYearDay(yearOfEra + yearOffset, _dayOfYear)
     if (isoDate.isBefore(eraStartDate) || isoDate.isAfter(eraEndDate))
-      throw new DateTimeException("Requested date is outside bounds of era " + era)
+      throw new DateTimeException(s"Requested date is outside bounds of era $era")
     new JapaneseDate(era, yearOfEra, isoDate)
   }
 
@@ -241,7 +239,6 @@ object JapaneseDate {
   *
   * This constructor does NOT validate the given parameters,
   * and {@code era} and {@code year} must agree with {@code isoDate}.
-  *
   * @param era  the era, validated not null
   * @param yearOfEra  the year-of-era, validated
   * @param isoDate  the standard local date, validated not null
@@ -267,7 +264,7 @@ final class JapaneseDate private[chrono](@transient private var era: JapaneseEra
   @throws[IOException]
   @throws[ClassNotFoundException]
   private def readObject(stream: ObjectInputStream): Unit = {
-    stream.defaultReadObject
+    stream.defaultReadObject()
     this.era = JapaneseEra.from(isoDate)
     val yearOffset: Int = this.era.startDate.getYear - 1
     this.yearOfEra = isoDate.getYear - yearOffset
@@ -321,24 +318,22 @@ final class JapaneseDate private[chrono](@transient private var era: JapaneseEra
     else
       super.isSupported(field)
 
-  override def range(field: TemporalField): ValueRange = {
+  override def range(field: TemporalField): ValueRange =
     if (field.isInstanceOf[ChronoField]) {
       if (isSupported(field)) {
         val f: ChronoField = field.asInstanceOf[ChronoField]
         import ChronoField._
         f match {
-          case DAY_OF_YEAR =>
-            return actualRange(Calendar.DAY_OF_YEAR)
-          case YEAR_OF_ERA =>
-            return actualRange(Calendar.YEAR)
-          case _ =>
-            return getChronology.range(f)
+          case DAY_OF_YEAR => actualRange(Calendar.DAY_OF_YEAR)
+          case YEAR_OF_ERA => actualRange(Calendar.YEAR)
+          case _           => getChronology.range(f)
         }
+      } else {
+        throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
       }
-      throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
+    } else {
+      field.rangeRefinedBy(this)
     }
-    field.rangeRefinedBy(this)
-  }
 
   private def actualRange(calendarField: Int): ValueRange = {
     val jcal: Calendar = Calendar.getInstance(JapaneseChronology.LOCALE)
@@ -351,22 +346,18 @@ final class JapaneseDate private[chrono](@transient private var era: JapaneseEra
     if (field.isInstanceOf[ChronoField]) {
       import ChronoField._
       field.asInstanceOf[ChronoField] match {
-        case ALIGNED_DAY_OF_WEEK_IN_MONTH =>
-        case ALIGNED_DAY_OF_WEEK_IN_YEAR =>
-        case ALIGNED_WEEK_OF_MONTH =>
-        case ALIGNED_WEEK_OF_YEAR =>
-          throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
-        case YEAR_OF_ERA =>
-          return yearOfEra
-        case ERA =>
-          return era.getValue
-        case DAY_OF_YEAR =>
-          return getDayOfYear
-        case _ =>
-          return isoDate.getLong(field)
+        case ALIGNED_DAY_OF_WEEK_IN_MONTH
+           | ALIGNED_DAY_OF_WEEK_IN_YEAR
+           | ALIGNED_WEEK_OF_MONTH
+           | ALIGNED_WEEK_OF_YEAR         => throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
+        case YEAR_OF_ERA                  => yearOfEra
+        case ERA                          => era.getValue
+        case DAY_OF_YEAR                  => getDayOfYear
+        case _                            => isoDate.getLong(field)
       }
+    } else {
+      field.getFrom(this)
     }
-    field.getFrom(this)
   }
 
   private def getDayOfYear: Long =
@@ -381,29 +372,22 @@ final class JapaneseDate private[chrono](@transient private var era: JapaneseEra
     if (field.isInstanceOf[ChronoField]) {
       val f: ChronoField = field.asInstanceOf[ChronoField]
       import ChronoField._
-      if (getLong(f) == newValue) {
+      if (getLong(f) == newValue)
         return this
-      }
       f match {
-        case DAY_OF_YEAR =>
-        case YEAR_OF_ERA =>
-        case ERA => {
-          val nvalue: Int = getChronology.range(f).checkValidIntValue(newValue, f)
-          f match {
-            case DAY_OF_YEAR =>
-              return `with`(isoDate.plusDays(nvalue - getDayOfYear))
-            case YEAR_OF_ERA =>
-              return this.withYear(nvalue)
-            case ERA => {
-              return this.withYear(JapaneseEra.of(nvalue), yearOfEra)
-            }
-          }
-        }
-        case _ =>
-          return `with`(isoDate.`with`(field, newValue))
+        case DAY_OF_YEAR
+           | YEAR_OF_ERA
+           | ERA         => val nvalue: Int = getChronology.range(f).checkValidIntValue(newValue, f)
+                            f match {
+                              case DAY_OF_YEAR => `with`(isoDate.plusDays(nvalue - getDayOfYear))
+                              case YEAR_OF_ERA => this.withYear(nvalue)
+                              case ERA         => this.withYear(JapaneseEra.of(nvalue), yearOfEra)
+                            }
+        case _           => `with`(isoDate.`with`(field, newValue))
       }
+    } else {
+      field.adjustInto(this, newValue)
     }
-    field.adjustInto(this, newValue)
   }
 
   override def plus(amount: TemporalAmount): JapaneseDate = super.plus(amount).asInstanceOf[JapaneseDate]

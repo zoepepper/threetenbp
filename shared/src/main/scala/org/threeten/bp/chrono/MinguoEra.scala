@@ -84,7 +84,7 @@ object MinguoEra {
     era match {
       case 0 => BEFORE_ROC
       case 1 => ROC
-      case _ => throw new DateTimeException("Invalid era: " + era)
+      case _ => throw new DateTimeException(s"Invalid era: $era")
     }
 
   @throws[IOException]
@@ -113,7 +113,7 @@ final class MinguoEra(name: String, ordinal: Int) extends Enum[MinguoEra](name, 
     if (field eq ERA)
       field.range
     else if (field.isInstanceOf[ChronoField])
-      throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
+      throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
     else
       field.rangeRefinedBy(this)
 
@@ -127,7 +127,7 @@ final class MinguoEra(name: String, ordinal: Int) extends Enum[MinguoEra](name, 
     if (field eq ERA)
       getValue
     else if (field.isInstanceOf[ChronoField])
-      throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
+      throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
     else
       field.getFrom(this)
 

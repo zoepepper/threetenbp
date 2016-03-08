@@ -106,7 +106,7 @@ object ChronoZonedDateTime {
     else {
       val chrono: Chronology = temporal.query(TemporalQueries.chronology)
       if (chrono == null)
-        throw new DateTimeException("No Chronology found to create ChronoZonedDateTime: " + temporal.getClass)
+        throw new DateTimeException(s"No Chronology found to create ChronoZonedDateTime: ${temporal.getClass}")
       else chrono.zonedDateTime(temporal)
     }
   }
@@ -150,7 +150,7 @@ trait ChronoZonedDateTime[D <: ChronoLocalDate] extends Temporal with Ordered[Ch
 
   override def get(field: TemporalField): Int =
     field match {
-      case INSTANT_SECONDS     => throw new UnsupportedTemporalTypeException("Field too large for an int: " + field)
+      case INSTANT_SECONDS     => throw new UnsupportedTemporalTypeException(s"Field too large for an int: $field")
       case OFFSET_SECONDS      => getOffset.getTotalSeconds
       case chrono: ChronoField => toLocalDateTime.get(field)
       case _                   => super.get(field)

@@ -125,7 +125,7 @@ final class DateTimeBuilder() extends TemporalAccessor with Cloneable {
     Objects.requireNonNull(field, "field")
     val old: java.lang.Long = getFieldValue0(field)
     if (old != null && old.longValue != value)
-      throw new DateTimeException("Conflict found: " + field + " " + old + " differs from " + field + " " + value + ": " + this)
+      throw new DateTimeException(s"Conflict found: $field $old differs from $field $value: $this")
     else
       putFieldValue0(field, value)
   }
@@ -149,9 +149,8 @@ final class DateTimeBuilder() extends TemporalAccessor with Cloneable {
     * @return { @code this}, for method chaining
     */
   def resolve(resolverStyle: ResolverStyle, resolverFields: java.util.Set[TemporalField]): DateTimeBuilder = {
-    if (resolverFields != null) {
+    if (resolverFields != null)
       fieldValues.keySet.retainAll(resolverFields)
-    }
     mergeInstantFields()
     mergeDate(resolverStyle)
     mergeTime(resolverStyle)
@@ -185,7 +184,7 @@ final class DateTimeBuilder() extends TemporalAccessor with Cloneable {
                 if (zone == null)
                   zone = czdt.getZone
                 else if (!(zone == czdt.getZone))
-                  throw new DateTimeException("ChronoZonedDateTime must use the effective parsed zone: " + zone)
+                  throw new DateTimeException(s"ChronoZonedDateTime must use the effective parsed zone: $zone")
                 resolvedObject = czdt.toLocalDateTime
               case cld: ChronoLocalDate =>
                 resolveMakeChanges(targetField, cld)
@@ -206,7 +205,7 @@ final class DateTimeBuilder() extends TemporalAccessor with Cloneable {
                   scala.util.control.Breaks.break()
                 }
               case _ =>
-                throw new DateTimeException("Unknown type: " + resolvedObject.getClass.getName)
+                throw new DateTimeException(s"Unknown type: ${resolvedObject.getClass.getName}")
             }
           }
         }
@@ -219,35 +218,27 @@ final class DateTimeBuilder() extends TemporalAccessor with Cloneable {
   }
 
   private def resolveMakeChanges(targetField: TemporalField, date: ChronoLocalDate): Unit = {
-    if (chrono != date.getChronology) {
-      throw new DateTimeException("ChronoLocalDate must use the effective parsed chronology: " + chrono)
-    }
+    if (chrono != date.getChronology)
+      throw new DateTimeException(s"ChronoLocalDate must use the effective parsed chronology: $chrono")
     val epochDay: Long = date.toEpochDay
     val old: java.lang.Long = fieldValues.put(ChronoField.EPOCH_DAY, epochDay)
-    if (old != null && old.longValue != epochDay) {
-      throw new DateTimeException("Conflict found: " + LocalDate.ofEpochDay(old) + " differs from " + LocalDate.ofEpochDay(epochDay) + " while resolving  " + targetField)
-    }
+    if (old != null && old.longValue != epochDay)
+      throw new DateTimeException(s"Conflict found: ${LocalDate.ofEpochDay(old)} differs from ${LocalDate.ofEpochDay(epochDay)} while resolving  $targetField")
   }
 
   private def resolveMakeChanges(targetField: TemporalField, time: LocalTime): Unit = {
     val nanOfDay: Long = time.toNanoOfDay
     val old: java.lang.Long = fieldValues.put(ChronoField.NANO_OF_DAY, nanOfDay)
-    if (old != null && old.longValue != nanOfDay) {
-      throw new DateTimeException("Conflict found: " + LocalTime.ofNanoOfDay(old) + " differs from " + time + " while resolving  " + targetField)
-    }
+    if (old != null && old.longValue != nanOfDay)
+      throw new DateTimeException(s"Conflict found: ${LocalTime.ofNanoOfDay(old)} differs from $time while resolving  $targetField")
   }
 
-  private def mergeDate(resolverStyle: ResolverStyle): Unit = {
-    if (chrono.isInstanceOf[IsoChronology]) {
+  private def mergeDate(resolverStyle: ResolverStyle): Unit =
+    if (chrono.isInstanceOf[IsoChronology])
       checkDate(IsoChronology.INSTANCE.resolveDate(fieldValues, resolverStyle))
-    }
-    else {
-      if (fieldValues.containsKey(EPOCH_DAY)) {
+    else
+      if (fieldValues.containsKey(EPOCH_DAY))
         checkDate(LocalDate.ofEpochDay(fieldValues.remove(EPOCH_DAY)))
-        return
-      }
-    }
-  }
 
   private def checkDate(date: LocalDate): Unit =
     if (date != null) {
@@ -264,7 +255,7 @@ final class DateTimeBuilder() extends TemporalAccessor with Cloneable {
               }
               val val2: Long = fieldValues.get(field)
               if (val1 != val2)
-                throw new DateTimeException("Conflict found: Field " + field + " " + val1 + " differs from " + field + " " + val2 + " derived from " + date)
+                throw new DateTimeException(s"Conflict found: Field $field $val1 differs from $field $val2 derived from $date")
             }
           }
         }
@@ -495,7 +486,7 @@ final class DateTimeBuilder() extends TemporalAccessor with Cloneable {
             case ex: RuntimeException => scala.util.control.Breaks.break()
           }
           if (temporalValue != value)
-            throw new DateTimeException("Cross check failed: " + field + " " + temporalValue + " vs " + field + " " + value)
+            throw new DateTimeException(s"Cross check failed: $field $temporalValue vs $field $value")
           it.remove()
         }
       }
@@ -556,13 +547,11 @@ final class DateTimeBuilder() extends TemporalAccessor with Cloneable {
     Objects.requireNonNull(field, "field")
     val value: java.lang.Long = getFieldValue0(field)
     if (value == null) {
-      if (date != null && date.isSupported(field)) {
+      if (date != null && date.isSupported(field))
         return date.getLong(field)
-      }
-      if (time != null && time.isSupported(field)) {
+      if (time != null && time.isSupported(field))
         return time.getLong(field)
-      }
-      throw new DateTimeException("Field not found: " + field)
+      throw new DateTimeException(s"Field not found: $field")
     }
     value
   }

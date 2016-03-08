@@ -113,7 +113,7 @@ object JapaneseEra {
       if (japaneseEra == era.getName)
         return era
     }
-    throw new IllegalArgumentException("Era not found: " + japaneseEra)
+    throw new IllegalArgumentException(s"Era not found: $japaneseEra")
   }
 
   /** Returns an array of JapaneseEras.
@@ -135,7 +135,7 @@ object JapaneseEra {
     */
   private[chrono] def from(date: LocalDate): JapaneseEra = {
     if (date.isBefore(MEIJI.since))
-      throw new DateTimeException("Date too early: " + date)
+      throw new DateTimeException(s"Date too early: $date")
     var i: Int = KNOWN_ERAS.length - 1
     while (i >= 0) {
       val era: JapaneseEra = KNOWN_ERAS(i)
@@ -149,9 +149,8 @@ object JapaneseEra {
   private[chrono] def toJapaneseEra(privateEra: sun.util.calendar.Era): JapaneseEra = {
     var i: Int = ERA_CONFIG.length - 1
     while (i >= 0) {
-      if (ERA_CONFIG(i) == privateEra) {
+      if (ERA_CONFIG(i) == privateEra)
         return KNOWN_ERAS(i)
-      }
       i -= 1
     }
     null
@@ -159,13 +158,12 @@ object JapaneseEra {
 
   private[chrono] def privateEraFrom(isoDate: LocalDate): sun.util.calendar.Era = {
     if (isoDate.isBefore(MEIJI.since))
-      throw new DateTimeException("Date too early: " + isoDate)
+      throw new DateTimeException(s"Date too early: $isoDate")
     var i: Int = KNOWN_ERAS.length - 1
     while (i >= 0) {
       val era: JapaneseEra = KNOWN_ERAS(i)
-      if (isoDate.compareTo(era.since) >= 0) {
+      if (isoDate.compareTo(era.since) >= 0)
         return ERA_CONFIG(i)
-      }
       i -= 1
     }
     null

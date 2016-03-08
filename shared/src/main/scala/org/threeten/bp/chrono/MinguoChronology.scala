@@ -190,51 +190,40 @@ final class MinguoChronology private() extends Chronology with Serializable {
 
   def eras: java.util.List[Era] = Arrays.asList[Era](MinguoEra.values: _*)
 
-  def range(field: ChronoField): ValueRange = {
+  def range(field: ChronoField): ValueRange =
     field match {
-      case PROLEPTIC_MONTH =>
-        val range: ValueRange = PROLEPTIC_MONTH.range
-        return ValueRange.of(range.getMinimum - MinguoChronology.YEARS_DIFFERENCE * 12L, range.getMaximum - MinguoChronology.YEARS_DIFFERENCE * 12L)
-      case YEAR_OF_ERA =>
-        val range: ValueRange = YEAR.range
-        return ValueRange.of(1, range.getMaximum - MinguoChronology.YEARS_DIFFERENCE, -range.getMinimum + 1 + MinguoChronology.YEARS_DIFFERENCE)
-      case YEAR =>
-        val range: ValueRange = YEAR.range
-        return ValueRange.of(range.getMinimum - MinguoChronology.YEARS_DIFFERENCE, range.getMaximum - MinguoChronology.YEARS_DIFFERENCE)
-      case _ =>
-        field.range
+      case PROLEPTIC_MONTH => val range: ValueRange = PROLEPTIC_MONTH.range
+                              ValueRange.of(range.getMinimum - MinguoChronology.YEARS_DIFFERENCE * 12L, range.getMaximum - MinguoChronology.YEARS_DIFFERENCE * 12L)
+      case YEAR_OF_ERA     => val range: ValueRange = YEAR.range
+                              ValueRange.of(1, range.getMaximum - MinguoChronology.YEARS_DIFFERENCE, -range.getMinimum + 1 + MinguoChronology.YEARS_DIFFERENCE)
+      case YEAR            => val range: ValueRange = YEAR.range
+                              ValueRange.of(range.getMinimum - MinguoChronology.YEARS_DIFFERENCE, range.getMaximum - MinguoChronology.YEARS_DIFFERENCE)
+      case _               => field.range
     }
-  }
 
   override def resolveDate(fieldValues: java.util.Map[TemporalField, java.lang.Long], resolverStyle: ResolverStyle): MinguoDate = {
-    if (fieldValues.containsKey(EPOCH_DAY)) {
+    if (fieldValues.containsKey(EPOCH_DAY))
       return dateEpochDay(fieldValues.remove(EPOCH_DAY))
-    }
     val prolepticMonth: java.lang.Long = fieldValues.remove(PROLEPTIC_MONTH)
     if (prolepticMonth != null) {
-      if (resolverStyle ne ResolverStyle.LENIENT) {
+      if (resolverStyle ne ResolverStyle.LENIENT)
         PROLEPTIC_MONTH.checkValidValue(prolepticMonth)
-      }
       updateResolveMap(fieldValues, MONTH_OF_YEAR, Math.floorMod(prolepticMonth, 12) + 1)
       updateResolveMap(fieldValues, YEAR, Math.floorDiv(prolepticMonth, 12))
     }
     val yoeLong: java.lang.Long = fieldValues.remove(YEAR_OF_ERA)
     if (yoeLong != null) {
-      if (resolverStyle ne ResolverStyle.LENIENT) {
+      if (resolverStyle ne ResolverStyle.LENIENT)
         YEAR_OF_ERA.checkValidValue(yoeLong)
-      }
       val era: java.lang.Long = fieldValues.remove(ERA)
       if (era == null) {
         val year: java.lang.Long = fieldValues.get(YEAR)
         if (resolverStyle eq ResolverStyle.STRICT) {
-          if (year != null) {
+          if (year != null)
             updateResolveMap(fieldValues, YEAR, if (year > 0) yoeLong else Math.subtractExact(1, yoeLong))
-          }
-          else {
+          else
             fieldValues.put(YEAR_OF_ERA, yoeLong)
-          }
-        }
-        else {
+        } else {
           updateResolveMap(fieldValues, YEAR, if (year == null || year > 0) yoeLong else Math.subtractExact(1, yoeLong))
         }
       }
@@ -245,7 +234,7 @@ final class MinguoChronology private() extends Chronology with Serializable {
         updateResolveMap(fieldValues, YEAR, Math.subtractExact(1, yoeLong))
       }
       else {
-        throw new DateTimeException("Invalid value for era: " + era)
+        throw new DateTimeException(s"Invalid value for era: $era")
       }
     }
     else if (fieldValues.containsKey(ERA)) {
@@ -282,9 +271,8 @@ final class MinguoChronology private() extends Chronology with Serializable {
             val aw: Int = ALIGNED_WEEK_OF_MONTH.checkValidIntValue(fieldValues.remove(ALIGNED_WEEK_OF_MONTH))
             val ad: Int = ALIGNED_DAY_OF_WEEK_IN_MONTH.checkValidIntValue(fieldValues.remove(ALIGNED_DAY_OF_WEEK_IN_MONTH))
             val minguoDate: MinguoDate = date(y, moy, 1).plus((aw - 1) * 7 + (ad - 1), DAYS)
-            if ((resolverStyle eq ResolverStyle.STRICT) && minguoDate.get(MONTH_OF_YEAR) != moy) {
+            if ((resolverStyle eq ResolverStyle.STRICT) && minguoDate.get(MONTH_OF_YEAR) != moy)
               throw new DateTimeException("Strict mode rejected date parsed to a different month")
-            }
             return minguoDate
           }
           if (fieldValues.containsKey(DAY_OF_WEEK)) {
@@ -299,9 +287,8 @@ final class MinguoChronology private() extends Chronology with Serializable {
             val aw: Int = ALIGNED_WEEK_OF_MONTH.checkValidIntValue(fieldValues.remove(ALIGNED_WEEK_OF_MONTH))
             val dow: Int = DAY_OF_WEEK.checkValidIntValue(fieldValues.remove(DAY_OF_WEEK))
             val minguoDate: MinguoDate = date(y, moy, 1).plus(aw - 1, WEEKS).`with`(nextOrSame(DayOfWeek.of(dow)))
-            if ((resolverStyle eq ResolverStyle.STRICT) && minguoDate.get(MONTH_OF_YEAR) != moy) {
+            if ((resolverStyle eq ResolverStyle.STRICT) && minguoDate.get(MONTH_OF_YEAR) != moy)
               throw new DateTimeException("Strict mode rejected date parsed to a different month")
-            }
             return minguoDate
           }
         }

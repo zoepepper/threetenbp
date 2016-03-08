@@ -165,28 +165,29 @@ final class ThaiBuddhistDate private[chrono](private val isoDate: LocalDate) ext
       if (isSupported(field)) {
         val f: ChronoField = field.asInstanceOf[ChronoField]
         f match {
-          case DAY_OF_MONTH | DAY_OF_YEAR | ALIGNED_WEEK_OF_MONTH =>
-            return isoDate.range(field)
-          case YEAR_OF_ERA => {
-            val range: ValueRange = YEAR.range
-            val max: Long = if (getProlepticYear <= 0) -(range.getMinimum + YEARS_DIFFERENCE) + 1 else range.getMaximum + YEARS_DIFFERENCE
-            return ValueRange.of(1, max)
-          }
-          case _ =>
-            return getChronology.range(f)
+          case DAY_OF_MONTH
+             | DAY_OF_YEAR
+             | ALIGNED_WEEK_OF_MONTH => isoDate.range(field)
+          case YEAR_OF_ERA           => val range: ValueRange = YEAR.range
+                                        val max: Long =
+                                          if (getProlepticYear <= 0) -(range.getMinimum + YEARS_DIFFERENCE) + 1
+                                          else range.getMaximum + YEARS_DIFFERENCE
+                                        ValueRange.of(1, max)
+          case _                     => getChronology.range(f)
         }
+      } else {
+        throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
       }
-      throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
+    } else {
+      field.rangeRefinedBy(this)
     }
-    field.rangeRefinedBy(this)
   }
 
   def getLong(field: TemporalField): Long =
     field match {
       case PROLEPTIC_MONTH     => getProlepticMonth
-      case YEAR_OF_ERA         =>
-        val prolepticYear: Int = getProlepticYear
-        if (prolepticYear >= 1) prolepticYear else 1 - prolepticYear
+      case YEAR_OF_ERA         => val prolepticYear: Int = getProlepticYear
+                                  if (prolepticYear >= 1) prolepticYear else 1 - prolepticYear
       case YEAR                => getProlepticYear
       case ERA                 => if (getProlepticYear >= 1) 1 else 0
       case chrono: ChronoField => isoDate.getLong(field)

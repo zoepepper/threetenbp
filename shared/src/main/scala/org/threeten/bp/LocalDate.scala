@@ -291,10 +291,10 @@ object LocalDate {
   private def create(year: Int, month: Month, dayOfMonth: Int): LocalDate = {
     if (dayOfMonth > 28 && dayOfMonth > month.length(IsoChronology.INSTANCE.isLeapYear(year))) {
       if (dayOfMonth == 29) {
-        throw new DateTimeException("Invalid date 'February 29' as '" + year + "' is not a leap year")
+        throw new DateTimeException(s"Invalid date 'February 29' as '$year' is not a leap year")
       }
       else {
-        throw new DateTimeException("Invalid date '" + month.name + " " + dayOfMonth + "'")
+        throw new DateTimeException(s"Invalid date '${month.name} $dayOfMonth'")
       }
     }
     new LocalDate(year, month.getValue, dayOfMonth)
@@ -351,7 +351,6 @@ object LocalDate {
   * This class is immutable and thread-safe.
   *
   * @constructor Constructor, previously validated.
-  *
   * @param year  the year to represent, from MIN_YEAR to MAX_YEAR
   * @param monthOfYear  the month-of-year to represent, not null
   * @param dayOfMonth  the day-of-month to represent, valid for year-month, from 1 to 31
@@ -426,20 +425,18 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
       val f: ChronoField = field.asInstanceOf[ChronoField]
       if (f.isDateBased) {
         f match {
-          case DAY_OF_MONTH =>
-            return ValueRange.of(1, lengthOfMonth)
-          case DAY_OF_YEAR =>
-            return ValueRange.of(1, lengthOfYear)
-          case ALIGNED_WEEK_OF_MONTH =>
-            return ValueRange.of(1, if ((getMonth eq Month.FEBRUARY) && !isLeapYear) 4 else 5)
-          case YEAR_OF_ERA =>
-            return if (getYear <= 0) ValueRange.of(1, Year.MAX_VALUE + 1) else ValueRange.of(1, Year.MAX_VALUE)
+          case DAY_OF_MONTH          => ValueRange.of(1, lengthOfMonth)
+          case DAY_OF_YEAR           => ValueRange.of(1, lengthOfYear)
+          case ALIGNED_WEEK_OF_MONTH => ValueRange.of(1, if ((getMonth eq Month.FEBRUARY) && !isLeapYear) 4 else 5)
+          case YEAR_OF_ERA           => if (getYear <= 0) ValueRange.of(1, Year.MAX_VALUE + 1) else ValueRange.of(1, Year.MAX_VALUE)
+          case _                     => field.range
         }
-        return field.range
+      } else {
+        throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
       }
-      throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
+    } else {
+      field.rangeRefinedBy(this)
     }
-    field.rangeRefinedBy(this)
   }
 
   /** Gets the value of the specified field from this date as an {@code int}.
@@ -512,15 +509,15 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
       case ALIGNED_DAY_OF_WEEK_IN_YEAR  => ((getDayOfYear - 1) % 7) + 1
       case DAY_OF_MONTH                 => day
       case DAY_OF_YEAR                  => getDayOfYear
-      case EPOCH_DAY                    => throw new DateTimeException("Field too large for an int: " + field)
+      case EPOCH_DAY                    => throw new DateTimeException(s"Field too large for an int: $field")
       case ALIGNED_WEEK_OF_MONTH        => ((day - 1) / 7) + 1
       case ALIGNED_WEEK_OF_YEAR         => ((getDayOfYear - 1) / 7) + 1
       case MONTH_OF_YEAR                => month
-      case PROLEPTIC_MONTH              => throw new DateTimeException("Field too large for an int: " + field)
+      case PROLEPTIC_MONTH              => throw new DateTimeException(s"Field too large for an int: $field")
       case YEAR_OF_ERA                  => if (year >= 1) year else 1 - year
       case YEAR                         => year
       case ERA                          => if (year >= 1) 1 else 0
-      case _                            => throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
+      case _                            => throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
     }
   }
 
@@ -824,7 +821,7 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
         case YEAR_OF_ERA                  => withYear((if (year >= 1) newValue else 1 - newValue).toInt)
         case YEAR                         => withYear(newValue.toInt)
         case ERA                          => if (getLong(ERA) == newValue) this else withYear(1 - year)
-        case _                            => throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
+        case _                            => throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
       }
     } else {
       field.adjustInto(this, newValue)
@@ -941,7 +938,7 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
         case CENTURIES => plusYears(Math.multiplyExact(amountToAdd, 100))
         case MILLENNIA => plusYears(Math.multiplyExact(amountToAdd, 1000))
         case ERAS      => `with`(ERA, Math.addExact(getLong(ERA), amountToAdd))
-        case _         => throw new UnsupportedTemporalTypeException("Unsupported unit: " + unit)
+        case _         => throw new UnsupportedTemporalTypeException(s"Unsupported unit: $unit")
       }
     } else {
       unit.addTo(this, amountToAdd)

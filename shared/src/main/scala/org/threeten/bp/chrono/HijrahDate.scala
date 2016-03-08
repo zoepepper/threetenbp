@@ -162,7 +162,7 @@ object HijrahDate {
   /** Default config file name. */
   private val DEFAULT_CONFIG_FILENAME: String = "hijrah_deviation.cfg"
   /** Default path to the config file. */
-  private val DEFAULT_CONFIG_PATH: String = "org" + FILE_SEP + "threeten" + FILE_SEP + "bp" + FILE_SEP + "chrono"
+  private val DEFAULT_CONFIG_PATH: String = s"org${FILE_SEP}threeten${FILE_SEP}bp${FILE_SEP}chrono"
 
   /** number of 30-year cycles to hold the deviation data. */
   private val MAX_ADJUSTED_CYCLE: Int = 334
@@ -280,7 +280,7 @@ object HijrahDate {
     */
   private val HIJRAH_JAN_1_1_GREGORIAN_DAY: Int = -492148
 
-  try readDeviationConfig
+  try readDeviationConfig()
   catch {
     case e: IOException =>
     case e: ParseException =>
@@ -361,6 +361,7 @@ object HijrahDate {
   }
 
   /** Check the validity of a yearOfEra.
+    *
     * @param yearOfEra the year to check
     */
   private def checkValidYearOfEra(yearOfEra: Int): Unit =
@@ -377,7 +378,7 @@ object HijrahDate {
 
   private def checkValidDayOfMonth(dayOfMonth: Int): Unit =
     if (dayOfMonth < 1 || dayOfMonth > getMaximumDayOfMonth)
-      throw new DateTimeException("Invalid day of month of Hijrah date, day " + dayOfMonth + " greater than " + getMaximumDayOfMonth + " or less than 1")
+      throw new DateTimeException(s"Invalid day of month of Hijrah date, day $dayOfMonth greater than $getMaximumDayOfMonth or less than 1")
 
   /** Obtains an instance of {@code HijrahDate} from a date.
     *
@@ -489,6 +490,7 @@ object HijrahDate {
   }
 
   /** Returns the Gregorian epoch day from the proleptic year
+    *
     * @param prolepticYear the proleptic year
     * @return the Epoch day
     */
@@ -598,17 +600,13 @@ object HijrahDate {
     */
   private def getAdjustedCycle(cycleNumber: Int): Array[Integer] = {
     var cycles: Array[Integer] = null
-    try {
-      cycles = ADJUSTED_CYCLE_YEARS.get(new Integer(cycleNumber))
-    }
+    try cycles = ADJUSTED_CYCLE_YEARS.get(new Integer(cycleNumber))
     catch {
-      case e: ArrayIndexOutOfBoundsException => {
+      case e: ArrayIndexOutOfBoundsException =>
         cycles = null
-      }
     }
-    if (cycles == null) {
+    if (cycles == null)
       cycles = DEFAULT_CYCLE_YEARS
-    }
     cycles
   }
 
@@ -619,21 +617,16 @@ object HijrahDate {
     */
   private def getAdjustedMonthDays(year: Int): Array[Integer] = {
     var newMonths: Array[Integer] = null
-    try {
-      newMonths = ADJUSTED_MONTH_DAYS.get(new Integer(year))
-    }
+    try newMonths = ADJUSTED_MONTH_DAYS.get(new Integer(year))
     catch {
-      case e: ArrayIndexOutOfBoundsException => {
+      case e: ArrayIndexOutOfBoundsException =>
         newMonths = null
-      }
     }
     if (newMonths == null) {
-      if (isLeapYear(year)) {
+      if (isLeapYear(year))
         newMonths = DEFAULT_LEAP_MONTH_DAYS
-      }
-      else {
+      else
         newMonths = DEFAULT_MONTH_DAYS
-      }
     }
     newMonths
   }
@@ -645,21 +638,16 @@ object HijrahDate {
     */
   private def getAdjustedMonthLength(year: Int): Array[Integer] = {
     var newMonths: Array[Integer] = null
-    try {
-      newMonths = ADJUSTED_MONTH_LENGTHS.get(new Integer(year))
-    }
+    try newMonths = ADJUSTED_MONTH_LENGTHS.get(new Integer(year))
     catch {
-      case e: ArrayIndexOutOfBoundsException => {
+      case e: ArrayIndexOutOfBoundsException =>
         newMonths = null
-      }
     }
     if (newMonths == null) {
-      if (isLeapYear(year)) {
+      if (isLeapYear(year))
         newMonths = DEFAULT_LEAP_MONTH_LENGTHS
-      }
-      else {
+      else
         newMonths = DEFAULT_MONTH_LENGTHS
-      }
     }
     newMonths
   }
@@ -1118,17 +1106,14 @@ object HijrahDate {
         br = new BufferedReader(new InputStreamReader(is))
         var line: String = ""
         var num: Int = 0
-        while ((({
-          line = br.readLine; line
-        })) != null) {
+        while ({line = br.readLine; line} != null) {
           num += 1
           line = line.trim
           parseLine(line, num)
         }
       } finally {
-        if (br != null) {
+        if (br != null)
           br.close()
-        }
       }
     }
   }
@@ -1148,13 +1133,10 @@ object HijrahDate {
       if (offsetIndex != -1) {
         val offsetString: String = deviationElement.substring(offsetIndex + 1, deviationElement.length)
         var offset: Int = 0
-        try {
-          offset = offsetString.toInt
-        }
+        try offset = offsetString.toInt
         catch {
-          case ex: NumberFormatException => {
-            throw new ParseException("Offset is not properly set at line " + num + ".", num)
-          }
+          case ex: NumberFormatException =>
+            throw new ParseException(s"Offset is not properly set at line $num.", num)
         }
         val separatorIndex: Int = deviationElement.indexOf('-')
         if (separatorIndex != -1) {
@@ -1172,47 +1154,44 @@ object HijrahDate {
             try startYear = startYearStg.toInt
             catch {
               case ex: NumberFormatException =>
-                throw new ParseException("Start year is not properly set at line " + num + ".", num)
+                throw new ParseException(s"Start year is not properly set at line $num.", num)
             }
-            try {
-              startMonth = startMonthStg.toInt
-            }
+            try startMonth = startMonthStg.toInt
             catch {
               case ex: NumberFormatException =>
-                throw new ParseException("Start month is not properly set at line " + num + ".", num)
+                throw new ParseException(s"Start month is not properly set at line $num.", num)
             }
           }
-          else {
-            throw new ParseException("Start year/month has incorrect format at line " + num + ".", num)
-          }
+          else
+            throw new ParseException(s"Start year/month has incorrect format at line $num.", num)
           if (endDateYearSepIndex != -1) {
             val endYearStg: String = endDateStg.substring(0, endDateYearSepIndex)
             val endMonthStg: String = endDateStg.substring(endDateYearSepIndex + 1, endDateStg.length)
             try endYear = endYearStg.toInt
             catch {
               case ex: NumberFormatException =>
-                throw new ParseException("End year is not properly set at line " + num + ".", num)
+                throw new ParseException(s"End year is not properly set at line $num.", num)
             }
             try {
               endMonth = endMonthStg.toInt
             }
             catch {
               case ex: NumberFormatException =>
-                throw new ParseException("End month is not properly set at line " + num + ".", num)
+                throw new ParseException(s"End month is not properly set at line $num.", num)
             }
           }
           else
-            throw new ParseException("End year/month has incorrect format at line " + num + ".", num)
+            throw new ParseException(s"End year/month has incorrect format at line $num.", num)
           if (startYear != -1 && startMonth != -1 && endYear != -1 && endMonth != -1)
             addDeviationAsHijrah(startYear, startMonth, endYear, endMonth, offset)
           else
-            throw new ParseException("Unknown error at line " + num + ".", num)
+            throw new ParseException(s"Unknown error at line $num.", num)
         }
         else
-          throw new ParseException("Start and end year/month has incorrect format at line " + num + ".", num)
+          throw new ParseException(s"Start and end year/month has incorrect format at line $num.", num)
       }
       else
-        throw new ParseException("Offset has incorrect format at line " + num + ".", num)
+        throw new ParseException(s"Offset has incorrect format at line $num.", num)
     }
   }
 
@@ -1239,14 +1218,12 @@ object HijrahDate {
   @throws[IOException]
   private def getConfigFileInputStream: InputStream = {
     var fileName: String = System.getProperty("org.threeten.bp.i18n.HijrahDate.deviationConfigFile")
-    if (fileName == null) {
+    if (fileName == null)
       fileName = DEFAULT_CONFIG_FILENAME
-    }
     var dir: String = System.getProperty("org.threeten.bp.i18n.HijrahDate.deviationConfigDir")
     if (dir != null) {
-      if (!(dir.length == 0 && dir.endsWith(System.getProperty("file.separator")))) {
+      if (!(dir.length == 0 && dir.endsWith(System.getProperty("file.separator"))))
         dir = dir + System.getProperty("file.separator")
-      }
       val file: File = new File(dir + FILE_SEP + fileName)
       if (file.exists) {
         try new FileInputStream(file)
@@ -1283,12 +1260,10 @@ object HijrahDate {
               var targetFile: String = DEFAULT_CONFIG_PATH + FILE_SEP + fileName
               var entry: ZipEntry = zip.getEntry(targetFile)
               if (entry == null) {
-                if (FILE_SEP == '/') {
+                if (FILE_SEP == '/')
                   targetFile = targetFile.replace('/', '\\')
-                }
-                else if (FILE_SEP == '\\') {
+                else if (FILE_SEP == '\\')
                   targetFile = targetFile.replace('\\', '/')
-                }
                 entry = zip.getEntry(targetFile)
               }
               if (entry != null) {
@@ -1378,53 +1353,37 @@ final class HijrahDate private (private val gregorianEpochDay: Long) extends Chr
       if (isSupported(field)) {
         val f: ChronoField = field.asInstanceOf[ChronoField]
         f match {
-          case DAY_OF_MONTH =>
-            return ValueRange.of(1, lengthOfMonth)
-          case DAY_OF_YEAR =>
-            return ValueRange.of(1, lengthOfYear)
-          case ALIGNED_WEEK_OF_MONTH =>
-            return ValueRange.of(1, 5)
-          case YEAR_OF_ERA =>
-            return ValueRange.of(1, 1000)
-          case _ =>
-            return getChronology.range(f)
+          case DAY_OF_MONTH          => ValueRange.of(1, lengthOfMonth)
+          case DAY_OF_YEAR           => ValueRange.of(1, lengthOfYear)
+          case ALIGNED_WEEK_OF_MONTH => ValueRange.of(1, 5)
+          case YEAR_OF_ERA           => ValueRange.of(1, 1000)
+          case _                     => getChronology.range(f)
         }
+      } else {
+        throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
       }
-      throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
+    } else {
+      field.rangeRefinedBy(this)
     }
-    field.rangeRefinedBy(this)
   }
 
   def getLong(field: TemporalField): Long = {
     field match {
       case chronoField: ChronoField =>
         chronoField match {
-          case DAY_OF_WEEK =>
-            dayOfWeek.getValue
-          case ALIGNED_DAY_OF_WEEK_IN_MONTH =>
-            ((dayOfWeek.getValue - 1) % 7) + 1
-          case ALIGNED_DAY_OF_WEEK_IN_YEAR =>
-            ((dayOfYear - 1) % 7) + 1
-          case DAY_OF_MONTH =>
-            this.dayOfMonth
-          case DAY_OF_YEAR =>
-            this.dayOfYear
-          case EPOCH_DAY =>
-            toEpochDay
-          case ALIGNED_WEEK_OF_MONTH =>
-            ((dayOfMonth - 1) / 7) + 1
-          case ALIGNED_WEEK_OF_YEAR =>
-            ((dayOfYear - 1) / 7) + 1
-          case MONTH_OF_YEAR =>
-            monthOfYear
-          case YEAR_OF_ERA =>
-            yearOfEra
-          case YEAR =>
-            yearOfEra
-          case ERA =>
-            era.getValue
-          case _ =>
-            throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
+          case DAY_OF_WEEK                  => dayOfWeek.getValue
+          case ALIGNED_DAY_OF_WEEK_IN_MONTH => ((dayOfWeek.getValue - 1) % 7) + 1
+          case ALIGNED_DAY_OF_WEEK_IN_YEAR  => ((dayOfYear - 1) % 7) + 1
+          case DAY_OF_MONTH                 => this.dayOfMonth
+          case DAY_OF_YEAR                  => this.dayOfYear
+          case EPOCH_DAY                    => toEpochDay
+          case ALIGNED_WEEK_OF_MONTH        => ((dayOfMonth - 1) / 7) + 1
+          case ALIGNED_WEEK_OF_YEAR         => ((dayOfYear - 1) / 7) + 1
+          case MONTH_OF_YEAR                => monthOfYear
+          case YEAR_OF_ERA                  => yearOfEra
+          case YEAR                         => yearOfEra
+          case ERA                          => era.getValue
+          case _                            => throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
         }
       case _ => field.getFrom(this)
     }
@@ -1433,41 +1392,29 @@ final class HijrahDate private (private val gregorianEpochDay: Long) extends Chr
 
   override def `with`(adjuster: TemporalAdjuster): HijrahDate = super.`with`(adjuster).asInstanceOf[HijrahDate]
 
-  def `with`(field: TemporalField, newValue: Long): HijrahDate = {
+  def `with`(field: TemporalField, newValue: Long): HijrahDate =
     if (field.isInstanceOf[ChronoField]) {
       val f: ChronoField = field.asInstanceOf[ChronoField]
       f.checkValidValue(newValue)
       val nvalue: Int = newValue.toInt
       f match {
-        case DAY_OF_WEEK =>
-          return plusDays(newValue - dayOfWeek.getValue)
-        case ALIGNED_DAY_OF_WEEK_IN_MONTH =>
-          return plusDays(newValue - getLong(ALIGNED_DAY_OF_WEEK_IN_MONTH))
-        case ALIGNED_DAY_OF_WEEK_IN_YEAR =>
-          return plusDays(newValue - getLong(ALIGNED_DAY_OF_WEEK_IN_YEAR))
-        case DAY_OF_MONTH =>
-          return HijrahDate.resolvePreviousValid(yearOfEra, monthOfYear, nvalue)
-        case DAY_OF_YEAR =>
-          return HijrahDate.resolvePreviousValid(yearOfEra, ((nvalue - 1) / 30) + 1, ((nvalue - 1) % 30) + 1)
-        case EPOCH_DAY =>
-          return new HijrahDate(nvalue)
-        case ALIGNED_WEEK_OF_MONTH =>
-          return plusDays((newValue - getLong(ALIGNED_WEEK_OF_MONTH)) * 7)
-        case ALIGNED_WEEK_OF_YEAR =>
-          return plusDays((newValue - getLong(ALIGNED_WEEK_OF_YEAR)) * 7)
-        case MONTH_OF_YEAR =>
-          return HijrahDate.resolvePreviousValid(yearOfEra, nvalue, dayOfMonth)
-        case YEAR_OF_ERA =>
-          return HijrahDate.resolvePreviousValid(if (yearOfEra >= 1) nvalue else 1 - nvalue, monthOfYear, dayOfMonth)
-        case YEAR =>
-          return HijrahDate.resolvePreviousValid(nvalue, monthOfYear, dayOfMonth)
-        case ERA =>
-          return HijrahDate.resolvePreviousValid(1 - yearOfEra, monthOfYear, dayOfMonth)
+        case DAY_OF_WEEK                  => plusDays(newValue - dayOfWeek.getValue)
+        case ALIGNED_DAY_OF_WEEK_IN_MONTH => plusDays(newValue - getLong(ALIGNED_DAY_OF_WEEK_IN_MONTH))
+        case ALIGNED_DAY_OF_WEEK_IN_YEAR  => plusDays(newValue - getLong(ALIGNED_DAY_OF_WEEK_IN_YEAR))
+        case DAY_OF_MONTH                 => HijrahDate.resolvePreviousValid(yearOfEra, monthOfYear, nvalue)
+        case DAY_OF_YEAR                  => HijrahDate.resolvePreviousValid(yearOfEra, ((nvalue - 1) / 30) + 1, ((nvalue - 1) % 30) + 1)
+        case EPOCH_DAY                    => new HijrahDate(nvalue)
+        case ALIGNED_WEEK_OF_MONTH        => plusDays((newValue - getLong(ALIGNED_WEEK_OF_MONTH)) * 7)
+        case ALIGNED_WEEK_OF_YEAR         => plusDays((newValue - getLong(ALIGNED_WEEK_OF_YEAR)) * 7)
+        case MONTH_OF_YEAR                => HijrahDate.resolvePreviousValid(yearOfEra, nvalue, dayOfMonth)
+        case YEAR_OF_ERA                  => HijrahDate.resolvePreviousValid(if (yearOfEra >= 1) nvalue else 1 - nvalue, monthOfYear, dayOfMonth)
+        case YEAR                         => HijrahDate.resolvePreviousValid(nvalue, monthOfYear, dayOfMonth)
+        case ERA                          => HijrahDate.resolvePreviousValid(1 - yearOfEra, monthOfYear, dayOfMonth)
+        case _                            => throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
       }
-      throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
+    } else {
+      field.adjustInto(this, newValue)
     }
-    field.adjustInto(this, newValue)
-  }
 
   override def plus(amount: TemporalAmount): HijrahDate =
     super.plus(amount).asInstanceOf[HijrahDate]

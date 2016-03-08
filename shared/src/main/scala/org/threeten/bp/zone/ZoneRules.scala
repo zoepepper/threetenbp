@@ -135,7 +135,7 @@ object ZoneRules {
 
     override def hashCode: Int = 1 ^ (31 + offset.hashCode) ^ 1 ^ (31 + offset.hashCode) ^ 1
 
-    override def toString: String = "FixedRules:" + offset
+    override def toString: String = s"FixedRules:$offset"
   }
 
 }

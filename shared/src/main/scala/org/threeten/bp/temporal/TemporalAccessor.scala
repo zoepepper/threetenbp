@@ -119,7 +119,7 @@ trait TemporalAccessor {
       if (isSupported(field))
         field.range
       else
-        throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
+        throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
     else
       field.rangeRefinedBy(this)
 

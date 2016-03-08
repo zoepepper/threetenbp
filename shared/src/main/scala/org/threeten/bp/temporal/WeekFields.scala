@@ -768,7 +768,7 @@ final class WeekFields private(private val firstDayOfWeek: DayOfWeek, private va
     try WeekFields.of(firstDayOfWeek, minimalDays)
     catch {
       case ex: IllegalArgumentException =>
-        throw new InvalidObjectException("Invalid WeekFields" + ex.getMessage)
+        throw new InvalidObjectException(s"Invalid WeekFields${ex.getMessage}")
     }
   }
 

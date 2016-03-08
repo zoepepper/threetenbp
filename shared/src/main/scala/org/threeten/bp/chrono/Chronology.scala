@@ -642,7 +642,7 @@ trait Chronology extends Ordered[Chronology] {
     new DateTimeFormatterBuilder().appendChronologyText(style).toFormatter(locale).format(new TemporalAccessor() {
       def isSupported(field: TemporalField): Boolean = false
 
-      def getLong(field: TemporalField): Long = throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
+      def getLong(field: TemporalField): Long = throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
 
       override def query[R >: Null](query: TemporalQuery[R]): R =
         if (query eq TemporalQueries.chronology)
@@ -681,7 +681,7 @@ trait Chronology extends Ordered[Chronology] {
   private[chrono] def updateResolveMap(fieldValues: java.util.Map[TemporalField, java.lang.Long], field: ChronoField, value: Long): Unit = {
     val current: java.lang.Long = fieldValues.get(field)
     if (current != null && current.longValue != value)
-      throw new DateTimeException("Invalid state, field: " + field + " " + current + " conflicts with " + field + " " + value)
+      throw new DateTimeException(s"Invalid state, field: $field $current conflicts with $field $value")
     else
       fieldValues.put(field, value)
   }

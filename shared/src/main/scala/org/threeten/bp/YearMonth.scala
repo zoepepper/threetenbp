@@ -186,7 +186,7 @@ object YearMonth {
     }
     catch {
       case ex: DateTimeException =>
-        throw new DateTimeException("Unable to obtain YearMonth from TemporalAccessor: " + _temporal + ", type " + _temporal.getClass.getName)
+        throw new DateTimeException(s"Unable to obtain YearMonth from TemporalAccessor: ${_temporal}, type ${_temporal.getClass.getName}")
     }
   }
 
@@ -225,7 +225,6 @@ object YearMonth {
 }
 
 /** @constructor
-  *
   * @param year  the year to represent, validated from MIN_YEAR to MAX_YEAR
   * @param month  the month-of-year to represent, validated from 1 (January) to 12 (December)
   */
@@ -365,7 +364,7 @@ final class YearMonth private(private val year: Int, private val month: Int) ext
         case YEAR_OF_ERA         => if (year < 1) 1 - year else year
         case YEAR                => year
         case ERA                 => if (year < 1) 0 else 1
-        case chrono: ChronoField => throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
+        case chrono: ChronoField => throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
         case _                   => field.getFrom(this)
     }
 
@@ -534,7 +533,7 @@ final class YearMonth private(private val year: Int, private val month: Int) ext
         case ERA =>
           return if (getLong(ERA) == newValue) this else withYear(1 - year)
       }
-      throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
+      throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
     }
     field.adjustInto(this, newValue)
   }
@@ -583,29 +582,24 @@ final class YearMonth private(private val year: Int, private val month: Int) ext
   override def plus(amount: TemporalAmount): YearMonth = amount.addTo(this).asInstanceOf[YearMonth]
 
   /** {@inheritDoc}
+    *
     * @throws DateTimeException { @inheritDoc}
     * @throws ArithmeticException { @inheritDoc}
     */
-  def plus(amountToAdd: Long, unit: TemporalUnit): YearMonth = {
+  def plus(amountToAdd: Long, unit: TemporalUnit): YearMonth =
     if (unit.isInstanceOf[ChronoUnit]) {
       unit.asInstanceOf[ChronoUnit] match {
-        case MONTHS =>
-          return plusMonths(amountToAdd)
-        case YEARS =>
-          return plusYears(amountToAdd)
-        case DECADES =>
-          return plusYears(Math.multiplyExact(amountToAdd, 10))
-        case CENTURIES =>
-          return plusYears(Math.multiplyExact(amountToAdd, 100))
-        case MILLENNIA =>
-          return plusYears(Math.multiplyExact(amountToAdd, 1000))
-        case ERAS =>
-          return `with`(ERA, Math.addExact(getLong(ERA), amountToAdd))
+        case MONTHS    => plusMonths(amountToAdd)
+        case YEARS     => plusYears(amountToAdd)
+        case DECADES   => plusYears(Math.multiplyExact(amountToAdd, 10))
+        case CENTURIES => plusYears(Math.multiplyExact(amountToAdd, 100))
+        case MILLENNIA => plusYears(Math.multiplyExact(amountToAdd, 1000))
+        case ERAS      => `with`(ERA, Math.addExact(getLong(ERA), amountToAdd))
+        case _         => throw new UnsupportedTemporalTypeException(s"Unsupported unit: $unit")
       }
-      throw new UnsupportedTemporalTypeException("Unsupported unit: " + unit)
+    } else {
+      unit.addTo(this, amountToAdd)
     }
-    unit.addTo(this, amountToAdd)
-  }
 
   /** Returns a copy of this year-month with the specified period in years added.
     *
@@ -615,12 +609,13 @@ final class YearMonth private(private val year: Int, private val month: Int) ext
     * @return a { @code YearMonth} based on this year-month with the years added, not null
     * @throws DateTimeException if the result exceeds the supported range
     */
-  def plusYears(yearsToAdd: Long): YearMonth = {
+  def plusYears(yearsToAdd: Long): YearMonth =
     if (yearsToAdd == 0)
-      return this
-    val newYear: Int = YEAR.checkValidIntValue(year + yearsToAdd)
-    `with`(newYear, month)
-  }
+      this
+    else {
+      val newYear: Int = YEAR.checkValidIntValue(year + yearsToAdd)
+      `with`(newYear, month)
+    }
 
   /** Returns a copy of this year-month with the specified period in months added.
     *
@@ -658,6 +653,7 @@ final class YearMonth private(private val year: Int, private val month: Int) ext
   override def minus(amount: TemporalAmount): YearMonth = amount.subtractFrom(this).asInstanceOf[YearMonth]
 
   /** {@inheritDoc}
+    *
     * @throws DateTimeException { @inheritDoc}
     * @throws ArithmeticException { @inheritDoc}
     */
@@ -766,10 +762,10 @@ final class YearMonth private(private val year: Int, private val month: Int) ext
     * The result of this method is a {@code long} representing the amount of
     * the specified unit. By contrast, the result of {@code between} is an
     * object that can be used directly in addition/subtraction:
-    * <pre>
-    * long period = start.until(end, YEARS);   // this method
-    * dateTime.plus(YEARS.between(start, end));      // use in plus/minus
-    * </pre>
+    * {{{
+    * val period: Long = start.until(end, YEARS);   // this method
+    * dateTime.plus(YEARS.between(start, end));     // use in plus/minus
+    * }}}
     *
     * The calculation is implemented in this method for {@link ChronoUnit}.
     * The units {@code MONTHS}, {@code YEARS}, {@code DECADES},
@@ -794,22 +790,18 @@ final class YearMonth private(private val year: Int, private val month: Int) ext
     if (unit.isInstanceOf[ChronoUnit]) {
       val monthsUntil: Long = end.getProlepticMonth - getProlepticMonth
       unit.asInstanceOf[ChronoUnit] match {
-        case MONTHS =>
-          return monthsUntil
-        case YEARS =>
-          return monthsUntil / 12
-        case DECADES =>
-          return monthsUntil / 120
-        case CENTURIES =>
-          return monthsUntil / 1200
-        case MILLENNIA =>
-          return monthsUntil / 12000
-        case ERAS =>
-          return end.getLong(ERA) - getLong(ERA)
+        case MONTHS    => monthsUntil
+        case YEARS     => monthsUntil / 12
+        case DECADES   => monthsUntil / 120
+        case CENTURIES => monthsUntil / 1200
+        case MILLENNIA => monthsUntil / 12000
+        case ERAS      => end.getLong(ERA) - getLong(ERA)
+        case _         => throw new UnsupportedTemporalTypeException(s"Unsupported unit: $unit")
+
       }
-      throw new UnsupportedTemporalTypeException("Unsupported unit: " + unit)
+    } else {
+      unit.between(this, end)
     }
-    unit.between(this, end)
   }
 
   /** Combines this year-month with a day-of-month to create a {@code LocalDate}.
@@ -828,9 +820,7 @@ final class YearMonth private(private val year: Int, private val month: Int) ext
     * @throws DateTimeException if the day is invalid for the year-month
     * @see #isValidDay(int)
     */
-  def atDay(dayOfMonth: Int): LocalDate = {
-    LocalDate.of(year, month, dayOfMonth)
-  }
+  def atDay(dayOfMonth: Int): LocalDate = LocalDate.of(year, month, dayOfMonth)
 
   /** Returns a {@code LocalDate} at the end of the month.
     *
@@ -845,9 +835,7 @@ final class YearMonth private(private val year: Int, private val month: Int) ext
     *
     * @return the last valid date of this year-month, not null
     */
-  def atEndOfMonth: LocalDate = {
-    LocalDate.of(year, month, lengthOfMonth)
-  }
+  def atEndOfMonth: LocalDate = LocalDate.of(year, month, lengthOfMonth)
 
   /** Compares this year-month to another year-month.
     *
@@ -907,17 +895,13 @@ final class YearMonth private(private val year: Int, private val month: Int) ext
   override def toString: String = {
     val absYear: Int = Math.abs(year)
     val buf: StringBuilder = new StringBuilder(9)
-    if (absYear < 1000) {
-      if (year < 0) {
+    if (absYear < 1000)
+      if (year < 0)
         buf.append(year - 10000).deleteCharAt(1)
-      }
-      else {
+      else
         buf.append(year + 10000).deleteCharAt(0)
-      }
-    }
-    else {
+    else
       buf.append(year)
-    }
     buf.append(if (month < 10) "-0" else "-").append(month).toString
   }
 
@@ -938,6 +922,7 @@ final class YearMonth private(private val year: Int, private val month: Int) ext
   private def writeReplace: AnyRef = new Ser(Ser.YEAR_MONTH_TYPE, this)
 
   /** Defend against malicious streams.
+    *
     * @return never
     * @throws InvalidObjectException always
     */

@@ -311,7 +311,7 @@ final class JapaneseChronology private() extends Chronology with Serializable {
 
         ValueRange.of(1, min, 366)
       case _ =>
-        throw new UnsupportedOperationException("Unimplementable field: " + field)
+        throw new UnsupportedOperationException(s"Unimplementable field: $field")
     }
   }
 
@@ -460,16 +460,16 @@ final class JapaneseChronology private() extends Chronology with Serializable {
     var dom: Int = range(DAY_OF_MONTH).checkValidIntValue(fieldValues.remove(DAY_OF_MONTH), DAY_OF_MONTH)
     if (resolverStyle eq ResolverStyle.SMART) {
       if (yoe < 1)
-        throw new DateTimeException("Invalid YearOfEra: " + yoe)
+        throw new DateTimeException(s"Invalid YearOfEra: $yoe")
       val y: Int = era.startDate.getYear + yoe - 1
       if (dom > 28)
         dom = Math.min(dom, date(y, moy, 1).lengthOfMonth)
       val jd: JapaneseDate = date(y, moy, dom)
       if (jd.getEra ne era) {
         if (Math.abs(jd.getEra.getValue - era.getValue) > 1)
-          throw new DateTimeException("Invalid Era/YearOfEra: " + era + " " + yoe)
+          throw new DateTimeException(s"Invalid Era/YearOfEra: $era $yoe")
         if (jd.get(YEAR_OF_ERA) != 1 && yoe != 1)
-          throw new DateTimeException("Invalid Era/YearOfEra: " + era + " " + yoe)
+          throw new DateTimeException(s"Invalid Era/YearOfEra: $era $yoe")
       }
       return jd
     }

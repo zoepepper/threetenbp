@@ -297,7 +297,7 @@ object ZoneId {
     if (zoneId == "Z")
       return ZoneOffset.UTC
     if (zoneId.length == 1)
-      throw new DateTimeException("Invalid zone: " + zoneId)
+      throw new DateTimeException(s"Invalid zone: $zoneId")
     if (zoneId.startsWith("+") || zoneId.startsWith("-"))
       return ZoneOffset.of(zoneId)
     if ((zoneId == "UTC") || (zoneId == "GMT") || (zoneId == "UT"))
@@ -312,7 +312,7 @@ object ZoneId {
       val offset: ZoneOffset = ZoneOffset.of(zoneId.substring(2))
       if (offset.getTotalSeconds == 0)
         return new ZoneRegion("UT", offset.getRules)
-      return new ZoneRegion("UT" + offset.getId, offset.getRules)
+      return new ZoneRegion(s"UT${offset.getId}", offset.getRules)
     }
     ZoneRegion.ofId(zoneId, true)
   }
@@ -332,16 +332,14 @@ object ZoneId {
   def ofOffset(prefix: String, offset: ZoneOffset): ZoneId = {
     Objects.requireNonNull(prefix, "prefix")
     Objects.requireNonNull(offset, "offset")
-    if (prefix.length == 0) {
+    if (prefix.length == 0)
       return offset
-    }
     if ((prefix == "GMT") || (prefix == "UTC") || (prefix == "UT")) {
-      if (offset.getTotalSeconds == 0) {
+      if (offset.getTotalSeconds == 0)
         return new ZoneRegion(prefix, offset.getRules)
-      }
       return new ZoneRegion(prefix + offset.getId, offset.getRules)
     }
-    throw new IllegalArgumentException("Invalid prefix, must be GMT, UTC or UT: " + prefix)
+    throw new IllegalArgumentException(s"Invalid prefix, must be GMT, UTC or UT: $prefix")
   }
 
   /** Obtains an instance of {@code ZoneId} from a temporal object.
@@ -362,7 +360,7 @@ object ZoneId {
   def from(temporal: TemporalAccessor): ZoneId = {
     val obj: ZoneId = temporal.query(TemporalQueries.zone)
     if (obj == null)
-      throw new DateTimeException("Unable to obtain ZoneId from TemporalAccessor: " + temporal + ", type " + temporal.getClass.getName)
+      throw new DateTimeException(s"Unable to obtain ZoneId from TemporalAccessor: $temporal, type ${temporal.getClass.getName}")
     else obj
   }
 }
@@ -419,9 +417,7 @@ abstract class ZoneId private[bp]() extends Serializable {
   def getDisplayName(style: TextStyle, locale: Locale): String = {
     new DateTimeFormatterBuilder().appendZoneText(style).toFormatter(locale).format(new TemporalAccessor() {
       def isSupported(field: TemporalField): Boolean = false
-
-      def getLong(field: TemporalField): Long = throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
-
+      def getLong(field: TemporalField): Long = throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
       override def query[R >: Null](query: TemporalQuery[R]): R =
         if (query eq TemporalQueries.zoneId)
           ZoneId.this.asInstanceOf[R]
@@ -447,8 +443,7 @@ abstract class ZoneId private[bp]() extends Serializable {
       val rules: ZoneRules = getRules
       if (rules.isFixedOffset)
         return rules.getOffset(Instant.EPOCH)
-    }
-    catch {
+    } catch {
       case ex: ZoneRulesException =>
     }
     this

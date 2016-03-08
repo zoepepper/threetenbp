@@ -161,7 +161,7 @@ object Year {
     }
     catch {
       case ex: DateTimeException =>
-        throw new DateTimeException("Unable to obtain Year from TemporalAccessor: " + _temporal + ", type " + _temporal.getClass.getName)
+        throw new DateTimeException(s"Unable to obtain Year from TemporalAccessor: ${_temporal}, type ${_temporal.getClass.getName}")
     }
   }
 
@@ -241,7 +241,6 @@ object Year {
   * This class is immutable and thread-safe.
   *
   * @constructor
-  *
   * @param year  the year to represent
   */
 @SerialVersionUID(-23038383694477807L)
@@ -371,7 +370,7 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
         case YEAR_OF_ERA => if (year < 1) 1 - year else year
         case YEAR        => year
         case ERA         => if (year < 1) 0 else 1
-        case _           => throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
+        case _           => throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
       }
     else
       field.getFrom(this)
@@ -469,22 +468,19 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
     * @throws DateTimeException if the field cannot be set
     * @throws ArithmeticException if numeric overflow occurs
     */
-  def `with`(field: TemporalField, newValue: Long): Year = {
+  def `with`(field: TemporalField, newValue: Long): Year =
     if (field.isInstanceOf[ChronoField]) {
       val f: ChronoField = field.asInstanceOf[ChronoField]
       f.checkValidValue(newValue)
       f match {
-        case YEAR_OF_ERA =>
-          return Year.of((if (year < 1) 1 - newValue else newValue).toInt)
-        case YEAR =>
-          return Year.of(newValue.toInt)
-        case ERA =>
-          return if (getLong(ERA) == newValue) this else Year.of(1 - year)
+        case YEAR_OF_ERA => Year.of((if (year < 1) 1 - newValue else newValue).toInt)
+        case YEAR        => Year.of(newValue.toInt)
+        case ERA         => if (getLong(ERA) == newValue) this else Year.of(1 - year)
+        case _           => throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
       }
-      throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
+    } else {
+      field.adjustInto(this, newValue)
     }
-    field.adjustInto(this, newValue)
-  }
 
   /** Returns a copy of this year with the specified period added.
     *
@@ -504,27 +500,23 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
   override def plus(amount: TemporalAmount): Year = amount.addTo(this).asInstanceOf[Year]
 
   /** {@inheritDoc}
+    *
     * @throws DateTimeException { @inheritDoc}
     * @throws ArithmeticException { @inheritDoc}
     */
-  def plus(amountToAdd: Long, unit: TemporalUnit): Year = {
+  def plus(amountToAdd: Long, unit: TemporalUnit): Year =
     if (unit.isInstanceOf[ChronoUnit]) {
       unit.asInstanceOf[ChronoUnit] match {
-        case YEARS =>
-          return plusYears(amountToAdd)
-        case DECADES =>
-          return plusYears(Math.multiplyExact(amountToAdd, 10))
-        case CENTURIES =>
-          return plusYears(Math.multiplyExact(amountToAdd, 100))
-        case MILLENNIA =>
-          return plusYears(Math.multiplyExact(amountToAdd, 1000))
-        case ERAS =>
-          return `with`(ERA, Math.addExact(getLong(ERA), amountToAdd))
+        case YEARS     => plusYears(amountToAdd)
+        case DECADES   => plusYears(Math.multiplyExact(amountToAdd, 10))
+        case CENTURIES => plusYears(Math.multiplyExact(amountToAdd, 100))
+        case MILLENNIA => plusYears(Math.multiplyExact(amountToAdd, 1000))
+        case ERAS      => `with`(ERA, Math.addExact(getLong(ERA), amountToAdd))
+        case _         => throw new UnsupportedTemporalTypeException(s"Unsupported unit: $unit")
       }
-      throw new UnsupportedTemporalTypeException("Unsupported unit: " + unit)
+    } else {
+      unit.addTo(this, amountToAdd)
     }
-    unit.addTo(this, amountToAdd)
-  }
 
   /** Returns a copy of this year with the specified number of years added.
     *
@@ -534,12 +526,11 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
     * @return a { @code Year} based on this year with the period added, not null
     * @throws DateTimeException if the result exceeds the supported year range
     */
-  def plusYears(yearsToAdd: Long): Year = {
-    if (yearsToAdd == 0) {
-      return this
-    }
-    Year.of(YEAR.checkValidIntValue(year + yearsToAdd))
-  }
+  def plusYears(yearsToAdd: Long): Year =
+    if (yearsToAdd == 0)
+      this
+    else
+      Year.of(YEAR.checkValidIntValue(year + yearsToAdd))
 
   /** Returns a copy of this year with the specified period subtracted.
     *
@@ -559,6 +550,7 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
   override def minus(amount: TemporalAmount): Year = amount.subtractFrom(this).asInstanceOf[Year]
 
   /** {@inheritDoc}
+    *
     * @throws DateTimeException { @inheritDoc}
     * @throws ArithmeticException { @inheritDoc}
     */
@@ -593,18 +585,15 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
     * @throws DateTimeException if unable to query (defined by the query)
     * @throws ArithmeticException if numeric overflow occurs (defined by the query)
     */
-  override def query[R >: Null](query: TemporalQuery[R]): R = {
-    if (query eq TemporalQueries.chronology) {
-      return IsoChronology.INSTANCE.asInstanceOf[R]
-    }
-    else if (query eq TemporalQueries.precision) {
-      return YEARS.asInstanceOf[R]
-    }
-    else if ((query eq TemporalQueries.localDate) || (query eq TemporalQueries.localTime) || (query eq TemporalQueries.zone) || (query eq TemporalQueries.zoneId) || (query eq TemporalQueries.offset)) {
-      return null
-    }
-    super.query(query)
-  }
+  override def query[R >: Null](query: TemporalQuery[R]): R =
+    if (query eq TemporalQueries.chronology)
+      IsoChronology.INSTANCE.asInstanceOf[R]
+    else if (query eq TemporalQueries.precision)
+      YEARS.asInstanceOf[R]
+    else if ((query eq TemporalQueries.localDate) || (query eq TemporalQueries.localTime) || (query eq TemporalQueries.zone) || (query eq TemporalQueries.zoneId) || (query eq TemporalQueries.offset))
+      null
+    else
+      super.query(query)
 
   /** Adjusts the specified temporal object to have this year.
     *
@@ -631,12 +620,11 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
     * @throws DateTimeException if unable to make the adjustment
     * @throws ArithmeticException if numeric overflow occurs
     */
-  def adjustInto(temporal: Temporal): Temporal = {
-    if (!(Chronology.from(temporal) == IsoChronology.INSTANCE)) {
+  def adjustInto(temporal: Temporal): Temporal =
+    if (!(Chronology.from(temporal) == IsoChronology.INSTANCE))
       throw new DateTimeException("Adjustment only supported on ISO date-time")
-    }
-    temporal.`with`(YEAR, year)
-  }
+    else
+      temporal.`with`(YEAR, year)
 
   /** Calculates the period between this year and another year in
     * terms of the specified unit.
@@ -685,20 +673,16 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
     if (unit.isInstanceOf[ChronoUnit]) {
       val yearsUntil: Long = end.year.toLong - year
       unit.asInstanceOf[ChronoUnit] match {
-        case YEARS =>
-          return yearsUntil
-        case DECADES =>
-          return yearsUntil / 10
-        case CENTURIES =>
-          return yearsUntil / 100
-        case MILLENNIA =>
-          return yearsUntil / 1000
-        case ERAS =>
-          return end.getLong(ERA) - getLong(ERA)
+        case YEARS     => yearsUntil
+        case DECADES   => yearsUntil / 10
+        case CENTURIES => yearsUntil / 100
+        case MILLENNIA => yearsUntil / 1000
+        case ERAS      => end.getLong(ERA) - getLong(ERA)
+        case _         => throw new UnsupportedTemporalTypeException(s"Unsupported unit: $unit")
       }
-      throw new UnsupportedTemporalTypeException("Unsupported unit: " + unit)
+    } else {
+      unit.between(this, end)
     }
-    unit.between(this, end)
   }
 
   /** Combines this year with a day-of-year to create a {@code LocalDate}.
@@ -712,9 +696,7 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
     * @throws DateTimeException if the day of year is zero or less, 366 or greater or equal
     *                           to 366 and this is not a leap year
     */
-  def atDay(dayOfYear: Int): LocalDate = {
-    LocalDate.ofYearDay(year, dayOfYear)
-  }
+  def atDay(dayOfYear: Int): LocalDate = LocalDate.ofYearDay(year, dayOfYear)
 
   /** Combines this year with a month to create a {@code YearMonth}.
     *
@@ -729,9 +711,7 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
     * @param month  the month-of-year to use, not null
     * @return the year-month formed from this year and the specified month, not null
     */
-  def atMonth(month: Month): YearMonth = {
-    YearMonth.of(year, month)
-  }
+  def atMonth(month: Month): YearMonth = YearMonth.of(year, month)
 
   /** Combines this year with a month to create a {@code YearMonth}.
     *
@@ -747,9 +727,7 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
     * @return the year-month formed from this year and the specified month, not null
     * @throws DateTimeException if the month is invalid
     */
-  def atMonth(month: Int): YearMonth = {
-    YearMonth.of(year, month)
-  }
+  def atMonth(month: Int): YearMonth = YearMonth.of(year, month)
 
   /** Combines this year with a month-day to create a {@code LocalDate}.
     *
@@ -761,9 +739,7 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
     * @param monthDay  the month-day to use, not null
     * @return the local date formed from this year and the specified month-day, not null
     */
-  def atMonthDay(monthDay: MonthDay): LocalDate = {
-    monthDay.atYear(year)
-  }
+  def atMonthDay(monthDay: MonthDay): LocalDate = monthDay.atYear(year)
 
   /** Compares this year to another year.
     *
@@ -773,27 +749,21 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
     * @param other  the other year to compare to, not null
     * @return the comparator value, negative if less, positive if greater
     */
-  def compare(other: Year): Int = {
-    year - other.year
-  }
+  def compare(other: Year): Int = year - other.year
 
   /** Is this year after the specified year.
     *
     * @param other  the other year to compare to, not null
     * @return true if this is after the specified year
     */
-  def isAfter(other: Year): Boolean = {
-    year > other.year
-  }
+  def isAfter(other: Year): Boolean = year > other.year
 
   /** Is this year before the specified year.
     *
     * @param other  the other year to compare to, not null
     * @return true if this point is before the specified year
     */
-  def isBefore(other: Year): Boolean = {
-    year < other.year
-  }
+  def isBefore(other: Year): Boolean = year < other.year
 
   /** Checks if this year is equal to another year.
     *
@@ -837,6 +807,7 @@ final class Year private(private val year: Int) extends TemporalAccessor with Te
   private def writeReplace: AnyRef = new Ser(Ser.YEAR_TYPE, this)
 
   /** Defend against malicious streams.
+    *
     * @return never
     * @throws InvalidObjectException always
     */

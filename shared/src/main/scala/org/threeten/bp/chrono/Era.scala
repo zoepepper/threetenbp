@@ -104,7 +104,7 @@ trait Era extends TemporalAccessor with TemporalAdjuster {
     if (field eq ERA)
       getValue
     else if (field.isInstanceOf[ChronoField])
-      throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
+      throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
     else field.getFrom(this)
 
   def adjustInto(temporal: Temporal): Temporal = temporal.`with`(ERA, getValue)

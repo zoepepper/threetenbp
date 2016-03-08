@@ -298,7 +298,7 @@ object LocalTime {
   def from(temporal: TemporalAccessor): LocalTime = {
     val time: LocalTime = temporal.query(TemporalQueries.localTime)
     if (time == null)
-      throw new DateTimeException("Unable to obtain LocalTime from TemporalAccessor: " + temporal + ", type " + temporal.getClass.getName)
+      throw new DateTimeException(s"Unable to obtain LocalTime from TemporalAccessor: $temporal, type ${temporal.getClass.getName}")
     else
       time
   }

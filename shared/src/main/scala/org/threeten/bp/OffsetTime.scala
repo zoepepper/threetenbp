@@ -203,7 +203,7 @@ object OffsetTime {
       new OffsetTime(time, offset)
     } catch {
       case ex: DateTimeException =>
-        throw new DateTimeException("Unable to obtain OffsetTime from TemporalAccessor: " + temporal + ", type " + temporal.getClass.getName)
+        throw new DateTimeException(s"Unable to obtain OffsetTime from TemporalAccessor: $temporal, type ${temporal.getClass.getName}")
     }
   }
 

@@ -395,16 +395,14 @@ final class StandardZoneRules private(private val standardTransitions: Array[Lon
     val ruleArray: Array[ZoneOffsetTransitionRule] = lastRules
     transArray = new Array[ZoneOffsetTransition](ruleArray.length)
 
-    {
-      var i: Int = 0
-      while (i < ruleArray.length) {
-        transArray(i) = ruleArray(i).createTransition(year)
-        i += 1
-      }
+    var i: Int = 0
+    while (i < ruleArray.length) {
+      transArray(i) = ruleArray(i).createTransition(year)
+      i += 1
     }
-    if (year < StandardZoneRules.LAST_CACHED_YEAR) {
+
+    if (year < StandardZoneRules.LAST_CACHED_YEAR)
       lastRulesCache.putIfAbsent(yearObj, transArray)
-    }
     transArray
   }
 
@@ -511,15 +509,13 @@ final class StandardZoneRules private(private val standardTransitions: Array[Lon
       case _                        => false
     }
 
-  override def hashCode: Int = {
+  override def hashCode: Int =
     Arrays.hashCode(standardTransitions) ^ Arrays.hashCode(standardOffsets.asInstanceOf[Array[AnyRef]]) ^ Arrays.hashCode(savingsInstantTransitions) ^ Arrays.hashCode(wallOffsets.asInstanceOf[Array[AnyRef]]) ^ Arrays.hashCode(lastRules.asInstanceOf[Array[AnyRef]])
-  }
 
   /** Returns a string describing this object.
     *
     * @return a string for debugging, not null
     */
-  override def toString: String = {
-    "StandardZoneRules[currentStandardOffset=" + standardOffsets(standardOffsets.length - 1) + "]"
-  }
+  override def toString: String =
+    s"StandardZoneRules[currentStandardOffset=${standardOffsets(standardOffsets.length - 1)}]"
 }

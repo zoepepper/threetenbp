@@ -1287,7 +1287,7 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
           case ex: RuntimeException =>
         }
       }
-      throw new DateTimeException("Unable to convert parsed text to any specified type: " + types.mkString("[", ", ", "]"))
+      throw new DateTimeException(s"Unable to convert parsed text to any specified type: ${types.mkString("[", ", ", "]")}")
     }
     catch {
       case ex: DateTimeParseException => throw ex
@@ -1301,7 +1301,7 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
       abbr = text.subSequence(0, 64).toString + "..."
     else
       abbr = text.toString
-    new DateTimeParseException("Text '" + abbr + "' could not be parsed: " + ex.getMessage, text, 0, ex)
+    new DateTimeParseException(s"Text '$abbr' could not be parsed: ${ex.getMessage}", text, 0, ex)
   }
 
   /** Parses the text to a builder.
@@ -1326,9 +1326,9 @@ final class DateTimeFormatter private[format](private val printerParser: DateTim
       else
         abbr = text.toString
       if (pos.getErrorIndex >= 0)
-        throw new DateTimeParseException("Text '" + abbr + "' could not be parsed at index " + pos.getErrorIndex, text, pos.getErrorIndex)
+        throw new DateTimeParseException(s"Text '$abbr' could not be parsed at index ${pos.getErrorIndex}", text, pos.getErrorIndex)
       else
-        throw new DateTimeParseException("Text '" + abbr + "' could not be parsed, unparsed text found at index " + pos.getIndex, text, pos.getIndex)
+        throw new DateTimeParseException(s"Text '$abbr' could not be parsed, unparsed text found at index ${pos.getIndex}", text, pos.getIndex)
     }
     result.toBuilder
   }

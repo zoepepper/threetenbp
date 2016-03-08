@@ -118,7 +118,7 @@ object ZoneRulesProvider {
       if (ZONES.isEmpty)
         throw new ZoneRulesException("No time-zone data files registered")
       else
-        throw new ZoneRulesException("Unknown time-zone ID: " + zoneId)
+        throw new ZoneRulesException(s"Unknown time-zone ID: $zoneId")
     else
       provider
   }
@@ -155,9 +155,8 @@ object ZoneRulesProvider {
       println(zoneId)
       Objects.requireNonNull(zoneId, "zoneId")
       val old: ZoneRulesProvider = ZONES.putIfAbsent(zoneId, provider)
-      if (old != null) {
-        throw new ZoneRulesException("Unable to register zone as one already registered with that ID: " + zoneId + ", currently loading from provider: " + provider)
-      }
+      if (old != null)
+        throw new ZoneRulesException(s"Unable to register zone as one already registered with that ID: $zoneId, currently loading from provider: $provider")
     }
   }
 

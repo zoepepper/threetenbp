@@ -119,7 +119,7 @@ object MonthDay {
     Objects.requireNonNull(month, "month")
     DAY_OF_MONTH.checkValidValue(dayOfMonth)
     if (dayOfMonth > month.maxLength) {
-      throw new DateTimeException("Illegal value for DayOfMonth field, value " + dayOfMonth + " is not valid for month " + month.name)
+      throw new DateTimeException(s"Illegal value for DayOfMonth field, value $dayOfMonth is not valid for month ${month.name}")
     }
     new MonthDay(month.getValue, dayOfMonth)
   }

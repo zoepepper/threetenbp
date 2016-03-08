@@ -82,13 +82,12 @@ object IsoEra {
     * @return the era singleton, not null
     * @throws DateTimeException if the value is invalid
     */
-  def of(era: Int): IsoEra = {
+  def of(era: Int): IsoEra =
     era match {
       case 0 => BCE
       case 1 => CE
-      case _ => throw new DateTimeException("Invalid era: " + era)
+      case _ => throw new DateTimeException(s"Invalid era: $era")
     }
-  }
 }
 
 final class IsoEra(name: String, ordinal: Int) extends Enum[IsoEra](name, ordinal) with Era {
@@ -110,7 +109,7 @@ final class IsoEra(name: String, ordinal: Int) extends Enum[IsoEra](name, ordina
     if (field eq ERA)
       field.range
     else if (field.isInstanceOf[ChronoField])
-      throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
+      throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
     else
       field.rangeRefinedBy(this)
 
@@ -124,7 +123,7 @@ final class IsoEra(name: String, ordinal: Int) extends Enum[IsoEra](name, ordina
     if (field eq ERA)
       getValue
     else if (field.isInstanceOf[ChronoField])
-      throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
+      throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
     else
       field.getFrom(this)
 

@@ -50,8 +50,7 @@ object DecimalStyle {
     * This uses standard ASCII characters for zero, positive, negative and a dot for the decimal point.
     */
   val STANDARD: DecimalStyle = new DecimalStyle('0', '+', '-', '.')
-  /** The cache of symbols instances.
-    */
+  /** The cache of symbols instances. */
   private val CACHE: ConcurrentMap[Locale, DecimalStyle] = new ConcurrentHashMap[Locale, DecimalStyle](16, 0.75f, 2)
 
   /** Lists all the locales that are supported.
@@ -127,7 +126,6 @@ final class DecimalStyle private(val zeroDigit: Char, val positiveSign: Char, va
     *
     * @param zeroDigit  the character for zero
     * @return  a copy with a new character that represents zero, not null
-
     */
   def withZeroDigit(zeroDigit: Char): DecimalStyle =
     if (zeroDigit == this.zeroDigit) this
@@ -140,9 +138,7 @@ final class DecimalStyle private(val zeroDigit: Char, val positiveSign: Char, va
     *
     * @return the character for the positive sign
     */
-  def getPositiveSign: Char = {
-    positiveSign
-  }
+  def getPositiveSign: Char = positiveSign
 
   /** Returns a copy of the info with a new character that represents the positive sign.
     *
@@ -152,12 +148,11 @@ final class DecimalStyle private(val zeroDigit: Char, val positiveSign: Char, va
     * @param positiveSign  the character for the positive sign
     * @return  a copy with a new character that represents the positive sign, not null
     */
-  def withPositiveSign(positiveSign: Char): DecimalStyle = {
-    if (positiveSign == this.positiveSign) {
-      return this
-    }
-    new DecimalStyle(zeroDigit, positiveSign, negativeSign, decimalSeparator)
-  }
+  def withPositiveSign(positiveSign: Char): DecimalStyle =
+    if (positiveSign == this.positiveSign)
+      this
+    else
+      new DecimalStyle(zeroDigit, positiveSign, negativeSign, decimalSeparator)
 
   /** Gets the character that represents the negative sign.
     *
@@ -166,9 +161,7 @@ final class DecimalStyle private(val zeroDigit: Char, val positiveSign: Char, va
     *
     * @return the character for the negative sign
     */
-  def getNegativeSign: Char = {
-    negativeSign
-  }
+  def getNegativeSign: Char = negativeSign
 
   /** Returns a copy of the info with a new character that represents the negative sign.
     *
@@ -178,12 +171,11 @@ final class DecimalStyle private(val zeroDigit: Char, val positiveSign: Char, va
     * @param negativeSign  the character for the negative sign
     * @return  a copy with a new character that represents the negative sign, not null
     */
-  def withNegativeSign(negativeSign: Char): DecimalStyle = {
-    if (negativeSign == this.negativeSign) {
-      return this
-    }
-    new DecimalStyle(zeroDigit, positiveSign, negativeSign, decimalSeparator)
-  }
+  def withNegativeSign(negativeSign: Char): DecimalStyle =
+    if (negativeSign == this.negativeSign)
+      this
+    else
+      new DecimalStyle(zeroDigit, positiveSign, negativeSign, decimalSeparator)
 
   /** Gets the character that represents the decimal point.
     *
@@ -192,9 +184,7 @@ final class DecimalStyle private(val zeroDigit: Char, val positiveSign: Char, va
     *
     * @return the character for the decimal point
     */
-  def getDecimalSeparator: Char = {
-    decimalSeparator
-  }
+  def getDecimalSeparator: Char = decimalSeparator
 
   /** Returns a copy of the info with a new character that represents the decimal point.
     *
@@ -204,12 +194,11 @@ final class DecimalStyle private(val zeroDigit: Char, val positiveSign: Char, va
     * @param decimalSeparator  the character for the decimal point
     * @return  a copy with a new character that represents the decimal point, not null
     */
-  def withDecimalSeparator(decimalSeparator: Char): DecimalStyle = {
-    if (decimalSeparator == this.decimalSeparator) {
-      return this
-    }
-    new DecimalStyle(zeroDigit, positiveSign, negativeSign, decimalSeparator)
-  }
+  def withDecimalSeparator(decimalSeparator: Char): DecimalStyle =
+    if (decimalSeparator == this.decimalSeparator)
+      this
+    else
+      new DecimalStyle(zeroDigit, positiveSign, negativeSign, decimalSeparator)
 
   /** Checks whether the character is a digit, based on the currently set zero character.
     *
@@ -217,8 +206,8 @@ final class DecimalStyle private(val zeroDigit: Char, val positiveSign: Char, va
     * @return the value, 0 to 9, of the character, or -1 if not a digit
     */
   private[format] def convertToDigit(ch: Char): Int = {
-    val `val`: Int = ch - zeroDigit
-    if (`val` >= 0 && `val` <= 9) `val` else -1
+    val value: Int = ch - zeroDigit
+    if (value >= 0 && value <= 9) value else -1
   }
 
   /** Converts the input numeric text to the internationalized form using the zero character.
@@ -227,24 +216,17 @@ final class DecimalStyle private(val zeroDigit: Char, val positiveSign: Char, va
     * @return the internationalized text, not null
     */
   private[format] def convertNumberToI18N(numericText: String): String = {
-    if (zeroDigit == '0') {
+    if (zeroDigit == '0')
       return numericText
-    }
     val diff: Int = zeroDigit - '0'
     val array: Array[Char] = numericText.toCharArray
 
-    {
-      var i: Int = 0
-      while (i < array.length) {
-        {
-          array(i) = (array(i) + diff).toChar
-        }
-        {
-          i += 1
-          i - 1
-        }
-      }
+    var i: Int = 0
+    while (i < array.length) {
+      array(i) = (array(i) + diff).toChar
+      i += 1
     }
+
     new String(array)
   }
 
@@ -253,13 +235,13 @@ final class DecimalStyle private(val zeroDigit: Char, val positiveSign: Char, va
     * @param obj  the object to check, null returns false
     * @return true if this is equal to the other date
     */
-  override def equals(obj: Any): Boolean = {
+  override def equals(obj: Any): Boolean =
     if (obj.isInstanceOf[DecimalStyle]) {
       val other: DecimalStyle = obj.asInstanceOf[DecimalStyle]
-      return (this eq other) || (zeroDigit == other.zeroDigit && positiveSign == other.positiveSign && negativeSign == other.negativeSign && decimalSeparator == other.decimalSeparator)
+      (this eq other) || (zeroDigit == other.zeroDigit && positiveSign == other.positiveSign && negativeSign == other.negativeSign && decimalSeparator == other.decimalSeparator)
+    } else {
+      false
     }
-    false
-  }
 
   /** A hash code for these symbols.
     *
@@ -271,5 +253,5 @@ final class DecimalStyle private(val zeroDigit: Char, val positiveSign: Char, va
     *
     * @return a string description, not null
     */
-  override def toString: String = "DecimalStyle[" + zeroDigit + positiveSign + negativeSign + decimalSeparator + "]"
+  override def toString: String = s"DecimalStyle[$zeroDigit$positiveSign$negativeSign$decimalSeparator]"
 }

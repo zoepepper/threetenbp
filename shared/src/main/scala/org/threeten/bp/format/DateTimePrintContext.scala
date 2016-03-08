@@ -84,9 +84,8 @@ object DateTimePrintContext {
       }
       val normalizedOffset: ZoneId = overrideZone.normalized
       val temporalOffset: ZoneOffset = temporal.query(TemporalQueries.offset)
-      if (normalizedOffset.isInstanceOf[ZoneOffset] && temporalOffset != null && !(normalizedOffset == temporalOffset)) {
-        throw new DateTimeException("Invalid override zone for temporal: " + overrideZone + " " + temporal)
-      }
+      if (normalizedOffset.isInstanceOf[ZoneOffset] && temporalOffset != null && !(normalizedOffset == temporalOffset))
+        throw new DateTimeException(s"Invalid override zone for temporal: $overrideZone $temporal")
     }
     var effectiveDate: ChronoLocalDate = null
     if (overrideChrono != null) {
@@ -96,9 +95,8 @@ object DateTimePrintContext {
       else {
         if (!((overrideChrono eq IsoChronology.INSTANCE) && temporalChrono == null)) {
           for (f <- ChronoField.values) {
-            if (f.isDateBased && temporal.isSupported(f)) {
-              throw new DateTimeException("Invalid override chronology for temporal: " + overrideChrono + " " + temporal)
-            }
+            if (f.isDateBased && temporal.isSupported(f))
+              throw new DateTimeException(s"Invalid override chronology for temporal: $overrideChrono $temporal")
           }
         }
         effectiveDate = null
@@ -140,8 +138,7 @@ object DateTimePrintContext {
 }
 
 final class DateTimePrintContext private[format](private var temporal: TemporalAccessor, private var locale: Locale, private var symbols: DecimalStyle) {
-  /** Whether the current formatter is optional.
-    */
+  /** Whether the current formatter is optional. */
   private var optional: Int = 0
 
   /** Creates a new instance of the context.
@@ -176,12 +173,10 @@ final class DateTimePrintContext private[format](private var temporal: TemporalA
     */
   private[format] def getSymbols: DecimalStyle = symbols
 
-  /** Starts the printing of an optional segment of the input.
-    */
+  /** Starts the printing of an optional segment of the input. */
   private[format] def startOptional(): Unit = this.optional += 1
 
-  /** Ends the printing of an optional segment of the input.
-    */
+  /** Ends the printing of an optional segment of the input. */
   private[format] def endOptional(): Unit = this.optional -= 1
 
   /** Gets a value using a query.
@@ -193,7 +188,7 @@ final class DateTimePrintContext private[format](private var temporal: TemporalA
   private[format] def getValue[R >: Null](query: TemporalQuery[R]): R = {
     val result: R = temporal.query(query)
     if (result == null && optional == 0)
-      throw new DateTimeException("Unable to extract value: " + temporal.getClass)
+      throw new DateTimeException(s"Unable to extract value: ${temporal.getClass}")
     else
       result
   }

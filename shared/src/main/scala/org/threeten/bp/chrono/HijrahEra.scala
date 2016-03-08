@@ -113,7 +113,7 @@ final class HijrahEra(name: String, ordinal: Int) extends Enum[HijrahEra](name, 
     if (field eq ERA)
       ValueRange.of(1, 1)
     else if (field.isInstanceOf[ChronoField])
-      throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
+      throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
     else
       field.rangeRefinedBy(this)
 
@@ -127,7 +127,7 @@ final class HijrahEra(name: String, ordinal: Int) extends Enum[HijrahEra](name, 
     if (field eq ERA)
       getValue
     else if (field.isInstanceOf[ChronoField])
-      throw new UnsupportedTemporalTypeException("Unsupported field: " + field)
+      throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
     else
       field.getFrom(this)
 

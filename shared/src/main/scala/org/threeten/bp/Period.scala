@@ -163,7 +163,7 @@ object Period {
     }
     if (amount.isInstanceOf[ChronoPeriod]) {
       if (IsoChronology.INSTANCE != amount.asInstanceOf[ChronoPeriod].getChronology) {
-        throw new DateTimeException("Period requires ISO chronology: " + amount)
+        throw new DateTimeException(s"Period requires ISO chronology: $amount")
       }
     }
     Objects.requireNonNull(amount, "amount")
@@ -173,18 +173,14 @@ object Period {
     import scala.collection.JavaConversions._
     for (unit <- amount.getUnits) {
       val unitAmount: Long = amount.get(unit)
-      if (unit eq ChronoUnit.YEARS) {
+      if (unit eq ChronoUnit.YEARS)
         years = Math.toIntExact(unitAmount)
-      }
-      else if (unit eq ChronoUnit.MONTHS) {
+      else if (unit eq ChronoUnit.MONTHS)
         months = Math.toIntExact(unitAmount)
-      }
-      else if (unit eq ChronoUnit.DAYS) {
+      else if (unit eq ChronoUnit.DAYS)
         days = Math.toIntExact(unitAmount)
-      }
-      else {
-        throw new DateTimeException("Unit must be Years, Months or Days, but was " + unit)
-      }
+      else
+        throw new DateTimeException(s"Unit must be Years, Months or Days, but was $unit")
     }
     create(years, months, days)
   }
@@ -207,9 +203,7 @@ object Period {
     * @return the period between this date and the end date, not null
     * @see ChronoLocalDate#until(ChronoLocalDate)
     */
-  def between(startDate: LocalDate, endDate: LocalDate): Period = {
-    startDate.until(endDate)
-  }
+  def between(startDate: LocalDate, endDate: LocalDate): Period = startDate.until(endDate)
 
   /** Obtains a {@code Period} from a text string such as {@code PnYnMnD}.
     *
@@ -331,7 +325,7 @@ final class Period private(private val years: Int, private val months: Int, priv
     if (unit eq YEARS) years
     else if (unit eq MONTHS) months
     else if (unit eq DAYS) days
-    else throw new UnsupportedTemporalTypeException("Unsupported unit: " + unit)
+    else throw new UnsupportedTemporalTypeException(s"Unsupported unit: $unit")
 
   /** Checks if all three units of this period are zero.
     *
@@ -347,9 +341,7 @@ final class Period private(private val years: Int, private val months: Int, priv
     *
     * @return true if any unit of this period is negative
     */
-  override def isNegative: Boolean = {
-    years < 0 || months < 0 || days < 0
-  }
+  override def isNegative: Boolean = years < 0 || months < 0 || days < 0
 
   /** Gets the amount of years of this period.
     *
@@ -361,9 +353,7 @@ final class Period private(private val years: Int, private val months: Int, priv
     *
     * @return the amount of years of this period, may be negative
     */
-  def getYears: Int = {
-    years
-  }
+  def getYears: Int = years
 
   /** Gets the amount of months of this period.
     *
@@ -375,9 +365,7 @@ final class Period private(private val years: Int, private val months: Int, priv
     *
     * @return the amount of months of this period, may be negative
     */
-  def getMonths: Int = {
-    months
-  }
+  def getMonths: Int = months
 
   /** Gets the amount of days of this period.
     *
@@ -385,9 +373,7 @@ final class Period private(private val years: Int, private val months: Int, priv
     *
     * @return the amount of days of this period, may be negative
     */
-  def getDays: Int = {
-    days
-  }
+  def getDays: Int = days
 
   /** Returns a copy of this period with the specified amount of years.
     *
@@ -403,12 +389,11 @@ final class Period private(private val years: Int, private val months: Int, priv
     * @param years  the years to represent, may be negative
     * @return a { @code Period} based on this period with the requested years, not null
     */
-  def withYears(years: Int): Period = {
-    if (years == this.years) {
-      return this
-    }
-    Period.create(years, months, days)
-  }
+  def withYears(years: Int): Period =
+    if (years == this.years)
+      this
+    else
+      Period.create(years, months, days)
 
   /** Returns a copy of this period with the specified amount of months.
     *
@@ -424,12 +409,11 @@ final class Period private(private val years: Int, private val months: Int, priv
     * @param months  the months to represent, may be negative
     * @return a { @code Period} based on this period with the requested months, not null
     */
-  def withMonths(months: Int): Period = {
-    if (months == this.months) {
-      return this
-    }
-    Period.create(years, months, days)
-  }
+  def withMonths(months: Int): Period =
+    if (months == this.months)
+      this
+    else
+      Period.create(years, months, days)
 
   /** Returns a copy of this period with the specified amount of days.
     *
