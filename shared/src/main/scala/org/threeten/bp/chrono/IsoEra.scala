@@ -45,18 +45,6 @@ import org.threeten.bp.temporal.TemporalQuery
 import org.threeten.bp.temporal.UnsupportedTemporalTypeException
 import org.threeten.bp.temporal.ValueRange
 
-/** An era in the ISO calendar system.
-  *
-  * The ISO-8601 standard does not define eras.
-  * A definition has therefore been created with two eras - 'Current era' (CE) for
-  * years from 0001-01-01 (ISO) and 'Before current era' (BCE) for years before that.
-  *
-  * <b>Do not use {@code ordinal()} to obtain the numeric representation of {@code IsoEra}.
-  * Use {@code getValue()} instead.</b>
-  *
-  * <h3>Specification for implementors</h3>
-  * This is an immutable and thread-safe enum.
-  */
 object IsoEra {
   /** The singleton instance for the era BCE, 'Before Current Era'.
     * The 'ISO' part of the name emphasizes that this differs from the BCE
@@ -90,6 +78,18 @@ object IsoEra {
     }
 }
 
+/** An era in the ISO calendar system.
+  *
+  * The ISO-8601 standard does not define eras.
+  * A definition has therefore been created with two eras - 'Current era' (CE) for
+  * years from 0001-01-01 (ISO) and 'Before current era' (BCE) for years before that.
+  *
+  * <b>Do not use {@code ordinal()} to obtain the numeric representation of {@code IsoEra}.
+  * Use {@code getValue()} instead.</b>
+  *
+  * <h3>Specification for implementors</h3>
+  * This is an immutable and thread-safe enum.
+  */
 final class IsoEra(name: String, ordinal: Int) extends Enum[IsoEra](name, ordinal) with Era {
   /** Gets the numeric era {@code int} value.
     *

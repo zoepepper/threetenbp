@@ -34,23 +34,6 @@ package org.threeten.bp.temporal
 import java.io.Serializable
 import org.threeten.bp.DateTimeException
 
-/** The range of valid values for a date-time field.
-  *
-  * All {@link TemporalField} instances have a valid range of values.
-  * For example, the ISO day-of-month runs from 1 to somewhere between 28 and 31.
-  * This class captures that valid range.
-  *
-  * It is important to be aware of the limitations of this class.
-  * Only the minimum and maximum values are provided.
-  * It is possible for there to be invalid values within the outer range.
-  * For example, a weird field may have valid values of 1, 2, 4, 6, 7, thus
-  * have a range of '1 - 7', despite that fact that values 3 and 5 are invalid.
-  *
-  * Instances of this class are not tied to a specific field.
-  *
-  * <h3>Specification for implementors</h3>
-  * This class is immutable and thread-safe.
-  */
 @SerialVersionUID(-7317881728594519368L)
 object ValueRange {
   /** Obtains a fixed value range.
@@ -109,7 +92,24 @@ object ValueRange {
   }
 }
 
-/** @constructor Restrictive constructor.
+/** The range of valid values for a date-time field.
+  *
+  * All {@link TemporalField} instances have a valid range of values.
+  * For example, the ISO day-of-month runs from 1 to somewhere between 28 and 31.
+  * This class captures that valid range.
+  *
+  * It is important to be aware of the limitations of this class.
+  * Only the minimum and maximum values are provided.
+  * It is possible for there to be invalid values within the outer range.
+  * For example, a weird field may have valid values of 1, 2, 4, 6, 7, thus
+  * have a range of '1 - 7', despite that fact that values 3 and 5 are invalid.
+  *
+  * Instances of this class are not tied to a specific field.
+  *
+  * <h3>Specification for implementors</h3>
+  * This class is immutable and thread-safe.
+  *
+  * @constructor Restrictive constructor.
   *
   * @param minSmallest  the smallest minimum value
   * @param minLargest  the largest minimum value

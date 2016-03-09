@@ -65,24 +65,20 @@ private object ZoneRegion {
     * @throws DateTimeException if the ID format is invalid
     */
   private def ofLenient(zoneId: String): ZoneRegion = {
-    if ((zoneId == "Z") || zoneId.startsWith("+") || zoneId.startsWith("-")) {
+    if ((zoneId == "Z") || zoneId.startsWith("+") || zoneId.startsWith("-"))
       throw new DateTimeException(s"Invalid ID for region-based ZoneId, invalid format: $zoneId")
-    }
-    if ((zoneId == "UTC") || (zoneId == "GMT") || (zoneId == "UT")) {
+    if ((zoneId == "UTC") || (zoneId == "GMT") || (zoneId == "UT"))
       return new ZoneRegion(zoneId, ZoneOffset.UTC.getRules)
-    }
     if (zoneId.startsWith("UTC+") || zoneId.startsWith("GMT+") || zoneId.startsWith("UTC-") || zoneId.startsWith("GMT-")) {
       val offset: ZoneOffset = ZoneOffset.of(zoneId.substring(3))
-      if (offset.getTotalSeconds == 0) {
+      if (offset.getTotalSeconds == 0)
         return new ZoneRegion(zoneId.substring(0, 3), offset.getRules)
-      }
       return new ZoneRegion(zoneId.substring(0, 3) + offset.getId, offset.getRules)
     }
     if (zoneId.startsWith("UT+") || zoneId.startsWith("UT-")) {
       val offset: ZoneOffset = ZoneOffset.of(zoneId.substring(2))
-      if (offset.getTotalSeconds == 0) {
+      if (offset.getTotalSeconds == 0)
         return new ZoneRegion("UT", offset.getRules)
-      }
       return new ZoneRegion(s"UT${offset.getId}", offset.getRules)
     }
     ofId(zoneId, false)
@@ -101,9 +97,7 @@ private object ZoneRegion {
     if (zoneId.length < 2 || !PATTERN.matcher(zoneId).matches)
       throw new DateTimeException(s"Invalid ID for region-based ZoneId, invalid format: $zoneId")
     var rules: ZoneRules = null
-    try {
-      rules = ZoneRulesProvider.getRules(zoneId, true)
-    }
+    try rules = ZoneRulesProvider.getRules(zoneId, true)
     catch {
       case ex: ZoneRulesException =>
         if (zoneId == "GMT0")
@@ -138,6 +132,7 @@ private object ZoneRegion {
   * <h3>Specification for implementors</h3>
   * This class is immutable and thread-safe.
   *
+  * @constructor
   * @param id  the time-zone ID, not null
   * @param rules  the rules, null for lazy lookup
   */

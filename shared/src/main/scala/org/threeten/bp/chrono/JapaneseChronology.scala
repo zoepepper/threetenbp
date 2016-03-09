@@ -62,33 +62,6 @@ import org.threeten.bp.temporal.TemporalAccessor
 import org.threeten.bp.temporal.TemporalField
 import org.threeten.bp.temporal.ValueRange
 
-/** The Japanese Imperial calendar system.
-  *
-  * This chronology defines the rules of the Japanese Imperial calendar system.
-  * This calendar system is primarily used in Japan.
-  * The Japanese Imperial calendar system is the same as the ISO calendar system
-  * apart from the era-based year numbering.
-  *
-  * Japan introduced the Gregorian calendar starting with Meiji 6.
-  * Only Meiji and later eras are supported;
-  * dates before Meiji 6, January 1 are not supported.
-  *
-  * The supported {@code ChronoField} instances are:
-  * <ul>
-  * <li>{@code DAY_OF_WEEK}
-  * <li>{@code DAY_OF_MONTH}
-  * <li>{@code DAY_OF_YEAR}
-  * <li>{@code EPOCH_DAY}
-  * <li>{@code MONTH_OF_YEAR}
-  * <li>{@code PROLEPTIC_MONTH}
-  * <li>{@code YEAR_OF_ERA}
-  * <li>{@code YEAR}
-  * <li>{@code ERA}
-  * </ul>
-  *
-  * <h3>Specification for implementors</h3>
-  * This class is immutable and thread-safe.
-  */
 @SerialVersionUID(459996390165777884L)
 object JapaneseChronology {
   private[chrono] val LOCALE: Locale = new Locale("ja", "JP", "JP")
@@ -121,7 +94,35 @@ object JapaneseChronology {
   }
 }
 
-/** @constructor Restricted constructor. */
+/** The Japanese Imperial calendar system.
+  *
+  * This chronology defines the rules of the Japanese Imperial calendar system.
+  * This calendar system is primarily used in Japan.
+  * The Japanese Imperial calendar system is the same as the ISO calendar system
+  * apart from the era-based year numbering.
+  *
+  * Japan introduced the Gregorian calendar starting with Meiji 6.
+  * Only Meiji and later eras are supported;
+  * dates before Meiji 6, January 1 are not supported.
+  *
+  * The supported {@code ChronoField} instances are:
+  * <ul>
+  * <li>{@code DAY_OF_WEEK}
+  * <li>{@code DAY_OF_MONTH}
+  * <li>{@code DAY_OF_YEAR}
+  * <li>{@code EPOCH_DAY}
+  * <li>{@code MONTH_OF_YEAR}
+  * <li>{@code PROLEPTIC_MONTH}
+  * <li>{@code YEAR_OF_ERA}
+  * <li>{@code YEAR}
+  * <li>{@code ERA}
+  * </ul>
+  *
+  * <h3>Specification for implementors</h3>
+  * This class is immutable and thread-safe.
+  *
+  * @constructor Restricted constructor.
+  */
 @SerialVersionUID(459996390165777884L)
 final class JapaneseChronology private() extends Chronology with Serializable {
 

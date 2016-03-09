@@ -48,39 +48,6 @@ import org.threeten.bp.temporal.TemporalAmount
 import org.threeten.bp.temporal.TemporalUnit
 import org.threeten.bp.temporal.UnsupportedTemporalTypeException
 
-/** A date-based amount of time, such as '2 years, 3 months and 4 days'.
-  *
-  * This class models a quantity or amount of time in terms of years, months and days.
-  * See {@link Duration} for the time-based equivalent to this class.
-  *
-  * Durations and period differ in their treatment of daylight savings time
-  * when added to {@link ZonedDateTime}. A {@code Duration} will add an exact
-  * number of seconds, thus a duration of one day is always exactly 24 hours.
-  * By contrast, a {@code Period} will add a conceptual day, trying to maintain
-  * the local time.
-  *
-  * For example, consider adding a period of one day and a duration of one day to
-  * 18:00 on the evening before a daylight savings gap. The {@code Period} will add
-  * the conceptual day and result in a {@code ZonedDateTime} at 18:00 the following day.
-  * By contrast, the {@code Duration} will add exactly 24 hours, resulting in a
-  * {@code ZonedDateTime} at 19:00 the following day (assuming a one hour DST gap).
-  *
-  * The supported units of a period are {@link ChronoUnit#YEARS YEARS},
-  * {@link ChronoUnit#MONTHS MONTHS} and {@link ChronoUnit#DAYS DAYS}.
-  * All three fields are always present, but may be set to zero.
-  *
-  * The period may be used with any calendar system.
-  * The meaning of a "year" or "month" is only applied when the object is added to a date.
-  *
-  * The period is modeled as a directed amount of time, meaning that individual parts of the
-  * period may be negative.
-  *
-  * The months and years fields may be {@linkplain #normalized() normalized}.
-  * The normalization assumes a 12 month year, so is not appropriate for all calendar systems.
-  *
-  * <h3>Specification for implementors</h3>
-  * This class is immutable and thread-safe.
-  */
 @SerialVersionUID(-8290556941213247973L)
 object Period {
   /** A constant for a period of zero. */
@@ -298,7 +265,40 @@ object Period {
   }
 }
 
-/** @constructor
+/** A date-based amount of time, such as '2 years, 3 months and 4 days'.
+  *
+  * This class models a quantity or amount of time in terms of years, months and days.
+  * See {@link Duration} for the time-based equivalent to this class.
+  *
+  * Durations and period differ in their treatment of daylight savings time
+  * when added to {@link ZonedDateTime}. A {@code Duration} will add an exact
+  * number of seconds, thus a duration of one day is always exactly 24 hours.
+  * By contrast, a {@code Period} will add a conceptual day, trying to maintain
+  * the local time.
+  *
+  * For example, consider adding a period of one day and a duration of one day to
+  * 18:00 on the evening before a daylight savings gap. The {@code Period} will add
+  * the conceptual day and result in a {@code ZonedDateTime} at 18:00 the following day.
+  * By contrast, the {@code Duration} will add exactly 24 hours, resulting in a
+  * {@code ZonedDateTime} at 19:00 the following day (assuming a one hour DST gap).
+  *
+  * The supported units of a period are {@link ChronoUnit#YEARS YEARS},
+  * {@link ChronoUnit#MONTHS MONTHS} and {@link ChronoUnit#DAYS DAYS}.
+  * All three fields are always present, but may be set to zero.
+  *
+  * The period may be used with any calendar system.
+  * The meaning of a "year" or "month" is only applied when the object is added to a date.
+  *
+  * The period is modeled as a directed amount of time, meaning that individual parts of the
+  * period may be negative.
+  *
+  * The months and years fields may be {@linkplain #normalized() normalized}.
+  * The normalization assumes a 12 month year, so is not appropriate for all calendar systems.
+  *
+  * <h3>Specification for implementors</h3>
+  * This class is immutable and thread-safe.
+  *
+  * @constructor
   *
   * @param years  the amount
   * @param months  the amount

@@ -54,15 +54,6 @@ import org.threeten.bp.temporal.TemporalUnit
 import org.threeten.bp.temporal.UnsupportedTemporalTypeException
 import org.threeten.bp.temporal.ValueRange
 
-/** A date in the Minguo calendar system.
-  *
-  * This date operates using the {@linkplain MinguoChronology Minguo calendar}.
-  * This calendar system is primarily used in the Republic of China, often known as Taiwan.
-  * Dates are aligned such that {@code 0001-01-01 (Minguo)} is {@code 1912-01-01 (ISO)}.
-  *
-  * <h3>Specification for implementors</h3>
-  * This class is immutable and thread-safe.
-  */
 @SerialVersionUID(1300372329181994526L)
 object MinguoDate {
   /** Obtains the current {@code MinguoDate} from the system clock in the default time-zone.
@@ -145,7 +136,16 @@ object MinguoDate {
   }
 }
 
-/** Creates an instance from an ISO date.
+/** A date in the Minguo calendar system.
+  *
+  * This date operates using the {@linkplain MinguoChronology Minguo calendar}.
+  * This calendar system is primarily used in the Republic of China, often known as Taiwan.
+  * Dates are aligned such that {@code 0001-01-01 (Minguo)} is {@code 1912-01-01 (ISO)}.
+  *
+  * <h3>Specification for implementors</h3>
+  * This class is immutable and thread-safe.
+  *
+  * @constructor Creates an instance from an ISO date.
   *
   * @param isoDate  the standard local date, validated not null
   */

@@ -52,6 +52,41 @@ import org.threeten.bp.temporal.ValueRange
 
 import scala.collection.JavaConverters._
 
+@SerialVersionUID(2775954514031616474L)
+object ThaiBuddhistChronology {
+  /** Singleton instance of the Buddhist chronology. */
+  val INSTANCE: ThaiBuddhistChronology = new ThaiBuddhistChronology
+  /** Containing the offset to add to the ISO year. */
+  private[chrono] val YEARS_DIFFERENCE: Int = 543
+
+  /** Fallback language for the era names. */
+  private val FALLBACK_LANGUAGE: String = "en"
+  /** Language that has the era names. */
+  private val TARGET_LANGUAGE: String = "th"
+
+  /** Narrow names for eras. */
+  private val ERA_NARROW_NAMES: java.util.HashMap[String, Array[String]] = {
+    val names = new java.util.HashMap[String, Array[String]]
+    names.put(FALLBACK_LANGUAGE, Array[String]("BB", "BE"))
+    names.put(TARGET_LANGUAGE, Array[String]("BB", "BE"))
+    names
+  }
+  /** Short names for eras. */
+  private val ERA_SHORT_NAMES: java.util.HashMap[String, Array[String]] = {
+    val names = new java.util.HashMap[String, Array[String]]
+    names.put(FALLBACK_LANGUAGE, Array[String]("B.B.", "B.E."))
+    names.put(TARGET_LANGUAGE, Array[String]("\u0e1e.\u0e28.", "\u0e1b\u0e35\u0e01\u0e48\u0e2d\u0e19\u0e04\u0e23\u0e34\u0e2a\u0e15\u0e4c\u0e01\u0e32\u0e25\u0e17\u0e35\u0e48"))
+    names
+  }
+  /** Full names for eras. */
+  private val ERA_FULL_NAMES: java.util.HashMap[String, Array[String]] = {
+    val names = new java.util.HashMap[String, Array[String]]
+    names.put(FALLBACK_LANGUAGE, Array[String]("Before Buddhist", "Budhhist Era"))
+    names.put(TARGET_LANGUAGE, Array[String]("\u0e1e\u0e38\u0e17\u0e18\u0e28\u0e31\u0e01\u0e23\u0e32\u0e0a", "\u0e1b\u0e35\u0e01\u0e48\u0e2d\u0e19\u0e04\u0e23\u0e34\u0e2a\u0e15\u0e4c\u0e01\u0e32\u0e25\u0e17\u0e35\u0e48"))
+    names
+  }
+}
+
 /** The Thai Buddhist calendar system.
   *
   * This chronology defines the rules of the Thai Buddhist calendar system.
@@ -77,48 +112,6 @@ import scala.collection.JavaConverters._
   * <h3>Specification for implementors</h3>
   * This class is immutable and thread-safe.
   */
-@SerialVersionUID(2775954514031616474L)
-object ThaiBuddhistChronology {
-  /** Singleton instance of the Buddhist chronology.
-    */
-  val INSTANCE: ThaiBuddhistChronology = new ThaiBuddhistChronology
-  /** Containing the offset to add to the ISO year.
-    */
-  private[chrono] val YEARS_DIFFERENCE: Int = 543
-
-  /** Fallback language for the era names.
-    */
-  private val FALLBACK_LANGUAGE: String = "en"
-  /** Language that has the era names.
-    */
-  private val TARGET_LANGUAGE: String = "th"
-
-  /** Narrow names for eras.
-    */
-  private val ERA_NARROW_NAMES: java.util.HashMap[String, Array[String]] = {
-    val names = new java.util.HashMap[String, Array[String]]
-    names.put(FALLBACK_LANGUAGE, Array[String]("BB", "BE"))
-    names.put(TARGET_LANGUAGE, Array[String]("BB", "BE"))
-    names
-  }
-  /** Short names for eras.
-    */
-  private val ERA_SHORT_NAMES: java.util.HashMap[String, Array[String]] = {
-    val names = new java.util.HashMap[String, Array[String]]
-    names.put(FALLBACK_LANGUAGE, Array[String]("B.B.", "B.E."))
-    names.put(TARGET_LANGUAGE, Array[String]("\u0e1e.\u0e28.", "\u0e1b\u0e35\u0e01\u0e48\u0e2d\u0e19\u0e04\u0e23\u0e34\u0e2a\u0e15\u0e4c\u0e01\u0e32\u0e25\u0e17\u0e35\u0e48"))
-    names
-  }
-  /** Full names for eras.
-    */
-  private val ERA_FULL_NAMES: java.util.HashMap[String, Array[String]] = {
-    val names = new java.util.HashMap[String, Array[String]]
-    names.put(FALLBACK_LANGUAGE, Array[String]("Before Buddhist", "Budhhist Era"))
-    names.put(TARGET_LANGUAGE, Array[String]("\u0e1e\u0e38\u0e17\u0e18\u0e28\u0e31\u0e01\u0e23\u0e32\u0e0a", "\u0e1b\u0e35\u0e01\u0e48\u0e2d\u0e19\u0e04\u0e23\u0e34\u0e2a\u0e15\u0e4c\u0e01\u0e32\u0e25\u0e17\u0e35\u0e48"))
-    names
-  }
-}
-
 @SerialVersionUID(2775954514031616474L)
 final class ThaiBuddhistChronology private() extends Chronology with Serializable {
 
@@ -214,17 +207,13 @@ final class ThaiBuddhistChronology private() extends Chronology with Serializabl
 
   def range(field: ChronoField): ValueRange =
     field match {
-      case PROLEPTIC_MONTH =>
-        val range: ValueRange = PROLEPTIC_MONTH.range
-        ValueRange.of(range.getMinimum + ThaiBuddhistChronology.YEARS_DIFFERENCE * 12L, range.getMaximum + ThaiBuddhistChronology.YEARS_DIFFERENCE * 12L)
-      case YEAR_OF_ERA =>
-        val range: ValueRange = YEAR.range
-        ValueRange.of(1, -(range.getMinimum + ThaiBuddhistChronology.YEARS_DIFFERENCE) + 1, range.getMaximum + ThaiBuddhistChronology.YEARS_DIFFERENCE)
-      case YEAR =>
-        val range: ValueRange = YEAR.range
-        ValueRange.of(range.getMinimum + ThaiBuddhistChronology.YEARS_DIFFERENCE, range.getMaximum + ThaiBuddhistChronology.YEARS_DIFFERENCE)
-      case _ =>
-        field.range
+      case PROLEPTIC_MONTH => val range: ValueRange = PROLEPTIC_MONTH.range
+                              ValueRange.of(range.getMinimum + ThaiBuddhistChronology.YEARS_DIFFERENCE * 12L, range.getMaximum + ThaiBuddhistChronology.YEARS_DIFFERENCE * 12L)
+      case YEAR_OF_ERA     => val range: ValueRange = YEAR.range
+                              ValueRange.of(1, -(range.getMinimum + ThaiBuddhistChronology.YEARS_DIFFERENCE) + 1, range.getMaximum + ThaiBuddhistChronology.YEARS_DIFFERENCE)
+      case YEAR            => val range: ValueRange = YEAR.range
+                              ValueRange.of(range.getMinimum + ThaiBuddhistChronology.YEARS_DIFFERENCE, range.getMaximum + ThaiBuddhistChronology.YEARS_DIFFERENCE)
+      case _               => field.range
     }
 
   override def resolveDate(fieldValues: java.util.Map[TemporalField, java.lang.Long], resolverStyle: ResolverStyle): ThaiBuddhistDate = {
@@ -274,9 +263,8 @@ final class ThaiBuddhistChronology private() extends Chronology with Serializabl
           else {
             val moy: Int = range(MONTH_OF_YEAR).checkValidIntValue(fieldValues.remove(MONTH_OF_YEAR), MONTH_OF_YEAR)
             var dom: Int = range(DAY_OF_MONTH).checkValidIntValue(fieldValues.remove(DAY_OF_MONTH), DAY_OF_MONTH)
-            if ((resolverStyle eq ResolverStyle.SMART) && dom > 28) {
+            if ((resolverStyle eq ResolverStyle.SMART) && dom > 28)
               dom = Math.min(dom, date(y, moy, 1).lengthOfMonth)
-            }
             return date(y, moy, dom)
           }
         }
@@ -335,9 +323,8 @@ final class ThaiBuddhistChronology private() extends Chronology with Serializabl
           val aw: Int = ALIGNED_WEEK_OF_YEAR.checkValidIntValue(fieldValues.remove(ALIGNED_WEEK_OF_YEAR))
           val ad: Int = ALIGNED_DAY_OF_WEEK_IN_YEAR.checkValidIntValue(fieldValues.remove(ALIGNED_DAY_OF_WEEK_IN_YEAR))
           val tbDate: ThaiBuddhistDate = date(y, 1, 1).plusDays((aw - 1) * 7 + (ad - 1))
-          if ((resolverStyle eq ResolverStyle.STRICT) && tbDate.get(YEAR) != y) {
+          if ((resolverStyle eq ResolverStyle.STRICT) && tbDate.get(YEAR) != y)
             throw new DateTimeException("Strict mode rejected date parsed to a different year")
-          }
           return tbDate
         }
         if (fieldValues.containsKey(DAY_OF_WEEK)) {
@@ -350,9 +337,8 @@ final class ThaiBuddhistChronology private() extends Chronology with Serializabl
           val aw: Int = ALIGNED_WEEK_OF_YEAR.checkValidIntValue(fieldValues.remove(ALIGNED_WEEK_OF_YEAR))
           val dow: Int = DAY_OF_WEEK.checkValidIntValue(fieldValues.remove(DAY_OF_WEEK))
           val tbDate: ThaiBuddhistDate = date(y, 1, 1).plus(aw - 1, WEEKS).`with`(nextOrSame(DayOfWeek.of(dow)))
-          if ((resolverStyle eq ResolverStyle.STRICT) && tbDate.get(YEAR) != y) {
+          if ((resolverStyle eq ResolverStyle.STRICT) && tbDate.get(YEAR) != y)
             throw new DateTimeException("Strict mode rejected date parsed to a different month")
-          }
           return tbDate
         }
       }

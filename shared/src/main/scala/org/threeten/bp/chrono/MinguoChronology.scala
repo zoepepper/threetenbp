@@ -62,6 +62,14 @@ import org.threeten.bp.temporal.TemporalAccessor
 import org.threeten.bp.temporal.TemporalField
 import org.threeten.bp.temporal.ValueRange
 
+@SerialVersionUID(1039765215346859963L)
+object MinguoChronology {
+  /** Singleton instance for the Minguo chronology. */
+  val INSTANCE: MinguoChronology = new MinguoChronology
+  /** The difference in years between ISO and Minguo. */
+  private[chrono] val YEARS_DIFFERENCE: Int = 1911
+}
+
 /** The Minguo calendar system.
   *
   * This chronology defines the rules of the Minguo calendar system.
@@ -87,16 +95,6 @@ import org.threeten.bp.temporal.ValueRange
   * <h3>Specification for implementors</h3>
   * This class is immutable and thread-safe.
   */
-@SerialVersionUID(1039765215346859963L)
-object MinguoChronology {
-  /** Singleton instance for the Minguo chronology.
-    */
-  val INSTANCE: MinguoChronology = new MinguoChronology
-  /** The difference in years between ISO and Minguo.
-    */
-  private[chrono] val YEARS_DIFFERENCE: Int = 1911
-}
-
 @SerialVersionUID(1039765215346859963L)
 final class MinguoChronology private() extends Chronology with Serializable {
 

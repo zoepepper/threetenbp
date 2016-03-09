@@ -52,63 +52,6 @@ import org.threeten.bp.chrono.ChronoLocalDate
 import org.threeten.bp.chrono.Chronology
 import org.threeten.bp.format.ResolverStyle
 
-/** Localized definitions of the day-of-week, week-of-month and week-of-year fields.
-  *
-  * A standard week is seven days long, but cultures have different definitions for some
-  * other aspects of a week. This class represents the definition of the week, for the
-  * purpose of providing {@link TemporalField} instances.
-  *
-  * WeekFields provides three fields,
-  * {@link #dayOfWeek()}, {@link #weekOfMonth()}, and {@link #weekOfYear()}
-  * that provide access to the values from any {@link Temporal temporal object}.
-  *
-  * The computations for day-of-week, week-of-month, and week-of-year are based
-  * on the  {@link ChronoField#YEAR proleptic-year},
-  * {@link ChronoField#MONTH_OF_YEAR month-of-year},
-  * {@link ChronoField#DAY_OF_MONTH day-of-month}, and
-  * {@link ChronoField#DAY_OF_WEEK ISO day-of-week} which are based on the
-  * {@link ChronoField#EPOCH_DAY epoch-day} and the chronology.
-  * The values may not be aligned with the {@link ChronoField#YEAR_OF_ERA year-of-Era}
-  * depending on the Chronology.
-  *A week is defined by:
-  * <ul>
-  * <li>The first day-of-week.
-  * For example, the ISO-8601 standard considers Monday to be the first day-of-week.
-  * <li>The minimal number of days in the first week.
-  * For example, the ISO-8601 standard counts the first week as needing at least 4 days.
-  * </ul><p>
-  * Together these two values allow a year or month to be divided into weeks.
-  *
-  * <h3>Week of Month</h3>
-  * One field is used: week-of-month.
-  * The calculation ensures that weeks never overlap a month boundary.
-  * The month is divided into periods where each period starts on the defined first day-of-week.
-  * The earliest period is referred to as week 0 if it has less than the minimal number of days
-  * and week 1 if it has at least the minimal number of days.
-  *
-  * <table cellpadding="0" cellspacing="3" border="0" style="text-align: left; width: 50%;">
-  * <caption>Examples of WeekFields</caption>
-  * <tr><th>Date</th><td>Day-of-week</td>
-  * <td>First day: Monday<br>Minimal days: 4</td><td>First day: Monday<br>Minimal days: 5</td></tr>
-  * <tr><th>2008-12-31</th><td>Wednesday</td>
-  * <td>Week 5 of December 2008</td><td>Week 5 of December 2008</td></tr>
-  * <tr><th>2009-01-01</th><td>Thursday</td>
-  * <td>Week 1 of January 2009</td><td>Week 0 of January 2009</td></tr>
-  * <tr><th>2009-01-04</th><td>Sunday</td>
-  * <td>Week 1 of January 2009</td><td>Week 0 of January 2009</td></tr>
-  * <tr><th>2009-01-05</th><td>Monday</td>
-  * <td>Week 2 of January 2009</td><td>Week 1 of January 2009</td></tr>
-  * </table>
-  *
-  * <h3>Week of Year</h3>
-  * One field is used: week-of-year.
-  * The calculation ensures that weeks never overlap a year boundary.
-  * The year is divided into periods where each period starts on the defined first day-of-week.
-  * The earliest period is referred to as week 0 if it has less than the minimal number of days
-  * and week 1 if it has at least the minimal number of days.
-  *
-  * This class is immutable and thread-safe.
-  */
 @SerialVersionUID(-1177360819670808121L)
 object WeekFields {
   /** The cache of rules by firstDayOfWeek plus minimalDays.
@@ -551,7 +494,64 @@ object WeekFields {
 
 }
 
-/** Creates an instance of the definition.
+/** Localized definitions of the day-of-week, week-of-month and week-of-year fields.
+  *
+  * A standard week is seven days long, but cultures have different definitions for some
+  * other aspects of a week. This class represents the definition of the week, for the
+  * purpose of providing {@link TemporalField} instances.
+  *
+  * WeekFields provides three fields,
+  * {@link #dayOfWeek()}, {@link #weekOfMonth()}, and {@link #weekOfYear()}
+  * that provide access to the values from any {@link Temporal temporal object}.
+  *
+  * The computations for day-of-week, week-of-month, and week-of-year are based
+  * on the  {@link ChronoField#YEAR proleptic-year},
+  * {@link ChronoField#MONTH_OF_YEAR month-of-year},
+  * {@link ChronoField#DAY_OF_MONTH day-of-month}, and
+  * {@link ChronoField#DAY_OF_WEEK ISO day-of-week} which are based on the
+  * {@link ChronoField#EPOCH_DAY epoch-day} and the chronology.
+  * The values may not be aligned with the {@link ChronoField#YEAR_OF_ERA year-of-Era}
+  * depending on the Chronology.
+  *A week is defined by:
+  * <ul>
+  * <li>The first day-of-week.
+  * For example, the ISO-8601 standard considers Monday to be the first day-of-week.
+  * <li>The minimal number of days in the first week.
+  * For example, the ISO-8601 standard counts the first week as needing at least 4 days.
+  * </ul><p>
+  * Together these two values allow a year or month to be divided into weeks.
+  *
+  * <h3>Week of Month</h3>
+  * One field is used: week-of-month.
+  * The calculation ensures that weeks never overlap a month boundary.
+  * The month is divided into periods where each period starts on the defined first day-of-week.
+  * The earliest period is referred to as week 0 if it has less than the minimal number of days
+  * and week 1 if it has at least the minimal number of days.
+  *
+  * <table cellpadding="0" cellspacing="3" border="0" style="text-align: left; width: 50%;">
+  * <caption>Examples of WeekFields</caption>
+  * <tr><th>Date</th><td>Day-of-week</td>
+  * <td>First day: Monday<br>Minimal days: 4</td><td>First day: Monday<br>Minimal days: 5</td></tr>
+  * <tr><th>2008-12-31</th><td>Wednesday</td>
+  * <td>Week 5 of December 2008</td><td>Week 5 of December 2008</td></tr>
+  * <tr><th>2009-01-01</th><td>Thursday</td>
+  * <td>Week 1 of January 2009</td><td>Week 0 of January 2009</td></tr>
+  * <tr><th>2009-01-04</th><td>Sunday</td>
+  * <td>Week 1 of January 2009</td><td>Week 0 of January 2009</td></tr>
+  * <tr><th>2009-01-05</th><td>Monday</td>
+  * <td>Week 2 of January 2009</td><td>Week 1 of January 2009</td></tr>
+  * </table>
+  *
+  * <h3>Week of Year</h3>
+  * One field is used: week-of-year.
+  * The calculation ensures that weeks never overlap a year boundary.
+  * The year is divided into periods where each period starts on the defined first day-of-week.
+  * The earliest period is referred to as week 0 if it has less than the minimal number of days
+  * and week 1 if it has at least the minimal number of days.
+  *
+  * This class is immutable and thread-safe.
+  *
+  * @constructor Creates an instance of the definition.
   *
   * @param firstDayOfWeek  the first day of the week, not null
   * @param minimalDays  the minimal number of days in the first week, from 1 to 7

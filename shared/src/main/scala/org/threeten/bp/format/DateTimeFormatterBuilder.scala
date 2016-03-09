@@ -69,33 +69,6 @@ import org.threeten.bp.format.SignStyle._
 
 import scala.annotation.tailrec
 
-/** Builder to create date-time formatters.
-  *
-  * This allows a {@code DateTimeFormatter} to be created.
-  * All date-time formatters are created ultimately using this builder.
-  *
-  * The basic elements of date-time can all be added:
-  *<ul>
-  * <li>Value - a numeric value</li>
-  * <li>Fraction - a fractional value including the decimal place. Always use this when
-  * outputting fractions to ensure that the fraction is parsed correctly</li>
-  * <li>Text - the textual equivalent for the value</li>
-  * <li>OffsetId/Offset - the {@linkplain ZoneOffset zone offset}</li>
-  * <li>ZoneId - the {@linkplain ZoneId time-zone} id</li>
-  * <li>ZoneText - the name of the time-zone</li>
-  * <li>Literal - a text literal</li>
-  * <li>Nested and Optional - formats can be nested or made optional</li>
-  * <li>Other - the printer and parser interfaces can be used to add user supplied formatting</li>
-  * </ul><p>
-  * In addition, any of the elements may be decorated by padding, either with spaces or any other character.
-  *
-  * Finally, a shorthand pattern, mostly compatible with {@code java.text.SimpleDateFormat SimpleDateFormat}
-  * can be used, see {@link #appendPattern(String)}.
-  * In practice, this simply parses the pattern and calls other methods on the builder.
-  *
-  * <h3>Specification for implementors</h3>
-  * This class is a mutable builder intended for use from a single thread.
-  */
 object DateTimeFormatterBuilder {
   /** Query for a time-zone that is region-only. */
   private val QUERY_REGION_ONLY: TemporalQuery[ZoneId] =
@@ -351,7 +324,7 @@ object DateTimeFormatterBuilder {
       resultPos
     }
 
-    override def toString: String = s"Pad($printerParser,$padWidth${(if (padChar == ' ') ")" else ",'" + padChar + "')")}"
+    override def toString: String = s"Pad($printerParser,$padWidth${if (padChar == ' ') ")" else ",'" + padChar + "')"}"
   }
 
   /** Enumeration to apply simple parse settings. */
@@ -1697,7 +1670,7 @@ object DateTimeFormatterBuilder {
       DateTimeFormatStyleProvider.getInstance.getFormatter(dateStyle, timeStyle, chrono, locale)
 
     override def toString: String =
-      s"Localized(${(if (dateStyle != null) dateStyle else "")},${(if (timeStyle != null) timeStyle else "")})"
+      s"Localized(${if (dateStyle != null) dateStyle else ""},${if (timeStyle != null) timeStyle else ""})"
   }
 
   /** Prints or parses a localized pattern. */
@@ -1765,7 +1738,34 @@ object DateTimeFormatterBuilder {
   private[format] val LENGTH_SORT: Comparator[String] = (str1: String, str2: String) => if (str1.length == str2.length) str1.compareTo(str2) else str1.length - str2.length
 }
 
-/** Constructs a new instance of the builder.
+/** Builder to create date-time formatters.
+  *
+  * This allows a {@code DateTimeFormatter} to be created.
+  * All date-time formatters are created ultimately using this builder.
+  *
+  * The basic elements of date-time can all be added:
+  *<ul>
+  * <li>Value - a numeric value</li>
+  * <li>Fraction - a fractional value including the decimal place. Always use this when
+  * outputting fractions to ensure that the fraction is parsed correctly</li>
+  * <li>Text - the textual equivalent for the value</li>
+  * <li>OffsetId/Offset - the {@linkplain ZoneOffset zone offset}</li>
+  * <li>ZoneId - the {@linkplain ZoneId time-zone} id</li>
+  * <li>ZoneText - the name of the time-zone</li>
+  * <li>Literal - a text literal</li>
+  * <li>Nested and Optional - formats can be nested or made optional</li>
+  * <li>Other - the printer and parser interfaces can be used to add user supplied formatting</li>
+  * </ul><p>
+  * In addition, any of the elements may be decorated by padding, either with spaces or any other character.
+  *
+  * Finally, a shorthand pattern, mostly compatible with {@code java.text.SimpleDateFormat SimpleDateFormat}
+  * can be used, see {@link #appendPattern(String)}.
+  * In practice, this simply parses the pattern and calls other methods on the builder.
+  *
+  * <h3>Specification for implementors</h3>
+  * This class is a mutable builder intended for use from a single thread.
+  *
+  * @constructor Constructs a new instance of the builder.
   *
   * @param parent  the parent builder, not null
   * @param optional  whether the formatter is optional, not null
@@ -1778,8 +1778,7 @@ final class DateTimeFormatterBuilder private(private val parent: DateTimeFormatt
 
   /** The currently active builder, used by the outermost builder. */
   private var active: DateTimeFormatterBuilder = this
-  /** The list of printers that will be used.
-    */
+  /** The list of printers that will be used. */
   private val printerParsers: java.util.List[DateTimeFormatterBuilder.DateTimePrinterParser] = new java.util.ArrayList[DateTimeFormatterBuilder.DateTimePrinterParser]
   /** The width to pad the next field to. */
   private var padNextWidth: Int = 0

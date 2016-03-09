@@ -34,15 +34,7 @@ package org.threeten.bp.format
 import java.util.Locale
 import org.threeten.bp.chrono.Chronology
 
-/** The Service Provider Interface (SPI) to be implemented by classes providing
-  * date-time formatting information.
-  *
-  * <h3>Specification for implementors</h3>
-  * This interface is a service provider that can be called by multiple threads.
-  * Implementations must be thread-safe.
-  * Implementations should cache the returned formatters.
-  */
-object DateTimeFormatStyleProvider {
+private[format] object DateTimeFormatStyleProvider {
   /** Gets the provider.
     *
     * @return the provider, not null
@@ -51,6 +43,14 @@ object DateTimeFormatStyleProvider {
     new SimpleDateTimeFormatStyleProvider
 }
 
+/** The Service Provider Interface (SPI) to be implemented by classes providing
+  * date-time formatting information.
+  *
+  * <h3>Specification for implementors</h3>
+  * This interface is a service provider that can be called by multiple threads.
+  * Implementations must be thread-safe.
+  * Implementations should cache the returned formatters.
+  */
 abstract class DateTimeFormatStyleProvider {
   /** Gets the available locales.
     *

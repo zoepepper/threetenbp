@@ -44,14 +44,7 @@ import java.util.concurrent.ConcurrentSkipListMap
 import java.util.concurrent.CopyOnWriteArraySet
 import java.util.concurrent.atomic.AtomicReferenceArray
 
-/** Loads time-zone rules for 'TZDB'.
-  * <p>
-  * This class is public for the service loader to access.
-  *
-  * <h3>Specification for implementors</h3>
-  * This class is immutable and thread-safe.
-  */
-object TzdbZoneRulesProvider {
+private[zone] object TzdbZoneRulesProvider {
 
   /** A version of the TZDB rules.
     */
@@ -62,13 +55,12 @@ object TzdbZoneRulesProvider {
 
     private[zone] def getRules(regionId: String): ZoneRules = {
       val regionIndex: Int = Arrays.binarySearch(regionArray.asInstanceOf[Array[AnyRef]], regionId)
-      if (regionIndex < 0) {
+      if (regionIndex < 0)
         return null
-      }
       try createRule(ruleIndices(regionIndex))
       catch {
         case ex: Exception =>
-          throw new ZoneRulesException("Invalid binary time-zone data: TZDB:" + regionId + ", version: " + versionId, ex)
+          throw new ZoneRulesException(s"Invalid binary time-zone data: TZDB:$regionId, version: $versionId", ex)
       }
     }
 
@@ -86,15 +78,19 @@ object TzdbZoneRulesProvider {
 
     override def toString: String = versionId
   }
-
 }
 
+/** Loads time-zone rules for 'TZDB'.
+  * <p>
+  * This class is public for the service loader to access.
+  *
+  * <h3>Specification for implementors</h3>
+  * This class is immutable and thread-safe.
+  */
 final class TzdbZoneRulesProvider extends ZoneRulesProvider {
-  /** All the regions that are available.
-    */
+  /** All the regions that are available. */
   private val regionIds: java.util.Set[String] = new CopyOnWriteArraySet[String]
-  /** All the versions that are available.
-    */
+  /** All the versions that are available. */
   private val versions: ConcurrentNavigableMap[String, TzdbZoneRulesProvider.Version] = new ConcurrentSkipListMap[String, TzdbZoneRulesProvider.Version]
   /** All the URLs that have been loaded.
     * Uses String to avoid equals() on URL.
@@ -125,12 +121,12 @@ final class TzdbZoneRulesProvider extends ZoneRulesProvider {
   def this(url: URL) {
     try {
       if (load(url) == false) {
-        throw new ZoneRulesException("No time-zone rules found: " + url)
+        throw new ZoneRulesException(s"No time-zone rules found: $url")
       }
     }
     catch {
       case ex: Exception => {
-        throw new ZoneRulesException("Unable to load TZDB time-zone rules: " + url, ex)
+        throw new ZoneRulesException(s"Unable to load TZDB time-zone rules: $url", ex)
       }
     }
   }
@@ -162,7 +158,7 @@ final class TzdbZoneRulesProvider extends ZoneRulesProvider {
     Objects.requireNonNull(zoneId, "zoneId")
     val rules: ZoneRules = versions.lastEntry.getValue.getRules(zoneId)
     if (rules == null)
-      throw new ZoneRulesException("Unknown time-zone ID: " + zoneId)
+      throw new ZoneRulesException(s"Unknown time-zone ID: $zoneId")
     else
       rules
   }
@@ -196,7 +192,7 @@ final class TzdbZoneRulesProvider extends ZoneRulesProvider {
       }
     }
     catch {
-      case ex: Exception => throw new ZoneRulesException("Unable to load TZDB time-zone rules: " + url, ex)
+      case ex: Exception => throw new ZoneRulesException(s"Unable to load TZDB time-zone rules: $url", ex)
     }
     updated
   }
@@ -220,9 +216,8 @@ final class TzdbZoneRulesProvider extends ZoneRulesProvider {
         in = url.openStream()
         updated |= load(in)
       } finally {
-        if (in != null) {
+        if (in != null)
           in.close()
-        }
       }
     }
     updated
@@ -241,9 +236,8 @@ final class TzdbZoneRulesProvider extends ZoneRulesProvider {
     import scala.collection.JavaConversions._
     for (loadedVersion <- loadedVersions) {
       val existing: TzdbZoneRulesProvider.Version = versions.putIfAbsent(loadedVersion.versionId, loadedVersion)
-      if (existing != null && !(existing.versionId == loadedVersion.versionId)) {
-        throw new ZoneRulesException("Data already loaded for TZDB time-zone rules version: " + loadedVersion.versionId)
-      }
+      if (existing != null && !(existing.versionId == loadedVersion.versionId))
+        throw new ZoneRulesException(s"Data already loaded for TZDB time-zone rules version: ${loadedVersion.versionId}")
       updated = true
     }
     updated
@@ -258,13 +252,11 @@ final class TzdbZoneRulesProvider extends ZoneRulesProvider {
   @throws[StreamCorruptedException]
   private def loadData(in: InputStream): Iterable[TzdbZoneRulesProvider.Version] = {
     val dis: DataInputStream = new DataInputStream(in)
-    if (dis.readByte != 1) {
+    if (dis.readByte != 1)
       throw new StreamCorruptedException("File format not recognised")
-    }
     val groupId: String = dis.readUTF
-    if (!("TZDB" == groupId)) {
+    if (!("TZDB" == groupId))
       throw new StreamCorruptedException("File format not recognised")
-    }
     val versionCount: Int = dis.readShort
     val versionArray: Array[String] = new Array[String](versionCount)
 
@@ -304,20 +296,18 @@ final class TzdbZoneRulesProvider extends ZoneRulesProvider {
     {
       var i: Int = 0
       while (i < versionCount) {
-          val versionRegionCount: Int = dis.readShort
-          val versionRegionArray: Array[String] = new Array[String](versionRegionCount)
-          val versionRulesArray: Array[Short] = new Array[Short](versionRegionCount)
+        val versionRegionCount: Int = dis.readShort
+        val versionRegionArray: Array[String] = new Array[String](versionRegionCount)
+        val versionRulesArray: Array[Short] = new Array[Short](versionRegionCount)
 
-          {
-            var j: Int = 0
-            while (j < versionRegionCount) {
-              versionRegionArray(j) = regionArray(dis.readShort)
-              versionRulesArray(j) = dis.readShort
-              j += 1
-            }
-          }
-          versionSet.add(new TzdbZoneRulesProvider.Version(versionArray(i), versionRegionArray, versionRulesArray, ruleData))
-          i += 1
+        var j: Int = 0
+        while (j < versionRegionCount) {
+          versionRegionArray(j) = regionArray(dis.readShort)
+          versionRulesArray(j) = dis.readShort
+          j += 1
+        }
+        versionSet.add(new TzdbZoneRulesProvider.Version(versionArray(i), versionRegionArray, versionRulesArray, ruleData))
+        i += 1
       }
     }
     versionSet

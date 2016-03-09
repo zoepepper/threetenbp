@@ -72,42 +72,6 @@ import org.threeten.bp.temporal.TemporalUnit
 import org.threeten.bp.temporal.UnsupportedTemporalTypeException
 import org.threeten.bp.temporal.ValueRange
 
-/** A date in the Hijrah calendar system.
-  *
-  * This implements {@code ChronoLocalDate} for the {@link HijrahChronology Hijrah calendar}.
-  *
-  * The Hijrah calendar has a different total of days in a year than
-  * Gregorian calendar, and a month is based on the period of a complete
-  * revolution of the moon around the earth (as between successive new moons).
-  * The calendar cycles becomes longer and unstable, and sometimes a manual
-  * adjustment (for entering deviation) is necessary for correctness
-  * because of the complex algorithm.
-  *
-  * HijrahDate supports the manual adjustment feature by providing a configuration
-  * file. The configuration file contains the adjustment (deviation) data with following format.
-  * <pre>
-  * StartYear/StartMonth(0-based)-EndYear/EndMonth(0-based):Deviation day (1, 2, -1, or -2)
-  * Line separator or ";" is used for the separator of each deviation data.</pre>
-  * Here is the example.
-  * <pre>
-  * 1429/0-1429/1:1
-  * 1429/2-1429/7:1;1429/6-1429/11:1
-  * 1429/11-9999/11:1</pre>
-  * The default location of the configuration file is:
-  * <pre>
-  * $CLASSPATH/org/threeten/bp/chrono</pre>
-  * And the default file name is:
-  * <pre>
-  * hijrah_deviation.cfg</pre>
-  * The default location and file name can be overriden by setting
-  * following two Java's system property.
-  * <pre>
-  * Location: org.threeten.bp.i18n.HijrahDate.deviationConfigDir
-  * File name: org.threeten.bp.i18n.HijrahDate.deviationConfigFile</pre>
-  *
-  * <h3>Specification for implementors</h3>
-  * This class is immutable and thread-safe.
-  */
 @SerialVersionUID(-5207853542612002020L)
 object HijrahDate {
   /** The minimum valid year-of-era. */
@@ -1288,7 +1252,44 @@ object HijrahDate {
     HijrahChronology.INSTANCE.date(year, month, dayOfMonth)
   }
 }
-/** Constructs an instance with the specified date.
+
+/** A date in the Hijrah calendar system.
+  *
+  * This implements {@code ChronoLocalDate} for the {@link HijrahChronology Hijrah calendar}.
+  *
+  * The Hijrah calendar has a different total of days in a year than
+  * Gregorian calendar, and a month is based on the period of a complete
+  * revolution of the moon around the earth (as between successive new moons).
+  * The calendar cycles becomes longer and unstable, and sometimes a manual
+  * adjustment (for entering deviation) is necessary for correctness
+  * because of the complex algorithm.
+  *
+  * HijrahDate supports the manual adjustment feature by providing a configuration
+  * file. The configuration file contains the adjustment (deviation) data with following format.
+  * <pre>
+  * StartYear/StartMonth(0-based)-EndYear/EndMonth(0-based):Deviation day (1, 2, -1, or -2)
+  * Line separator or ";" is used for the separator of each deviation data.</pre>
+  * Here is the example.
+  * <pre>
+  * 1429/0-1429/1:1
+  * 1429/2-1429/7:1;1429/6-1429/11:1
+  * 1429/11-9999/11:1</pre>
+  * The default location of the configuration file is:
+  * <pre>
+  * $CLASSPATH/org/threeten/bp/chrono</pre>
+  * And the default file name is:
+  * <pre>
+  * hijrah_deviation.cfg</pre>
+  * The default location and file name can be overriden by setting
+  * following two Java's system property.
+  * <pre>
+  * Location: org.threeten.bp.i18n.HijrahDate.deviationConfigDir
+  * File name: org.threeten.bp.i18n.HijrahDate.deviationConfigFile</pre>
+  *
+  * <h3>Specification for implementors</h3>
+  * This class is immutable and thread-safe.
+  *
+  * @constructor Constructs an instance with the specified date.
   *
   * @param gregorianEpochDay  the number of days from 0001/01/01 (Gregorian), caller calculated
   */

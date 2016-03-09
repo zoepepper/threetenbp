@@ -49,7 +49,7 @@ import org.threeten.bp.temporal.TemporalUnit
 import org.threeten.bp.temporal.ValueRange
 
 @SerialVersionUID(4556003607393004514L)
-object ChronoLocalDateTimeImpl {
+private[chrono] object ChronoLocalDateTimeImpl {
   /** Hours per minute. */
   private val HOURS_PER_DAY: Int      = 24
   /** Minutes per hour. */
@@ -107,6 +107,7 @@ object ChronoLocalDateTimeImpl {
   * This class is immutable and thread-safe.
   *
   * @tparam D the date type
+  *
   * @constructor
   * @param date  the date part of the date-time, not null
   * @param time  the time part of the date-time, not null

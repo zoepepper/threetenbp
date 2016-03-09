@@ -63,6 +63,12 @@ import org.threeten.bp.temporal.TemporalAccessor
 import org.threeten.bp.temporal.TemporalField
 import org.threeten.bp.temporal.ValueRange
 
+@SerialVersionUID(-1440403870442975015L)
+object IsoChronology {
+  /** Singleton instance of the ISO chronology. */
+  val INSTANCE: IsoChronology = new IsoChronology
+}
+
 /** The ISO calendar system.
   *
   * This chronology defines the rules of the ISO calendar system.
@@ -87,14 +93,9 @@ import org.threeten.bp.temporal.ValueRange
   *
   * <h3>Specification for implementors</h3>
   * This class is immutable and thread-safe.
+  *
+  * @constructor Restricted constructor.
   */
-@SerialVersionUID(-1440403870442975015L)
-object IsoChronology {
-  /** Singleton instance of the ISO chronology. */
-  val INSTANCE: IsoChronology = new IsoChronology
-}
-
-/** @constructor Restricted constructor. */
 @SerialVersionUID(-1440403870442975015L)
 final class IsoChronology private() extends Chronology with Serializable {
 

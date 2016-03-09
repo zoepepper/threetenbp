@@ -48,8 +48,7 @@ import org.threeten.bp.ZoneOffset
 
 @SerialVersionUID(3044319355680032515L)
 object StandardZoneRules {
-  /** The last year to have its transitions cached.
-    */
+  /** The last year to have its transitions cached. */
   private val LAST_CACHED_YEAR: Int = 2100
 
   /** Reads the state from the stream.

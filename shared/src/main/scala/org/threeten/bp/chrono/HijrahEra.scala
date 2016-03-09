@@ -48,17 +48,6 @@ import org.threeten.bp.temporal.TemporalQuery
 import org.threeten.bp.temporal.UnsupportedTemporalTypeException
 import org.threeten.bp.temporal.ValueRange
 
-/** An era in the Hijrah calendar system.
-  *
-  * The Hijrah calendar system has two eras.
-  * The date {@code 0001-01-01 (Hijrah)} is {@code 622-06-19 (ISO)}.
-  *
-  * <b>Do not use {@code ordinal()} to obtain the numeric representation of {@code HijrahEra}.
-  * Use {@code getValue()} instead.</b>
-  *
-  * <h3>Specification for implementors</h3>
-  * This is an immutable and thread-safe enum.
-  */
 object HijrahEra {
   /** The singleton instance for the era before the current one, 'Before Anno Hegirae',
     * which has the value 0.
@@ -93,6 +82,17 @@ object HijrahEra {
   }
 }
 
+/** An era in the Hijrah calendar system.
+  *
+  * The Hijrah calendar system has two eras.
+  * The date {@code 0001-01-01 (Hijrah)} is {@code 622-06-19 (ISO)}.
+  *
+  * <b>Do not use {@code ordinal()} to obtain the numeric representation of {@code HijrahEra}.
+  * Use {@code getValue()} instead.</b>
+  *
+  * <h3>Specification for implementors</h3>
+  * This is an immutable and thread-safe enum.
+  */
 final class HijrahEra(name: String, ordinal: Int) extends Enum[HijrahEra](name, ordinal) with Era {
   /** Gets the era numeric value.
     *

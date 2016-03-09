@@ -48,17 +48,6 @@ import org.threeten.bp.temporal.TemporalQuery
 import org.threeten.bp.temporal.UnsupportedTemporalTypeException
 import org.threeten.bp.temporal.ValueRange
 
-/** An era in the Minguo calendar system.
-  *
-  * The Minguo calendar system has two eras.
-  * The date {@code 0001-01-01 (Minguo)} is equal to {@code 1912-01-01 (ISO)}.
-  *
-  * <b>Do not use {@code ordinal()} to obtain the numeric representation of {@code MinguoEra}.
-  * Use {@code getValue()} instead.</b>
-  *
-  * <h3>Specification for implementors</h3>
-  * This is an immutable and thread-safe enum.
-  */
 object MinguoEra {
   /** The singleton instance for the era BEFORE_ROC, 'Before Republic of China'.
     * This has the numeric value of {@code 0}.
@@ -94,6 +83,17 @@ object MinguoEra {
   }
 }
 
+/** An era in the Minguo calendar system.
+  *
+  * The Minguo calendar system has two eras.
+  * The date {@code 0001-01-01 (Minguo)} is equal to {@code 1912-01-01 (ISO)}.
+  *
+  * <b>Do not use {@code ordinal()} to obtain the numeric representation of {@code MinguoEra}.
+  * Use {@code getValue()} instead.</b>
+  *
+  * <h3>Specification for implementors</h3>
+  * This is an immutable and thread-safe enum.
+  */
 final class MinguoEra(name: String, ordinal: Int) extends Enum[MinguoEra](name, ordinal) with Era {
   /** Gets the numeric era {@code int} value.
     *

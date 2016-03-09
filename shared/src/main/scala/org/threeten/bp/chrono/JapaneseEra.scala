@@ -49,16 +49,6 @@ import sun.util.calendar.LocalGregorianCalendar
 
 import scala.annotation.meta.field
 
-/** An era in the Japanese Imperial calendar system.
-  *
-  * This class defines the valid eras for the Japanese chronology.
-  * Japan introduced the Gregorian calendar starting with Meiji 6.
-  * Only Meiji and later eras are supported;
-  * dates before Meiji 6, January 1 are not supported.
-  *
-  * <h3>Specification for implementors</h3>
-  * This class is immutable and thread-safe.
-  */
 @SerialVersionUID(1466499369062886794L)
 object JapaneseEra {
   private[chrono] val ERA_OFFSET: Int = 2
@@ -189,7 +179,17 @@ object JapaneseEra {
   }
 }
 
-/** Creates an instance.
+/** An era in the Japanese Imperial calendar system.
+  *
+  * This class defines the valid eras for the Japanese chronology.
+  * Japan introduced the Gregorian calendar starting with Meiji 6.
+  * Only Meiji and later eras are supported;
+  * dates before Meiji 6, January 1 are not supported.
+  *
+  * <h3>Specification for implementors</h3>
+  * This class is immutable and thread-safe.
+  *
+  * @constructor Creates an instance.
   *
   * @param eraValue  the era value, validated
   * @param since  the date representing the first date of the era, validated not null

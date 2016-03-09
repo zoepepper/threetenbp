@@ -48,23 +48,12 @@ import org.threeten.bp.temporal.TemporalQuery
 import org.threeten.bp.temporal.UnsupportedTemporalTypeException
 import org.threeten.bp.temporal.ValueRange
 
-/** An era in the Thai Buddhist calendar system.
-  *
-  * The Thai Buddhist calendar system has two eras.
-  *
-  * <b>Do not use ordinal() to obtain the numeric representation of a ThaiBuddhistEra
-  * instance. Use getValue() instead.</b>
-  *
-  * <h3>Specification for implementors</h3>
-  * This is an immutable and thread-safe enum.
-  */
 object ThaiBuddhistEra {
   /** The singleton instance for the era before the current one, 'Before Buddhist Era',
     * which has the value 0.
     */
   val BEFORE_BE = new ThaiBuddhistEra("BEFORE_BE", 0)
-  /** The singleton instance for the current era, 'Buddhist Era', which has the value 1.
-    */
+  /** The singleton instance for the current era, 'Buddhist Era', which has the value 1. */
   val BE        = new ThaiBuddhistEra("BE", 1)
 
   val values: Array[ThaiBuddhistEra] = Array(BEFORE_BE, BE)
@@ -92,6 +81,16 @@ object ThaiBuddhistEra {
   }
 }
 
+/** An era in the Thai Buddhist calendar system.
+  *
+  * The Thai Buddhist calendar system has two eras.
+  *
+  * <b>Do not use ordinal() to obtain the numeric representation of a ThaiBuddhistEra
+  * instance. Use getValue() instead.</b>
+  *
+  * <h3>Specification for implementors</h3>
+  * This is an immutable and thread-safe enum.
+  */
 final class ThaiBuddhistEra(name: String, ordinal: Int) extends Enum[ThaiBuddhistEra](name, ordinal) with Era {
   /** Gets the era numeric value.
     *

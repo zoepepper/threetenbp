@@ -38,6 +38,17 @@ import org.threeten.bp.chrono.Chronology
 import org.threeten.bp.chrono.IsoChronology
 import org.threeten.bp.temporal._
 
+private[format] object DateTimeParseContext {
+  /** Compares two characters ignoring case.
+    *
+    * @param c1  the first
+    * @param c2  the second
+    * @return true if equal
+    */
+  private[format] def charEqualsIgnoreCase(c1: Char, c2: Char): Boolean =
+    c1 == c2 || Character.toUpperCase(c1) == Character.toUpperCase(c2) || Character.toLowerCase(c1) == Character.toLowerCase(c2)
+}
+
 /** Context object used during date and time parsing.
   *
   * This class represents the current state of the parse.
@@ -52,17 +63,6 @@ import org.threeten.bp.temporal._
   * Usage of the class is thread-safe within standard parsing as a new instance of this class
   * is automatically created for each parse and parsing is single-threaded
   */
-object DateTimeParseContext {
-  /** Compares two characters ignoring case.
-    *
-    * @param c1  the first
-    * @param c2  the second
-    * @return true if equal
-    */
-  private[format] def charEqualsIgnoreCase(c1: Char, c2: Char): Boolean =
-    c1 == c2 || Character.toUpperCase(c1) == Character.toUpperCase(c2) || Character.toLowerCase(c1) == Character.toLowerCase(c2)
-}
-
 final class DateTimeParseContext private[format](private var locale: Locale,
                                                  private var symbols: DecimalStyle,
                                                  private var overrideChronology: Chronology,

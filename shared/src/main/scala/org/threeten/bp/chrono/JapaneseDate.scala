@@ -57,8 +57,7 @@ import org.threeten.bp.temporal.ValueRange
 
 @SerialVersionUID(-305327627230580483L)
 object JapaneseDate {
-  /** Minimum date.
-    */
+  /** Minimum date. */
   private[chrono] val MIN_DATE: LocalDate = LocalDate.of(1873, 1, 1)
 
   /** Obtains the current {@code JapaneseDate} from the system clock in the default time-zone.

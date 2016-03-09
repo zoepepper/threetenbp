@@ -53,7 +53,7 @@ import org.threeten.bp.zone.ZoneOffsetTransition
 import org.threeten.bp.zone.ZoneRules
 
 @SerialVersionUID(-5261813987200935591L)
-object ChronoZonedDateTimeImpl {
+private[chrono] object ChronoZonedDateTimeImpl {
   /** Obtains an instance from a local date-time using the preferred offset if possible.
     *
     * @param localDateTime  the local date-time, not null

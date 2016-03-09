@@ -34,6 +34,14 @@ package org.threeten.bp.format
 import java.util.Locale
 import org.threeten.bp.temporal.TemporalField
 
+private[format] object DateTimeTextProvider {
+  /** Gets the provider.
+    *
+    * @return the provider, not null
+    */
+  private[format] def getInstance: DateTimeTextProvider = new SimpleDateTimeTextProvider
+}
+
 /** The Service Provider Interface (SPI) to be implemented by classes providing
   * the textual form of a date-time field.
   *
@@ -42,14 +50,6 @@ import org.threeten.bp.temporal.TemporalField
   * Implementations must be thread-safe.
   * Implementations should cache the textual information.
   */
-object DateTimeTextProvider {
-  /** Gets the provider.
-    *
-    * @return the provider, not null
-    */
-  private[format] def getInstance: DateTimeTextProvider = new SimpleDateTimeTextProvider
-}
-
 abstract class DateTimeTextProvider {
   /** Gets the available locales.
     *

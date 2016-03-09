@@ -47,7 +47,7 @@ import org.threeten.bp.ZoneOffset
   * This class is mutable and should be created once per serialization.
   */
 @SerialVersionUID(-8885321777449118786L)
-object Ser {
+private[zone] object Ser {
   /** Type for StandardZoneRules. */
   private[zone] val SZR: Byte = 1
   /** Type for ZoneOffsetTransition. */
@@ -56,9 +56,8 @@ object Ser {
   private[zone] val ZOTRULE: Byte = 3
 
   @throws[IOException]
-  private[zone] def write(`object`: AnyRef, out: DataOutput): Unit = {
+  private[zone] def write(`object`: AnyRef, out: DataOutput): Unit =
     writeInternal(SZR, `object`, out)
-  }
 
   @throws[IOException]
   private def writeInternal(`type`: Byte, `object`: AnyRef, out: DataOutput): Unit = {
@@ -108,9 +107,8 @@ object Ser {
     val offsetSecs: Int = offset.getTotalSeconds
     val offsetByte: Int = if (offsetSecs % 900 == 0) offsetSecs / 900 else 127
     out.writeByte(offsetByte)
-    if (offsetByte == 127) {
+    if (offsetByte == 127)
       out.writeInt(offsetSecs)
-    }
   }
 
   /** Reads the state from the stream.
@@ -154,9 +152,8 @@ object Ser {
   @throws[IOException]
   private[zone] def readEpochSec(in: DataInput): Long = {
     val hiByte: Int = in.readByte & 255
-    if (hiByte == 255) {
+    if (hiByte == 255)
       in.readLong
-    }
     else {
       val midByte: Int = in.readByte & 255
       val loByte: Int = in.readByte & 255
@@ -168,7 +165,7 @@ object Ser {
 
 /** Creates an instance for serialization.
   *
-  * @param type  the type being serialized
+  * @param `type`  the type being serialized
   * @param object  the object being serialized
   */
 @SerialVersionUID(-8885321777449118786L)

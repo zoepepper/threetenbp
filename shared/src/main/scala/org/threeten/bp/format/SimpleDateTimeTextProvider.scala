@@ -45,14 +45,7 @@ import java.util.concurrent.ConcurrentMap
 import org.threeten.bp.temporal.IsoFields
 import org.threeten.bp.temporal.TemporalField
 
-/** The Service Provider Implementation to obtain date-time text for a field.
-  *
-  * This implementation is based on extraction of data from a {@link DateFormatSymbols}.
-  *
-  * <h3>Specification for implementors</h3>
-  * This class is immutable and thread-safe.
-  */
-object SimpleDateTimeTextProvider {
+private object SimpleDateTimeTextProvider {
   /** Cache. */
   private val CACHE: ConcurrentMap[java.util.Map.Entry[TemporalField, Locale], AnyRef] =
     new ConcurrentHashMap[java.util.Map.Entry[TemporalField, Locale], AnyRef](16, 0.75f, 2)
@@ -90,15 +83,13 @@ object SimpleDateTimeTextProvider {
     * @param valueTextMap  the map of values to text to store, assigned and not altered, not null
     */
   private[format] final class LocaleStore private[format](private val valueTextMap: java.util.Map[TextStyle, java.util.Map[Long, String]]) {
-    /** Parsable data.
-      */
-    private final val parsable: java.util.Map[TextStyle, java.util.List[java.util.Map.Entry[String, Long]]] = {
+    /** Parsable data. */
+    private val parsable: java.util.Map[TextStyle, java.util.List[java.util.Map.Entry[String, Long]]] = {
       val map: java.util.Map[TextStyle, java.util.List[java.util.Map.Entry[String, Long]]] = new java.util.HashMap[TextStyle, java.util.List[java.util.Map.Entry[String, Long]]]
       val allList: java.util.List[java.util.Map.Entry[String, Long]] = new java.util.ArrayList[java.util.Map.Entry[String, Long]]
       import scala.collection.JavaConversions._
       for (style <- valueTextMap.keySet) {
         val reverse: java.util.Map[String, java.util.Map.Entry[String, Long]] = new java.util.HashMap[String, java.util.Map.Entry[String, Long]]
-        import scala.collection.JavaConversions._
         var continue = true
         val entries = valueTextMap.get(style).entrySet.iterator()
         while (continue && entries.hasNext) {
@@ -142,14 +133,18 @@ object SimpleDateTimeTextProvider {
       if (list != null) list.iterator else null
     }
   }
-
 }
 
+/** The Service Provider Implementation to obtain date-time text for a field.
+  *
+  * This implementation is based on extraction of data from a {@link DateFormatSymbols}.
+  *
+  * <h3>Specification for implementors</h3>
+  * This class is immutable and thread-safe.
+  */
 final class SimpleDateTimeTextProvider extends DateTimeTextProvider {
   /** {@inheritDoc} */
-  override def getAvailableLocales: Array[Locale] = {
-    DateFormatSymbols.getAvailableLocales
-  }
+  override def getAvailableLocales: Array[Locale] = DateFormatSymbols.getAvailableLocales
 
   def getText(field: TemporalField, value: Long, style: TextStyle, locale: Locale): String = {
     val store: AnyRef = findStore(field, locale)

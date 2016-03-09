@@ -48,16 +48,7 @@ import org.threeten.bp.temporal.TemporalQueries
 import org.threeten.bp.temporal.TemporalQuery
 import org.threeten.bp.temporal.ValueRange
 
-/** Context object used during date and time printing.
-  *
-  * This class provides a single wrapper to items used in the print.
-  *
-  * <h3>Specification for implementors</h3>
-  * This class is a mutable context intended for use from a single thread.
-  * Usage of the class is thread-safe within standard printing as the framework creates
-  * a new instance of the class for each print and printing is single-threaded.
-  */
-object DateTimePrintContext {
+private object DateTimePrintContext {
   private def adjust(temporal: TemporalAccessor, formatter: DateTimeFormatter): TemporalAccessor = {
     var overrideChrono: Chronology = formatter.getChronology
     var overrideZone: ZoneId = formatter.getZone
@@ -137,6 +128,15 @@ object DateTimePrintContext {
   }
 }
 
+/** Context object used during date and time printing.
+  *
+  * This class provides a single wrapper to items used in the print.
+  *
+  * <h3>Specification for implementors</h3>
+  * This class is a mutable context intended for use from a single thread.
+  * Usage of the class is thread-safe within standard printing as the framework creates
+  * a new instance of the class for each print and printing is single-threaded.
+  */
 final class DateTimePrintContext private[format](private var temporal: TemporalAccessor, private var locale: Locale, private var symbols: DecimalStyle) {
   /** Whether the current formatter is optional. */
   private var optional: Int = 0
