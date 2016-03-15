@@ -156,10 +156,8 @@ final class JapaneseChronology private() extends Chronology with Serializable {
   def getCalendarType: String = "japanese"
 
   override def date(era: Era, yearOfEra: Int, month: Int, dayOfMonth: Int): JapaneseDate =
-    if (!era.isInstanceOf[JapaneseEra])
-      throw new ClassCastException("Era must be JapaneseEra")
-    else
-      JapaneseDate.of(era.asInstanceOf[JapaneseEra], yearOfEra, month, dayOfMonth)
+    if (!era.isInstanceOf[JapaneseEra]) throw new ClassCastException("Era must be JapaneseEra")
+    else JapaneseDate.of(era.asInstanceOf[JapaneseEra], yearOfEra, month, dayOfMonth)
 
   def date(prolepticYear: Int, month: Int, dayOfMonth: Int): JapaneseDate =
     new JapaneseDate(LocalDate.of(prolepticYear, month, dayOfMonth))
@@ -186,10 +184,8 @@ final class JapaneseChronology private() extends Chronology with Serializable {
     * @throws ClassCastException if the { @code era} is not a { @code JapaneseEra}
     */
   override def dateYearDay(era: Era, yearOfEra: Int, dayOfYear: Int): JapaneseDate =
-    if (!era.isInstanceOf[JapaneseEra])
-      throw new ClassCastException("Era must be JapaneseEra")
-    else
-      JapaneseDate.ofYearDay(era.asInstanceOf[JapaneseEra], yearOfEra, dayOfYear)
+    if (!era.isInstanceOf[JapaneseEra]) throw new ClassCastException("Era must be JapaneseEra")
+    else JapaneseDate.ofYearDay(era.asInstanceOf[JapaneseEra], yearOfEra, dayOfYear)
 
   /** Obtains a local date in Japanese calendar system from the
     * proleptic-year and day-of-year fields.
@@ -289,12 +285,10 @@ final class JapaneseChronology private() extends Chronology with Serializable {
         val maxJapanese: Int = maxIso - eras(eras.length - 1).startDate.getYear + 1
         var min: Int = Int.MaxValue
 
-        {
-          var i: Int = 0
-          while (i < eras.length) {
-            min = Math.min(min, eras(i).endDate.getYear - eras(i).startDate.getYear + 1)
-            i += 1
-          }
+        var i: Int = 0
+        while (i < eras.length) {
+          min = Math.min(min, eras(i).endDate.getYear - eras(i).startDate.getYear + 1)
+          i += 1
         }
         ValueRange.of(1, 6, min, maxJapanese)
       case MONTH_OF_YEAR =>
@@ -321,9 +315,8 @@ final class JapaneseChronology private() extends Chronology with Serializable {
       return dateEpochDay(fieldValues.remove(EPOCH_DAY))
     val prolepticMonth: java.lang.Long = fieldValues.remove(PROLEPTIC_MONTH)
     if (prolepticMonth != null) {
-      if (resolverStyle ne ResolverStyle.LENIENT) {
+      if (resolverStyle ne ResolverStyle.LENIENT)
         PROLEPTIC_MONTH.checkValidValue(prolepticMonth)
-      }
       updateResolveMap(fieldValues, MONTH_OF_YEAR, Math.floorMod(prolepticMonth, 12) + 1)
       updateResolveMap(fieldValues, YEAR, Math.floorDiv(prolepticMonth, 12))
     }
@@ -425,9 +418,8 @@ final class JapaneseChronology private() extends Chronology with Serializable {
           val aw: Int = ALIGNED_WEEK_OF_YEAR.checkValidIntValue(fieldValues.remove(ALIGNED_WEEK_OF_YEAR))
           val ad: Int = ALIGNED_DAY_OF_WEEK_IN_YEAR.checkValidIntValue(fieldValues.remove(ALIGNED_DAY_OF_WEEK_IN_YEAR))
           val japDate: JapaneseDate = date(y, 1, 1).plusDays((aw - 1) * 7 + (ad - 1))
-          if ((resolverStyle eq ResolverStyle.STRICT) && japDate.get(YEAR) != y) {
+          if ((resolverStyle eq ResolverStyle.STRICT) && japDate.get(YEAR) != y)
             throw new DateTimeException("Strict mode rejected date parsed to a different year")
-          }
           return japDate
         }
         if (fieldValues.containsKey(DAY_OF_WEEK)) {
@@ -440,9 +432,8 @@ final class JapaneseChronology private() extends Chronology with Serializable {
           val aw: Int = ALIGNED_WEEK_OF_YEAR.checkValidIntValue(fieldValues.remove(ALIGNED_WEEK_OF_YEAR))
           val dow: Int = DAY_OF_WEEK.checkValidIntValue(fieldValues.remove(DAY_OF_WEEK))
           val japDate: JapaneseDate = date(y, 1, 1).plus(aw - 1, WEEKS).`with`(nextOrSame(DayOfWeek.of(dow)))
-          if ((resolverStyle eq ResolverStyle.STRICT) && japDate.get(YEAR) != y) {
+          if ((resolverStyle eq ResolverStyle.STRICT) && japDate.get(YEAR) != y)
             throw new DateTimeException("Strict mode rejected date parsed to a different month")
-          }
           return japDate
         }
       }

@@ -220,9 +220,8 @@ object IsoFields {
       override def resolve(fieldValues: java.util.Map[TemporalField, java.lang.Long], partialTemporal: TemporalAccessor, resolverStyle: ResolverStyle): TemporalAccessor = {
         val yearLong: java.lang.Long = fieldValues.get(YEAR)
         val qoyLong: java.lang.Long = fieldValues.get(QUARTER_OF_YEAR)
-        if (yearLong == null || qoyLong == null) {
+        if (yearLong == null || qoyLong == null)
           return null
-        }
         val y: Int = YEAR.checkValidIntValue(yearLong)
         val doq: Long = fieldValues.get(DAY_OF_QUARTER)
         var date: LocalDate = null
@@ -348,10 +347,8 @@ object IsoFields {
       def isSupportedBy(temporal: TemporalAccessor): Boolean = temporal.isSupported(EPOCH_DAY) && isIso(temporal)
       def rangeRefinedBy(temporal: TemporalAccessor): ValueRange = YEAR.range
       def getFrom(temporal: TemporalAccessor): Long =
-        if (!temporal.isSupported(this))
-          throw new UnsupportedTemporalTypeException("Unsupported field: WeekBasedYear")
-        else
-          getWeekBasedYear(LocalDate.from(temporal))
+        if (!temporal.isSupported(this)) throw new UnsupportedTemporalTypeException("Unsupported field: WeekBasedYear")
+        else getWeekBasedYear(LocalDate.from(temporal))
       def adjustInto[R <: Temporal](temporal: R, newValue: Long): R = {
         if (!isSupportedBy(temporal))
           throw new UnsupportedTemporalTypeException("Unsupported field: WeekBasedYear")
@@ -380,10 +377,8 @@ object IsoFields {
 
     private def getWeekRange(wby: Int): Int = {
       val date: LocalDate = LocalDate.of(wby, 1, 1)
-      if ((date.getDayOfWeek eq THURSDAY) || ((date.getDayOfWeek eq WEDNESDAY) && date.isLeapYear))
-        53
-      else
-        52
+      if ((date.getDayOfWeek eq THURSDAY) || ((date.getDayOfWeek eq WEDNESDAY) && date.isLeapYear)) 53
+      else 52
     }
 
     private def getWeek(date: LocalDate): Int = {
@@ -396,14 +391,12 @@ object IsoFields {
       if (firstMonDoy0 < -3) {
         firstMonDoy0 += 7
       }
-      if (doy0 < firstMonDoy0) {
+      if (doy0 < firstMonDoy0)
         return getWeekRange(date.withDayOfYear(180).minusYears(1)).getMaximum.toInt
-      }
       var week: Int = ((doy0 - firstMonDoy0) / 7) + 1
       if (week == 53) {
-        if (!(firstMonDoy0 == -3 || firstMonDoy0 == -2 && date.isLeapYear)) {
+        if (!(firstMonDoy0 == -3 || firstMonDoy0 == -2 && date.isLeapYear))
           week = 1
-        }
       }
       week
     }
@@ -413,16 +406,14 @@ object IsoFields {
       var doy: Int = date.getDayOfYear
       if (doy <= 3) {
         val dow: Int = date.getDayOfWeek.ordinal
-        if (doy - dow < -2) {
+        if (doy - dow < -2)
           year -= 1
-        }
       }
       else if (doy >= 363) {
         val dow: Int = date.getDayOfWeek.ordinal
         doy = doy - 363 - (if (date.isLeapYear) 1 else 0)
-        if (doy - dow >= 0) {
+        if (doy - dow >= 0)
           year += 1
-        }
       }
       year
     }
@@ -464,13 +455,10 @@ object IsoFields {
 
     def addTo[R <: Temporal](temporal: R, periodToAdd: Long): R =
       this match {
-        case Unit.WEEK_BASED_YEARS =>
-          val added: Long = Math.addExact(temporal.get(WEEK_BASED_YEAR), periodToAdd)
-          temporal.`with`(WEEK_BASED_YEAR, added).asInstanceOf[R]
-        case Unit.QUARTER_YEARS =>
-          temporal.plus(periodToAdd / 256, YEARS).plus((periodToAdd % 256) * 3, MONTHS).asInstanceOf[R]
-        case _ =>
-          throw new IllegalStateException("Unreachable")
+        case Unit.WEEK_BASED_YEARS => val added: Long = Math.addExact(temporal.get(WEEK_BASED_YEAR), periodToAdd)
+                                      temporal.`with`(WEEK_BASED_YEAR, added).asInstanceOf[R]
+        case Unit.QUARTER_YEARS    => temporal.plus(periodToAdd / 256, YEARS).plus((periodToAdd % 256) * 3, MONTHS).asInstanceOf[R]
+        case _                     => throw new IllegalStateException("Unreachable")
       }
 
     def between(temporal1: Temporal, temporal2: Temporal): Long =
@@ -482,5 +470,4 @@ object IsoFields {
 
     override def toString: String = name
   }
-
 }

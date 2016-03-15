@@ -31,9 +31,7 @@
  */
 package org.threeten.bp.chrono
 
-import org.threeten.bp.temporal.ChronoField.DAY_OF_MONTH
-import org.threeten.bp.temporal.ChronoField.MONTH_OF_YEAR
-import org.threeten.bp.temporal.ChronoField.YEAR
+import org.threeten.bp.temporal.ChronoField._
 import java.io.DataInput
 import java.io.DataOutput
 import java.io.IOException
@@ -312,16 +310,18 @@ final class JapaneseDate private[chrono](@transient private var era: JapaneseEra
     * @return true if the field is supported on this date, false if not
     */
   override def isSupported(field: TemporalField): Boolean =
-    if ((field eq ChronoField.ALIGNED_DAY_OF_WEEK_IN_MONTH) || (field eq ChronoField.ALIGNED_DAY_OF_WEEK_IN_YEAR) || (field eq ChronoField.ALIGNED_WEEK_OF_MONTH) || (field eq ChronoField.ALIGNED_WEEK_OF_YEAR))
-      false
-    else
-      super.isSupported(field)
+    field match {
+      case ALIGNED_DAY_OF_WEEK_IN_MONTH
+         | ALIGNED_DAY_OF_WEEK_IN_YEAR
+         | ALIGNED_WEEK_OF_MONTH
+         | ALIGNED_WEEK_OF_YEAR         => false
+      case _                            => super.isSupported (field)
+    }
 
   override def range(field: TemporalField): ValueRange =
     if (field.isInstanceOf[ChronoField]) {
       if (isSupported(field)) {
         val f: ChronoField = field.asInstanceOf[ChronoField]
-        import ChronoField._
         f match {
           case DAY_OF_YEAR => actualRange(Calendar.DAY_OF_YEAR)
           case YEAR_OF_ERA => actualRange(Calendar.YEAR)
@@ -343,7 +343,6 @@ final class JapaneseDate private[chrono](@transient private var era: JapaneseEra
 
   def getLong(field: TemporalField): Long = {
     if (field.isInstanceOf[ChronoField]) {
-      import ChronoField._
       field.asInstanceOf[ChronoField] match {
         case ALIGNED_DAY_OF_WEEK_IN_MONTH
            | ALIGNED_DAY_OF_WEEK_IN_YEAR
@@ -370,7 +369,6 @@ final class JapaneseDate private[chrono](@transient private var era: JapaneseEra
   def `with`(field: TemporalField, newValue: Long): JapaneseDate = {
     if (field.isInstanceOf[ChronoField]) {
       val f: ChronoField = field.asInstanceOf[ChronoField]
-      import ChronoField._
       if (getLong(f) == newValue)
         return this
       f match {

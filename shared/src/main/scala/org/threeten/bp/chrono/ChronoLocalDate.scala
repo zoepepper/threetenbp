@@ -316,44 +316,36 @@ trait ChronoLocalDate extends Temporal with TemporalAdjuster with Ordered[Chrono
   def lengthOfYear: Int = if (isLeapYear) 366 else 365
 
   def isSupported(field: TemporalField): Boolean =
-    if (field.isInstanceOf[ChronoField])
-      field.isDateBased
-    else
-      field != null && field.isSupportedBy(this)
+    if (field.isInstanceOf[ChronoField]) field.isDateBased
+    else field != null && field.isSupportedBy(this)
 
   def isSupported(unit: TemporalUnit): Boolean =
-    if (unit.isInstanceOf[ChronoUnit])
-      unit.isDateBased
-    else
-      unit != null && unit.isSupportedBy(this)
+    if (unit.isInstanceOf[ChronoUnit]) unit.isDateBased
+    else unit != null && unit.isSupportedBy(this)
 
-  override def `with`(adjuster: TemporalAdjuster): ChronoLocalDate =
-    getChronology.ensureChronoLocalDate(super.`with`(adjuster))
+  override def `with`(adjuster: TemporalAdjuster): ChronoLocalDate = getChronology.ensureChronoLocalDate(super.`with`(adjuster))
 
   def `with`(field: TemporalField, newValue: Long): ChronoLocalDate
 
-  override def plus(amount: TemporalAmount): ChronoLocalDate =
-    getChronology.ensureChronoLocalDate(super.plus(amount))
+  override def plus(amount: TemporalAmount): ChronoLocalDate = getChronology.ensureChronoLocalDate(super.plus(amount))
 
   def plus(amountToAdd: Long, unit: TemporalUnit): ChronoLocalDate
 
-  override def minus(amount: TemporalAmount): ChronoLocalDate =
-    getChronology.ensureChronoLocalDate(super.minus(amount))
+  override def minus(amount: TemporalAmount): ChronoLocalDate = getChronology.ensureChronoLocalDate(super.minus(amount))
 
-  override def minus(amountToSubtract: Long, unit: TemporalUnit): ChronoLocalDate =
-    getChronology.ensureChronoLocalDate(super.minus(amountToSubtract, unit))
+  override def minus(amountToSubtract: Long, unit: TemporalUnit): ChronoLocalDate = getChronology.ensureChronoLocalDate(super.minus(amountToSubtract, unit))
 
   override def query[R >: Null](query: TemporalQuery[R]): R =
-    if (query eq TemporalQueries.chronology)
-      getChronology.asInstanceOf[R]
-    else if (query eq TemporalQueries.precision)
-      ChronoUnit.DAYS.asInstanceOf[R]
-    else if (query eq TemporalQueries.localDate)
-      LocalDate.ofEpochDay(toEpochDay).asInstanceOf[R]
-    else if ((query eq TemporalQueries.localTime) || (query eq TemporalQueries.zone) || (query eq TemporalQueries.zoneId) || (query eq TemporalQueries.offset))
-      null
-    else
-      super.query(query)
+    query match {
+      case TemporalQueries.chronology => getChronology.asInstanceOf[R]
+      case TemporalQueries.precision  => ChronoUnit.DAYS.asInstanceOf[R]
+      case TemporalQueries.localDate  => LocalDate.ofEpochDay (toEpochDay).asInstanceOf[R]
+      case TemporalQueries.localTime
+         | TemporalQueries.zone
+         | TemporalQueries.zoneId
+         | TemporalQueries.offset     => null
+      case _                          => super.query (query)
+    }
 
   def adjustInto(temporal: Temporal): Temporal = temporal.`with`(EPOCH_DAY, toEpochDay)
 
@@ -524,7 +516,8 @@ trait ChronoLocalDate extends Temporal with TemporalAdjuster with Ordered[Chrono
     val moy: Long = getLong(MONTH_OF_YEAR)
     val dom: Long = getLong(DAY_OF_MONTH)
     val buf: StringBuilder = new StringBuilder(30)
-    buf.append(getChronology.toString).append(" ").append(getEra).append(" ").append(yoe).append(if (moy < 10) "-0" else "-").append(moy).append(if (dom < 10) "-0" else "-").append(dom)
-    buf.toString
+    buf.append(getChronology.toString).append(" ").append(getEra).append(" ").append(yoe)
+       .append(if (moy < 10) "-0" else "-").append(moy).append(if (dom < 10) "-0" else "-").append(dom)
+    buf.toString()
   }
 }

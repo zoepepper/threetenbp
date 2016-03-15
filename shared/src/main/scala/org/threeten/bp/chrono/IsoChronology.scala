@@ -138,9 +138,8 @@ final class IsoChronology private() extends Chronology with Serializable {
     * @return the ISO local date, not null
     * @throws DateTimeException if unable to create the date
     */
-  override def date(era: Era, yearOfEra: Int, month: Int, dayOfMonth: Int): LocalDate = {
+  override def date(era: Era, yearOfEra: Int, month: Int, dayOfMonth: Int): LocalDate =
     date(prolepticYear(era, yearOfEra), month, dayOfMonth)
-  }
 
   /** Obtains an ISO local date from the proleptic-year, month-of-year
     * and day-of-month fields.
@@ -153,9 +152,7 @@ final class IsoChronology private() extends Chronology with Serializable {
     * @return the ISO local date, not null
     * @throws DateTimeException if unable to create the date
     */
-  def date(prolepticYear: Int, month: Int, dayOfMonth: Int): LocalDate = {
-    LocalDate.of(prolepticYear, month, dayOfMonth)
-  }
+  def date(prolepticYear: Int, month: Int, dayOfMonth: Int): LocalDate = LocalDate.of(prolepticYear, month, dayOfMonth)
 
   /** Obtains an ISO local date from the era, year-of-era and day-of-year fields.
     *
@@ -165,9 +162,8 @@ final class IsoChronology private() extends Chronology with Serializable {
     * @return the ISO local date, not null
     * @throws DateTimeException if unable to create the date
     */
-  override def dateYearDay(era: Era, yearOfEra: Int, dayOfYear: Int): LocalDate = {
+  override def dateYearDay(era: Era, yearOfEra: Int, dayOfYear: Int): LocalDate =
     dateYearDay(prolepticYear(era, yearOfEra), dayOfYear)
-  }
 
   /** Obtains an ISO local date from the proleptic-year and day-of-year fields.
     *
@@ -178,13 +174,9 @@ final class IsoChronology private() extends Chronology with Serializable {
     * @return the ISO local date, not null
     * @throws DateTimeException if unable to create the date
     */
-  def dateYearDay(prolepticYear: Int, dayOfYear: Int): LocalDate = {
-    LocalDate.ofYearDay(prolepticYear, dayOfYear)
-  }
+  def dateYearDay(prolepticYear: Int, dayOfYear: Int): LocalDate = LocalDate.ofYearDay(prolepticYear, dayOfYear)
 
-  def dateEpochDay(epochDay: Long): LocalDate = {
-    LocalDate.ofEpochDay(epochDay)
-  }
+  def dateEpochDay(epochDay: Long): LocalDate = LocalDate.ofEpochDay(epochDay)
 
   /** Obtains an ISO local date from another date-time object.
     *
@@ -194,9 +186,7 @@ final class IsoChronology private() extends Chronology with Serializable {
     * @return the ISO local date, not null
     * @throws DateTimeException if unable to create the date
     */
-  def date(temporal: TemporalAccessor): LocalDate = {
-    LocalDate.from(temporal)
-  }
+  def date(temporal: TemporalAccessor): LocalDate = LocalDate.from(temporal)
 
   /** Obtains an ISO local date-time from another date-time object.
     *
@@ -206,9 +196,7 @@ final class IsoChronology private() extends Chronology with Serializable {
     * @return the ISO local date-time, not null
     * @throws DateTimeException if unable to create the date-time
     */
-  override def localDateTime(temporal: TemporalAccessor): LocalDateTime = {
-    LocalDateTime.from(temporal)
-  }
+  override def localDateTime(temporal: TemporalAccessor): LocalDateTime = LocalDateTime.from(temporal)
 
   /** Obtains an ISO zoned date-time from another date-time object.
     *
@@ -218,9 +206,7 @@ final class IsoChronology private() extends Chronology with Serializable {
     * @return the ISO zoned date-time, not null
     * @throws DateTimeException if unable to create the date-time
     */
-  override def zonedDateTime(temporal: TemporalAccessor): ZonedDateTime = {
-    ZonedDateTime.from(temporal)
-  }
+  override def zonedDateTime(temporal: TemporalAccessor): ZonedDateTime = ZonedDateTime.from(temporal)
 
   /** Obtains an ISO zoned date-time from an instant.
     *
@@ -231,9 +217,7 @@ final class IsoChronology private() extends Chronology with Serializable {
     * @return the ISO zoned date-time, not null
     * @throws DateTimeException if unable to create the date-time
     */
-  override def zonedDateTime(instant: Instant, zone: ZoneId): ZonedDateTime = {
-    ZonedDateTime.ofInstant(instant, zone)
-  }
+  override def zonedDateTime(instant: Instant, zone: ZoneId): ZonedDateTime = ZonedDateTime.ofInstant(instant, zone)
 
   /** Obtains the current ISO local date from the system clock in the default time-zone.
     *
@@ -246,9 +230,7 @@ final class IsoChronology private() extends Chronology with Serializable {
     * @return the current ISO local date using the system clock and default time-zone, not null
     * @throws DateTimeException if unable to create the date
     */
-  override def dateNow: LocalDate = {
-    dateNow(Clock.systemDefaultZone)
-  }
+  override def dateNow: LocalDate = dateNow(Clock.systemDefaultZone)
 
   /** Obtains the current ISO local date from the system clock in the specified time-zone.
     *
@@ -261,9 +243,7 @@ final class IsoChronology private() extends Chronology with Serializable {
     * @return the current ISO local date using the system clock, not null
     * @throws DateTimeException if unable to create the date
     */
-  override def dateNow(zone: ZoneId): LocalDate = {
-    dateNow(Clock.system(zone))
-  }
+  override def dateNow(zone: ZoneId): LocalDate = dateNow(Clock.system(zone))
 
   /** Obtains the current ISO local date from the specified clock.
     *
@@ -302,10 +282,10 @@ final class IsoChronology private() extends Chronology with Serializable {
     ((prolepticYear & 3) == 0) && ((prolepticYear % 100) != 0 || (prolepticYear % 400) == 0)
 
   def prolepticYear(era: Era, yearOfEra: Int): Int =
-    if (!era.isInstanceOf[IsoEra])
-      throw new ClassCastException("Era must be IsoEra")
+    if (!era.isInstanceOf[IsoEra]) throw new ClassCastException("Era must be IsoEra")
     else
-      if (era eq IsoEra.CE) yearOfEra else 1 - yearOfEra
+      if (era eq IsoEra.CE) yearOfEra
+      else 1 - yearOfEra
 
   def eraOf(eraValue: Int): IsoEra = IsoEra.of(eraValue)
 
@@ -314,32 +294,25 @@ final class IsoChronology private() extends Chronology with Serializable {
   def range(field: ChronoField): ValueRange = field.range
 
   override def resolveDate(fieldValues: java.util.Map[TemporalField, java.lang.Long], resolverStyle: ResolverStyle): LocalDate = {
-    if (fieldValues.containsKey(EPOCH_DAY)) {
+    if (fieldValues.containsKey(EPOCH_DAY))
       return LocalDate.ofEpochDay(fieldValues.remove(EPOCH_DAY))
-    }
     val prolepticMonth: java.lang.Long = fieldValues.remove(PROLEPTIC_MONTH)
     if (prolepticMonth != null) {
-      if (resolverStyle ne ResolverStyle.LENIENT) {
+      if (resolverStyle ne ResolverStyle.LENIENT)
         PROLEPTIC_MONTH.checkValidValue(prolepticMonth)
-      }
       updateResolveMap(fieldValues, MONTH_OF_YEAR, Math.floorMod(prolepticMonth, 12) + 1)
       updateResolveMap(fieldValues, YEAR, Math.floorDiv(prolepticMonth, 12))
     }
     val yoeLong: java.lang.Long = fieldValues.remove(YEAR_OF_ERA)
     if (yoeLong != null) {
-      if (resolverStyle ne ResolverStyle.LENIENT) {
+      if (resolverStyle ne ResolverStyle.LENIENT)
         YEAR_OF_ERA.checkValidValue(yoeLong)
-      }
       val era: java.lang.Long = fieldValues.remove(ERA)
       if (era == null) {
         val year: java.lang.Long = fieldValues.get(YEAR)
         if (resolverStyle eq ResolverStyle.STRICT) {
-          if (year != null) {
-            updateResolveMap(fieldValues, YEAR, (if (year > 0) yoeLong else Math.subtractExact(1, yoeLong)))
-          }
-          else {
-            fieldValues.put(YEAR_OF_ERA, yoeLong)
-          }
+          if (year != null) updateResolveMap(fieldValues, YEAR, (if (year > 0) yoeLong else Math.subtractExact(1, yoeLong)))
+          else fieldValues.put(YEAR_OF_ERA, yoeLong)
         }
         else {
           updateResolveMap(fieldValues, YEAR, (if (year == null || year > 0) yoeLong else Math.subtractExact(1, yoeLong)))

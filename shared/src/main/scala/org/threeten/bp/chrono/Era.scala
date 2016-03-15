@@ -89,31 +89,22 @@ trait Era extends TemporalAccessor with TemporalAdjuster {
     new DateTimeFormatterBuilder().appendText(ERA, style).toFormatter(locale).format(this)
 
   def isSupported(field: TemporalField): Boolean =
-    if (field.isInstanceOf[ChronoField])
-      field eq ERA
-    else
-      field != null && field.isSupportedBy(this)
+    if (field.isInstanceOf[ChronoField]) field eq ERA
+    else field != null && field.isSupportedBy(this)
 
   override def get(field: TemporalField): Int =
-    if (field eq ERA)
-      getValue
-    else
-      range(field).checkValidIntValue(getLong(field), field)
+    if (field eq ERA) getValue
+    else range(field).checkValidIntValue(getLong(field), field)
 
   def getLong(field: TemporalField): Long =
-    if (field eq ERA)
-      getValue
-    else if (field.isInstanceOf[ChronoField])
-      throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
+    if (field eq ERA) getValue
+    else if (field.isInstanceOf[ChronoField]) throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
     else field.getFrom(this)
 
   def adjustInto(temporal: Temporal): Temporal = temporal.`with`(ERA, getValue)
 
   override def query[R >: Null](query: TemporalQuery[R]): R =
-    if (query eq TemporalQueries.precision)
-      ChronoUnit.ERAS.asInstanceOf[R]
-    else if ((query eq TemporalQueries.chronology) || (query eq TemporalQueries.zone) || (query eq TemporalQueries.zoneId) || (query eq TemporalQueries.offset) || (query eq TemporalQueries.localDate) || (query eq TemporalQueries.localTime))
-      null
-    else
-      query.queryFrom(this)
+    if (query eq TemporalQueries.precision) ChronoUnit.ERAS.asInstanceOf[R]
+    else if ((query eq TemporalQueries.chronology) || (query eq TemporalQueries.zone) || (query eq TemporalQueries.zoneId) || (query eq TemporalQueries.offset) || (query eq TemporalQueries.localDate) || (query eq TemporalQueries.localTime)) null
+    else query.queryFrom(this)
 }

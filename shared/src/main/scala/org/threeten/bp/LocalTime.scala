@@ -153,9 +153,8 @@ object LocalTime {
     val offset: ZoneOffset = clock.getZone.getRules.getOffset(now)
     var secsOfDay: Long = now.getEpochSecond % SECONDS_PER_DAY
     secsOfDay = (secsOfDay + offset.getTotalSeconds) % SECONDS_PER_DAY
-    if (secsOfDay < 0) {
+    if (secsOfDay < 0)
       secsOfDay += SECONDS_PER_DAY
-    }
     LocalTime.ofSecondOfDay(secsOfDay, now.getNano)
   }
 
@@ -194,9 +193,8 @@ object LocalTime {
     */
   def of(hour: Int, minute: Int, second: Int): LocalTime = {
     HOUR_OF_DAY.checkValidValue(hour)
-    if ((minute | second) == 0) {
+    if ((minute | second) == 0)
       return HOURS(hour)
-    }
     MINUTE_OF_HOUR.checkValidValue(minute)
     SECOND_OF_MINUTE.checkValidValue(second)
     new LocalTime(hour, minute, second, 0)
@@ -339,10 +337,8 @@ object LocalTime {
     * @return the local time, not null
     */
   private def create(hour: Int, minute: Int, second: Int, nanoOfSecond: Int): LocalTime =
-    if ((minute | second | nanoOfSecond) == 0)
-      HOURS(hour)
-    else
-      new LocalTime(hour, minute, second, nanoOfSecond)
+    if ((minute | second | nanoOfSecond) == 0) HOURS(hour)
+    else new LocalTime(hour, minute, second, nanoOfSecond)
 
   @throws[IOException]
   private[bp] def readExternal(in: DataInput): LocalTime = {
@@ -389,7 +385,6 @@ object LocalTime {
   * This class is immutable and thread-safe.
   *
   * @constructor Constructor, previously validated.
-  *
   * @param _hour  the hour-of-day to represent, validated from 0 to 23
   * @param _minute  the minute-of-hour to represent, validated from 0 to 59
   * @param _second  the second-of-minute to represent, validated from 0 to 59
@@ -518,16 +513,16 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     * @throws DateTimeException if a value for the field cannot be obtained
     * @throws ArithmeticException if numeric overflow occurs
     */
-  def getLong(field: TemporalField): Long = {
+  def getLong(field: TemporalField): Long =
     if (field.isInstanceOf[ChronoField]) {
       if (field eq NANO_OF_DAY)
         return toNanoOfDay
       if (field eq MICRO_OF_DAY)
         return toNanoOfDay / 1000
-      return get0(field)
+      get0(field)
+    } else {
+      field.getFrom(this)
     }
-    field.getFrom(this)
-  }
 
   private def get0(field: TemporalField): Int = {
     import ChronoField._
@@ -555,33 +550,25 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     *
     * @return the hour-of-day, from 0 to 23
     */
-  def getHour: Int = {
-    hour
-  }
+  def getHour: Int = hour
 
   /** Gets the minute-of-hour field.
     *
     * @return the minute-of-hour, from 0 to 59
     */
-  def getMinute: Int = {
-    minute
-  }
+  def getMinute: Int = minute
 
   /** Gets the second-of-minute field.
     *
     * @return the second-of-minute, from 0 to 59
     */
-  def getSecond: Int = {
-    second
-  }
+  def getSecond: Int = second
 
   /** Gets the nano-of-second field.
     *
     * @return the nano-of-second, from 0 to 999,999,999
     */
-  def getNano: Int = {
-    nano
-  }
+  def getNano: Int = nano
 
   /** Returns an adjusted copy of this time.
     *
@@ -604,10 +591,8 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     * @throws ArithmeticException if numeric overflow occurs
     */
   override def `with`(adjuster: TemporalAdjuster): LocalTime =
-    if (adjuster.isInstanceOf[LocalTime])
-      adjuster.asInstanceOf[LocalTime]
-    else
-      adjuster.adjustInto(this).asInstanceOf[LocalTime]
+    if (adjuster.isInstanceOf[LocalTime]) adjuster.asInstanceOf[LocalTime]
+    else adjuster.adjustInto(this).asInstanceOf[LocalTime]
 
   /** Returns a copy of this time with the specified field set to a new value.
     *
@@ -712,7 +697,6 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
         case AMPM_OF_DAY        => plusHours((newValue - (hour / 12)) * 12)
         case _                  => throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
       }
-
     } else {
       field.adjustInto(this, newValue)
     }
@@ -1018,8 +1002,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     * @param secondsToSubtract  the seconds to subtract, may be negative
     * @return a { @code LocalTime} based on this time with the seconds subtracted, not null
     */
-  def minusSeconds(secondsToSubtract: Long): LocalTime =
-    plusSeconds(-(secondsToSubtract % LocalTime.SECONDS_PER_DAY))
+  def minusSeconds(secondsToSubtract: Long): LocalTime = plusSeconds(-(secondsToSubtract % LocalTime.SECONDS_PER_DAY))
 
   /** Returns a copy of this {@code LocalTime} with the specified period in nanoseconds subtracted.
     *
@@ -1031,8 +1014,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     * @param nanosToSubtract  the nanos to subtract, may be negative
     * @return a { @code LocalTime} based on this time with the nanoseconds subtracted, not null
     */
-  def minusNanos(nanosToSubtract: Long): LocalTime =
-    plusNanos(-(nanosToSubtract % LocalTime.NANOS_PER_DAY))
+  def minusNanos(nanosToSubtract: Long): LocalTime = plusNanos(-(nanosToSubtract % LocalTime.NANOS_PER_DAY))
 
   /** Queries this time using the specified query.
     *
@@ -1052,14 +1034,16 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     * @throws ArithmeticException if numeric overflow occurs (defined by the query)
     */
   override def query[R >: Null](query: TemporalQuery[R]): R =
-    if (query eq TemporalQueries.precision)
-      NANOS.asInstanceOf[R]
-    else if (query eq TemporalQueries.localTime)
-      this.asInstanceOf[R]
-    else if ((query eq TemporalQueries.chronology) || (query eq TemporalQueries.zoneId) || (query eq TemporalQueries.zone) || (query eq TemporalQueries.offset) || (query eq TemporalQueries.localDate))
-      null
-    else
-      query.queryFrom(this)
+    query match {
+      case TemporalQueries.precision  => NANOS.asInstanceOf[R]
+      case TemporalQueries.localTime  => this.asInstanceOf[R]
+      case TemporalQueries.chronology
+         | TemporalQueries.zoneId
+         | TemporalQueries.zone
+         | TemporalQueries.offset
+         | TemporalQueries.localDate  => null
+      case _                          => query.queryFrom(this)
+    }
 
   /** Adjusts the specified temporal object to have the same time as this object.
     *
@@ -1084,8 +1068,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     * @throws DateTimeException if unable to make the adjustment
     * @throws ArithmeticException if numeric overflow occurs
     */
-  def adjustInto(temporal: Temporal): Temporal =
-    temporal.`with`(NANO_OF_DAY, toNanoOfDay)
+  def adjustInto(temporal: Temporal): Temporal = temporal.`with`(NANO_OF_DAY, toNanoOfDay)
 
   /** Calculates the period between this time and another time in
     * terms of the specified unit.
@@ -1157,9 +1140,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     * @param date  the date to combine with, not null
     * @return the local date-time formed from this time and the specified date, not null
     */
-  def atDate(date: LocalDate): LocalDateTime = {
-    LocalDateTime.of(date, this)
-  }
+  def atDate(date: LocalDate): LocalDateTime = LocalDateTime.of(date, this)
 
   /** Combines this time with an offset to create an {@code OffsetTime}.
     *
@@ -1169,9 +1150,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     * @param offset  the offset to combine with, not null
     * @return the offset time formed from this time and the specified offset, not null
     */
-  def atOffset(offset: ZoneOffset): OffsetTime = {
-    OffsetTime.of(this, offset)
-  }
+  def atOffset(offset: ZoneOffset): OffsetTime = OffsetTime.of(this, offset)
 
   /** Extracts the time as seconds of day,
     * from {@code 0} to {@code 24 * 60 * 60 - 1}.
@@ -1213,9 +1192,8 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
       cmp = Integer.compare(minute, other.minute)
       if (cmp == 0) {
         cmp = Integer.compare(second, other.second)
-        if (cmp == 0) {
+        if (cmp == 0)
           cmp = Integer.compare(nano, other.nano)
-        }
       }
     }
     cmp
@@ -1229,9 +1207,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     * @return true if this is after the specified time
     * @throws NullPointerException if { @code other} is null
     */
-  def isAfter(other: LocalTime): Boolean = {
-    compareTo(other) > 0
-  }
+  def isAfter(other: LocalTime): Boolean = compareTo(other) > 0
 
   /** Checks if this {@code LocalTime} is before the specified time.
     *
@@ -1241,9 +1217,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
     * @return true if this point is before the specified time
     * @throws NullPointerException if { @code other} is null
     */
-  def isBefore(other: LocalTime): Boolean = {
-    compareTo(other) < 0
-  }
+  def isBefore(other: LocalTime): Boolean = compareTo(other) < 0
 
   /** Checks if this time is equal to another time.
     *
@@ -1297,15 +1271,12 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
       buf.append(if (secondValue < 10) ":0" else ":").append(secondValue)
       if (nanoValue > 0) {
         buf.append('.')
-        if (nanoValue % 1000000 == 0) {
+        if (nanoValue % 1000000 == 0)
           buf.append(Integer.toString((nanoValue / 1000000) + 1000).substring(1))
-        }
-        else if (nanoValue % 1000 == 0) {
+        else if (nanoValue % 1000 == 0)
           buf.append(Integer.toString((nanoValue / 1000) + 1000000).substring(1))
-        }
-        else {
+        else
           buf.append(Integer.toString(nanoValue + 1000000000).substring(1))
-        }
       }
     }
     buf.toString
@@ -1339,9 +1310,8 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
   private[bp] def writeExternal(out: DataOutput): Unit = {
     if (nano == 0) {
       if (second == 0) {
-        if (minute == 0) {
+        if (minute == 0)
           out.writeByte(~hour)
-        }
         else {
           out.writeByte(hour)
           out.writeByte(~minute)

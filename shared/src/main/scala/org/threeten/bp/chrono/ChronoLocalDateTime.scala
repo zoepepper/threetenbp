@@ -152,18 +152,16 @@ abstract class ChronoLocalDateTime[D <: ChronoLocalDate] extends Temporal with T
     toLocalDate.getChronology.ensureChronoLocalDateTime(super.minus(amountToSubtract, unit))
 
   override def query[R >: Null](query: TemporalQuery[R]): R =
-    if (query eq TemporalQueries.chronology)
-      getChronology.asInstanceOf[R]
-    else if (query eq TemporalQueries.precision)
-      NANOS.asInstanceOf[R]
-    else if (query eq TemporalQueries.localDate)
-      LocalDate.ofEpochDay(toLocalDate.toEpochDay).asInstanceOf[R]
-    else if (query eq TemporalQueries.localTime)
-      toLocalTime.asInstanceOf[R]
-    else if ((query eq TemporalQueries.zone) || (query eq TemporalQueries.zoneId) || (query eq TemporalQueries.offset))
-      null
-    else
-      super.query(query)
+    query match {
+      case TemporalQueries.chronology => getChronology.asInstanceOf[R]
+      case TemporalQueries.precision  => NANOS.asInstanceOf[R]
+      case TemporalQueries.localDate  => LocalDate.ofEpochDay(toLocalDate.toEpochDay).asInstanceOf[R]
+      case TemporalQueries.localTime  => toLocalTime.asInstanceOf[R]
+      case TemporalQueries.zone
+         | TemporalQueries.zoneId
+         | TemporalQueries.offset     => null
+      case _                          => super.query(query)
+    }
 
   def adjustInto(temporal: Temporal): Temporal =
     temporal.`with`(EPOCH_DAY, toLocalDate.toEpochDay).`with`(NANO_OF_DAY, toLocalTime.toNanoOfDay)

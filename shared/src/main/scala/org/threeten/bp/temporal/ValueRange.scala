@@ -47,10 +47,8 @@ object ValueRange {
     * @throws IllegalArgumentException if the minimum is greater than the maximum
     */
   def of(min: Long, max: Long): ValueRange =
-    if (min > max)
-      throw new IllegalArgumentException("Minimum value must be less than maximum value")
-    else
-      new ValueRange(min, min, max, max)
+    if (min > max) throw new IllegalArgumentException("Minimum value must be less than maximum value")
+    else new ValueRange(min, min, max, max)
 
   /** Obtains a variable value range.
     *
@@ -209,10 +207,8 @@ final class ValueRange private(private val minSmallest: Long, private val minLar
     */
   def checkValidValue(value: Long, field: TemporalField): Long =
     if (!isValidValue(value))
-      if (field != null)
-        throw new DateTimeException(s"Invalid value for $field (valid values $this): $value")
-      else
-        throw new DateTimeException(s"Invalid value (valid values $this): $value")
+      if (field != null) throw new DateTimeException(s"Invalid value for $field (valid values $this): $value")
+      else throw new DateTimeException(s"Invalid value (valid values $this): $value")
     else
       value
 
@@ -228,10 +224,8 @@ final class ValueRange private(private val minSmallest: Long, private val minLar
     * @see #isValidIntValue(long)
     */
   def checkValidIntValue(value: Long, field: TemporalField): Int =
-    if (!isValidIntValue(value))
-      throw new DateTimeException(s"Invalid int value for $field: $value")
-    else
-      value.toInt
+    if (!isValidIntValue(value)) throw new DateTimeException(s"Invalid int value for $field: $value")
+    else value.toInt
 
   /** Checks if this range is equal to another range.
     *

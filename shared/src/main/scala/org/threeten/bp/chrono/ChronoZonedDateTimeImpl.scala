@@ -128,9 +128,7 @@ private[chrono] object ChronoZonedDateTimeImpl {
   * This class is immutable and thread-safe.
   *
   * @tparam D the date type
-  *
   * @constructor
-  *
   * @param dateTime  the date-time, not null
   * @param offset  the zone offset, not null
   * @param zone  the zone ID, not null
@@ -151,10 +149,8 @@ final class ChronoZonedDateTimeImpl[D <: ChronoLocalDate] private(private val da
     ChronoZonedDateTimeImpl.ofInstant(toLocalDate.getChronology, instant, zone)
 
   def isSupported(unit: TemporalUnit): Boolean =
-    if (unit.isInstanceOf[ChronoUnit])
-      unit.isDateBased || unit.isTimeBased
-    else
-      unit != null && unit.isSupportedBy(this)
+    if (unit.isInstanceOf[ChronoUnit]) unit.isDateBased || unit.isTimeBased
+    else unit != null && unit.isSupportedBy(this)
 
   def getOffset: ZoneOffset = offset
 
@@ -162,9 +158,8 @@ final class ChronoZonedDateTimeImpl[D <: ChronoLocalDate] private(private val da
     val trans: ZoneOffsetTransition = getZone.getRules.getTransition(LocalDateTime.from(this))
     if (trans != null && trans.isOverlap) {
       val earlierOffset: ZoneOffset = trans.getOffsetBefore
-      if (!(earlierOffset == offset)) {
+      if (!(earlierOffset == offset))
         return new ChronoZonedDateTimeImpl[D](dateTime, earlierOffset, zone)
-      }
     }
     this
   }
@@ -173,9 +168,8 @@ final class ChronoZonedDateTimeImpl[D <: ChronoLocalDate] private(private val da
     val trans: ZoneOffsetTransition = getZone.getRules.getTransition(LocalDateTime.from(this))
     if (trans != null) {
       val offset: ZoneOffset = trans.getOffsetAfter
-      if (!(offset == getOffset)) {
+      if (!(offset == getOffset))
         return new ChronoZonedDateTimeImpl[D](dateTime, offset, zone)
-      }
     }
     this
   }
@@ -200,24 +194,19 @@ final class ChronoZonedDateTimeImpl[D <: ChronoLocalDate] private(private val da
       val f: ChronoField = field.asInstanceOf[ChronoField]
       import ChronoField._
       f match {
-        case INSTANT_SECONDS =>
-          return plus(newValue - toEpochSecond, SECONDS)
-        case OFFSET_SECONDS => {
-          val offset: ZoneOffset = ZoneOffset.ofTotalSeconds(f.checkValidIntValue(newValue))
-          return create(dateTime.toInstant(offset), zone)
-        }
-        case _ =>
-          return ChronoZonedDateTimeImpl.ofBest(dateTime.`with`(field, newValue), zone, offset)
+        case INSTANT_SECONDS => plus(newValue - toEpochSecond, SECONDS)
+        case OFFSET_SECONDS  => val offset: ZoneOffset = ZoneOffset.ofTotalSeconds(f.checkValidIntValue(newValue))
+                                create(dateTime.toInstant(offset), zone)
+        case _               => ChronoZonedDateTimeImpl.ofBest(dateTime.`with`(field, newValue), zone, offset)
       }
+    } else {
+      toLocalDate.getChronology.ensureChronoZonedDateTime(field.adjustInto(this, newValue))
     }
-    toLocalDate.getChronology.ensureChronoZonedDateTime(field.adjustInto(this, newValue))
   }
 
   def plus(amountToAdd: Long, unit: TemporalUnit): ChronoZonedDateTime[D] =
-    if (unit.isInstanceOf[ChronoUnit])
-      `with`(dateTime.plus(amountToAdd, unit))
-    else
-      toLocalDate.getChronology.ensureChronoZonedDateTime(unit.addTo(this, amountToAdd))
+    if (unit.isInstanceOf[ChronoUnit]) `with`(dateTime.plus(amountToAdd, unit))
+    else toLocalDate.getChronology.ensureChronoZonedDateTime(unit.addTo(this, amountToAdd))
 
   def until(endExclusive: Temporal, unit: TemporalUnit): Long = {
     var end: ChronoZonedDateTime[D] = toLocalDate.getChronology.zonedDateTime(endExclusive).asInstanceOf[ChronoZonedDateTime[D]]
@@ -231,6 +220,7 @@ final class ChronoZonedDateTimeImpl[D <: ChronoLocalDate] private(private val da
   private def writeReplace: AnyRef = new Ser(Ser.CHRONO_ZONEDDATETIME_TYPE, this)
 
   /** Defend against malicious streams.
+    *
     * @return never
     * @throws InvalidObjectException always
     */
@@ -246,19 +236,16 @@ final class ChronoZonedDateTimeImpl[D <: ChronoLocalDate] private(private val da
 
   override def equals(obj: Any): Boolean =
     obj match {
-      case other: ChronoZonedDateTime[_] =>
-        (this eq other) || (compareTo(other) == 0)
-      case _ =>
-        false
+      case other: ChronoZonedDateTime[_] => (this eq other) || (compareTo(other) == 0)
+      case _                             => false
     }
 
   override def hashCode: Int = toLocalDateTime.hashCode ^ getOffset.hashCode ^ Integer.rotateLeft(getZone.hashCode, 3)
 
   override def toString: String = {
     var str: String = toLocalDateTime.toString + getOffset.toString
-    if (getOffset ne getZone) {
+    if (getOffset ne getZone)
       str += '[' + getZone.toString + ']'
-    }
     str
   }
 }

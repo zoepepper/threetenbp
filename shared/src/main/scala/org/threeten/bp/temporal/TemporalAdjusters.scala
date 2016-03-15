@@ -77,9 +77,7 @@ object TemporalAdjusters {
   def ofDateAdjuster(localDateAdjuster: LocalDate => LocalDate): TemporalAdjuster = {
     Objects.requireNonNull(localDateAdjuster, "localDateAdjuster")
     new TemporalAdjuster {
-      def adjustInto(temporal: Temporal): Temporal = {
-        temporal.`with`(localDateAdjuster(LocalDate.from(temporal)))
-      }
+      def adjustInto(temporal: Temporal): Temporal = temporal.`with`(localDateAdjuster(LocalDate.from(temporal)))
     }
   }
 
@@ -112,7 +110,7 @@ object TemporalAdjusters {
     * The behavior is suitable for use with most calendar systems.
     * It is equivalent to:
     * <pre>
-    * long lastDay = temporal.range(DAY_OF_MONTH).getMaximum();
+    * val lastDay: Long = temporal.range(DAY_OF_MONTH).getMaximum();
     * temporal.with(DAY_OF_MONTH, lastDay);
     * </pre>
     *
@@ -191,17 +189,17 @@ object TemporalAdjusters {
   /** Enum implementing the adjusters. */
   private[TemporalAdjusters] object Impl {
     /** First day of month adjuster. */
-    val FIRST_DAY_OF_MONTH: TemporalAdjusters.Impl = new TemporalAdjusters.Impl(0)
+    val FIRST_DAY_OF_MONTH: TemporalAdjusters.Impl      = new TemporalAdjusters.Impl(0)
     /** Last day of month adjuster. */
-    val LAST_DAY_OF_MONTH: TemporalAdjusters.Impl = new TemporalAdjusters.Impl(1)
+    val LAST_DAY_OF_MONTH: TemporalAdjusters.Impl       = new TemporalAdjusters.Impl(1)
     /** First day of next month adjuster. */
     val FIRST_DAY_OF_NEXT_MONTH: TemporalAdjusters.Impl = new TemporalAdjusters.Impl(2)
     /** First day of year adjuster. */
-    val FIRST_DAY_OF_YEAR: TemporalAdjusters.Impl = new TemporalAdjusters.Impl(3)
+    val FIRST_DAY_OF_YEAR: TemporalAdjusters.Impl       = new TemporalAdjusters.Impl(3)
     /** Last day of year adjuster. */
-    val LAST_DAY_OF_YEAR: TemporalAdjusters.Impl = new TemporalAdjusters.Impl(4)
+    val LAST_DAY_OF_YEAR: TemporalAdjusters.Impl        = new TemporalAdjusters.Impl(4)
     /** First day of next month adjuster. */
-    val FIRST_DAY_OF_NEXT_YEAR: TemporalAdjusters.Impl = new TemporalAdjusters.Impl(5)
+    val FIRST_DAY_OF_NEXT_YEAR: TemporalAdjusters.Impl  = new TemporalAdjusters.Impl(5)
   }
 
   private class Impl(private val ordinal: Int) extends TemporalAdjuster {
@@ -398,13 +396,11 @@ object TemporalAdjusters {
     def adjustInto(temporal: Temporal): Temporal = {
       val calDow: Int = temporal.get(DAY_OF_WEEK)
       if (relative < 2 && calDow == dowValue) {
-        return temporal
-      }
-      if ((relative & 1) == 0) {
+        temporal
+      } else if ((relative & 1) == 0) {
         val daysDiff: Int = calDow - dowValue
         temporal.plus(if (daysDiff >= 0) 7 - daysDiff else -daysDiff, DAYS)
-      }
-      else {
+      } else {
         val daysDiff: Int = dowValue - calDow
         temporal.minus(if (daysDiff >= 0) 7 - daysDiff else -daysDiff, DAYS)
       }

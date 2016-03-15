@@ -136,8 +136,7 @@ object JulianFields {
     */
   val RATA_DIE: TemporalField = Field.RATA_DIE
 
-  /** Hidden implementation.
-    */
+  /** Hidden implementation. */
   private object Field {
     /** Julian Day field. */
     // 719163L + 1721425L = 2440588L
@@ -165,18 +164,14 @@ object JulianFields {
     def isSupportedBy(temporal: TemporalAccessor): Boolean = temporal.isSupported(EPOCH_DAY)
 
     def rangeRefinedBy(temporal: TemporalAccessor): ValueRange =
-      if (!isSupportedBy(temporal))
-        throw new UnsupportedTemporalTypeException(s"Unsupported field: $this")
-      else
-        range
+      if (!isSupportedBy(temporal)) throw new UnsupportedTemporalTypeException(s"Unsupported field: $this")
+      else range
 
     def getFrom(temporal: TemporalAccessor): Long = temporal.getLong(EPOCH_DAY) + offset
 
     def adjustInto[R <: Temporal](dateTime: R, newValue: Long): R =
-      if (!range.isValidValue(newValue))
-        throw new DateTimeException(s"Invalid value: $name $newValue")
-      else
-        dateTime.`with`(EPOCH_DAY, Math.subtractExact(newValue, offset)).asInstanceOf[R]
+      if (!range.isValidValue(newValue)) throw new DateTimeException(s"Invalid value: $name $newValue")
+      else dateTime.`with`(EPOCH_DAY, Math.subtractExact(newValue, offset)).asInstanceOf[R]
 
     def getDisplayName(locale: Locale): String = {
       Objects.requireNonNull(locale, "locale")
@@ -191,5 +186,4 @@ object JulianFields {
 
     override def toString: String = name
   }
-
 }

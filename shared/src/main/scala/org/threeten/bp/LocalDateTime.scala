@@ -321,12 +321,10 @@ object LocalDateTime {
     * @throws DateTimeException if unable to convert to a { @code LocalDateTime}
     */
   def from(temporal: TemporalAccessor): LocalDateTime = {
-    if (temporal.isInstanceOf[LocalDateTime]) {
+    if (temporal.isInstanceOf[LocalDateTime])
       return temporal.asInstanceOf[LocalDateTime]
-    }
-    else if (temporal.isInstanceOf[ZonedDateTime]) {
+    else if (temporal.isInstanceOf[ZonedDateTime])
       return temporal.asInstanceOf[ZonedDateTime].toLocalDateTime
-    }
     try {
       val date: LocalDate = LocalDate.from(temporal)
       val time: LocalTime = LocalTime.from(temporal)
@@ -413,10 +411,8 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     * @return the date-time, not null
     */
   private def `with`(newDate: LocalDate, newTime: LocalTime): LocalDateTime =
-    if ((date eq newDate) && (time eq newTime))
-      this
-    else
-      new LocalDateTime(newDate, newTime)
+    if ((date eq newDate) && (time eq newTime)) this
+    else new LocalDateTime(newDate, newTime)
 
   /** Checks if the specified field is supported.
     *
@@ -467,16 +463,12 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     * @return true if the field is supported on this date-time, false if not
     */
   def isSupported(field: TemporalField): Boolean =
-    if (field.isInstanceOf[ChronoField])
-      field.isDateBased || field.isTimeBased
-    else
-      field != null && field.isSupportedBy(this)
+    if (field.isInstanceOf[ChronoField]) field.isDateBased || field.isTimeBased
+    else field != null && field.isSupportedBy(this)
 
   def isSupported(unit: TemporalUnit): Boolean =
-    if (unit.isInstanceOf[ChronoUnit])
-      unit.isDateBased || unit.isTimeBased
-    else
-      unit != null && unit.isSupportedBy(this)
+    if (unit.isInstanceOf[ChronoUnit]) unit.isDateBased || unit.isTimeBased
+    else unit != null && unit.isSupportedBy(this)
 
   /** Gets the range of valid values for the specified field.
     *
@@ -895,31 +887,23 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     * @return a { @code LocalDateTime} based on this date-time with the specified period added, not null
     * @throws DateTimeException if the unit cannot be added to this type
     */
-  def plus(amountToAdd: Long, unit: TemporalUnit): LocalDateTime = {
+  def plus(amountToAdd: Long, unit: TemporalUnit): LocalDateTime =
     if (unit.isInstanceOf[ChronoUnit]) {
       val f: ChronoUnit = unit.asInstanceOf[ChronoUnit]
       import ChronoUnit._
       f match {
-        case NANOS =>
-          return plusNanos(amountToAdd)
-        case MICROS =>
-          return plusDays(amountToAdd / MICROS_PER_DAY).plusNanos((amountToAdd % MICROS_PER_DAY) * 1000)
-        case MILLIS =>
-          return plusDays(amountToAdd / MILLIS_PER_DAY).plusNanos((amountToAdd % MILLIS_PER_DAY) * 1000000)
-        case SECONDS =>
-          return plusSeconds(amountToAdd)
-        case MINUTES =>
-          return plusMinutes(amountToAdd)
-        case HOURS =>
-          return plusHours(amountToAdd)
-        case HALF_DAYS =>
-          return plusDays(amountToAdd / 256).plusHours((amountToAdd % 256) * 12)
-        case _ =>
-          return `with`(date.plus(amountToAdd, unit), time)
+        case NANOS     => plusNanos(amountToAdd)
+        case MICROS    => plusDays(amountToAdd / MICROS_PER_DAY).plusNanos((amountToAdd % MICROS_PER_DAY) * 1000)
+        case MILLIS    => plusDays(amountToAdd / MILLIS_PER_DAY).plusNanos((amountToAdd % MILLIS_PER_DAY) * 1000000)
+        case SECONDS   => plusSeconds(amountToAdd)
+        case MINUTES   => plusMinutes(amountToAdd)
+        case HOURS     => plusHours(amountToAdd)
+        case HALF_DAYS => plusDays(amountToAdd / 256).plusHours((amountToAdd % 256) * 12)
+        case _         => `with`(date.plus(amountToAdd, unit), time)
       }
+    } else {
+      unit.addTo(this, amountToAdd)
     }
-    unit.addTo(this, amountToAdd)
-  }
 
   /** Returns a copy of this {@code LocalDateTime} with the specified period in years added.
     *
@@ -1079,7 +1063,8 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     * @throws DateTimeException if the unit cannot be added to this type
     */
   override def minus(amountToSubtract: Long, unit: TemporalUnit): LocalDateTime =
-    if (amountToSubtract == Long.MinValue) plus(Long.MaxValue, unit).plus(1, unit) else plus(-amountToSubtract, unit)
+    if (amountToSubtract == Long.MinValue) plus(Long.MaxValue, unit).plus(1, unit)
+    else plus(-amountToSubtract, unit)
 
   /** Returns a copy of this {@code LocalDateTime} with the specified period in years subtracted.
     *
@@ -1101,7 +1086,8 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     * @throws DateTimeException if the result exceeds the supported date range
     */
   def minusYears(years: Long): LocalDateTime =
-    if (years == Long.MinValue) plusYears(Long.MaxValue).plusYears(1) else plusYears(-years)
+    if (years == Long.MinValue) plusYears(Long.MaxValue).plusYears(1)
+    else plusYears(-years)
 
   /** Returns a copy of this {@code LocalDateTime} with the specified period in months subtracted.
     *
@@ -1123,7 +1109,8 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     * @throws DateTimeException if the result exceeds the supported date range
     */
   def minusMonths(months: Long): LocalDateTime =
-    if (months == Long.MinValue) plusMonths(Long.MaxValue).plusMonths(1) else plusMonths(-months)
+    if (months == Long.MinValue) plusMonths(Long.MaxValue).plusMonths(1)
+    else plusMonths(-months)
 
   /** Returns a copy of this {@code LocalDateTime} with the specified period in weeks subtracted.
     *
@@ -1139,7 +1126,9 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     * @return a { @code LocalDateTime} based on this date-time with the weeks subtracted, not null
     * @throws DateTimeException if the result exceeds the supported date range
     */
-  def minusWeeks(weeks: Long): LocalDateTime = if (weeks == Long.MinValue) plusWeeks(Long.MaxValue).plusWeeks(1) else plusWeeks(-weeks)
+  def minusWeeks(weeks: Long): LocalDateTime =
+    if (weeks == Long.MinValue) plusWeeks(Long.MaxValue).plusWeeks(1)
+    else plusWeeks(-weeks)
 
   /** Returns a copy of this {@code LocalDateTime} with the specified period in days subtracted.
     *
@@ -1156,7 +1145,8 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     * @throws DateTimeException if the result exceeds the supported date range
     */
   def minusDays(days: Long): LocalDateTime =
-    if (days == Long.MinValue) plusDays(Long.MaxValue).plusDays(1) else plusDays(-days)
+    if (days == Long.MinValue) plusDays(Long.MaxValue).plusDays(1)
+    else plusDays(-days)
 
   /** Returns a copy of this {@code LocalDateTime} with the specified period in hours subtracted.
     *
@@ -1211,9 +1201,8 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     * @return the combined result, not null
     */
   private def plusWithOverflow(newDate: LocalDate, hours: Long, minutes: Long, seconds: Long, nanos: Long, sign: Int): LocalDateTime = {
-    if ((hours | minutes | seconds | nanos) == 0) {
+    if ((hours | minutes | seconds | nanos) == 0)
       return `with`(newDate, time)
-    }
     var totDays: Long = nanos / NANOS_PER_DAY + seconds / SECONDS_PER_DAY + minutes / MINUTES_PER_DAY + hours / HOURS_PER_DAY
     totDays *= sign
     var totNanos: Long = nanos % NANOS_PER_DAY + (seconds % SECONDS_PER_DAY) * NANOS_PER_SECOND + (minutes % MINUTES_PER_DAY) * NANOS_PER_MINUTE + (hours % HOURS_PER_DAY) * NANOS_PER_HOUR
@@ -1243,10 +1232,8 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     * @throws ArithmeticException if numeric overflow occurs (defined by the query)
     */
   override def query[R >: Null](query: TemporalQuery[R]): R =
-    if (query eq TemporalQueries.localDate)
-      toLocalDate.asInstanceOf[R]
-    else
-      super.query(query)
+    if (query eq TemporalQueries.localDate) toLocalDate.asInstanceOf[R]
+    else super.query(query)
 
   /** Adjusts the specified temporal object to have the same date and time as this object.
     *
@@ -1336,7 +1323,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
         var amount: Long = daysUntil
         import ChronoUnit._
         f match {
-          case NANOS => amount = Math.multiplyExact(amount, NANOS_PER_DAY)
+          case NANOS     => amount = Math.multiplyExact(amount, NANOS_PER_DAY)
                             return Math.addExact(amount, timeUntil)
           case MICROS    => amount = Math.multiplyExact(amount, MICROS_PER_DAY)
                             return Math.addExact(amount, timeUntil / 1000)
@@ -1438,10 +1425,8 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     * @return the comparator value, negative if less, positive if greater
     */
   override def compareTo(other: ChronoLocalDateTime[_]): Int =
-    if (other.isInstanceOf[LocalDateTime])
-      compareTo0(other.asInstanceOf[LocalDateTime])
-    else
-      super.compareTo(other)
+    if (other.isInstanceOf[LocalDateTime]) compareTo0(other.asInstanceOf[LocalDateTime])
+    else super.compareTo(other)
 
   private def compareTo0(other: LocalDateTime): Int = {
     var cmp: Int = date.compareTo0(other.toLocalDate)
@@ -1471,10 +1456,8 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     * @return true if this date-time is after the specified date-time
     */
   override def isAfter(other: ChronoLocalDateTime[_ <: ChronoLocalDate]): Boolean =
-    if (other.isInstanceOf[LocalDateTime])
-      compareTo0(other.asInstanceOf[LocalDateTime]) > 0
-    else
-      super.isAfter(other)
+    if (other.isInstanceOf[LocalDateTime]) compareTo0(other.asInstanceOf[LocalDateTime]) > 0
+    else super.isAfter(other)
 
   /** Checks if this date-time is before the specified date-time.
     *
@@ -1497,10 +1480,8 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     * @return true if this date-time is before the specified date-time
     */
   override def isBefore(other: ChronoLocalDateTime[_ <: ChronoLocalDate]): Boolean =
-    if (other.isInstanceOf[LocalDateTime])
-      compareTo0(other.asInstanceOf[LocalDateTime]) < 0
-    else
-      super.isBefore(other)
+    if (other.isInstanceOf[LocalDateTime]) compareTo0(other.asInstanceOf[LocalDateTime]) < 0
+    else super.isBefore(other)
 
   /** Checks if this date-time is equal to the specified date-time.
     *
@@ -1523,10 +1504,8 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     * @return true if this date-time is equal to the specified date-time
     */
   override def isEqual(other: ChronoLocalDateTime[_ <: ChronoLocalDate]): Boolean =
-    if (other.isInstanceOf[LocalDateTime])
-      compareTo0(other.asInstanceOf[LocalDateTime]) == 0
-    else
-      super.isEqual(other)
+    if (other.isInstanceOf[LocalDateTime]) compareTo0(other.asInstanceOf[LocalDateTime]) == 0
+    else super.isEqual(other)
 
   /** Checks if this date-time is equal to another date-time.
     *

@@ -104,42 +104,35 @@ final class HijrahEra(name: String, ordinal: Int) extends Enum[HijrahEra](name, 
   def getValue: Int = ordinal
 
   override def isSupported(field: TemporalField): Boolean =
-    if (field.isInstanceOf[ChronoField])
-      field eq ERA
-    else
-      field != null && field.isSupportedBy(this)
+    if (field.isInstanceOf[ChronoField]) field eq ERA
+    else field != null && field.isSupportedBy(this)
 
   override def range(field: TemporalField): ValueRange =
-    if (field eq ERA)
-      ValueRange.of(1, 1)
-    else if (field.isInstanceOf[ChronoField])
-      throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
-    else
-      field.rangeRefinedBy(this)
+    if (field eq ERA) ValueRange.of(1, 1)
+    else if (field.isInstanceOf[ChronoField]) throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
+    else field.rangeRefinedBy(this)
 
   override def get(field: TemporalField): Int =
-    if (field eq ERA)
-      getValue
-    else
-      range(field).checkValidIntValue(getLong(field), field)
+    if (field eq ERA) getValue
+    else range(field).checkValidIntValue(getLong(field), field)
 
   override def getLong(field: TemporalField): Long =
-    if (field eq ERA)
-      getValue
-    else if (field.isInstanceOf[ChronoField])
-      throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
-    else
-      field.getFrom(this)
+    if (field eq ERA) getValue
+    else if (field.isInstanceOf[ChronoField]) throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
+    else field.getFrom(this)
 
   override def adjustInto(temporal: Temporal): Temporal = temporal.`with`(ERA, getValue)
 
-  override def query[R >: Null](query: TemporalQuery[R]): R = {
-    if (query eq TemporalQueries.precision)
-      ChronoUnit.ERAS.asInstanceOf[R]
-    else if ((query eq TemporalQueries.chronology) || (query eq TemporalQueries.zone) || (query eq TemporalQueries.zoneId) || (query eq TemporalQueries.offset) || (query eq TemporalQueries.localDate) || (query eq TemporalQueries.localTime))
-      null
-    else
-      query.queryFrom(this)
+  override def query[R >: Null](query: TemporalQuery[R]): R =
+    query match {
+      case TemporalQueries.precision  => ChronoUnit.ERAS.asInstanceOf[R]
+      case TemporalQueries.chronology
+         | TemporalQueries.zone
+         | TemporalQueries.zoneId
+         | TemporalQueries.offset
+         | TemporalQueries.localDate
+         | TemporalQueries.localTime  => null
+      case _                          => query.queryFrom(this)
   }
 
   override def getDisplayName(style: TextStyle, locale: Locale): String =

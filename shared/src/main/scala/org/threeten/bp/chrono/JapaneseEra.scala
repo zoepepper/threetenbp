@@ -233,10 +233,8 @@ final class JapaneseEra private(private val eraValue: Int, @(transient @field) p
   private[chrono] def endDate: LocalDate = {
     val ordinal: Int = JapaneseEra.ordinal(eraValue)
     val eras: Array[JapaneseEra] = JapaneseEra.values
-    if (ordinal >= eras.length - 1)
-      LocalDate.MAX
-    else
-      eras(ordinal + 1).startDate.minusDays(1)
+    if (ordinal >= eras.length - 1) LocalDate.MAX
+    else eras(ordinal + 1).startDate.minusDays(1)
   }
 
   /** Returns the numeric value of this {@code JapaneseEra}.
@@ -250,17 +248,13 @@ final class JapaneseEra private(private val eraValue: Int, @(transient @field) p
   def getValue: Int = eraValue
 
   override def range(field: TemporalField): ValueRange =
-    if (field eq ChronoField.ERA)
-      JapaneseChronology.INSTANCE.range(ChronoField.ERA)
-    else
-      super.range(field)
+    if (field eq ChronoField.ERA) JapaneseChronology.INSTANCE.range(ChronoField.ERA)
+    else super.range(field)
 
   private[chrono] def getAbbreviation: String = {
     val index: Int = JapaneseEra.ordinal(getValue)
-    if (index == 0)
-      ""
-    else
-      JapaneseEra.ERA_CONFIG(index).getAbbreviation
+    if (index == 0) ""
+    else JapaneseEra.ERA_CONFIG(index).getAbbreviation
   }
 
   private[chrono] def getName: String = {

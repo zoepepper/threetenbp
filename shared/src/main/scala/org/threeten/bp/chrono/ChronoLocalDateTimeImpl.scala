@@ -137,26 +137,24 @@ final class ChronoLocalDateTimeImpl[D <: ChronoLocalDate] private(private val da
   def toLocalTime: LocalTime = time
 
   def isSupported(field: TemporalField): Boolean =
-    if (field.isInstanceOf[ChronoField])
-      field.isDateBased || field.isTimeBased
-    else
-      field != null && field.isSupportedBy(this)
+    if (field.isInstanceOf[ChronoField]) field.isDateBased || field.isTimeBased
+    else field != null && field.isSupportedBy(this)
 
   def isSupported(unit: TemporalUnit): Boolean =
-    if (unit.isInstanceOf[ChronoUnit])
-      unit.isDateBased || unit.isTimeBased
-    else
-      unit != null && unit.isSupportedBy(this)
+    if (unit.isInstanceOf[ChronoUnit]) unit.isDateBased || unit.isTimeBased
+    else unit != null && unit.isSupportedBy(this)
 
   override def range(field: TemporalField): ValueRange =
     if (field.isInstanceOf[ChronoField])
-      if (field.isTimeBased) time.range(field) else date.range(field)
+      if (field.isTimeBased) time.range(field)
+      else date.range(field)
     else
       field.rangeRefinedBy(this)
 
   override def get(field: TemporalField): Int =
     if (field.isInstanceOf[ChronoField])
-      if (field.isTimeBased) time.get(field) else date.get(field)
+      if (field.isTimeBased) time.get(field)
+      else date.get(field)
     else
       range(field).checkValidIntValue(getLong(field), field)
 
@@ -214,9 +212,8 @@ final class ChronoLocalDateTimeImpl[D <: ChronoLocalDate] private(private val da
   private def plusNanos(nanos: Long): ChronoLocalDateTimeImpl[D] = plusWithOverflow(date, 0, 0, 0, nanos)
 
   private def plusWithOverflow(newDate: D, hours: Long, minutes: Long, seconds: Long, nanos: Long): ChronoLocalDateTimeImpl[D] = {
-    if ((hours | minutes | seconds | nanos) == 0) {
+    if ((hours | minutes | seconds | nanos) == 0)
       return `with`(newDate, time)
-    }
     var totDays: Long = nanos / ChronoLocalDateTimeImpl.NANOS_PER_DAY + seconds / ChronoLocalDateTimeImpl.SECONDS_PER_DAY + minutes / ChronoLocalDateTimeImpl.MINUTES_PER_DAY + hours / ChronoLocalDateTimeImpl.HOURS_PER_DAY
     var totNanos: Long = nanos % ChronoLocalDateTimeImpl.NANOS_PER_DAY + (seconds % ChronoLocalDateTimeImpl.SECONDS_PER_DAY) * ChronoLocalDateTimeImpl.NANOS_PER_SECOND + (minutes % ChronoLocalDateTimeImpl.MINUTES_PER_DAY) * ChronoLocalDateTimeImpl.NANOS_PER_MINUTE + (hours % ChronoLocalDateTimeImpl.HOURS_PER_DAY) * ChronoLocalDateTimeImpl.NANOS_PER_HOUR
     val curNoD: Long = time.toNanoOfDay
@@ -237,27 +234,19 @@ final class ChronoLocalDateTimeImpl[D <: ChronoLocalDate] private(private val da
         var amount: Long = end.getLong(EPOCH_DAY) - date.getLong(EPOCH_DAY)
         import ChronoUnit._
         f match {
-          case NANOS =>
-            amount = Math.multiplyExact(amount, ChronoLocalDateTimeImpl.NANOS_PER_DAY)
-          case MICROS =>
-            amount = Math.multiplyExact(amount, ChronoLocalDateTimeImpl.MICROS_PER_DAY)
-          case MILLIS =>
-            amount = Math.multiplyExact(amount, ChronoLocalDateTimeImpl.MILLIS_PER_DAY)
-          case SECONDS =>
-            amount = Math.multiplyExact(amount, ChronoLocalDateTimeImpl.SECONDS_PER_DAY)
-          case MINUTES =>
-            amount = Math.multiplyExact(amount, ChronoLocalDateTimeImpl.MINUTES_PER_DAY)
-          case HOURS =>
-            amount = Math.multiplyExact(amount, ChronoLocalDateTimeImpl.HOURS_PER_DAY)
-          case HALF_DAYS =>
-            amount = Math.multiplyExact(amount, 2)
+          case NANOS     => amount = Math.multiplyExact(amount, ChronoLocalDateTimeImpl.NANOS_PER_DAY)
+          case MICROS    => amount = Math.multiplyExact(amount, ChronoLocalDateTimeImpl.MICROS_PER_DAY)
+          case MILLIS    => amount = Math.multiplyExact(amount, ChronoLocalDateTimeImpl.MILLIS_PER_DAY)
+          case SECONDS   => amount = Math.multiplyExact(amount, ChronoLocalDateTimeImpl.SECONDS_PER_DAY)
+          case MINUTES   => amount = Math.multiplyExact(amount, ChronoLocalDateTimeImpl.MINUTES_PER_DAY)
+          case HOURS     => amount = Math.multiplyExact(amount, ChronoLocalDateTimeImpl.HOURS_PER_DAY)
+          case HALF_DAYS => amount = Math.multiplyExact(amount, 2)
         }
         return Math.addExact(amount, time.until(end.toLocalTime, unit))
       }
       var endDate: ChronoLocalDate = end.toLocalDate
-      if (end.toLocalTime.isBefore(time)) {
+      if (end.toLocalTime.isBefore(time))
         endDate = endDate.minus(1, ChronoUnit.DAYS)
-      }
       return date.until(endDate, unit)
     }
     unit.between(this, end)

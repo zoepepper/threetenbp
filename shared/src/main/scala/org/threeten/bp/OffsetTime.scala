@@ -173,9 +173,8 @@ object OffsetTime {
     val offset: ZoneOffset = rules.getOffset(instant)
     var secsOfDay: Long = instant.getEpochSecond % SECONDS_PER_DAY
     secsOfDay = (secsOfDay + offset.getTotalSeconds) % SECONDS_PER_DAY
-    if (secsOfDay < 0) {
+    if (secsOfDay < 0)
       secsOfDay += SECONDS_PER_DAY
-    }
     val time: LocalTime = LocalTime.ofSecondOfDay(secsOfDay, instant.getNano)
     new OffsetTime(time, offset)
   }
@@ -254,7 +253,6 @@ object OffsetTime {
   * This class is immutable and thread-safe.
   *
   * @constructor
-  *
   * @param time  the local time, not null
   * @param offset  the zone offset, not null
   */
@@ -269,10 +267,8 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     * @param offset  the zone offset to create with, not null
     */
   private def `with`(time: LocalTime, offset: ZoneOffset): OffsetTime =
-    if ((this.time eq time) && (this.offset == offset))
-      this
-    else
-      new OffsetTime(time, offset)
+    if ((this.time eq time) && (this.offset == offset)) this
+    else new OffsetTime(time, offset)
 
   /** Checks if the specified field is supported.
     *
@@ -311,16 +307,12 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     * @return true if the field is supported on this time, false if not
     */
   def isSupported(field: TemporalField): Boolean =
-    if (field.isInstanceOf[ChronoField])
-      field.isTimeBased || (field eq OFFSET_SECONDS)
-    else
-      field != null && field.isSupportedBy(this)
+    if (field.isInstanceOf[ChronoField]) field.isTimeBased || (field eq OFFSET_SECONDS)
+    else field != null && field.isSupportedBy(this)
 
   def isSupported(unit: TemporalUnit): Boolean =
-    if (unit.isInstanceOf[ChronoUnit])
-      unit.isTimeBased
-    else
-      unit != null && unit.isSupportedBy(this)
+    if (unit.isInstanceOf[ChronoUnit]) unit.isTimeBased
+    else unit != null && unit.isSupportedBy(this)
 
   /** Gets the range of valid values for the specified field.
     *
@@ -343,15 +335,12 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     * @return the range of valid values for the field, not null
     * @throws DateTimeException if the range for the field cannot be obtained
     */
-  override def range(field: TemporalField): ValueRange = {
-    if (field.isInstanceOf[ChronoField]) {
-      if (field eq OFFSET_SECONDS) {
-        return field.range
-      }
-      return time.range(field)
-    }
-    field.rangeRefinedBy(this)
-  }
+  override def range(field: TemporalField): ValueRange =
+    if (field.isInstanceOf[ChronoField])
+      if (field eq OFFSET_SECONDS) field.range
+      else time.range(field)
+    else
+      field.rangeRefinedBy(this)
 
   /** Gets the value of the specified field from this time as an {@code int}.
     *
@@ -399,15 +388,12 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     * @throws DateTimeException if a value for the field cannot be obtained
     * @throws ArithmeticException if numeric overflow occurs
     */
-  def getLong(field: TemporalField): Long = {
-    if (field.isInstanceOf[ChronoField]) {
-      if (field eq OFFSET_SECONDS) {
-        return getOffset.getTotalSeconds
-      }
-      return time.getLong(field)
-    }
-    field.getFrom(this)
-  }
+  def getLong(field: TemporalField): Long =
+    if (field.isInstanceOf[ChronoField])
+      if (field eq OFFSET_SECONDS) getOffset.getTotalSeconds
+      else time.getLong(field)
+    else
+      field.getFrom(this)
 
   /** Gets the zone offset, such as '+01:00'.
     *
@@ -455,9 +441,9 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     * @return an { @code OffsetTime} based on this time with the requested offset, not null
     */
   def withOffsetSameInstant(offset: ZoneOffset): OffsetTime =
-    if (offset == this.offset) {
+    if (offset == this.offset)
       this
-    } else {
+    else {
       val difference: Int = offset.getTotalSeconds - this.offset.getTotalSeconds
       val adjusted: LocalTime = time.plusSeconds(difference)
       new OffsetTime(adjusted, offset)
@@ -556,16 +542,11 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     * @throws ArithmeticException if numeric overflow occurs
     */
   def `with`(field: TemporalField, newValue: Long): OffsetTime =
-    if (field.isInstanceOf[ChronoField]) {
-      if (field eq OFFSET_SECONDS) {
-        val f: ChronoField = field.asInstanceOf[ChronoField]
-        `with`(time, ZoneOffset.ofTotalSeconds(f.checkValidIntValue(newValue)))
-      } else {
-        `with`(time.`with`(field, newValue), offset)
-      }
-    } else {
+    if (field.isInstanceOf[ChronoField])
+      if (field eq OFFSET_SECONDS) `with`(time, ZoneOffset.ofTotalSeconds(field.asInstanceOf[ChronoField].checkValidIntValue(newValue)))
+      else `with`(time.`with`(field, newValue), offset)
+    else
       field.adjustInto(this, newValue)
-    }
 
   /** Returns a copy of this {@code OffsetTime} with the hour-of-day value altered.
     *
@@ -671,10 +652,8 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     * @throws DateTimeException if the unit cannot be added to this type
     */
   def plus(amountToAdd: Long, unit: TemporalUnit): OffsetTime =
-    if (unit.isInstanceOf[ChronoUnit])
-      `with`(time.plus(amountToAdd, unit), offset)
-    else
-      unit.addTo(this, amountToAdd)
+    if (unit.isInstanceOf[ChronoUnit]) `with`(time.plus(amountToAdd, unit), offset)
+    else unit.addTo(this, amountToAdd)
 
   /** Returns a copy of this {@code OffsetTime} with the specified period in hours added.
     *
@@ -758,7 +737,8 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     * @throws DateTimeException if the unit cannot be added to this type
     */
   override def minus(amountToSubtract: Long, unit: TemporalUnit): OffsetTime =
-    if (amountToSubtract == Long.MinValue) plus(Long.MaxValue, unit).plus(1, unit) else plus(-amountToSubtract, unit)
+    if (amountToSubtract == Long.MinValue) plus(Long.MaxValue, unit).plus(1, unit)
+    else plus(-amountToSubtract, unit)
 
   /** Returns a copy of this {@code OffsetTime} with the specified period in hours subtracted.
     *
@@ -826,16 +806,16 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
     * @throws ArithmeticException if numeric overflow occurs (defined by the query)
     */
   override def query[R >: Null](query: TemporalQuery[R]): R =
-    if (query eq TemporalQueries.precision)
-      NANOS.asInstanceOf[R]
-    else if ((query eq TemporalQueries.offset) || (query eq TemporalQueries.zone))
-      getOffset.asInstanceOf[R]
-    else if (query eq TemporalQueries.localTime)
-      time.asInstanceOf[R]
-    else if ((query eq TemporalQueries.chronology) || (query eq TemporalQueries.localDate) || (query eq TemporalQueries.zoneId))
-      null
-    else
-      super.query(query)
+    query match {
+      case TemporalQueries.precision  => NANOS.asInstanceOf[R]
+      case TemporalQueries.offset
+         | TemporalQueries.zone       => getOffset.asInstanceOf[R]
+      case TemporalQueries.localTime  => time.asInstanceOf[R]
+      case TemporalQueries.chronology
+         | TemporalQueries.localDate
+         | TemporalQueries.zoneId     => null
+      case _                          => super.query(query)
+    }
 
   /** Adjusts the specified temporal object to have the same offset and time
     * as this object.
@@ -924,7 +904,6 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
         case HOURS     => nanosUntil / NANOS_PER_HOUR
         case HALF_DAYS => nanosUntil / (12 * NANOS_PER_HOUR)
         case _         => throw new UnsupportedTemporalTypeException(s"Unsupported unit: $unit")
-
       }
     } else {
       unit.between(this, end)

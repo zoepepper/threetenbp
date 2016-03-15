@@ -228,27 +228,23 @@ object ZonedDateTime {
     Objects.requireNonNull(localDateTime, "localDateTime")
     Objects.requireNonNull(zone, "zone")
     var _localDateTime = localDateTime
-    if (zone.isInstanceOf[ZoneOffset]) {
+    if (zone.isInstanceOf[ZoneOffset])
       return new ZonedDateTime(_localDateTime, zone.asInstanceOf[ZoneOffset], zone)
-    }
     val rules: ZoneRules = zone.getRules
     val validOffsets: java.util.List[ZoneOffset] = rules.getValidOffsets(_localDateTime)
     var offset: ZoneOffset = null
-    if (validOffsets.size == 1) {
+    if (validOffsets.size == 1)
       offset = validOffsets.get(0)
-    }
     else if (validOffsets.size == 0) {
       val trans: ZoneOffsetTransition = rules.getTransition(_localDateTime)
       _localDateTime = _localDateTime.plusSeconds(trans.getDuration.getSeconds)
       offset = trans.getOffsetAfter
     }
     else {
-      if (preferredOffset != null && validOffsets.contains(preferredOffset)) {
+      if (preferredOffset != null && validOffsets.contains(preferredOffset))
         offset = preferredOffset
-      }
-      else {
+      else
         offset = Objects.requireNonNull(validOffsets.get(0), "offset")
-      }
     }
     new ZonedDateTime(_localDateTime, offset, zone)
   }
@@ -334,9 +330,8 @@ object ZonedDateTime {
     val rules: ZoneRules = zone.getRules
     if (!rules.isValidOffset(localDateTime, offset)) {
       val trans: ZoneOffsetTransition = rules.getTransition(localDateTime)
-      if (trans != null && trans.isGap) {
+      if (trans != null && trans.isGap)
         throw new DateTimeException(s"LocalDateTime '$localDateTime' does not exist in zone '$zone' due to a gap in the local time-line, typically caused by daylight savings")
-      }
       throw new DateTimeException(s"ZoneOffset '$offset' is not valid for LocalDateTime '$localDateTime' in zone '$zone'")
     }
     new ZonedDateTime(localDateTime, offset, zone)
@@ -366,9 +361,8 @@ object ZonedDateTime {
     Objects.requireNonNull(localDateTime, "localDateTime")
     Objects.requireNonNull(offset, "offset")
     Objects.requireNonNull(zone, "zone")
-    if (zone.isInstanceOf[ZoneOffset] && offset != zone) {
+    if (zone.isInstanceOf[ZoneOffset] && offset != zone)
       throw new IllegalArgumentException("ZoneId must match ZoneOffset")
-    }
     new ZonedDateTime(localDateTime, offset, zone)
   }
 
@@ -423,8 +417,7 @@ object ZonedDateTime {
     * @return the parsed zoned date-time, not null
     * @throws DateTimeParseException if the text cannot be parsed
     */
-  def parse(text: CharSequence): ZonedDateTime =
-    parse(text, DateTimeFormatter.ISO_ZONED_DATE_TIME)
+  def parse(text: CharSequence): ZonedDateTime = parse(text, DateTimeFormatter.ISO_ZONED_DATE_TIME)
 
   /** Obtains an instance of {@code ZonedDateTime} from a text string using a specific formatter.
     *
@@ -534,10 +527,8 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     * @return the zoned date-time, not null
     */
   private def resolveOffset(offset: ZoneOffset): ZonedDateTime =
-    if (offset != this.offset && zone.getRules.isValidOffset(dateTime, offset))
-      new ZonedDateTime(dateTime, offset, zone)
-    else
-      this
+    if (offset != this.offset && zone.getRules.isValidOffset(dateTime, offset)) new ZonedDateTime(dateTime, offset, zone)
+    else this
 
   /** Checks if the specified field is supported.
     *
@@ -593,10 +584,8 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     field.isInstanceOf[ChronoField] || (field != null && field.isSupportedBy(this))
 
   def isSupported(unit: TemporalUnit): Boolean =
-    if (unit.isInstanceOf[ChronoUnit])
-      unit.isDateBased || unit.isTimeBased
-    else
-      unit != null && unit.isSupportedBy(this)
+    if (unit.isInstanceOf[ChronoUnit]) unit.isDateBased || unit.isTimeBased
+    else unit != null && unit.isSupportedBy(this)
 
   /** Gets the range of valid values for the specified field.
     *
@@ -1271,14 +1260,11 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     * @throws DateTimeException if the unit cannot be added to this type
     */
   def plus(amountToAdd: Long, unit: TemporalUnit): ZonedDateTime =
-    if (unit.isInstanceOf[ChronoUnit]) {
-      if (unit.isDateBased)
-        resolveLocal(dateTime.plus(amountToAdd, unit))
-      else
-        resolveInstant(dateTime.plus(amountToAdd, unit))
-    } else {
+    if (unit.isInstanceOf[ChronoUnit])
+      if (unit.isDateBased) resolveLocal(dateTime.plus(amountToAdd, unit))
+      else resolveInstant(dateTime.plus(amountToAdd, unit))
+    else
       unit.addTo(this, amountToAdd)
-    }
 
   /** Returns a copy of this {@code ZonedDateTime} with the specified period in years added.
     *
@@ -1655,10 +1641,8 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     * @throws ArithmeticException if numeric overflow occurs (defined by the query)
     */
   override def query[R >: Null](query: TemporalQuery[R]): R =
-    if (query eq TemporalQueries.localDate)
-      toLocalDate.asInstanceOf[R]
-    else
-      super.query(query)
+    if (query eq TemporalQueries.localDate) toLocalDate.asInstanceOf[R]
+    else super.query(query)
 
   /** Calculates the period between this date-time and another date-time in
     * terms of the specified unit.

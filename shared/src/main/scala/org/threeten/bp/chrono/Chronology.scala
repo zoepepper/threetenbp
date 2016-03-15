@@ -83,7 +83,8 @@ object Chronology {
   def from(temporal: TemporalAccessor): Chronology = {
     Objects.requireNonNull(temporal, "temporal")
     val obj: Chronology = temporal.query(TemporalQueries.chronology)
-    if (obj != null) obj else IsoChronology.INSTANCE
+    if (obj != null) obj
+    else IsoChronology.INSTANCE
   }
 
   /** Obtains an instance of {@code Chronology} from a locale.
@@ -645,10 +646,8 @@ trait Chronology extends Ordered[Chronology] {
       def getLong(field: TemporalField): Long = throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
 
       override def query[R >: Null](query: TemporalQuery[R]): R =
-        if (query eq TemporalQueries.chronology)
-          this.asInstanceOf[R]
-        else
-          super.query(query)
+        if (query eq TemporalQueries.chronology) this.asInstanceOf[R]
+        else super.query(query)
     })
   }
 
@@ -680,10 +679,8 @@ trait Chronology extends Ordered[Chronology] {
     */
   private[chrono] def updateResolveMap(fieldValues: java.util.Map[TemporalField, java.lang.Long], field: ChronoField, value: Long): Unit = {
     val current: java.lang.Long = fieldValues.get(field)
-    if (current != null && current.longValue != value)
-      throw new DateTimeException(s"Invalid state, field: $field $current conflicts with $field $value")
-    else
-      fieldValues.put(field, value)
+    if (current != null && current.longValue != value) throw new DateTimeException(s"Invalid state, field: $field $current conflicts with $field $value")
+    else fieldValues.put(field, value)
   }
 
   /** Compares this chronology to another chronology.

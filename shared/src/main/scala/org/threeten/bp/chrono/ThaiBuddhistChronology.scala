@@ -50,8 +50,6 @@ import org.threeten.bp.temporal.TemporalAccessor
 import org.threeten.bp.temporal.TemporalField
 import org.threeten.bp.temporal.ValueRange
 
-import scala.collection.JavaConverters._
-
 @SerialVersionUID(2775954514031616474L)
 object ThaiBuddhistChronology {
   /** Singleton instance of the Buddhist chronology. */

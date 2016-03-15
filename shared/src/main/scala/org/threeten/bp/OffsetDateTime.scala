@@ -229,9 +229,8 @@ object OffsetDateTime {
     * @throws DateTimeException if unable to convert to an { @code OffsetDateTime}
     */
   def from(temporal: TemporalAccessor): OffsetDateTime = {
-    if (temporal.isInstanceOf[OffsetDateTime]) {
+    if (temporal.isInstanceOf[OffsetDateTime])
       return temporal.asInstanceOf[OffsetDateTime]
-    }
     try {
       val offset: ZoneOffset = ZoneOffset.from(temporal)
       try {
@@ -307,7 +306,6 @@ object OffsetDateTime {
   * This class is immutable and thread-safe.
   *
   * @constructor
-  *
   * @param dateTime  the local date-time, not null
   * @param offset  the zone offset, not null
   */
@@ -322,10 +320,8 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     * @param offset  the zone offset to create with, not null
     */
   private def `with`(dateTime: LocalDateTime, offset: ZoneOffset): OffsetDateTime =
-    if ((this.dateTime eq dateTime) && (this.offset == offset))
-      this
-    else
-      new OffsetDateTime(dateTime, offset)
+    if ((this.dateTime eq dateTime) && (this.offset == offset)) this
+    else new OffsetDateTime(dateTime, offset)
 
   /** Checks if the specified field is supported.
     *
@@ -381,10 +377,8 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     field.isInstanceOf[ChronoField] || (field != null && field.isSupportedBy(this))
 
   def isSupported(unit: TemporalUnit): Boolean =
-    if (unit.isInstanceOf[ChronoUnit])
-      unit.isDateBased || unit.isTimeBased
-    else
-      unit != null && unit.isSupportedBy(this)
+    if (unit.isInstanceOf[ChronoUnit]) unit.isDateBased || unit.isTimeBased
+    else unit != null && unit.isSupportedBy(this)
 
   /** Gets the range of valid values for the specified field.
     *
@@ -407,14 +401,12 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     * @return the range of valid values for the field, not null
     * @throws DateTimeException if the range for the field cannot be obtained
     */
-  override def range(field: TemporalField): ValueRange = {
-    if (field.isInstanceOf[ChronoField]) {
-      if ((field eq INSTANT_SECONDS) || (field eq OFFSET_SECONDS))
-        return field.range
-      return dateTime.range(field)
-    }
-    field.rangeRefinedBy(this)
-  }
+  override def range(field: TemporalField): ValueRange =
+    if (field.isInstanceOf[ChronoField])
+      if ((field eq INSTANT_SECONDS) || (field eq OFFSET_SECONDS)) field.range
+      else dateTime.range(field)
+    else
+      field.rangeRefinedBy(this)
 
   /** Gets the value of the specified field from this date-time as an {@code int}.
     *
@@ -530,9 +522,8 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     * @throws DateTimeException if the result exceeds the supported date range
     */
   def withOffsetSameInstant(offset: ZoneOffset): OffsetDateTime = {
-    if (offset == this.offset) {
+    if (offset == this.offset)
       return this
-    }
     val difference: Int = offset.getTotalSeconds - this.offset.getTotalSeconds
     val adjusted: LocalDateTime = dateTime.plusSeconds(difference)
     new OffsetDateTime(adjusted, offset)
@@ -729,7 +720,6 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
         case INSTANT_SECONDS => OffsetDateTime.ofInstant(Instant.ofEpochSecond(newValue, getNano), offset)
         case OFFSET_SECONDS  => `with`(dateTime, ZoneOffset.ofTotalSeconds(f.checkValidIntValue(newValue)))
         case _               => `with`(dateTime.`with`(field, newValue), offset)
-
       }
     } else {
       field.adjustInto(this, newValue)
@@ -889,10 +879,8 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     * @throws DateTimeException if the unit cannot be added to this type
     */
   def plus(amountToAdd: Long, unit: TemporalUnit): OffsetDateTime =
-    if (unit.isInstanceOf[ChronoUnit])
-      `with`(dateTime.plus(amountToAdd, unit), offset)
-    else
-      unit.addTo(this, amountToAdd)
+    if (unit.isInstanceOf[ChronoUnit]) `with`(dateTime.plus(amountToAdd, unit), offset)
+    else unit.addTo(this, amountToAdd)
 
   /** Returns a copy of this {@code OffsetDateTime} with the specified period in years added.
     *
@@ -1041,7 +1029,8 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     * @return an { @code OffsetDateTime} based on this date-time with the specified period subtracted, not null
     */
   override def minus(amountToSubtract: Long, unit: TemporalUnit): OffsetDateTime =
-    if (amountToSubtract == Long.MinValue) plus(Long.MaxValue, unit).plus(1, unit) else plus(-amountToSubtract, unit)
+    if (amountToSubtract == Long.MinValue) plus(Long.MaxValue, unit).plus(1, unit)
+    else plus(-amountToSubtract, unit)
 
   /** Returns a copy of this {@code OffsetDateTime} with the specified period in years subtracted.
     *
@@ -1063,7 +1052,8 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     * @throws DateTimeException if the result exceeds the supported date range
     */
   def minusYears(years: Long): OffsetDateTime =
-    if (years == Long.MinValue) plusYears(Long.MaxValue).plusYears(1) else plusYears(-years)
+    if (years == Long.MinValue) plusYears(Long.MaxValue).plusYears(1)
+    else plusYears(-years)
 
   /** Returns a copy of this {@code OffsetDateTime} with the specified period in months subtracted.
     *
@@ -1085,7 +1075,8 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     * @throws DateTimeException if the result exceeds the supported date range
     */
   def minusMonths(months: Long): OffsetDateTime =
-    if (months == Long.MinValue) plusMonths(Long.MaxValue).plusMonths(1) else plusMonths(-months)
+    if (months == Long.MinValue) plusMonths(Long.MaxValue).plusMonths(1)
+    else plusMonths(-months)
 
   /** Returns a copy of this {@code OffsetDateTime} with the specified period in weeks subtracted.
     *
@@ -1102,7 +1093,8 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     * @throws DateTimeException if the result exceeds the supported date range
     */
   def minusWeeks(weeks: Long): OffsetDateTime =
-    if (weeks == Long.MinValue) plusWeeks(Long.MaxValue).plusWeeks(1) else plusWeeks(-weeks)
+    if (weeks == Long.MinValue) plusWeeks(Long.MaxValue).plusWeeks(1)
+    else plusWeeks(-weeks)
 
   /** Returns a copy of this {@code OffsetDateTime} with the specified period in days subtracted.
     *
@@ -1119,7 +1111,8 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     * @throws DateTimeException if the result exceeds the supported date range
     */
   def minusDays(days: Long): OffsetDateTime =
-    if (days == Long.MinValue) plusDays(Long.MaxValue).plusDays(1) else plusDays(-days)
+    if (days == Long.MinValue) plusDays(Long.MaxValue).plusDays(1)
+    else plusDays(-days)
 
   /** Returns a copy of this {@code OffsetDateTime} with the specified period in hours subtracted.
     *
@@ -1130,7 +1123,8 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     * @throws DateTimeException if the result exceeds the supported date range
     */
   def minusHours(hours: Long): OffsetDateTime =
-    if (hours == Long.MinValue) plusHours(Long.MaxValue).plusHours(1) else plusHours(-hours)
+    if (hours == Long.MinValue) plusHours(Long.MaxValue).plusHours(1)
+    else plusHours(-hours)
 
   /** Returns a copy of this {@code OffsetDateTime} with the specified period in minutes subtracted.
     *
@@ -1141,7 +1135,8 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     * @throws DateTimeException if the result exceeds the supported date range
     */
   def minusMinutes(minutes: Long): OffsetDateTime =
-    if (minutes == Long.MinValue) plusMinutes(Long.MaxValue).plusMinutes(1) else plusMinutes(-minutes)
+    if (minutes == Long.MinValue) plusMinutes(Long.MaxValue).plusMinutes(1)
+    else plusMinutes(-minutes)
 
   /** Returns a copy of this {@code OffsetDateTime} with the specified period in seconds subtracted.
     *
@@ -1152,7 +1147,8 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     * @throws DateTimeException if the result exceeds the supported date range
     */
   def minusSeconds(seconds: Long): OffsetDateTime =
-    if (seconds == Long.MinValue) plusSeconds(Long.MaxValue).plusSeconds(1) else plusSeconds(-seconds)
+    if (seconds == Long.MinValue) plusSeconds(Long.MaxValue).plusSeconds(1)
+    else plusSeconds(-seconds)
 
   /** Returns a copy of this {@code OffsetDateTime} with the specified period in nanoseconds subtracted.
     *
@@ -1163,7 +1159,8 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     * @throws DateTimeException if the result exceeds the supported date range
     */
   def minusNanos(nanos: Long): OffsetDateTime =
-    if (nanos == Long.MinValue) plusNanos(Long.MaxValue).plusNanos(1) else plusNanos(-nanos)
+    if (nanos == Long.MinValue) plusNanos(Long.MaxValue).plusNanos(1)
+    else plusNanos(-nanos)
 
   /** Queries this date-time using the specified query.
     *
@@ -1183,20 +1180,16 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     * @throws ArithmeticException if numeric overflow occurs (defined by the query)
     */
   override def query[R >: Null](query: TemporalQuery[R]): R =
-    if (query eq TemporalQueries.chronology)
-      IsoChronology.INSTANCE.asInstanceOf[R]
-    else if (query eq TemporalQueries.precision)
-      NANOS.asInstanceOf[R]
-    else if ((query eq TemporalQueries.offset) || (query eq TemporalQueries.zone))
-      getOffset.asInstanceOf[R]
-    else if (query eq TemporalQueries.localDate)
-      toLocalDate.asInstanceOf[R]
-    else if (query eq TemporalQueries.localTime)
-      toLocalTime.asInstanceOf[R]
-    else if (query eq TemporalQueries.zoneId)
-      null
-    else
-      super.query(query)
+    query match {
+      case TemporalQueries.chronology => IsoChronology.INSTANCE.asInstanceOf[R]
+      case TemporalQueries.precision  => NANOS.asInstanceOf[R]
+      case TemporalQueries.offset
+         | TemporalQueries.zone       => getOffset.asInstanceOf[R]
+      case TemporalQueries.localDate  => toLocalDate.asInstanceOf[R]
+      case TemporalQueries.localTime  => toLocalTime.asInstanceOf[R]
+      case TemporalQueries.zoneId     => null
+      case _                          => super.query(query)
+    }
 
   /** Adjusts the specified temporal object to have the same offset, date
     * and time as this object.
@@ -1409,9 +1402,8 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     * @return the comparator value, negative if less, positive if greater
     */
   def compare(other: OffsetDateTime): Int = {
-    if (getOffset == other.getOffset) {
+    if (getOffset == other.getOffset)
       return toLocalDateTime.compareTo(other.toLocalDateTime)
-    }
     var cmp: Int = java.lang.Long.compare(toEpochSecond, other.toEpochSecond)
     if (cmp == 0) {
       cmp = toLocalTime.getNano - other.toLocalTime.getNano

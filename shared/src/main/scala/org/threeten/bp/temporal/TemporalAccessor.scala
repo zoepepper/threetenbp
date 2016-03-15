@@ -116,10 +116,8 @@ trait TemporalAccessor {
     */
   def range(field: TemporalField): ValueRange =
     if (field.isInstanceOf[ChronoField])
-      if (isSupported(field))
-        field.range
-      else
-        throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
+      if (isSupported(field)) field.range
+      else throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
     else
       field.rangeRefinedBy(this)
 

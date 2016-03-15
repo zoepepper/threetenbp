@@ -39,7 +39,6 @@ import org.threeten.bp.temporal.ChronoField.INSTANT_SECONDS
 import org.threeten.bp.temporal.ChronoField.MICRO_OF_SECOND
 import org.threeten.bp.temporal.ChronoField.MILLI_OF_SECOND
 import org.threeten.bp.temporal.ChronoField.NANO_OF_SECOND
-import org.threeten.bp.temporal.ChronoField.NANO_OF_DAY
 import org.threeten.bp.temporal.ChronoUnit.DAYS
 import org.threeten.bp.temporal.ChronoUnit.NANOS
 import java.io.DataInput
@@ -198,9 +197,8 @@ object Instant {
       Instant.ofEpochSecond(instantSecs, nanoOfSecond)
     }
     catch {
-      case ex: DateTimeException => {
+      case ex: DateTimeException =>
         throw new DateTimeException(s"Unable to obtain Instant from TemporalAccessor: $temporal, type ${temporal.getClass.getName}", ex)
-      }
     }
   }
 
@@ -360,16 +358,12 @@ final class Instant private(private val seconds: Long, private val nanos: Int) e
     * @return true if the field is supported on this instant, false if not
     */
   def isSupported(field: TemporalField): Boolean =
-    if (field.isInstanceOf[ChronoField])
-      (field eq INSTANT_SECONDS) || (field eq NANO_OF_SECOND) || (field eq MICRO_OF_SECOND) || (field eq MILLI_OF_SECOND)
-    else
-      field != null && field.isSupportedBy(this)
+    if (field.isInstanceOf[ChronoField]) (field eq INSTANT_SECONDS) || (field eq NANO_OF_SECOND) || (field eq MICRO_OF_SECOND) || (field eq MILLI_OF_SECOND)
+    else field != null && field.isSupportedBy(this)
 
   def isSupported(unit: TemporalUnit): Boolean =
-    if (unit.isInstanceOf[ChronoUnit])
-      unit.isTimeBased || (unit eq DAYS)
-    else
-      unit != null && unit.isSupportedBy(this)
+    if (unit.isInstanceOf[ChronoUnit]) unit.isTimeBased || (unit eq DAYS)
+    else unit != null && unit.isSupportedBy(this)
 
   /** Gets the range of valid values for the specified field.
     *
@@ -417,23 +411,17 @@ final class Instant private(private val seconds: Long, private val nanos: Int) e
     * @throws DateTimeException if a value for the field cannot be obtained
     * @throws ArithmeticException if numeric overflow occurs
     */
-  override def get(field: TemporalField): Int = {
-    if (field.isInstanceOf[ChronoField]) {
+  override def get(field: TemporalField): Int =
+    if (field.isInstanceOf[ChronoField])
       field.asInstanceOf[ChronoField] match {
-        case NANO_OF_SECOND =>
-          return nanos
-        case MICRO_OF_SECOND =>
-          return nanos / 1000
-        case MILLI_OF_SECOND =>
-          return nanos / Instant.NANOS_PER_MILLI
-        case INSTANT_SECONDS =>
-          INSTANT_SECONDS.checkValidIntValue(seconds)
-        case _ =>
-          throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
+        case NANO_OF_SECOND  => nanos
+        case MICRO_OF_SECOND => nanos / 1000
+        case MILLI_OF_SECOND => nanos / Instant.NANOS_PER_MILLI
+        case INSTANT_SECONDS => INSTANT_SECONDS.checkValidIntValue(seconds)
+        case _               => throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
       }
-    }
-    range(field).checkValidIntValue(field.getFrom(this), field)
-  }
+    else
+      range(field).checkValidIntValue(field.getFrom(this), field)
 
   /** Gets the value of the specified field from this instant as a {@code long}.
     *
@@ -456,23 +444,17 @@ final class Instant private(private val seconds: Long, private val nanos: Int) e
     * @throws DateTimeException if a value for the field cannot be obtained
     * @throws ArithmeticException if numeric overflow occurs
     */
-  def getLong(field: TemporalField): Long = {
-    if (field.isInstanceOf[ChronoField]) {
+  def getLong(field: TemporalField): Long =
+    if (field.isInstanceOf[ChronoField])
       field.asInstanceOf[ChronoField] match {
-        case NANO_OF_SECOND =>
-          return nanos
-        case MICRO_OF_SECOND =>
-          return nanos / 1000
-        case MILLI_OF_SECOND =>
-          return nanos / Instant.NANOS_PER_MILLI
-        case INSTANT_SECONDS =>
-          return seconds
-        case _ =>
-          throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
+        case NANO_OF_SECOND  => nanos
+        case MICRO_OF_SECOND => nanos / 1000
+        case MILLI_OF_SECOND => nanos / Instant.NANOS_PER_MILLI
+        case INSTANT_SECONDS => seconds
+        case _               => throw new UnsupportedTemporalTypeException(s"Unsupported field: $field")
       }
-    }
-    field.getFrom(this)
-  }
+    else
+      field.getFrom(this)
 
   /** Gets the number of seconds from the Java epoch of 1970-01-01T00:00:00Z.
     *

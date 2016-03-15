@@ -60,7 +60,7 @@ object Period {
     * The resulting period will have the specified years.
     * The months and days units will be zero.
     *
-    * @param years  the number of years, positive or negative
+    * @param years the number of years, positive or negative
     * @return the period of years, not null
     */
   def ofYears(years: Int): Period = create(years, 0, 0)
@@ -70,7 +70,7 @@ object Period {
     * The resulting period will have the specified months.
     * The years and days units will be zero.
     *
-    * @param months  the number of months, positive or negative
+    * @param months the number of months, positive or negative
     * @return the period of months, not null
     */
   def ofMonths(months: Int): Period = create(0, months, 0)
@@ -80,7 +80,7 @@ object Period {
     * The resulting period will have days equal to the weeks multiplied by seven.
     * The years and months units will be zero.
     *
-    * @param weeks  the number of weeks, positive or negative
+    * @param weeks the number of weeks, positive or negative
     * @return the period of days, not null
     */
   def ofWeeks(weeks: Int): Period = create(0, 0, Math.multiplyExact(weeks, 7))
@@ -90,7 +90,7 @@ object Period {
     * The resulting period will have the specified days.
     * The years and months units will be zero.
     *
-    * @param days  the number of days, positive or negative
+    * @param days the number of days, positive or negative
     * @return the period of days, not null
     */
   def ofDays(days: Int): Period = create(0, 0, days)
@@ -100,8 +100,8 @@ object Period {
     * This creates an instance based on years, months and days.
     *
     * @param years  the amount of years, may be negative
-    * @param months  the amount of months, may be negative
-    * @param days  the amount of days, may be negative
+    * @param months the amount of months, may be negative
+    * @param days   the amount of days, may be negative
     * @return the period of years, months and days, not null
     */
   def of(years: Int, months: Int, days: Int): Period = create(years, months, days)
@@ -119,19 +119,17 @@ object Period {
     *
     * If the amount is a {@code ChronoPeriod} then it must use the ISO chronology.
     *
-    * @param amount  the temporal amount to convert, not null
+    * @param amount the temporal amount to convert, not null
     * @return the equivalent period, not null
-    * @throws DateTimeException if unable to convert to a { @code Period}
+    * @throws DateTimeException   if unable to convert to a { @code Period}
     * @throws ArithmeticException if the amount of years, months or days exceeds an int
     */
   def from(amount: TemporalAmount): Period = {
-    if (amount.isInstanceOf[Period]) {
+    if (amount.isInstanceOf[Period])
       return amount.asInstanceOf[Period]
-    }
     if (amount.isInstanceOf[ChronoPeriod]) {
-      if (IsoChronology.INSTANCE != amount.asInstanceOf[ChronoPeriod].getChronology) {
+      if (IsoChronology.INSTANCE != amount.asInstanceOf[ChronoPeriod].getChronology)
         throw new DateTimeException(s"Period requires ISO chronology: $amount")
-      }
     }
     Objects.requireNonNull(amount, "amount")
     var years: Int = 0
@@ -140,14 +138,10 @@ object Period {
     import scala.collection.JavaConversions._
     for (unit <- amount.getUnits) {
       val unitAmount: Long = amount.get(unit)
-      if (unit eq ChronoUnit.YEARS)
-        years = Math.toIntExact(unitAmount)
-      else if (unit eq ChronoUnit.MONTHS)
-        months = Math.toIntExact(unitAmount)
-      else if (unit eq ChronoUnit.DAYS)
-        days = Math.toIntExact(unitAmount)
-      else
-        throw new DateTimeException(s"Unit must be Years, Months or Days, but was $unit")
+      if (unit eq ChronoUnit.YEARS) years = Math.toIntExact(unitAmount)
+      else if (unit eq ChronoUnit.MONTHS) months = Math.toIntExact(unitAmount)
+      else if (unit eq ChronoUnit.DAYS) days = Math.toIntExact(unitAmount)
+      else throw new DateTimeException(s"Unit must be Years, Months or Days, but was $unit")
     }
     create(years, months, days)
   }
@@ -165,8 +159,8 @@ object Period {
     * The result of this method can be a negative period if the end is before the start.
     * The negative sign will be the same in each of year, month and day.
     *
-    * @param startDate  the start date, inclusive, not null
-    * @param endDate  the end date, exclusive, not null
+    * @param startDate the start date, inclusive, not null
+    * @param endDate   the end date, exclusive, not null
     * @return the period between this date and the end date, not null
     * @see ChronoLocalDate#until(ChronoLocalDate)
     */
@@ -206,7 +200,7 @@ object Period {
     * "-P1Y2M"          -- Period.of(-1, -2, 0)
     * </pre>
     *
-    * @param text  the text to parse, not null
+    * @param text the text to parse, not null
     * @return the parsed period, not null
     * @throws DateTimeParseException if the text cannot be parsed to a period
     */
@@ -214,7 +208,7 @@ object Period {
     Objects.requireNonNull(text, "text")
     val matcher: Matcher = PATTERN.matcher(text)
     if (matcher.matches) {
-      val negate: Int = if (("-" == matcher.group(1))) -1 else 1
+      val negate: Int = if ("-" == matcher.group(1)) -1 else 1
       val yearMatch: String = matcher.group(2)
       val monthMatch: String = matcher.group(3)
       val weekMatch: String = matcher.group(4)
@@ -254,15 +248,12 @@ object Period {
   /** Creates an instance.
     *
     * @param years  the amount
-    * @param months  the amount
-    * @param days  the amount
+    * @param months the amount
+    * @param days   the amount
     */
-  private def create(years: Int, months: Int, days: Int): Period = {
-    if ((years | months | days) == 0) {
-      return ZERO
-    }
-    new Period(years, months, days)
-  }
+  private def create(years: Int, months: Int, days: Int): Period =
+    if ((years | months | days) == 0) ZERO
+    else new Period(years, months, days)
 }
 
 /** A date-based amount of time, such as '2 years, 3 months and 4 days'.
@@ -299,7 +290,6 @@ object Period {
   * This class is immutable and thread-safe.
   *
   * @constructor
-  *
   * @param years  the amount
   * @param months  the amount
   * @param days  the amount
@@ -312,10 +302,8 @@ final class Period private(private val years: Int, private val months: Int, priv
     * @return the resolved instance
     */
   private def readResolve: AnyRef =
-    if ((years | months | days) == 0)
-      Period.ZERO
-    else
-      this
+    if ((years | months | days) == 0) Period.ZERO
+    else this
 
   def getUnits: java.util.List[TemporalUnit] = Collections.unmodifiableList[TemporalUnit](Arrays.asList(YEARS, MONTHS, DAYS))
 
@@ -390,10 +378,8 @@ final class Period private(private val years: Int, private val months: Int, priv
     * @return a { @code Period} based on this period with the requested years, not null
     */
   def withYears(years: Int): Period =
-    if (years == this.years)
-      this
-    else
-      Period.create(years, months, days)
+    if (years == this.years) this
+    else Period.create(years, months, days)
 
   /** Returns a copy of this period with the specified amount of months.
     *
@@ -410,10 +396,8 @@ final class Period private(private val years: Int, private val months: Int, priv
     * @return a { @code Period} based on this period with the requested months, not null
     */
   def withMonths(months: Int): Period =
-    if (months == this.months)
-      this
-    else
-      Period.create(years, months, days)
+    if (months == this.months) this
+    else Period.create(years, months, days)
 
   /** Returns a copy of this period with the specified amount of days.
     *
@@ -425,12 +409,9 @@ final class Period private(private val years: Int, private val months: Int, priv
     * @param days  the days to represent, may be negative
     * @return a { @code Period} based on this period with the requested days, not null
     */
-  def withDays(days: Int): Period = {
-    if (days == this.days) {
-      return this
-    }
-    Period.create(years, months, days)
-  }
+  def withDays(days: Int): Period =
+    if (days == this.days) this
+    else Period.create(years, months, days)
 
   /** Returns a copy of this period with the specified amount added.
     *
@@ -464,10 +445,8 @@ final class Period private(private val years: Int, private val months: Int, priv
     * @throws ArithmeticException if numeric overflow occurs
     */
   def plusYears(yearsToAdd: Long): Period =
-    if (yearsToAdd == 0)
-      this
-    else
-      Period.create(Math.toIntExact(Math.addExact(years, yearsToAdd)), months, days)
+    if (yearsToAdd == 0) this
+    else Period.create(Math.toIntExact(Math.addExact(years, yearsToAdd)), months, days)
 
   /** Returns a copy of this period with the specified months added.
     *
@@ -482,10 +461,8 @@ final class Period private(private val years: Int, private val months: Int, priv
     * @throws ArithmeticException if numeric overflow occurs
     */
   def plusMonths(monthsToAdd: Long): Period =
-    if (monthsToAdd == 0)
-      this
-    else
-      Period.create(years, Math.toIntExact(Math.addExact(months, monthsToAdd)), days)
+    if (monthsToAdd == 0) this
+    else Period.create(years, Math.toIntExact(Math.addExact(months, monthsToAdd)), days)
 
   /** Returns a copy of this period with the specified days added.
     *
@@ -500,10 +477,8 @@ final class Period private(private val years: Int, private val months: Int, priv
     * @throws ArithmeticException if numeric overflow occurs
     */
   def plusDays(daysToAdd: Long): Period =
-    if (daysToAdd == 0)
-      this
-    else
-      Period.create(years, months, Math.toIntExact(Math.addExact(days, daysToAdd)))
+    if (daysToAdd == 0) this
+    else Period.create(years, months, Math.toIntExact(Math.addExact(days, daysToAdd)))
 
   /** Returns a copy of this period with the specified amount subtracted.
     *
@@ -583,10 +558,8 @@ final class Period private(private val years: Int, private val months: Int, priv
     * @throws ArithmeticException if numeric overflow occurs
     */
   def multipliedBy(scalar: Int): Period =
-    if ((this eq Period.ZERO) || scalar == 1)
-      this
-    else
-      Period.create(Math.multiplyExact(years, scalar), Math.multiplyExact(months, scalar), Math.multiplyExact(days, scalar))
+    if ((this eq Period.ZERO) || scalar == 1) this
+    else Period.create(Math.multiplyExact(years, scalar), Math.multiplyExact(months, scalar), Math.multiplyExact(days, scalar))
 
   /** Returns a new instance with each amount in this period negated.
     *
@@ -618,10 +591,8 @@ final class Period private(private val years: Int, private val months: Int, priv
     val totalMonths: Long = toTotalMonths
     val splitYears: Long = totalMonths / 12
     val splitMonths: Int = (totalMonths % 12).toInt
-    if (splitYears == years && splitMonths == months) {
-      return this
-    }
-    Period.create(Math.toIntExact(splitYears), splitMonths, days)
+    if (splitYears == years && splitMonths == months) this
+    else Period.create(Math.toIntExact(splitYears), splitMonths, days)
   }
 
   /** Gets the total number of months in this period using a 12 month year.
@@ -635,9 +606,7 @@ final class Period private(private val years: Int, private val months: Int, priv
     *
     * @return the total number of months in the period, may be negative
     */
-  def toTotalMonths: Long = {
-    years * 12L + months
-  }
+  def toTotalMonths: Long = years * 12L + months
 
   /** Adds this period to the specified temporal object.
     *
@@ -667,20 +636,13 @@ final class Period private(private val years: Int, private val months: Int, priv
   def addTo(temporal: Temporal): Temporal = {
     var _temporal = temporal
     Objects.requireNonNull(_temporal, "temporal")
-    if (years != 0) {
-      if (months != 0) {
-        _temporal = _temporal.plus(toTotalMonths, MONTHS)
-      }
-      else {
-        _temporal = _temporal.plus(years, YEARS)
-      }
-    }
-    else if (months != 0) {
+    if (years != 0)
+      if (months != 0) _temporal = _temporal.plus(toTotalMonths, MONTHS)
+      else _temporal = _temporal.plus(years, YEARS)
+    else if (months != 0)
       _temporal = _temporal.plus(months, MONTHS)
-    }
-    if (days != 0) {
+    if (days != 0)
       _temporal = _temporal.plus(days, DAYS)
-    }
     _temporal
   }
 
@@ -718,20 +680,13 @@ final class Period private(private val years: Int, private val months: Int, priv
   def subtractFrom(temporal: Temporal): Temporal = {
     var _temporal = temporal
     Objects.requireNonNull(_temporal, "temporal")
-    if (years != 0) {
-      if (months != 0) {
-        _temporal = _temporal.minus(toTotalMonths, MONTHS)
-      }
-      else {
-        _temporal = _temporal.minus(years, YEARS)
-      }
-    }
-    else if (months != 0) {
+    if (years != 0)
+      if (months != 0) _temporal = _temporal.minus(toTotalMonths, MONTHS)
+      else _temporal = _temporal.minus(years, YEARS)
+    else if (months != 0)
       _temporal = _temporal.minus(months, MONTHS)
-    }
-    if (days != 0) {
+    if (days != 0)
       _temporal = _temporal.minus(days, DAYS)
-    }
     _temporal
   }
 
@@ -769,15 +724,12 @@ final class Period private(private val years: Int, private val months: Int, priv
     else {
       val buf: StringBuilder = new StringBuilder
       buf.append('P')
-      if (years != 0) {
+      if (years != 0)
         buf.append(years).append('Y')
-      }
-      if (months != 0) {
+      if (months != 0)
         buf.append(months).append('M')
-      }
-      if (days != 0) {
+      if (days != 0)
         buf.append(days).append('D')
-      }
       buf.toString
     }
 }

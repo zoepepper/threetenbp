@@ -305,20 +305,16 @@ trait ChronoZonedDateTime[D <: ChronoLocalDate] extends Temporal with Ordered[Ch
     toLocalDate.getChronology.ensureChronoZonedDateTime(super.minus(amountToSubtract, unit))
 
   override def query[R >: Null](query: TemporalQuery[R]): R =
-    if ((query eq TemporalQueries.zoneId) || (query eq TemporalQueries.zone))
-      getZone.asInstanceOf[R]
-    else if (query eq TemporalQueries.chronology)
-      toLocalDate.getChronology.asInstanceOf[R]
-    else if (query eq TemporalQueries.precision)
-      NANOS.asInstanceOf[R]
-    else if (query eq TemporalQueries.offset)
-      getOffset.asInstanceOf[R]
-    else if (query eq TemporalQueries.localDate)
-      LocalDate.ofEpochDay(toLocalDate.toEpochDay).asInstanceOf[R]
-    else if (query eq TemporalQueries.localTime)
-      toLocalTime.asInstanceOf[R]
-    else
-      super.query(query)
+    query match {
+      case TemporalQueries.zoneId
+         | TemporalQueries.zone       => getZone.asInstanceOf[R]
+      case TemporalQueries.chronology => toLocalDate.getChronology.asInstanceOf[R]
+      case TemporalQueries.precision  => NANOS.asInstanceOf[R]
+      case TemporalQueries.offset     => getOffset.asInstanceOf[R]
+      case TemporalQueries.localDate  => LocalDate.ofEpochDay (toLocalDate.toEpochDay).asInstanceOf[R]
+      case TemporalQueries.localTime  => toLocalTime.asInstanceOf[R]
+      case _                          => super.query(query)
+    }
 
   /** Outputs this date-time as a {@code String} using the formatter.
     *

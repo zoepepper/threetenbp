@@ -97,9 +97,7 @@ object TemporalQueries {
     *
     * @return a query that can obtain the zone ID of a temporal, not null
     */
-  def zoneId: TemporalQuery[ZoneId] = ZONE_ID
-
-  private[temporal] val ZONE_ID: TemporalQuery[ZoneId] = new TemporalQuery[ZoneId]() {
+  val zoneId: TemporalQuery[ZoneId] = new TemporalQuery[ZoneId] {
     def queryFrom(temporal: TemporalAccessor): ZoneId = temporal.query(this)
   }
 
@@ -137,9 +135,7 @@ object TemporalQueries {
     *
     * @return a query that can obtain the chronology of a temporal, not null
     */
-  def chronology: TemporalQuery[Chronology] = CHRONO
-
-  private[temporal] val CHRONO: TemporalQuery[Chronology] = new TemporalQuery[Chronology]() {
+  val chronology: TemporalQuery[Chronology] = new TemporalQuery[Chronology] {
     def queryFrom(temporal: TemporalAccessor): Chronology = temporal.query(this)
   }
 
@@ -175,10 +171,25 @@ object TemporalQueries {
     *
     * @return a query that can obtain the precision of a temporal, not null
     */
-  def precision: TemporalQuery[TemporalUnit] = PRECISION
-
-  private[temporal] val PRECISION: TemporalQuery[TemporalUnit] = new TemporalQuery[TemporalUnit]() {
+  val precision: TemporalQuery[TemporalUnit] = new TemporalQuery[TemporalUnit] {
     def queryFrom(temporal: TemporalAccessor): TemporalUnit = temporal.query(this)
+  }
+
+  /** A query for {@code ZoneOffset} returning null if not found.
+    *
+    * This returns a {@code TemporalQuery} that can be used to query a temporal
+    * object for the offset. The query will return null if the temporal
+    * object cannot supply an offset.
+    *
+    * The query implementation examines the {@link ChronoField#OFFSET_SECONDS OFFSET_SECONDS}
+    * field and uses it to create a {@code ZoneOffset}.
+    *
+    * @return a query that can obtain the offset of a temporal, not null
+    */
+  val offset: TemporalQuery[ZoneOffset] = new TemporalQuery[ZoneOffset] {
+    def queryFrom(temporal: TemporalAccessor): ZoneOffset =
+      if (temporal.isSupported(OFFSET_SECONDS)) ZoneOffset.ofTotalSeconds(temporal.get(OFFSET_SECONDS))
+      else null
   }
 
   /** A lenient query for the {@code ZoneId}, falling back to the {@code ZoneOffset}.
@@ -199,34 +210,11 @@ object TemporalQueries {
     *
     * @return a query that can obtain the zone ID or offset of a temporal, not null
     */
-  def zone: TemporalQuery[ZoneId] = ZONE
-
-  private[temporal] val ZONE: TemporalQuery[ZoneId] = new TemporalQuery[ZoneId]() {
+  val zone: TemporalQuery[ZoneId] = new TemporalQuery[ZoneId] {
     def queryFrom(temporal: TemporalAccessor): ZoneId = {
-      val zone: ZoneId = temporal.query(ZONE_ID)
-      if (zone != null) zone else temporal.query(OFFSET)
+      val zone: ZoneId = temporal.query(zoneId)
+      if (zone != null) zone else temporal.query(offset)
     }
-  }
-
-  /** A query for {@code ZoneOffset} returning null if not found.
-    *
-    * This returns a {@code TemporalQuery} that can be used to query a temporal
-    * object for the offset. The query will return null if the temporal
-    * object cannot supply an offset.
-    *
-    * The query implementation examines the {@link ChronoField#OFFSET_SECONDS OFFSET_SECONDS}
-    * field and uses it to create a {@code ZoneOffset}.
-    *
-    * @return a query that can obtain the offset of a temporal, not null
-    */
-  def offset: TemporalQuery[ZoneOffset] = OFFSET
-
-  private[temporal] val OFFSET: TemporalQuery[ZoneOffset] = new TemporalQuery[ZoneOffset]() {
-    def queryFrom(temporal: TemporalAccessor): ZoneOffset =
-      if (temporal.isSupported(OFFSET_SECONDS))
-        ZoneOffset.ofTotalSeconds(temporal.get(OFFSET_SECONDS))
-      else
-        null
   }
 
   /** A query for {@code LocalDate} returning null if not found.
@@ -240,14 +228,10 @@ object TemporalQueries {
     *
     * @return a query that can obtain the date of a temporal, not null
     */
-  def localDate: TemporalQuery[LocalDate] = LOCAL_DATE
-
-  private[temporal] val LOCAL_DATE: TemporalQuery[LocalDate] = new TemporalQuery[LocalDate]() {
+  val localDate: TemporalQuery[LocalDate] = new TemporalQuery[LocalDate] {
     def queryFrom(temporal: TemporalAccessor): LocalDate =
-      if (temporal.isSupported(EPOCH_DAY))
-        LocalDate.ofEpochDay(temporal.getLong(EPOCH_DAY))
-      else
-        null
+      if (temporal.isSupported(EPOCH_DAY)) LocalDate.ofEpochDay(temporal.getLong(EPOCH_DAY))
+      else null
   }
 
   /** A query for {@code LocalTime} returning null if not found.
@@ -261,13 +245,9 @@ object TemporalQueries {
     *
     * @return a query that can obtain the date of a temporal, not null
     */
-  def localTime: TemporalQuery[LocalTime] = LOCAL_TIME
-
-  private[temporal] val LOCAL_TIME: TemporalQuery[LocalTime] = new TemporalQuery[LocalTime]() {
+  val localTime: TemporalQuery[LocalTime] = new TemporalQuery[LocalTime] {
     def queryFrom(temporal: TemporalAccessor): LocalTime =
-      if (temporal.isSupported(NANO_OF_DAY))
-        LocalTime.ofNanoOfDay(temporal.getLong(NANO_OF_DAY))
-      else
-        null
+      if (temporal.isSupported(NANO_OF_DAY)) LocalTime.ofNanoOfDay(temporal.getLong(NANO_OF_DAY))
+      else null
   }
 }

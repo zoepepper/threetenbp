@@ -296,7 +296,8 @@ trait Temporal extends TemporalAccessor {
     * @throws ArithmeticException if numeric overflow occurs
     */
   def minus(amountToSubtract: Long, unit: TemporalUnit): Temporal =
-    if (amountToSubtract == Long.MinValue) plus(Long.MaxValue, unit).plus(1, unit) else plus(-amountToSubtract, unit)
+    if (amountToSubtract == Long.MinValue) plus(Long.MaxValue, unit).plus(1, unit)
+    else plus(-amountToSubtract, unit)
 
   /** Calculates the period between this temporal and another temporal in
     * terms of the specified unit.
@@ -324,9 +325,9 @@ trait Temporal extends TemporalAccessor {
     *
     * For example, this method allows the number of days between two dates to be calculated:
     * <pre>
-    * long daysBetween = DAYS.between(start, end);
+    * val daysBetween: Long = DAYS.between(start, end);
     * // or alternatively
-    * long daysBetween = start.until(end, DAYS);
+    * val daysBetween: Long = start.until(end, DAYS);
     * </pre>
     *
     * <h3>Specification for implementors</h3>
