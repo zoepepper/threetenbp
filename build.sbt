@@ -9,8 +9,8 @@ isSnapshot := true
 
 lazy val commonSettings = Seq(
   scalacOptions ++= Seq("-Xexperimental"),
-  scalaVersion := "2.11.7",
-  crossScalaVersions := Seq("2.11.7"),
+  scalaVersion := "2.11.8",
+  crossScalaVersions := Seq("2.11.8"),
   publishArtifact in (Compile, packageDoc) := false,
   publishArtifact in packageDoc := false
 )
@@ -20,7 +20,7 @@ lazy val threetenbpRoot = project.in(file("."))
   .settings(
     publish := {},
     publishLocal := {},
-    crossScalaVersions := Seq("2.11.7")
+    crossScalaVersions := Seq("2.11.8")
   )
 
 
@@ -29,7 +29,7 @@ lazy val threetenbpCross = crossProject.crossType(CrossType.Full).in(file("."))
     libraryDependencies ++= Seq(
       "org.scalatest" %%% "scalatest" % "3.0.0-M15" % "test",
       "junit" % "junit" % "4.12" % "test",
-      "org.testng" % "testng" % "6.8.8" % "test"
+      "org.testng" % "testng" % "6.9.10" % "test"
     )
   )
 
