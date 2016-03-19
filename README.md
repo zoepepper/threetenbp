@@ -13,8 +13,15 @@ This project builds using sbt.
 Run `sbt test` to run the test suite.
 
 #### Status & Contributing
-We are currently working on eliminating the last few test suite failures which were introduced during the conversion from Java to Scala.
-Run the test suite or have a look at the [issues](https://github.com/soc/threetenbp/issues) to find something to work on! Contributions and bug reports are welcome!
+We are currently working on supporting formatting and calculations using a timezone database in JavaScript.
+
+ - The formatting uses a lot of JDK classes, which we might not want to reimplement in Scala.js.
+   We might be able to use the new `Intl` Web API.
+ - The timezone information is read from a binary blob, which won't work in the browser.
+   We will have a look at other projects like moment.js and decide whether we want to use the same format, or come up with our own.
+
+Have a look at the [issues](https://github.com/soc/threetenbp/issues) to find something to work on!
+Ideas, suggestions, contributions and bug reports are all welcome!
 
 #### Time-zone data
 The time-zone database is stored as a pre-compiled dat file that is included in the built jar.
