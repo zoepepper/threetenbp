@@ -18,6 +18,7 @@ lazy val commonSettings = Seq(
 lazy val threetenbpRoot = project.in(file("."))
   .aggregate(threetenbp, threetenbpJS)
   .settings(
+    scalaVersion := "2.11.8",
     publish := {},
     publishLocal := {},
     crossScalaVersions := Seq("2.11.8")
