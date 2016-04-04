@@ -4,9 +4,9 @@
 /dist/
 /test-output/
 /temp*
-/.settings/
+*.settings/
 /nbproject/private/
-/target/
+*target/
 .classpath
 .project
 .checkstyle
