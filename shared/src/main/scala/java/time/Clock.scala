@@ -29,12 +29,12 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.threeten.bp
+package java.time
 
-import org.threeten.bp.LocalTime.NANOS_PER_MINUTE
-import org.threeten.bp.LocalTime.NANOS_PER_SECOND
 import java.io.Serializable
 import java.util.Objects
+
+import org.threeten.bp.LocalTime.{NANOS_PER_MINUTE, NANOS_PER_SECOND}
 
 object Clock {
   /** Obtains a clock that returns the current instant using the best available

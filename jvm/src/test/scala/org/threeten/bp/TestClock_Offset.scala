@@ -35,6 +35,9 @@ import org.scalatest.testng.TestNGSuite
 import org.testng.Assert.assertEquals
 import org.testng.Assert.assertSame
 import java.io.IOException
+import java.time
+import java.time.Clock
+
 import org.testng.annotations.Test
 
 /** Test offset clock. */
@@ -49,75 +52,75 @@ import org.testng.annotations.Test
   @throws(classOf[IOException])
   @throws(classOf[ClassNotFoundException])
   def test_isSerializable(): Unit = {
-    AbstractTest.assertSerializable(Clock.offset(Clock.system(TestClock_Offset.PARIS), TestClock_Offset.OFFSET))
+    AbstractTest.assertSerializable(time.Clock.offset(time.Clock.system(TestClock_Offset.PARIS), TestClock_Offset.OFFSET))
   }
 
   def test_offset_ClockDuration(): Unit = {
-    val test: Clock = Clock.offset(Clock.fixed(TestClock_Offset.INSTANT, TestClock_Offset.PARIS), TestClock_Offset.OFFSET)
+    val test: Clock = time.Clock.offset(time.Clock.fixed(TestClock_Offset.INSTANT, TestClock_Offset.PARIS), TestClock_Offset.OFFSET)
     assertEquals(test.instant, TestClock_Offset.INSTANT.plus(TestClock_Offset.OFFSET))
     assertEquals(test.getZone, TestClock_Offset.PARIS)
   }
 
   def test_offset_ClockDuration_zeroDuration(): Unit = {
-    val underlying: Clock = Clock.system(TestClock_Offset.PARIS)
-    val test: Clock = Clock.offset(underlying, Duration.ZERO)
+    val underlying: Clock = time.Clock.system(TestClock_Offset.PARIS)
+    val test: Clock = time.Clock.offset(underlying, Duration.ZERO)
     assertSame(test, underlying)
   }
 
   @Test(expectedExceptions = Array(classOf[NullPointerException])) def test_offset_ClockDuration_nullClock(): Unit = {
-    Clock.offset(null, Duration.ZERO)
+    time.Clock.offset(null, Duration.ZERO)
   }
 
   @Test(expectedExceptions = Array(classOf[NullPointerException])) def test_offset_ClockDuration_nullDuration(): Unit = {
-    Clock.offset(Clock.systemUTC, null)
+    time.Clock.offset(time.Clock.systemUTC, null)
   }
 
   def test_withZone(): Unit = {
-    val test: Clock = Clock.offset(Clock.system(TestClock_Offset.PARIS), TestClock_Offset.OFFSET)
+    val test: Clock = time.Clock.offset(time.Clock.system(TestClock_Offset.PARIS), TestClock_Offset.OFFSET)
     val changed: Clock = test.withZone(TestClock_Offset.MOSCOW)
     assertEquals(test.getZone, TestClock_Offset.PARIS)
     assertEquals(changed.getZone, TestClock_Offset.MOSCOW)
   }
 
   def test_withZone_same(): Unit = {
-    val test: Clock = Clock.offset(Clock.system(TestClock_Offset.PARIS), TestClock_Offset.OFFSET)
+    val test: Clock = time.Clock.offset(time.Clock.system(TestClock_Offset.PARIS), TestClock_Offset.OFFSET)
     val changed: Clock = test.withZone(TestClock_Offset.PARIS)
     assertSame(test, changed)
   }
 
   @Test(expectedExceptions = Array(classOf[NullPointerException])) def test_withZone_null(): Unit = {
-    Clock.offset(Clock.system(TestClock_Offset.PARIS), TestClock_Offset.OFFSET).withZone(null)
+    time.Clock.offset(time.Clock.system(TestClock_Offset.PARIS), TestClock_Offset.OFFSET).withZone(null)
   }
 
   def test_equals(): Unit = {
-    val a: Clock = Clock.offset(Clock.system(TestClock_Offset.PARIS), TestClock_Offset.OFFSET)
-    val b: Clock = Clock.offset(Clock.system(TestClock_Offset.PARIS), TestClock_Offset.OFFSET)
+    val a: Clock = time.Clock.offset(time.Clock.system(TestClock_Offset.PARIS), TestClock_Offset.OFFSET)
+    val b: Clock = time.Clock.offset(time.Clock.system(TestClock_Offset.PARIS), TestClock_Offset.OFFSET)
     assertEquals(a == a, true)
     assertEquals(a == b, true)
     assertEquals(b == a, true)
     assertEquals(b == b, true)
-    val c: Clock = Clock.offset(Clock.system(TestClock_Offset.MOSCOW), TestClock_Offset.OFFSET)
+    val c: Clock = time.Clock.offset(time.Clock.system(TestClock_Offset.MOSCOW), TestClock_Offset.OFFSET)
     assertEquals(a == c, false)
-    val d: Clock = Clock.offset(Clock.system(TestClock_Offset.PARIS), TestClock_Offset.OFFSET.minusNanos(1))
+    val d: Clock = time.Clock.offset(time.Clock.system(TestClock_Offset.PARIS), TestClock_Offset.OFFSET.minusNanos(1))
     assertEquals(a == d, false)
     assertEquals(a == null, false)
     assertEquals(a == "other type", false)
-    assertEquals(a == Clock.systemUTC, false)
+    assertEquals(a == time.Clock.systemUTC, false)
   }
 
   def test_hashCode(): Unit = {
-    val a: Clock = Clock.offset(Clock.system(TestClock_Offset.PARIS), TestClock_Offset.OFFSET)
-    val b: Clock = Clock.offset(Clock.system(TestClock_Offset.PARIS), TestClock_Offset.OFFSET)
+    val a: Clock = time.Clock.offset(time.Clock.system(TestClock_Offset.PARIS), TestClock_Offset.OFFSET)
+    val b: Clock = time.Clock.offset(time.Clock.system(TestClock_Offset.PARIS), TestClock_Offset.OFFSET)
     assertEquals(a.hashCode, a.hashCode)
     assertEquals(a.hashCode, b.hashCode)
-    val c: Clock = Clock.offset(Clock.system(TestClock_Offset.MOSCOW), TestClock_Offset.OFFSET)
+    val c: Clock = time.Clock.offset(time.Clock.system(TestClock_Offset.MOSCOW), TestClock_Offset.OFFSET)
     assertEquals(a.hashCode == c.hashCode, false)
-    val d: Clock = Clock.offset(Clock.system(TestClock_Offset.PARIS), TestClock_Offset.OFFSET.minusNanos(1))
+    val d: Clock = time.Clock.offset(time.Clock.system(TestClock_Offset.PARIS), TestClock_Offset.OFFSET.minusNanos(1))
     assertEquals(a.hashCode == d.hashCode, false)
   }
 
   def test_toString(): Unit = {
-    val test: Clock = Clock.offset(Clock.systemUTC, TestClock_Offset.OFFSET)
+    val test: Clock = time.Clock.offset(time.Clock.systemUTC, TestClock_Offset.OFFSET)
     assertEquals(test.toString, "OffsetClock[SystemClock[Z],PT2S]")
   }
 }

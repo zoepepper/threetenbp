@@ -31,33 +31,36 @@
  */
 package org.threeten.bp
 
+import java.time
+import java.time.Clock
+
 import org.threeten.bp.DayOfWeek.MONDAY
 import org.threeten.bp.DayOfWeek.TUESDAY
 import org.threeten.bp.Month.AUGUST
 import org.threeten.bp.Month.FEBRUARY
 import org.threeten.bp.Month.MARCH
-import org.threeten.bp.temporal.ChronoField.DAY_OF_MONTH
-import org.threeten.bp.temporal.ChronoUnit.DAYS
-import org.threeten.bp.temporal.ChronoUnit.HOURS
-import org.threeten.bp.temporal.ChronoUnit.MINUTES
-import org.threeten.bp.temporal.TemporalAdjusters.dayOfWeekInMonth
-import org.threeten.bp.temporal.TemporalAdjusters.firstInMonth
-import org.threeten.bp.temporal.TemporalAdjusters.lastDayOfMonth
-import org.threeten.bp.temporal.TemporalAdjusters.next
-import org.threeten.bp.temporal.TemporalAdjusters.nextOrSame
-import org.threeten.bp.zone.ZoneOffsetTransition
+import java.time.temporal.ChronoField.DAY_OF_MONTH
+import java.time.temporal.ChronoUnit.DAYS
+import java.time.temporal.ChronoUnit.HOURS
+import java.time.temporal.ChronoUnit.MINUTES
+import java.time.temporal.TemporalAdjusters.dayOfWeekInMonth
+import java.time.temporal.TemporalAdjusters.firstInMonth
+import java.time.temporal.TemporalAdjusters.lastDayOfMonth
+import java.time.temporal.TemporalAdjusters.next
+import java.time.temporal.TemporalAdjusters.nextOrSame
+import java.time.zone.ZoneOffsetTransition
 
 /** Test the fluency of the whole API. */
 object FluentAPIChecker {
   @SuppressWarnings(Array("unused")) def main(args: Array[String]): Unit = {
-    val clock: Clock = Clock.systemDefaultZone
+    val clock: Clock = time.Clock.systemDefaultZone
     val tod: LocalTime = LocalTime.now(clock)
     tod.plusHours(6).plusMinutes(2)
     tod.plus(6, HOURS).plus(2, MINUTES)
     var date: LocalDate = null
     date = LocalDate.now(clock).plusDays(3)
     date = LocalDate.now(clock).plus(3, DAYS)
-    date = LocalDate.now(Clock.systemDefaultZone).plus(3, DAYS)
+    date = LocalDate.now(time.Clock.systemDefaultZone).plus(3, DAYS)
     date = LocalDate.of(2007, 3, 20)
     date = LocalDate.of(2007, MARCH, 20)
     date = Year.of(2007).atMonth(3).atDay(20)
@@ -99,7 +102,7 @@ object FluentAPIChecker {
       val englandWales: LocalDate = sixNationsMonth.atDay(12)
       val engWal: LocalDate = Year.of(2009).atMonth(FEBRUARY).atDay(12)
     }
-    val tickingClock: Clock = Clock.tickSeconds(paris)
+    val tickingClock: Clock = time.Clock.tickSeconds(paris)
 
     var i: Int = 0
     while (i < 20) {

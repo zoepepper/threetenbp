@@ -35,6 +35,9 @@ import org.scalatest.testng.TestNGSuite
 import org.testng.Assert.assertEquals
 import org.testng.Assert.assertSame
 import java.io.IOException
+import java.time
+import java.time.Clock
+
 import org.testng.annotations.Test
 
 /** Test fixed clock. */
@@ -48,70 +51,70 @@ import org.testng.annotations.Test
   @throws(classOf[IOException])
   @throws(classOf[ClassNotFoundException])
   def test_isSerializable(): Unit = {
-    AbstractTest.assertSerializable(Clock.fixed(TestClock_Fixed.INSTANT, ZoneOffset.UTC))
-    AbstractTest.assertSerializable(Clock.fixed(TestClock_Fixed.INSTANT, TestClock_Fixed.PARIS))
+    AbstractTest.assertSerializable(time.Clock.fixed(TestClock_Fixed.INSTANT, ZoneOffset.UTC))
+    AbstractTest.assertSerializable(time.Clock.fixed(TestClock_Fixed.INSTANT, TestClock_Fixed.PARIS))
   }
 
   def test_fixed_InstantZoneId(): Unit = {
-    val test: Clock = Clock.fixed(TestClock_Fixed.INSTANT, TestClock_Fixed.PARIS)
+    val test: Clock = time.Clock.fixed(TestClock_Fixed.INSTANT, TestClock_Fixed.PARIS)
     assertEquals(test.instant, TestClock_Fixed.INSTANT)
     assertEquals(test.getZone, TestClock_Fixed.PARIS)
   }
 
   @Test(expectedExceptions = Array(classOf[NullPointerException])) def test_fixed_InstantZoneId_nullInstant(): Unit = {
-    Clock.fixed(null, TestClock_Fixed.PARIS)
+    time.Clock.fixed(null, TestClock_Fixed.PARIS)
   }
 
   @Test(expectedExceptions = Array(classOf[NullPointerException])) def test_fixed_InstantZoneId_nullZoneId(): Unit = {
-    Clock.fixed(TestClock_Fixed.INSTANT, null)
+    time.Clock.fixed(TestClock_Fixed.INSTANT, null)
   }
 
   def test_withZone(): Unit = {
-    val test: Clock = Clock.fixed(TestClock_Fixed.INSTANT, TestClock_Fixed.PARIS)
+    val test: Clock = time.Clock.fixed(TestClock_Fixed.INSTANT, TestClock_Fixed.PARIS)
     val changed: Clock = test.withZone(TestClock_Fixed.MOSCOW)
     assertEquals(test.getZone, TestClock_Fixed.PARIS)
     assertEquals(changed.getZone, TestClock_Fixed.MOSCOW)
   }
 
   def test_withZone_same(): Unit = {
-    val test: Clock = Clock.fixed(TestClock_Fixed.INSTANT, TestClock_Fixed.PARIS)
+    val test: Clock = time.Clock.fixed(TestClock_Fixed.INSTANT, TestClock_Fixed.PARIS)
     val changed: Clock = test.withZone(TestClock_Fixed.PARIS)
     assertSame(test, changed)
   }
 
   @Test(expectedExceptions = Array(classOf[NullPointerException])) def test_withZone_null(): Unit = {
-    Clock.fixed(TestClock_Fixed.INSTANT, TestClock_Fixed.PARIS).withZone(null)
+    time.Clock.fixed(TestClock_Fixed.INSTANT, TestClock_Fixed.PARIS).withZone(null)
   }
 
   def test_equals(): Unit = {
-    val a: Clock = Clock.fixed(TestClock_Fixed.INSTANT, ZoneOffset.UTC)
-    val b: Clock = Clock.fixed(TestClock_Fixed.INSTANT, ZoneOffset.UTC)
+    val a: Clock = time.Clock.fixed(TestClock_Fixed.INSTANT, ZoneOffset.UTC)
+    val b: Clock = time.Clock.fixed(TestClock_Fixed.INSTANT, ZoneOffset.UTC)
     assertEquals(a == a, true)
     assertEquals(a == b, true)
     assertEquals(b == a, true)
     assertEquals(b == b, true)
-    val c: Clock = Clock.fixed(TestClock_Fixed.INSTANT, TestClock_Fixed.PARIS)
+    val c: Clock = time.Clock.fixed(TestClock_Fixed.INSTANT, TestClock_Fixed.PARIS)
     assertEquals(a == c, false)
-    val d: Clock = Clock.fixed(TestClock_Fixed.INSTANT.minusNanos(1), ZoneOffset.UTC)
+    val d: Clock = time.Clock.fixed(TestClock_Fixed.INSTANT.minusNanos(1), ZoneOffset.UTC)
     assertEquals(a == d, false)
     assertEquals(a == null, false)
     assertEquals(a == "other type", false)
-    assertEquals(a == Clock.systemUTC, false)
+    assertEquals(a == time.Clock.systemUTC, false)
   }
 
   def test_hashCode(): Unit = {
-    val a: Clock = Clock.fixed(TestClock_Fixed.INSTANT, ZoneOffset.UTC)
-    val b: Clock = Clock.fixed(TestClock_Fixed.INSTANT, ZoneOffset.UTC)
+    val a: Clock = time.Clock.fixed(TestClock_Fixed.INSTANT, ZoneOffset.UTC)
+    val b: Clock = time.Clock.fixed(TestClock_Fixed.INSTANT, ZoneOffset.UTC)
     assertEquals(a.hashCode, a.hashCode)
     assertEquals(a.hashCode, b.hashCode)
-    val c: Clock = Clock.fixed(TestClock_Fixed.INSTANT, TestClock_Fixed.PARIS)
+    val c: Clock = time.Clock.fixed(TestClock_Fixed.INSTANT, TestClock_Fixed.PARIS)
     assertEquals(a.hashCode == c.hashCode, false)
-    val d: Clock = Clock.fixed(TestClock_Fixed.INSTANT.minusNanos(1), ZoneOffset.UTC)
+    val d: Clock = time.Clock.fixed(TestClock_Fixed.INSTANT.minusNanos(1), ZoneOffset.UTC)
     assertEquals(a.hashCode == d.hashCode, false)
   }
 
   def test_toString(): Unit = {
-    val test: Clock = Clock.fixed(TestClock_Fixed.INSTANT, TestClock_Fixed.PARIS)
+    val test: Clock = time.Clock.fixed(TestClock_Fixed.INSTANT, TestClock_Fixed.PARIS)
     assertEquals(test.toString, "FixedClock[2008-06-30T09:30:10.000000500Z,Europe/Paris]")
   }
 }

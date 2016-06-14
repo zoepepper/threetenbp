@@ -35,41 +35,41 @@ import org.testng.Assert.assertEquals
 import org.testng.Assert.assertFalse
 import org.testng.Assert.assertSame
 import org.testng.Assert.assertTrue
-import org.threeten.bp.temporal.ChronoField.ALIGNED_DAY_OF_WEEK_IN_MONTH
-import org.threeten.bp.temporal.ChronoField.ALIGNED_DAY_OF_WEEK_IN_YEAR
-import org.threeten.bp.temporal.ChronoField.ALIGNED_WEEK_OF_MONTH
-import org.threeten.bp.temporal.ChronoField.ALIGNED_WEEK_OF_YEAR
-import org.threeten.bp.temporal.ChronoField.AMPM_OF_DAY
-import org.threeten.bp.temporal.ChronoField.CLOCK_HOUR_OF_AMPM
-import org.threeten.bp.temporal.ChronoField.CLOCK_HOUR_OF_DAY
-import org.threeten.bp.temporal.ChronoField.DAY_OF_MONTH
-import org.threeten.bp.temporal.ChronoField.DAY_OF_WEEK
-import org.threeten.bp.temporal.ChronoField.DAY_OF_YEAR
-import org.threeten.bp.temporal.ChronoField.EPOCH_DAY
-import org.threeten.bp.temporal.ChronoField.ERA
-import org.threeten.bp.temporal.ChronoField.HOUR_OF_AMPM
-import org.threeten.bp.temporal.ChronoField.HOUR_OF_DAY
-import org.threeten.bp.temporal.ChronoField.MICRO_OF_DAY
-import org.threeten.bp.temporal.ChronoField.MICRO_OF_SECOND
-import org.threeten.bp.temporal.ChronoField.MILLI_OF_DAY
-import org.threeten.bp.temporal.ChronoField.MILLI_OF_SECOND
-import org.threeten.bp.temporal.ChronoField.MINUTE_OF_DAY
-import org.threeten.bp.temporal.ChronoField.MINUTE_OF_HOUR
-import org.threeten.bp.temporal.ChronoField.MONTH_OF_YEAR
-import org.threeten.bp.temporal.ChronoField.NANO_OF_DAY
-import org.threeten.bp.temporal.ChronoField.NANO_OF_SECOND
-import org.threeten.bp.temporal.ChronoField.PROLEPTIC_MONTH
-import org.threeten.bp.temporal.ChronoField.SECOND_OF_DAY
-import org.threeten.bp.temporal.ChronoField.SECOND_OF_MINUTE
-import org.threeten.bp.temporal.ChronoField.YEAR
-import org.threeten.bp.temporal.ChronoField.YEAR_OF_ERA
-import org.threeten.bp.temporal.ChronoUnit.HALF_DAYS
-import org.threeten.bp.temporal.ChronoUnit.HOURS
-import org.threeten.bp.temporal.ChronoUnit.MICROS
-import org.threeten.bp.temporal.ChronoUnit.MILLIS
-import org.threeten.bp.temporal.ChronoUnit.MINUTES
-import org.threeten.bp.temporal.ChronoUnit.NANOS
-import org.threeten.bp.temporal.ChronoUnit.SECONDS
+import java.time.temporal.ChronoField.ALIGNED_DAY_OF_WEEK_IN_MONTH
+import java.time.temporal.ChronoField.ALIGNED_DAY_OF_WEEK_IN_YEAR
+import java.time.temporal.ChronoField.ALIGNED_WEEK_OF_MONTH
+import java.time.temporal.ChronoField.ALIGNED_WEEK_OF_YEAR
+import java.time.temporal.ChronoField.AMPM_OF_DAY
+import java.time.temporal.ChronoField.CLOCK_HOUR_OF_AMPM
+import java.time.temporal.ChronoField.CLOCK_HOUR_OF_DAY
+import java.time.temporal.ChronoField.DAY_OF_MONTH
+import java.time.temporal.ChronoField.DAY_OF_WEEK
+import java.time.temporal.ChronoField.DAY_OF_YEAR
+import java.time.temporal.ChronoField.EPOCH_DAY
+import java.time.temporal.ChronoField.ERA
+import java.time.temporal.ChronoField.HOUR_OF_AMPM
+import java.time.temporal.ChronoField.HOUR_OF_DAY
+import java.time.temporal.ChronoField.MICRO_OF_DAY
+import java.time.temporal.ChronoField.MICRO_OF_SECOND
+import java.time.temporal.ChronoField.MILLI_OF_DAY
+import java.time.temporal.ChronoField.MILLI_OF_SECOND
+import java.time.temporal.ChronoField.MINUTE_OF_DAY
+import java.time.temporal.ChronoField.MINUTE_OF_HOUR
+import java.time.temporal.ChronoField.MONTH_OF_YEAR
+import java.time.temporal.ChronoField.NANO_OF_DAY
+import java.time.temporal.ChronoField.NANO_OF_SECOND
+import java.time.temporal.ChronoField.PROLEPTIC_MONTH
+import java.time.temporal.ChronoField.SECOND_OF_DAY
+import java.time.temporal.ChronoField.SECOND_OF_MINUTE
+import java.time.temporal.ChronoField.YEAR
+import java.time.temporal.ChronoField.YEAR_OF_ERA
+import java.time.temporal.ChronoUnit.HALF_DAYS
+import java.time.temporal.ChronoUnit.HOURS
+import java.time.temporal.ChronoUnit.MICROS
+import java.time.temporal.ChronoUnit.MILLIS
+import java.time.temporal.ChronoUnit.MINUTES
+import java.time.temporal.ChronoUnit.NANOS
+import java.time.temporal.ChronoUnit.SECONDS
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.IOException
@@ -77,23 +77,26 @@ import java.io.ObjectInputStream
 import java.io.ObjectOutputStream
 import java.lang.reflect.Field
 import java.lang.reflect.Modifier
+import java.time
+import java.time.Clock
 import java.util.Arrays
+
 import org.testng.annotations.BeforeMethod
 import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
-import org.threeten.bp.chrono.IsoChronology
-import org.threeten.bp.format.DateTimeFormatter
-import org.threeten.bp.format.DateTimeParseException
-import org.threeten.bp.temporal.ChronoField
-import org.threeten.bp.temporal.ChronoUnit
-import org.threeten.bp.temporal.JulianFields
-import org.threeten.bp.temporal.MockFieldNoValue
-import org.threeten.bp.temporal.Temporal
-import org.threeten.bp.temporal.TemporalAccessor
-import org.threeten.bp.temporal.TemporalAdjuster
-import org.threeten.bp.temporal.TemporalField
-import org.threeten.bp.temporal.TemporalQueries
-import org.threeten.bp.temporal.TemporalUnit
+import java.time.chrono.IsoChronology
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
+import java.time.temporal.ChronoField
+import java.time.temporal.ChronoUnit
+import java.time.temporal.JulianFields
+import java.time.temporal.MockFieldNoValue
+import java.time.temporal.Temporal
+import java.time.temporal.TemporalAccessor
+import java.time.temporal.TemporalAdjuster
+import java.time.temporal.TemporalField
+import java.time.temporal.TemporalQueries
+import java.time.temporal.TemporalUnit
 
 /** Test LocalDateTime. */
 @Test object TestLocalDateTime {
@@ -179,11 +182,11 @@ import org.threeten.bp.temporal.TemporalUnit
   }
 
   @Test(timeOut = 30000) def now(): Unit = {
-    var expected: LocalDateTime = LocalDateTime.now(Clock.systemDefaultZone)
+    var expected: LocalDateTime = LocalDateTime.now(time.Clock.systemDefaultZone)
     var test: LocalDateTime = LocalDateTime.now
     var diff: Long = Math.abs(test.toLocalTime.toNanoOfDay - expected.toLocalTime.toNanoOfDay)
     if (diff >= 100000000) {
-      expected = LocalDateTime.now(Clock.systemDefaultZone)
+      expected = LocalDateTime.now(time.Clock.systemDefaultZone)
       test = LocalDateTime.now
       diff = Math.abs(test.toLocalTime.toNanoOfDay - expected.toLocalTime.toNanoOfDay)
     }
@@ -196,13 +199,13 @@ import org.threeten.bp.temporal.TemporalUnit
 
   @Test def now_ZoneId(): Unit = {
     val zone: ZoneId = ZoneId.of("UTC+01:02:03")
-    var expected: LocalDateTime = LocalDateTime.now(Clock.system(zone))
+    var expected: LocalDateTime = LocalDateTime.now(time.Clock.system(zone))
     var test: LocalDateTime = LocalDateTime.now(zone)
     var i: Int = 0
     while (i < 100) {
       if (expected == test)
         return
-      expected = LocalDateTime.now(Clock.system(zone))
+      expected = LocalDateTime.now(time.Clock.system(zone))
       test = LocalDateTime.now(zone)
       i += 1
     }
@@ -217,7 +220,7 @@ import org.threeten.bp.temporal.TemporalUnit
     var i: Int = 0
     while (i < (2 * 24 * 60 * 60)) {
       val instant: Instant = Instant.ofEpochSecond(i).plusNanos(123456789L)
-      val clock: Clock = Clock.fixed(instant, ZoneOffset.UTC)
+      val clock: Clock = time.Clock.fixed(instant, ZoneOffset.UTC)
       val test: LocalDateTime = LocalDateTime.now(clock)
       assertEquals(test.getYear, 1970)
       assertEquals(test.getMonth, Month.JANUARY)
@@ -234,7 +237,7 @@ import org.threeten.bp.temporal.TemporalUnit
     var i: Int = 0
     while (i < (2 * 24 * 60 * 60)) {
       val instant: Instant = Instant.ofEpochSecond(i).plusNanos(123456789L)
-      val clock: Clock = Clock.fixed(instant.minusSeconds(TestLocalDateTime.OFFSET_PONE.getTotalSeconds), TestLocalDateTime.OFFSET_PONE)
+      val clock: Clock = time.Clock.fixed(instant.minusSeconds(TestLocalDateTime.OFFSET_PONE.getTotalSeconds), TestLocalDateTime.OFFSET_PONE)
       val test: LocalDateTime = LocalDateTime.now(clock)
       assertEquals(test.getYear, 1970)
       assertEquals(test.getMonth, Month.JANUARY)
@@ -252,7 +255,7 @@ import org.threeten.bp.temporal.TemporalUnit
     var i: Int = -1
     while (i >= -(24 * 60 * 60)) {
       val instant: Instant = Instant.ofEpochSecond(i).plusNanos(123456789L)
-      val clock: Clock = Clock.fixed(instant, ZoneOffset.UTC)
+      val clock: Clock = time.Clock.fixed(instant, ZoneOffset.UTC)
       val test: LocalDateTime = LocalDateTime.now(clock)
       assertEquals(test.getYear, 1969)
       assertEquals(test.getMonth, Month.DECEMBER)
@@ -264,24 +267,24 @@ import org.threeten.bp.temporal.TemporalUnit
   }
 
   @Test def now_Clock_maxYear(): Unit = {
-    val clock: Clock = Clock.fixed(MAX_INSTANT, ZoneOffset.UTC)
+    val clock: Clock = time.Clock.fixed(MAX_INSTANT, ZoneOffset.UTC)
     val test: LocalDateTime = LocalDateTime.now(clock)
     assertEquals(test, MAX_DATE_TIME)
   }
 
   @Test(expectedExceptions = Array(classOf[DateTimeException])) def now_Clock_tooBig(): Unit = {
-    val clock: Clock = Clock.fixed(MAX_INSTANT.plusSeconds(24 * 60 * 60), ZoneOffset.UTC)
+    val clock: Clock = time.Clock.fixed(MAX_INSTANT.plusSeconds(24 * 60 * 60), ZoneOffset.UTC)
     LocalDateTime.now(clock)
   }
 
   @Test def now_Clock_minYear(): Unit = {
-    val clock: Clock = Clock.fixed(MIN_INSTANT, ZoneOffset.UTC)
+    val clock: Clock = time.Clock.fixed(MIN_INSTANT, ZoneOffset.UTC)
     val test: LocalDateTime = LocalDateTime.now(clock)
     assertEquals(test, MIN_DATE_TIME)
   }
 
   @Test(expectedExceptions = Array(classOf[DateTimeException])) def now_Clock_tooLow(): Unit = {
-    val clock: Clock = Clock.fixed(MIN_INSTANT.minusNanos(1), ZoneOffset.UTC)
+    val clock: Clock = time.Clock.fixed(MIN_INSTANT.minusNanos(1), ZoneOffset.UTC)
     LocalDateTime.now(clock)
   }
 

@@ -29,15 +29,15 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.threeten.bp.format
+package java.time.format
 
 import org.testng.Assert.assertEquals
 import org.testng.Assert.assertTrue
-import org.threeten.bp.temporal.ChronoField.OFFSET_SECONDS
+import java.time.temporal.ChronoField.OFFSET_SECONDS
 import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
 import org.threeten.bp.ZoneOffset
-import org.threeten.bp.temporal.TemporalQueries
+import java.time.temporal.TemporalQueries
 
 /** Test OffsetIdPrinterParser. */
 @Test class TestZoneOffsetParser extends AbstractTestPrinterParser {

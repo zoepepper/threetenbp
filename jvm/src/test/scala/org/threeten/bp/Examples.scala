@@ -31,30 +31,34 @@
  */
 package org.threeten.bp
 
+import java.time.Clock
+
 import org.threeten.bp.Month.DECEMBER
-import org.threeten.bp.temporal.ChronoField.DAY_OF_MONTH
-import org.threeten.bp.temporal.ChronoField.DAY_OF_YEAR
-import org.threeten.bp.temporal.ChronoField.MONTH_OF_YEAR
-import org.threeten.bp.temporal.ChronoField.YEAR
-import org.threeten.bp.temporal.TemporalAdjusters.lastDayOfMonth
+import java.time.temporal.ChronoField.DAY_OF_MONTH
+import java.time.temporal.ChronoField.DAY_OF_YEAR
+import java.time.temporal.ChronoField.MONTH_OF_YEAR
+import java.time.temporal.ChronoField.YEAR
+import java.time.temporal.TemporalAdjusters.lastDayOfMonth
 import java.util.Locale
-import org.threeten.bp.format.DateTimeFormatter
-import org.threeten.bp.format.DateTimeFormatterBuilder
-import org.threeten.bp.format.SignStyle
+
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeFormatterBuilder
+import java.time.format.SignStyle
 
 /** Examples for this project.
   */
 object Examples {
   /** Main method.
+ *
     * @param args  no arguments needed
     */
   def main(args: Array[String]): Unit = {
-    val clock: Clock = Clock.systemDefaultZone
+    val clock: Clock = java.time.Clock.systemDefaultZone
     val zdt: ZonedDateTime = ZonedDateTime.now(clock)
     System.out.println("Current date-time: " + zdt)
-    val zdtNewYork: ZonedDateTime = ZonedDateTime.now(Clock.system(ZoneId.of("America/New_York")))
+    val zdtNewYork: ZonedDateTime = ZonedDateTime.now(java.time.Clock.system(ZoneId.of("America/New_York")))
     System.out.println("Current date-time in New York: " + zdtNewYork)
-    val zdtParis: ZonedDateTime = ZonedDateTime.now(Clock.system(ZoneId.of("Europe/Paris")))
+    val zdtParis: ZonedDateTime = ZonedDateTime.now(java.time.Clock.system(ZoneId.of("Europe/Paris")))
     System.out.println("Current date-time in Paris: " + zdtParis)
     val ldt: LocalDateTime = LocalDateTime.now(clock)
     System.out.println("Current local date-time: " + ldt)

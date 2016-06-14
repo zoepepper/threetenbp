@@ -35,56 +35,59 @@ import org.testng.Assert.assertEquals
 import org.testng.Assert.assertNotNull
 import org.testng.Assert.assertTrue
 import org.testng.Assert.fail
-import org.threeten.bp.temporal.ChronoField.AMPM_OF_DAY
-import org.threeten.bp.temporal.ChronoField.CLOCK_HOUR_OF_AMPM
-import org.threeten.bp.temporal.ChronoField.CLOCK_HOUR_OF_DAY
-import org.threeten.bp.temporal.ChronoField.HOUR_OF_AMPM
-import org.threeten.bp.temporal.ChronoField.HOUR_OF_DAY
-import org.threeten.bp.temporal.ChronoField.MICRO_OF_DAY
-import org.threeten.bp.temporal.ChronoField.MICRO_OF_SECOND
-import org.threeten.bp.temporal.ChronoField.MILLI_OF_DAY
-import org.threeten.bp.temporal.ChronoField.MILLI_OF_SECOND
-import org.threeten.bp.temporal.ChronoField.MINUTE_OF_DAY
-import org.threeten.bp.temporal.ChronoField.MINUTE_OF_HOUR
-import org.threeten.bp.temporal.ChronoField.NANO_OF_DAY
-import org.threeten.bp.temporal.ChronoField.NANO_OF_SECOND
-import org.threeten.bp.temporal.ChronoField.SECOND_OF_DAY
-import org.threeten.bp.temporal.ChronoField.SECOND_OF_MINUTE
-import org.threeten.bp.temporal.ChronoUnit.DAYS
-import org.threeten.bp.temporal.ChronoUnit.FOREVER
-import org.threeten.bp.temporal.ChronoUnit.HALF_DAYS
-import org.threeten.bp.temporal.ChronoUnit.HOURS
-import org.threeten.bp.temporal.ChronoUnit.MICROS
-import org.threeten.bp.temporal.ChronoUnit.MILLIS
-import org.threeten.bp.temporal.ChronoUnit.MINUTES
-import org.threeten.bp.temporal.ChronoUnit.MONTHS
-import org.threeten.bp.temporal.ChronoUnit.NANOS
-import org.threeten.bp.temporal.ChronoUnit.SECONDS
-import org.threeten.bp.temporal.ChronoUnit.WEEKS
-import org.threeten.bp.temporal.ChronoUnit.YEARS
+import java.time.temporal.ChronoField.AMPM_OF_DAY
+import java.time.temporal.ChronoField.CLOCK_HOUR_OF_AMPM
+import java.time.temporal.ChronoField.CLOCK_HOUR_OF_DAY
+import java.time.temporal.ChronoField.HOUR_OF_AMPM
+import java.time.temporal.ChronoField.HOUR_OF_DAY
+import java.time.temporal.ChronoField.MICRO_OF_DAY
+import java.time.temporal.ChronoField.MICRO_OF_SECOND
+import java.time.temporal.ChronoField.MILLI_OF_DAY
+import java.time.temporal.ChronoField.MILLI_OF_SECOND
+import java.time.temporal.ChronoField.MINUTE_OF_DAY
+import java.time.temporal.ChronoField.MINUTE_OF_HOUR
+import java.time.temporal.ChronoField.NANO_OF_DAY
+import java.time.temporal.ChronoField.NANO_OF_SECOND
+import java.time.temporal.ChronoField.SECOND_OF_DAY
+import java.time.temporal.ChronoField.SECOND_OF_MINUTE
+import java.time.temporal.ChronoUnit.DAYS
+import java.time.temporal.ChronoUnit.FOREVER
+import java.time.temporal.ChronoUnit.HALF_DAYS
+import java.time.temporal.ChronoUnit.HOURS
+import java.time.temporal.ChronoUnit.MICROS
+import java.time.temporal.ChronoUnit.MILLIS
+import java.time.temporal.ChronoUnit.MINUTES
+import java.time.temporal.ChronoUnit.MONTHS
+import java.time.temporal.ChronoUnit.NANOS
+import java.time.temporal.ChronoUnit.SECONDS
+import java.time.temporal.ChronoUnit.WEEKS
+import java.time.temporal.ChronoUnit.YEARS
 import java.io.IOException
+import java.time
+import java.time.Clock
 import java.util.ArrayList
 import java.util.Arrays
 import java.util.EnumSet
 import java.util.Iterator
 import java.util.List
+
 import org.testng.annotations.BeforeMethod
 import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
-import org.threeten.bp.format.DateTimeFormatter
-import org.threeten.bp.format.DateTimeParseException
-import org.threeten.bp.temporal.ChronoField
-import org.threeten.bp.temporal.ChronoUnit
-import org.threeten.bp.temporal.JulianFields
-import org.threeten.bp.temporal.MockFieldNoValue
-import org.threeten.bp.temporal.Temporal
-import org.threeten.bp.temporal.TemporalAccessor
-import org.threeten.bp.temporal.TemporalAdjuster
-import org.threeten.bp.temporal.TemporalAmount
-import org.threeten.bp.temporal.TemporalField
-import org.threeten.bp.temporal.TemporalQueries
-import org.threeten.bp.temporal.TemporalUnit
-import org.threeten.bp.temporal.UnsupportedTemporalTypeException
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
+import java.time.temporal.ChronoField
+import java.time.temporal.ChronoUnit
+import java.time.temporal.JulianFields
+import java.time.temporal.MockFieldNoValue
+import java.time.temporal.Temporal
+import java.time.temporal.TemporalAccessor
+import java.time.temporal.TemporalAdjuster
+import java.time.temporal.TemporalAmount
+import java.time.temporal.TemporalField
+import java.time.temporal.TemporalQueries
+import java.time.temporal.TemporalUnit
+import java.time.temporal.UnsupportedTemporalTypeException
 
 /** Test LocalTime. */
 @Test object TestLocalTime {
@@ -179,7 +182,7 @@ import org.threeten.bp.temporal.UnsupportedTemporalTypeException
   }
 
   @Test def now(): Unit = {
-    val expected: LocalTime = LocalTime.now(Clock.systemDefaultZone)
+    val expected: LocalTime = LocalTime.now(time.Clock.systemDefaultZone)
     val test: LocalTime = LocalTime.now
     val diff: Long = Math.abs(test.toNanoOfDay - expected.toNanoOfDay)
     assertTrue(diff < 100000000)
@@ -191,7 +194,7 @@ import org.threeten.bp.temporal.UnsupportedTemporalTypeException
 
   @Test def now_ZoneId(): Unit = {
     val zone: ZoneId = ZoneId.of("UTC+01:02:03")
-    var expected: LocalTime = LocalTime.now(Clock.system(zone))
+    var expected: LocalTime = LocalTime.now(time.Clock.system(zone))
     var test: LocalTime = LocalTime.now(zone)
     
     {
@@ -201,7 +204,7 @@ import org.threeten.bp.temporal.UnsupportedTemporalTypeException
           if (expected == test) {
             return
           }
-          expected = LocalTime.now(Clock.system(zone))
+          expected = LocalTime.now(time.Clock.system(zone))
           test = LocalTime.now(zone)
         }
         {
@@ -223,7 +226,7 @@ import org.threeten.bp.temporal.UnsupportedTemporalTypeException
       while (i < (2 * 24 * 60 * 60)) {
         {
           val instant: Instant = Instant.ofEpochSecond(i, 8)
-          val clock: Clock = Clock.fixed(instant, ZoneOffset.UTC)
+          val clock: Clock = time.Clock.fixed(instant, ZoneOffset.UTC)
           val test: LocalTime = LocalTime.now(clock)
           assertEquals(test.getHour, (i / (60 * 60)) % 24)
           assertEquals(test.getMinute, (i / 60) % 60)
@@ -244,7 +247,7 @@ import org.threeten.bp.temporal.UnsupportedTemporalTypeException
       while (i >= -(24 * 60 * 60)) {
         {
           val instant: Instant = Instant.ofEpochSecond(i, 8)
-          val clock: Clock = Clock.fixed(instant, ZoneOffset.UTC)
+          val clock: Clock = time.Clock.fixed(instant, ZoneOffset.UTC)
           val test: LocalTime = LocalTime.now(clock)
           assertEquals(test.getHour, ((i + 24 * 60 * 60) / (60 * 60)) % 24)
           assertEquals(test.getMinute, ((i + 24 * 60 * 60) / 60) % 60)
@@ -260,7 +263,7 @@ import org.threeten.bp.temporal.UnsupportedTemporalTypeException
   }
 
   @Test def now_Clock_max(): Unit = {
-    val clock: Clock = Clock.fixed(Instant.MAX, ZoneOffset.UTC)
+    val clock: Clock = time.Clock.fixed(Instant.MAX, ZoneOffset.UTC)
     val test: LocalTime = LocalTime.now(clock)
     assertEquals(test.getHour, 23)
     assertEquals(test.getMinute, 59)
@@ -269,7 +272,7 @@ import org.threeten.bp.temporal.UnsupportedTemporalTypeException
   }
 
   @Test def now_Clock_min(): Unit = {
-    val clock: Clock = Clock.fixed(Instant.MIN, ZoneOffset.UTC)
+    val clock: Clock = time.Clock.fixed(Instant.MIN, ZoneOffset.UTC)
     val test: LocalTime = LocalTime.now(clock)
     assertEquals(test.getHour, 0)
     assertEquals(test.getMinute, 0)

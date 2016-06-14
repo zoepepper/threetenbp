@@ -29,17 +29,19 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.threeten.bp.chrono
+package java.time.chrono
 
 import java.util.Objects
 
-import org.threeten.bp.chrono.MinguoChronology.YEARS_DIFFERENCE
+import java.time.chrono.ThaiBuddhistChronology.YEARS_DIFFERENCE
 import org.threeten.bp.temporal.ChronoField._
 import java.io.DataInput
 import java.io.DataOutput
 import java.io.IOException
 import java.io.Serializable
-import org.threeten.bp.Clock
+import java.time
+import java.time.Clock
+
 import org.threeten.bp.DateTimeException
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalTime
@@ -54,9 +56,9 @@ import org.threeten.bp.temporal.TemporalUnit
 import org.threeten.bp.temporal.UnsupportedTemporalTypeException
 import org.threeten.bp.temporal.ValueRange
 
-@SerialVersionUID(1300372329181994526L)
-object MinguoDate {
-  /** Obtains the current {@code MinguoDate} from the system clock in the default time-zone.
+@SerialVersionUID(-8722293800195731463L)
+object ThaiBuddhistDate {
+  /** Obtains the current {@code ThaiBuddhistDate} from the system clock in the default time-zone.
     *
     * This will query the {@link Clock#systemDefaultZone() system clock} in the default
     * time-zone to obtain the current date.
@@ -66,9 +68,9 @@ object MinguoDate {
     *
     * @return the current date using the system clock and default time-zone, not null
     */
-  def now: MinguoDate = now(Clock.systemDefaultZone)
+  def now: ThaiBuddhistDate = now(time.Clock.systemDefaultZone)
 
-  /** Obtains the current {@code MinguoDate} from the system clock in the specified time-zone.
+  /** Obtains the current {@code ThaiBuddhistDate} from the system clock in the specified time-zone.
     *
     * This will query the {@link Clock#system(ZoneId) system clock} to obtain the current date.
     * Specifying the time-zone avoids dependence on the default time-zone.
@@ -79,9 +81,9 @@ object MinguoDate {
     * @param zone  the zone ID to use, not null
     * @return the current date using the system clock, not null
     */
-  def now(zone: ZoneId): MinguoDate = now(Clock.system(zone))
+  def now(zone: ZoneId): ThaiBuddhistDate = now(time.Clock.system(zone))
 
-  /** Obtains the current {@code MinguoDate} from the specified clock.
+  /** Obtains the current {@code ThaiBuddhistDate} from the specified clock.
     *
     * This will query the specified clock to obtain the current date - today.
     * Using this method allows the use of an alternate clock for testing.
@@ -91,56 +93,57 @@ object MinguoDate {
     * @return the current date, not null
     * @throws DateTimeException if the current date cannot be obtained
     */
-  def now(clock: Clock): MinguoDate = new MinguoDate(LocalDate.now(clock))
+  def now(clock: Clock): ThaiBuddhistDate = new ThaiBuddhistDate(LocalDate.now(clock))
 
-  /** Obtains a {@code MinguoDate} representing a date in the Minguo calendar
+  /** Obtains a {@code ThaiBuddhistDate} representing a date in the Thai Buddhist calendar
     * system from the proleptic-year, month-of-year and day-of-month fields.
     *
-    * This returns a {@code MinguoDate} with the specified fields.
+    * This returns a {@code ThaiBuddhistDate} with the specified fields.
     * The day must be valid for the year and month, otherwise an exception will be thrown.
     *
-    * @param prolepticYear  the Minguo proleptic-year
-    * @param month  the Minguo month-of-year, from 1 to 12
-    * @param dayOfMonth  the Minguo day-of-month, from 1 to 31
-    * @return the date in Minguo calendar system, not null
+    * @param prolepticYear  the Thai Buddhist proleptic-year
+    * @param month  the Thai Buddhist month-of-year, from 1 to 12
+    * @param dayOfMonth  the Thai Buddhist day-of-month, from 1 to 31
+    * @return the date in Thai Buddhist calendar system, not null
     * @throws DateTimeException if the value of any field is out of range,
     *                           or if the day-of-month is invalid for the month-year
     */
-  def of(prolepticYear: Int, month: Int, dayOfMonth: Int): MinguoDate =
-    MinguoChronology.INSTANCE.date(prolepticYear, month, dayOfMonth)
+  def of(prolepticYear: Int, month: Int, dayOfMonth: Int): ThaiBuddhistDate =
+    ThaiBuddhistChronology.INSTANCE.date(prolepticYear, month, dayOfMonth)
 
-  /** Obtains a {@code MinguoDate} from a temporal object.
+  /** Obtains a {@code ThaiBuddhistDate} from a temporal object.
     *
-    * This obtains a date in the Minguo calendar system based on the specified temporal.
+    * This obtains a date in the Thai Buddhist calendar system based on the specified temporal.
     * A {@code TemporalAccessor} represents an arbitrary set of date and time information,
-    * which this factory converts to an instance of {@code MinguoDate}.
+    * which this factory converts to an instance of {@code ThaiBuddhistDate}.
     *
     * The conversion typically uses the {@link ChronoField#EPOCH_DAY EPOCH_DAY}
     * field, which is standardized across calendar systems.
     *
     * This method matches the signature of the functional interface {@link TemporalQuery}
-    * allowing it to be used as a query via method reference, {@code MinguoDate::from}.
+    * allowing it to be used as a query via method reference, {@code ThaiBuddhistDate::from}.
     *
     * @param temporal  the temporal object to convert, not null
-    * @return the date in Minguo calendar system, not null
-    * @throws DateTimeException if unable to convert to a { @code MinguoDate}
+    * @return the date in Thai Buddhist calendar system, not null
+    * @throws DateTimeException if unable to convert to a { @code ThaiBuddhistDate}
     */
-  def from(temporal: TemporalAccessor): MinguoDate = MinguoChronology.INSTANCE.date(temporal)
+  def from(temporal: TemporalAccessor): ThaiBuddhistDate =
+    ThaiBuddhistChronology.INSTANCE.date(temporal)
 
-  @throws(classOf[IOException])
+  @throws[IOException]
   private[chrono] def readExternal(in: DataInput): ChronoLocalDate = {
     val year: Int = in.readInt
     val month: Int = in.readByte
     val dayOfMonth: Int = in.readByte
-    MinguoChronology.INSTANCE.date(year, month, dayOfMonth)
+    ThaiBuddhistChronology.INSTANCE.date(year, month, dayOfMonth)
   }
 }
 
-/** A date in the Minguo calendar system.
+/** A date in the Thai Buddhist calendar system.
   *
-  * This date operates using the {@linkplain MinguoChronology Minguo calendar}.
-  * This calendar system is primarily used in the Republic of China, often known as Taiwan.
-  * Dates are aligned such that {@code 0001-01-01 (Minguo)} is {@code 1912-01-01 (ISO)}.
+  * This date operates using the {@linkplain ThaiBuddhistChronology Thai Buddhist calendar}.
+  * This calendar system is primarily used in Thailand.
+  * Dates are aligned such that {@code 2484-01-01 (Buddhist)} is {@code 1941-01-01 (ISO)}.
   *
   * <h3>Specification for implementors</h3>
   * This class is immutable and thread-safe.
@@ -149,13 +152,13 @@ object MinguoDate {
   *
   * @param isoDate  the standard local date, validated not null
   */
-@SerialVersionUID(1300372329181994526L)
-final class MinguoDate private[chrono](private val isoDate: LocalDate) extends ChronoDateImpl[MinguoDate] with Serializable {
+@SerialVersionUID(-8722293800195731463L)
+final class ThaiBuddhistDate private[chrono](private val isoDate: LocalDate) extends ChronoDateImpl[ThaiBuddhistDate] with Serializable {
   Objects.requireNonNull(isoDate, "date")
 
-  def getChronology: MinguoChronology = MinguoChronology.INSTANCE
+  def getChronology: ThaiBuddhistChronology = ThaiBuddhistChronology.INSTANCE
 
-  override def getEra: MinguoEra = super.getEra.asInstanceOf[MinguoEra]
+  override def getEra: ThaiBuddhistEra = super.getEra.asInstanceOf[ThaiBuddhistEra]
 
   def lengthOfMonth: Int = isoDate.lengthOfMonth
 
@@ -169,8 +172,8 @@ final class MinguoDate private[chrono](private val isoDate: LocalDate) extends C
              | ALIGNED_WEEK_OF_MONTH => isoDate.range(field)
           case YEAR_OF_ERA           => val range: ValueRange = YEAR.range
                                         val max: Long =
-                                          if (getProlepticYear <= 0) -range.getMinimum + 1 + YEARS_DIFFERENCE
-                                          else range.getMaximum - YEARS_DIFFERENCE
+                                          if (getProlepticYear <= 0) -(range.getMinimum + YEARS_DIFFERENCE) + 1
+                                          else range.getMaximum + YEARS_DIFFERENCE
                                         ValueRange.of(1, max)
           case _                     => getChronology.range(f)
         }
@@ -183,69 +186,70 @@ final class MinguoDate private[chrono](private val isoDate: LocalDate) extends C
   }
 
   def getLong(field: TemporalField): Long =
-    if (field.isInstanceOf[ChronoField])
-      field.asInstanceOf[ChronoField] match {
-        case PROLEPTIC_MONTH => getProlepticMonth
-        case YEAR_OF_ERA     => val prolepticYear: Int = getProlepticYear
-                                if (prolepticYear >= 1) prolepticYear else 1 - prolepticYear
-        case YEAR            => getProlepticYear
-        case ERA             => if (getProlepticYear >= 1) 1 else 0
-        case _               => isoDate.getLong(field)
-      }
-    else
-      field.getFrom(this)
+    field match {
+      case PROLEPTIC_MONTH     => getProlepticMonth
+      case YEAR_OF_ERA         => val prolepticYear: Int = getProlepticYear
+                                  if (prolepticYear >= 1) prolepticYear else 1 - prolepticYear
+      case YEAR                => getProlepticYear
+      case ERA                 => if (getProlepticYear >= 1) 1 else 0
+      case chrono: ChronoField => isoDate.getLong(field)
+      case _                   => field.getFrom(this)
+  }
 
   private def getProlepticMonth: Long = getProlepticYear * 12L + isoDate.getMonthValue - 1
 
-  private def getProlepticYear: Int = isoDate.getYear - YEARS_DIFFERENCE
+  private def getProlepticYear: Int = isoDate.getYear + YEARS_DIFFERENCE
 
-  override def `with`(adjuster: TemporalAdjuster): MinguoDate = super.`with`(adjuster).asInstanceOf[MinguoDate]
+  override def `with`(adjuster: TemporalAdjuster): ThaiBuddhistDate = super.`with`(adjuster).asInstanceOf[ThaiBuddhistDate]
 
-  def `with`(field: TemporalField, newValue: Long): MinguoDate =
+  def `with`(field: TemporalField, newValue: Long): ThaiBuddhistDate = {
     if (field.isInstanceOf[ChronoField]) {
       val f: ChronoField = field.asInstanceOf[ChronoField]
       if (getLong(f) == newValue)
-        this
-      else
-        f match {
-          case PROLEPTIC_MONTH => getChronology.range(f).checkValidValue(newValue, f)
-                                  plusMonths(newValue - getProlepticMonth)
-          case YEAR_OF_ERA
-             | YEAR
-             | ERA             => val nvalue: Int = getChronology.range(f).checkValidIntValue(newValue, f)
-                                  f match {
-                                    case YEAR_OF_ERA => `with`(isoDate.withYear(if (getProlepticYear >= 1) nvalue + YEARS_DIFFERENCE else (1 - nvalue) + YEARS_DIFFERENCE))
-                                    case YEAR        => `with`(isoDate.withYear(nvalue + YEARS_DIFFERENCE))
-                                    case ERA         => `with`(isoDate.withYear((1 - getProlepticYear) + YEARS_DIFFERENCE))
-                                  }
-          case _               => `with`(isoDate.`with`(field, newValue))
-        }
-    } else {
-      field.adjustInto(this, newValue)
+        return this
+      f match {
+        case PROLEPTIC_MONTH =>
+          getChronology.range(f).checkValidValue(newValue, f)
+          return plusMonths(newValue - getProlepticMonth)
+        case YEAR_OF_ERA | YEAR | ERA =>
+          val nvalue: Int = getChronology.range(f).checkValidIntValue(newValue, f)
+          f match {
+            case YEAR_OF_ERA =>
+              return `with`(isoDate.withYear((if (getProlepticYear >= 1) nvalue else 1 - nvalue) - YEARS_DIFFERENCE))
+            case YEAR =>
+              return `with`(isoDate.withYear(nvalue - YEARS_DIFFERENCE))
+            case ERA =>
+              return `with`(isoDate.withYear((1 - getProlepticYear) - YEARS_DIFFERENCE))
+          }
+        case _ =>
+          return `with`(isoDate.`with`(field, newValue))
+      }
     }
+    field.adjustInto(this, newValue)
+  }
 
-  override def plus(amount: TemporalAmount): MinguoDate =
-    super.plus(amount).asInstanceOf[MinguoDate]
+  override def plus(amount: TemporalAmount): ThaiBuddhistDate = super.plus(amount).asInstanceOf[ThaiBuddhistDate]
 
-  override def plus(amountToAdd: Long, unit: TemporalUnit): MinguoDate =
-    super.plus(amountToAdd, unit).asInstanceOf[MinguoDate]
+  override def plus(amountToAdd: Long, unit: TemporalUnit): ThaiBuddhistDate =
+    super.plus(amountToAdd, unit).asInstanceOf[ThaiBuddhistDate]
 
-  override def minus(amount: TemporalAmount): MinguoDate =
-    super.minus(amount).asInstanceOf[MinguoDate]
+  override def minus(amount: TemporalAmount): ThaiBuddhistDate = super.minus(amount).asInstanceOf[ThaiBuddhistDate]
 
-  override def minus(amountToAdd: Long, unit: TemporalUnit): MinguoDate =
-    super.minus(amountToAdd, unit).asInstanceOf[MinguoDate]
+  override def minus(amountToAdd: Long, unit: TemporalUnit): ThaiBuddhistDate =
+    super.minus(amountToAdd, unit).asInstanceOf[ThaiBuddhistDate]
 
-  private[chrono] def plusYears(years: Long): MinguoDate = `with`(isoDate.plusYears(years))
+  private[chrono] def plusYears(years: Long): ThaiBuddhistDate = `with`(isoDate.plusYears(years))
 
-  private[chrono] def plusMonths(months: Long): MinguoDate = `with`(isoDate.plusMonths(months))
+  private[chrono] def plusMonths(months: Long): ThaiBuddhistDate = `with`(isoDate.plusMonths(months))
 
-  private[chrono] def plusDays(days: Long): MinguoDate = `with`(isoDate.plusDays(days))
+  private[chrono] def plusDays(days: Long): ThaiBuddhistDate = `with`(isoDate.plusDays(days))
 
-  private def `with`(newDate: LocalDate): MinguoDate = if (newDate == isoDate) this else new MinguoDate(newDate)
+  private def `with`(newDate: LocalDate): ThaiBuddhistDate =
+    if (newDate == isoDate) this
+    else new ThaiBuddhistDate(newDate)
 
-  override def atTime(localTime: LocalTime): ChronoLocalDateTime[MinguoDate] =
-    super.atTime(localTime).asInstanceOf[ChronoLocalDateTime[MinguoDate]]
+  override def atTime(localTime: LocalTime): ChronoLocalDateTime[ThaiBuddhistDate] =
+    super.atTime(localTime).asInstanceOf[ChronoLocalDateTime[ThaiBuddhistDate]]
 
   override def until(endDate: ChronoLocalDate): ChronoPeriod = {
     val period: Period = isoDate.until(endDate)
@@ -256,18 +260,18 @@ final class MinguoDate private[chrono](private val isoDate: LocalDate) extends C
 
   override def equals(obj: Any): Boolean =
     obj match {
-      case otherDate: MinguoDate => (this eq otherDate) || this.isoDate == otherDate.isoDate
+      case otherDate: ThaiBuddhistDate => (this eq otherDate) || this.isoDate == otherDate.isoDate
       case _ => false
     }
 
   override def hashCode: Int = getChronology.getId.hashCode ^ isoDate.hashCode
 
-  private def writeReplace: AnyRef = new Ser(Ser.MINGUO_DATE_TYPE, this)
+  private def writeReplace: AnyRef = new Ser(Ser.THAIBUDDHIST_DATE_TYPE, this)
 
   @throws[IOException]
   private[chrono] def writeExternal(out: DataOutput): Unit = {
-    out.writeInt(get(YEAR))
-    out.writeByte(get(MONTH_OF_YEAR))
-    out.writeByte(get(DAY_OF_MONTH))
+    out.writeInt(this.get(YEAR))
+    out.writeByte(this.get(MONTH_OF_YEAR))
+    out.writeByte(this.get(DAY_OF_MONTH))
   }
 }

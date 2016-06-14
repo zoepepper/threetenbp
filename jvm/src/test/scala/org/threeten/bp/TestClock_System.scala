@@ -36,6 +36,9 @@ import org.testng.Assert.assertEquals
 import org.testng.Assert.assertSame
 import org.testng.Assert.fail
 import java.io.IOException
+import java.time
+import java.time.Clock
+
 import org.testng.annotations.Test
 
 /** Test system clock. */
@@ -48,13 +51,13 @@ import org.testng.annotations.Test
   @throws(classOf[IOException])
   @throws(classOf[ClassNotFoundException])
   def test_isSerializable(): Unit = {
-    AbstractTest.assertSerializable(Clock.systemUTC)
-    AbstractTest.assertSerializable(Clock.systemDefaultZone)
-    AbstractTest.assertSerializable(Clock.system(TestClock_System.PARIS))
+    AbstractTest.assertSerializable(time.Clock.systemUTC)
+    AbstractTest.assertSerializable(time.Clock.systemDefaultZone)
+    AbstractTest.assertSerializable(time.Clock.system(TestClock_System.PARIS))
   }
 
   def test_instant(): Unit = {
-    val system: Clock = Clock.systemUTC
+    val system: Clock = time.Clock.systemUTC
     assertEquals(system.getZone, ZoneOffset.UTC)
 
     {
@@ -77,7 +80,7 @@ import org.testng.annotations.Test
   }
 
   def test_millis(): Unit = {
-    val system: Clock = Clock.systemUTC
+    val system: Clock = time.Clock.systemUTC
     assertEquals(system.getZone, ZoneOffset.UTC)
 
     {
@@ -100,58 +103,58 @@ import org.testng.annotations.Test
   }
 
   def test_systemUTC(): Unit = {
-    val test: Clock = Clock.systemUTC
+    val test: Clock = time.Clock.systemUTC
     assertEquals(test.getZone, ZoneOffset.UTC)
-    assertEquals(test, Clock.system(ZoneOffset.UTC))
+    assertEquals(test, time.Clock.system(ZoneOffset.UTC))
   }
 
   def test_systemDefaultZone(): Unit = {
-    val test: Clock = Clock.systemDefaultZone
+    val test: Clock = time.Clock.systemDefaultZone
     assertEquals(test.getZone, ZoneId.systemDefault)
-    assertEquals(test, Clock.system(ZoneId.systemDefault))
+    assertEquals(test, time.Clock.system(ZoneId.systemDefault))
   }
 
   def test_system_ZoneId(): Unit = {
-    val test: Clock = Clock.system(TestClock_System.PARIS)
+    val test: Clock = time.Clock.system(TestClock_System.PARIS)
     assertEquals(test.getZone, TestClock_System.PARIS)
   }
 
   @Test(expectedExceptions = Array(classOf[NullPointerException])) def test_zoneId_nullZoneId(): Unit = {
-    Clock.system(null)
+    time.Clock.system(null)
   }
 
   def test_withZone(): Unit = {
-    val test: Clock = Clock.system(TestClock_System.PARIS)
+    val test: Clock = time.Clock.system(TestClock_System.PARIS)
     val changed: Clock = test.withZone(TestClock_System.MOSCOW)
     assertEquals(test.getZone, TestClock_System.PARIS)
     assertEquals(changed.getZone, TestClock_System.MOSCOW)
   }
 
   def test_withZone_same(): Unit = {
-    val test: Clock = Clock.system(TestClock_System.PARIS)
+    val test: Clock = time.Clock.system(TestClock_System.PARIS)
     val changed: Clock = test.withZone(TestClock_System.PARIS)
     assertSame(test, changed)
   }
 
   def test_withZone_fromUTC(): Unit = {
-    val test: Clock = Clock.systemUTC
+    val test: Clock = time.Clock.systemUTC
     val changed: Clock = test.withZone(TestClock_System.PARIS)
     assertEquals(changed.getZone, TestClock_System.PARIS)
   }
 
   @Test(expectedExceptions = Array(classOf[NullPointerException])) def test_withZone_null(): Unit = {
-    Clock.systemUTC.withZone(null)
+    time.Clock.systemUTC.withZone(null)
   }
 
   def test_equals(): Unit = {
-    val a: Clock = Clock.systemUTC
-    val b: Clock = Clock.systemUTC
+    val a: Clock = time.Clock.systemUTC
+    val b: Clock = time.Clock.systemUTC
     assertEquals(a == a, true)
     assertEquals(a == b, true)
     assertEquals(b == a, true)
     assertEquals(b == b, true)
-    val c: Clock = Clock.system(TestClock_System.PARIS)
-    val d: Clock = Clock.system(TestClock_System.PARIS)
+    val c: Clock = time.Clock.system(TestClock_System.PARIS)
+    val d: Clock = time.Clock.system(TestClock_System.PARIS)
     assertEquals(c == c, true)
     assertEquals(c == d, true)
     assertEquals(d == c, true)
@@ -160,20 +163,20 @@ import org.testng.annotations.Test
     assertEquals(c == a, false)
     assertEquals(a == null, false)
     assertEquals(a == "other type", false)
-    assertEquals(a == Clock.fixed(Instant.now, ZoneOffset.UTC), false)
+    assertEquals(a == time.Clock.fixed(Instant.now, ZoneOffset.UTC), false)
   }
 
   def test_hashCode(): Unit = {
-    val a: Clock = Clock.system(ZoneOffset.UTC)
-    val b: Clock = Clock.system(ZoneOffset.UTC)
+    val a: Clock = time.Clock.system(ZoneOffset.UTC)
+    val b: Clock = time.Clock.system(ZoneOffset.UTC)
     assertEquals(a.hashCode, a.hashCode)
     assertEquals(a.hashCode, b.hashCode)
-    val c: Clock = Clock.system(TestClock_System.PARIS)
+    val c: Clock = time.Clock.system(TestClock_System.PARIS)
     assertEquals(a.hashCode == c.hashCode, false)
   }
 
   def test_toString(): Unit = {
-    val test: Clock = Clock.system(TestClock_System.PARIS)
+    val test: Clock = time.Clock.system(TestClock_System.PARIS)
     assertEquals(test.toString, "SystemClock[Europe/Paris]")
   }
 }

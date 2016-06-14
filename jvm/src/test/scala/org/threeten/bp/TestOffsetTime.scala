@@ -34,41 +34,44 @@ package org.threeten.bp
 import org.testng.Assert.assertEquals
 import org.testng.Assert.assertNotNull
 import org.testng.Assert.assertTrue
-import org.threeten.bp.temporal.ChronoField.AMPM_OF_DAY
-import org.threeten.bp.temporal.ChronoField.CLOCK_HOUR_OF_AMPM
-import org.threeten.bp.temporal.ChronoField.CLOCK_HOUR_OF_DAY
-import org.threeten.bp.temporal.ChronoField.HOUR_OF_AMPM
-import org.threeten.bp.temporal.ChronoField.HOUR_OF_DAY
-import org.threeten.bp.temporal.ChronoField.MICRO_OF_DAY
-import org.threeten.bp.temporal.ChronoField.MICRO_OF_SECOND
-import org.threeten.bp.temporal.ChronoField.MILLI_OF_DAY
-import org.threeten.bp.temporal.ChronoField.MILLI_OF_SECOND
-import org.threeten.bp.temporal.ChronoField.MINUTE_OF_DAY
-import org.threeten.bp.temporal.ChronoField.MINUTE_OF_HOUR
-import org.threeten.bp.temporal.ChronoField.NANO_OF_DAY
-import org.threeten.bp.temporal.ChronoField.NANO_OF_SECOND
-import org.threeten.bp.temporal.ChronoField.OFFSET_SECONDS
-import org.threeten.bp.temporal.ChronoField.SECOND_OF_DAY
-import org.threeten.bp.temporal.ChronoField.SECOND_OF_MINUTE
-import org.threeten.bp.temporal.ChronoUnit.DAYS
-import org.threeten.bp.temporal.ChronoUnit.NANOS
-import org.threeten.bp.temporal.ChronoUnit.SECONDS
+import java.time.temporal.ChronoField.AMPM_OF_DAY
+import java.time.temporal.ChronoField.CLOCK_HOUR_OF_AMPM
+import java.time.temporal.ChronoField.CLOCK_HOUR_OF_DAY
+import java.time.temporal.ChronoField.HOUR_OF_AMPM
+import java.time.temporal.ChronoField.HOUR_OF_DAY
+import java.time.temporal.ChronoField.MICRO_OF_DAY
+import java.time.temporal.ChronoField.MICRO_OF_SECOND
+import java.time.temporal.ChronoField.MILLI_OF_DAY
+import java.time.temporal.ChronoField.MILLI_OF_SECOND
+import java.time.temporal.ChronoField.MINUTE_OF_DAY
+import java.time.temporal.ChronoField.MINUTE_OF_HOUR
+import java.time.temporal.ChronoField.NANO_OF_DAY
+import java.time.temporal.ChronoField.NANO_OF_SECOND
+import java.time.temporal.ChronoField.OFFSET_SECONDS
+import java.time.temporal.ChronoField.SECOND_OF_DAY
+import java.time.temporal.ChronoField.SECOND_OF_MINUTE
+import java.time.temporal.ChronoUnit.DAYS
+import java.time.temporal.ChronoUnit.NANOS
+import java.time.temporal.ChronoUnit.SECONDS
 import java.lang.reflect.Constructor
 import java.lang.reflect.InvocationTargetException
+import java.time
+import java.time.Clock
 import java.util.Arrays
+
 import org.testng.annotations.BeforeMethod
 import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
-import org.threeten.bp.format.DateTimeFormatter
-import org.threeten.bp.format.DateTimeParseException
-import org.threeten.bp.temporal.ChronoField
-import org.threeten.bp.temporal.ChronoUnit
-import org.threeten.bp.temporal.JulianFields
-import org.threeten.bp.temporal.Temporal
-import org.threeten.bp.temporal.TemporalAccessor
-import org.threeten.bp.temporal.TemporalAdjuster
-import org.threeten.bp.temporal.TemporalField
-import org.threeten.bp.temporal.TemporalQueries
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
+import java.time.temporal.ChronoField
+import java.time.temporal.ChronoUnit
+import java.time.temporal.JulianFields
+import java.time.temporal.Temporal
+import java.time.temporal.TemporalAccessor
+import java.time.temporal.TemporalAdjuster
+import java.time.temporal.TemporalField
+import java.time.temporal.TemporalQueries
 
 /** Test OffsetTime. */
 @Test object TestOffsetTime {
@@ -127,7 +130,7 @@ import org.threeten.bp.temporal.TemporalQueries
 
   @Test def now(): Unit = {
     val nowDT: ZonedDateTime = ZonedDateTime.now
-    val expected: OffsetTime = OffsetTime.now(Clock.systemDefaultZone)
+    val expected: OffsetTime = OffsetTime.now(time.Clock.systemDefaultZone)
     val test: OffsetTime = OffsetTime.now
     val diff: Long = Math.abs(test.toLocalTime.toNanoOfDay - expected.toLocalTime.toNanoOfDay)
     assertTrue(diff < 100000000)
@@ -140,7 +143,7 @@ import org.threeten.bp.temporal.TemporalQueries
       while (i < (2 * 24 * 60 * 60)) {
         {
           val instant: Instant = Instant.ofEpochSecond(i, 8)
-          val clock: Clock = Clock.fixed(instant, ZoneOffset.UTC)
+          val clock: Clock = time.Clock.fixed(instant, ZoneOffset.UTC)
           val test: OffsetTime = OffsetTime.now(clock)
           assertEquals(test.getHour, (i / (60 * 60)) % 24)
           assertEquals(test.getMinute, (i / 60) % 60)
@@ -162,7 +165,7 @@ import org.threeten.bp.temporal.TemporalQueries
       while (i >= -(24 * 60 * 60)) {
         {
           val instant: Instant = Instant.ofEpochSecond(i, 8)
-          val clock: Clock = Clock.fixed(instant, ZoneOffset.UTC)
+          val clock: Clock = time.Clock.fixed(instant, ZoneOffset.UTC)
           val test: OffsetTime = OffsetTime.now(clock)
           assertEquals(test.getHour, ((i + 24 * 60 * 60) / (60 * 60)) % 24)
           assertEquals(test.getMinute, ((i + 24 * 60 * 60) / 60) % 60)
@@ -186,7 +189,7 @@ import org.threeten.bp.temporal.TemporalQueries
       while (i < 15) {
         {
           val offset: ZoneOffset = ZoneOffset.ofHours(i)
-          val clock: Clock = Clock.fixed(base, offset)
+          val clock: Clock = time.Clock.fixed(base, offset)
           val test: OffsetTime = OffsetTime.now(clock)
           assertEquals(test.getHour, (12 + i) % 24)
           assertEquals(test.getMinute, 0)

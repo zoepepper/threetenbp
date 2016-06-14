@@ -31,6 +31,8 @@
  */
 package org.threeten.bp
 
+import java.time.Clock
+
 import org.scalatest.testng.TestNGSuite
 import org.testng.Assert.assertEquals
 import org.testng.annotations.Test
