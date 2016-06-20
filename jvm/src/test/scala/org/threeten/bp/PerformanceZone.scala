@@ -33,7 +33,7 @@ package org.threeten.bp
 
 import java.text.NumberFormat
 import java.util.{TimeZone, Calendar, Date, GregorianCalendar}
-import org.threeten.bp.zone.ZoneRules
+import java.time.zone.ZoneRules
 
 /** Test Performance.
   */

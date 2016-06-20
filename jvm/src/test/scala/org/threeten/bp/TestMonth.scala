@@ -35,21 +35,21 @@ import org.testng.Assert.assertEquals
 import org.threeten.bp.Month.DECEMBER
 import org.threeten.bp.Month.JANUARY
 import org.threeten.bp.Month.JUNE
-import org.threeten.bp.temporal.ChronoField.MONTH_OF_YEAR
+import java.time.temporal.ChronoField.MONTH_OF_YEAR
 import java.util.ArrayList
 import java.util.Arrays
 import java.util.List
 import java.util.Locale
 import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
-import org.threeten.bp.chrono.IsoChronology
-import org.threeten.bp.format.TextStyle
-import org.threeten.bp.temporal.ChronoField
-import org.threeten.bp.temporal.ChronoUnit
-import org.threeten.bp.temporal.JulianFields
-import org.threeten.bp.temporal.TemporalAccessor
-import org.threeten.bp.temporal.TemporalField
-import org.threeten.bp.temporal.TemporalQueries
+import java.time.chrono.IsoChronology
+import java.time.format.TextStyle
+import java.time.temporal.ChronoField
+import java.time.temporal.ChronoUnit
+import java.time.temporal.JulianFields
+import java.time.temporal.TemporalAccessor
+import java.time.temporal.TemporalField
+import java.time.temporal.TemporalQueries
 
 /** Test Month. */
 @Test object TestMonth {

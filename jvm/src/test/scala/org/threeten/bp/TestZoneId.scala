@@ -43,11 +43,11 @@ import java.util.SimpleTimeZone
 import java.util.TimeZone
 import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
-import org.threeten.bp.format.TextStyle
-import org.threeten.bp.temporal.TemporalAccessor
-import org.threeten.bp.zone.ZoneOffsetTransition
-import org.threeten.bp.zone.ZoneRules
-import org.threeten.bp.zone.ZoneRulesException
+import java.time.format.TextStyle
+import java.time.temporal.TemporalAccessor
+import java.time.zone.ZoneOffsetTransition
+import java.time.zone.ZoneRules
+import java.time.zone.ZoneRulesException
 
 /** Test ZoneId. */
 @Test object TestZoneId {

@@ -43,7 +43,7 @@ import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.locks.ReentrantLock
 import java.util.regex.Pattern
 import java.util.zip.ZipInputStream
-import org.threeten.bp.temporal.TemporalAccessor
+import java.time.temporal.TemporalAccessor
 
 /** Test Class loading.
   * Use "-verbose:class".

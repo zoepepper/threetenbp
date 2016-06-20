@@ -36,20 +36,20 @@ import org.testng.Assert.assertSame
 import org.threeten.bp.DayOfWeek.MONDAY
 import org.threeten.bp.DayOfWeek.SUNDAY
 import org.threeten.bp.DayOfWeek.WEDNESDAY
-import org.threeten.bp.temporal.ChronoField.DAY_OF_WEEK
+import java.time.temporal.ChronoField.DAY_OF_WEEK
 import java.util.Arrays
 import java.util.Locale
 import org.testng.annotations.BeforeMethod
 import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
-import org.threeten.bp.format.TextStyle
-import org.threeten.bp.temporal.ChronoField
-import org.threeten.bp.temporal.ChronoUnit
-import org.threeten.bp.temporal.JulianFields
-import org.threeten.bp.temporal.Temporal
-import org.threeten.bp.temporal.TemporalAccessor
-import org.threeten.bp.temporal.TemporalField
-import org.threeten.bp.temporal.TemporalQueries
+import java.time.format.TextStyle
+import java.time.temporal.ChronoField
+import java.time.temporal.ChronoUnit
+import java.time.temporal.JulianFields
+import java.time.temporal.Temporal
+import java.time.temporal.TemporalAccessor
+import java.time.temporal.TemporalField
+import java.time.temporal.TemporalQueries
 
 /** Test DayOfWeek. */
 @Test class TestDayOfWeek extends AbstractDateTimeTest {

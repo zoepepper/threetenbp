@@ -31,13 +31,13 @@
  */
 package org.threeten.bp
 
-import org.threeten.bp.temporal.ChronoUnit.DAYS
-import org.threeten.bp.temporal.ChronoUnit.FOREVER
-import org.threeten.bp.temporal.ChronoUnit.SECONDS
+import java.time.temporal.ChronoUnit.DAYS
+import java.time.temporal.ChronoUnit.FOREVER
+import java.time.temporal.ChronoUnit.SECONDS
 import java.util.{Objects, Collections}
-import org.threeten.bp.temporal.Temporal
-import org.threeten.bp.temporal.TemporalAmount
-import org.threeten.bp.temporal.TemporalUnit
+import java.time.temporal.Temporal
+import java.time.temporal.TemporalAmount
+import java.time.temporal.TemporalUnit
 
 import scala.collection.JavaConverters._
 

@@ -31,14 +31,14 @@
  */
 package org.threeten.bp
 
-import org.threeten.bp.temporal.ChronoField.DAY_OF_MONTH
-import org.threeten.bp.temporal.TemporalAdjusters.previousOrSame
-import org.threeten.bp.format.DateTimeFormatter
-import org.threeten.bp.format.DateTimeFormatterBuilder
-import org.threeten.bp.temporal.ChronoField
-import org.threeten.bp.temporal.ChronoUnit
-import org.threeten.bp.temporal.TemporalAccessor
-import org.threeten.bp.temporal.TemporalField
+import java.time.temporal.ChronoField.DAY_OF_MONTH
+import java.time.temporal.TemporalAdjusters.previousOrSame
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeFormatterBuilder
+import java.time.temporal.ChronoField
+import java.time.temporal.ChronoUnit
+import java.time.temporal.TemporalAccessor
+import java.time.temporal.TemporalField
 
 /** Usability class for package. */
 object UsabilityBasic {

@@ -35,15 +35,15 @@ import org.scalatest.testng.TestNGSuite
 import org.testng.Assert.assertEquals
 import org.testng.Assert.fail
 import org.testng.SkipException
-import org.threeten.bp.temporal.ChronoUnit.DAYS
-import org.threeten.bp.temporal.ChronoUnit.HALF_DAYS
-import org.threeten.bp.temporal.ChronoUnit.HOURS
-import org.threeten.bp.temporal.ChronoUnit.MICROS
-import org.threeten.bp.temporal.ChronoUnit.MILLIS
-import org.threeten.bp.temporal.ChronoUnit.MINUTES
-import org.threeten.bp.temporal.ChronoUnit.NANOS
-import org.threeten.bp.temporal.ChronoUnit.SECONDS
-import org.threeten.bp.temporal.ChronoUnit.WEEKS
+import java.time.temporal.ChronoUnit.DAYS
+import java.time.temporal.ChronoUnit.HALF_DAYS
+import java.time.temporal.ChronoUnit.HOURS
+import java.time.temporal.ChronoUnit.MICROS
+import java.time.temporal.ChronoUnit.MILLIS
+import java.time.temporal.ChronoUnit.MINUTES
+import java.time.temporal.ChronoUnit.NANOS
+import java.time.temporal.ChronoUnit.SECONDS
+import java.time.temporal.ChronoUnit.WEEKS
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.ObjectInputStream
@@ -51,8 +51,8 @@ import java.io.ObjectOutputStream
 import java.util.Locale
 import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
-import org.threeten.bp.format.DateTimeParseException
-import org.threeten.bp.temporal.TemporalUnit
+import java.time.format.DateTimeParseException
+import java.time.temporal.TemporalUnit
 
 /** Test Duration. */
 @Test class TestDuration extends TestNGSuite {
