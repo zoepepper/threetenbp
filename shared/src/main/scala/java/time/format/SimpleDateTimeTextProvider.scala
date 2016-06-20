@@ -29,12 +29,12 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.threeten.bp.format
+package java.time.format
 
-import org.threeten.bp.temporal.ChronoField.AMPM_OF_DAY
-import org.threeten.bp.temporal.ChronoField.DAY_OF_WEEK
-import org.threeten.bp.temporal.ChronoField.ERA
-import org.threeten.bp.temporal.ChronoField.MONTH_OF_YEAR
+import java.time.temporal.ChronoField.AMPM_OF_DAY
+import java.time.temporal.ChronoField.DAY_OF_WEEK
+import java.time.temporal.ChronoField.ERA
+import java.time.temporal.ChronoField.MONTH_OF_YEAR
 import java.text.DateFormatSymbols
 import java.util.Calendar
 import java.util.Comparator
@@ -42,8 +42,8 @@ import java.util.GregorianCalendar
 import java.util.Locale
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.ConcurrentMap
-import org.threeten.bp.temporal.IsoFields
-import org.threeten.bp.temporal.TemporalField
+import java.time.temporal.IsoFields
+import java.time.temporal.TemporalField
 
 private object SimpleDateTimeTextProvider {
   /** Cache. */

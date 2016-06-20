@@ -29,7 +29,7 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.threeten.bp
+package java.time
 
 /** Access to date and time using fields and units.
   *
@@ -45,21 +45,21 @@ package org.threeten.bp
   *
   * Dates and times are expressed in terms of fields and units.
   * A unit is used to measure an amount of time, such as years, days or minutes.
-  * All units implement {@link org.threeten.bp.temporal.TemporalUnit}.
-  * The set of well known units is defined in {@link org.threeten.bp.temporal.ChronoUnit},
-  * for example, {@link org.threeten.bp.temporal.ChronoUnit#DAYS}.
+  * All units implement {@link java.time.temporal.TemporalUnit}.
+  * The set of well known units is defined in {@link java.time.temporal.ChronoUnit},
+  * for example, {@link java.time.temporal.ChronoUnit#DAYS}.
   * The unit interface is designed to allow applications to add their own units.
   *
   * A field is used to express part of a larger date-time, such as year, month-of-year or second-of-minute.
-  * All fields implement {@link org.threeten.bp.temporal.TemporalField}.
-  * The set of well known fields are defined in {@link org.threeten.bp.temporal.ChronoField},
-  * for example, {@link org.threeten.bp.temporal.ChronoField#HOUR_OF_DAY}.
-  * An additional fields are defined by {@link org.threeten.bp.temporal.JulianFields}.
+  * All fields implement {@link java.time.temporal.TemporalField}.
+  * The set of well known fields are defined in {@link java.time.temporal.ChronoField},
+  * for example, {@link java.time.temporal.ChronoField#HOUR_OF_DAY}.
+  * An additional fields are defined by {@link java.time.temporal.JulianFields}.
   * The field interface is designed to allow applications to add their own fields.
   *
   * This package provides tools that allow the units and fields of date and time to be accessed
   * in a general way most suited for frameworks.
-  * {@link org.threeten.bp.temporal.Temporal} provides the abstraction for
+  * {@link java.time.temporal.Temporal} provides the abstraction for
   * date time types that support fields.  Its methods support getting the value
   * of a field, creating a new date time with the value of a field modified,
   * and extracting another date time type, typically used to extract the offset or time-zone.
@@ -75,21 +75,21 @@ package org.threeten.bp
   * A key part of the date-time problem space is adjusting a date to a new, related value,
   * such as the "last day of the month", or "next Wednesday".
   * These are modeled as functions that adjust a base date-time.
-  * The functions implement {@link org.threeten.bp.temporal.TemporalAdjuster} and operate
-  * on {@link org.threeten.bp.temporal.Temporal}.
-  * A set of common functions are provided in {@link org.threeten.bp.temporal.TemporalAdjusters}.
+  * The functions implement {@link java.time.temporal.TemporalAdjuster} and operate
+  * on {@link java.time.temporal.Temporal}.
+  * A set of common functions are provided in {@link java.time.temporal.TemporalAdjusters}.
   * For example, to find the first occurrence of a day-of-week after a given date, use
-  * {@link org.threeten.bp.temporal.TemporalAdjusters#next(DayOfWeek)}, such as
+  * {@link java.time.temporal.TemporalAdjusters#next(DayOfWeek)}, such as
   * {@code date.with(next(MONDAY))}.
   *
   * == Weeks ==
   *
   * Different locales have different definitions of the week.
   * For example, in Europe the week typically starts on a Monday, while in the US it starts on a Sunday.
-  * The {@link org.threeten.bp.temporal.WeekFields} class models this distinction.
+  * The {@link java.time.temporal.WeekFields} class models this distinction.
   *
   * The ISO calendar system defines an additional week-based division of years.
   * This defines a year based on whole Monday to Monday weeks.
-  * This is modeled in {@link org.threeten.bp.temporal.IsoFields}.
+  * This is modeled in {@link java.time.temporal.IsoFields}.
   */
 package object temporal

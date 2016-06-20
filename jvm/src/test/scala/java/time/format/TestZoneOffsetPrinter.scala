@@ -35,8 +35,8 @@ import org.testng.Assert.assertEquals
 import java.time.temporal.ChronoField.OFFSET_SECONDS
 import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
-import org.threeten.bp.DateTimeException
-import org.threeten.bp.ZoneOffset
+import java.time.DateTimeException
+import java.time.ZoneOffset
 
 /** Test ZoneOffsetPrinterParser. */
 @Test object TestZoneOffsetPrinter {

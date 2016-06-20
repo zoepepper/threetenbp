@@ -34,28 +34,28 @@ package java.time.zone
 import org.scalatest.testng.TestNGSuite
 import org.testng.Assert.assertEquals
 import org.testng.Assert.assertNotNull
-import org.threeten.bp.DayOfWeek.FRIDAY
-import org.threeten.bp.DayOfWeek.MONDAY
-import org.threeten.bp.DayOfWeek.SUNDAY
-import org.threeten.bp.DayOfWeek.THURSDAY
-import org.threeten.bp.DayOfWeek.TUESDAY
-import org.threeten.bp.Month.APRIL
-import org.threeten.bp.Month.AUGUST
-import org.threeten.bp.Month.FEBRUARY
-import org.threeten.bp.Month.MARCH
-import org.threeten.bp.Month.NOVEMBER
-import org.threeten.bp.Month.OCTOBER
-import org.threeten.bp.Month.SEPTEMBER
+import java.time.DayOfWeek.FRIDAY
+import java.time.DayOfWeek.MONDAY
+import java.time.DayOfWeek.SUNDAY
+import java.time.DayOfWeek.THURSDAY
+import java.time.DayOfWeek.TUESDAY
+import java.time.Month.APRIL
+import java.time.Month.AUGUST
+import java.time.Month.FEBRUARY
+import java.time.Month.MARCH
+import java.time.Month.NOVEMBER
+import java.time.Month.OCTOBER
+import java.time.Month.SEPTEMBER
 import java.time.zone.ZoneOffsetTransitionRule.TimeDefinition.STANDARD
 import java.time.zone.ZoneOffsetTransitionRule.TimeDefinition.UTC
 import java.time.zone.ZoneOffsetTransitionRule.TimeDefinition.WALL
 import org.testng.annotations.Test
-import org.threeten.bp.DateTimeException
-import org.threeten.bp.LocalDateTime
-import org.threeten.bp.LocalTime
-import org.threeten.bp.Month
-import org.threeten.bp.Year
-import org.threeten.bp.ZoneOffset
+import java.time.DateTimeException
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.Month
+import java.time.Year
+import java.time.ZoneOffset
 
 /** Test ZoneRulesBuilder. */
 @Test object TestZoneRulesBuilder {

@@ -31,11 +31,11 @@
  */
 package java.time
 
-import org.threeten.bp.temporal.ChronoField.EPOCH_DAY
-import org.threeten.bp.temporal.ChronoField.INSTANT_SECONDS
-import org.threeten.bp.temporal.ChronoField.NANO_OF_DAY
-import org.threeten.bp.temporal.ChronoField.OFFSET_SECONDS
-import org.threeten.bp.temporal.ChronoUnit.NANOS
+import java.time.temporal.ChronoField.EPOCH_DAY
+import java.time.temporal.ChronoField.INSTANT_SECONDS
+import java.time.temporal.ChronoField.NANO_OF_DAY
+import java.time.temporal.ChronoField.OFFSET_SECONDS
+import java.time.temporal.ChronoUnit.NANOS
 import java.io.DataInput
 import java.io.DataOutput
 import java.io.IOException
@@ -47,20 +47,20 @@ import java.time.Clock
 import java.util.{Comparator, Objects}
 
 import java.time.chrono.IsoChronology
-import org.threeten.bp.format.DateTimeFormatter
-import org.threeten.bp.format.DateTimeParseException
-import org.threeten.bp.temporal.ChronoField
-import org.threeten.bp.temporal.ChronoUnit
-import org.threeten.bp.temporal.Temporal
-import org.threeten.bp.temporal.TemporalAccessor
-import org.threeten.bp.temporal.TemporalAdjuster
-import org.threeten.bp.temporal.TemporalAmount
-import org.threeten.bp.temporal.TemporalField
-import org.threeten.bp.temporal.TemporalQueries
-import org.threeten.bp.temporal.TemporalQuery
-import org.threeten.bp.temporal.TemporalUnit
-import org.threeten.bp.temporal.ValueRange
-import org.threeten.bp.zone.ZoneRules
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
+import java.time.temporal.ChronoField
+import java.time.temporal.ChronoUnit
+import java.time.temporal.Temporal
+import java.time.temporal.TemporalAccessor
+import java.time.temporal.TemporalAdjuster
+import java.time.temporal.TemporalAmount
+import java.time.temporal.TemporalField
+import java.time.temporal.TemporalQueries
+import java.time.temporal.TemporalQuery
+import java.time.temporal.TemporalUnit
+import java.time.temporal.ValueRange
+import java.time.zone.ZoneRules
 
 @SerialVersionUID(2287754244819255394L)
 object OffsetDateTime {
@@ -256,7 +256,7 @@ object OffsetDateTime {
     * such as {@code 2007-12-03T10:15:30+01:00}.
     *
     * The string must represent a valid date-time and is parsed using
-    * {@link org.threeten.bp.format.DateTimeFormatter#ISO_OFFSET_DATE_TIME}.
+    * {@link java.time.format.DateTimeFormatter#ISO_OFFSET_DATE_TIME}.
     *
     * @param text  the text to parse such as "2007-12-03T10:15:30+01:00", not null
     * @return the parsed offset date-time, not null
@@ -279,7 +279,7 @@ object OffsetDateTime {
   }
 
   @throws(classOf[IOException])
-  private[bp] def readExternal(in: DataInput): OffsetDateTime = {
+  private[time] def readExternal(in: DataInput): OffsetDateTime = {
     val dateTime: LocalDateTime = LocalDateTime.readExternal(in)
     val offset: ZoneOffset = ZoneOffset.readExternal(in)
     OffsetDateTime.of(dateTime, offset)
@@ -637,8 +637,8 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
     *
     * For example this code returns a date on the last day of July:
     * <pre>
-    * import static org.threeten.bp.Month.*;
-    * import static org.threeten.bp.temporal.Adjusters.*;
+    * import static java.time.Month.*;
+    * import static java.time.temporal.Adjusters.*;
     *
     * result = offsetDateTime.with(JULY).with(lastDayOfMonth());
     * </pre>
@@ -1521,7 +1521,7 @@ final class OffsetDateTime private(private val dateTime: LocalDateTime, private 
   private def readResolve: AnyRef = throw new InvalidObjectException("Deserialization via serialization delegate")
 
   @throws[IOException]
-  private[bp] def writeExternal(out: DataOutput): Unit = {
+  private[time] def writeExternal(out: DataOutput): Unit = {
     dateTime.writeExternal(out)
     offset.writeExternal(out)
   }

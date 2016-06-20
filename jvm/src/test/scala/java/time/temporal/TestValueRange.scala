@@ -40,7 +40,7 @@ import java.io.ObjectOutputStream
 import org.testng.SkipException
 import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
-import org.threeten.bp.AbstractTest
+import java.time.AbstractTest
 
 /** Test. */
 @Test class TestValueRange extends TestNGSuite {

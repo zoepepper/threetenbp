@@ -29,17 +29,17 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.threeten.bp.format
+package java.time.format
 
-import org.threeten.bp.temporal.ChronoField.DAY_OF_MONTH
-import org.threeten.bp.temporal.ChronoField.DAY_OF_WEEK
-import org.threeten.bp.temporal.ChronoField.DAY_OF_YEAR
-import org.threeten.bp.temporal.ChronoField.HOUR_OF_DAY
-import org.threeten.bp.temporal.ChronoField.MINUTE_OF_HOUR
-import org.threeten.bp.temporal.ChronoField.MONTH_OF_YEAR
-import org.threeten.bp.temporal.ChronoField.NANO_OF_SECOND
-import org.threeten.bp.temporal.ChronoField.SECOND_OF_MINUTE
-import org.threeten.bp.temporal.ChronoField.YEAR
+import java.time.temporal.ChronoField.DAY_OF_MONTH
+import java.time.temporal.ChronoField.DAY_OF_WEEK
+import java.time.temporal.ChronoField.DAY_OF_YEAR
+import java.time.temporal.ChronoField.HOUR_OF_DAY
+import java.time.temporal.ChronoField.MINUTE_OF_HOUR
+import java.time.temporal.ChronoField.MONTH_OF_YEAR
+import java.time.temporal.ChronoField.NANO_OF_SECOND
+import java.time.temporal.ChronoField.SECOND_OF_MINUTE
+import java.time.temporal.ChronoField.YEAR
 import java.io.IOException
 import java.text.FieldPosition
 import java.text.Format
@@ -47,15 +47,15 @@ import java.text.ParseException
 import java.text.ParsePosition
 import java.util.{Objects, Arrays, Collections, Locale}
 import java.lang.StringBuilder
-import org.threeten.bp.DateTimeException
-import org.threeten.bp.Period
-import org.threeten.bp.ZoneId
+import java.time.DateTimeException
+import java.time.Period
+import java.time.ZoneId
 import java.time.chrono.Chronology
 import java.time.chrono.IsoChronology
-import org.threeten.bp.temporal.IsoFields
-import org.threeten.bp.temporal.TemporalAccessor
-import org.threeten.bp.temporal.TemporalField
-import org.threeten.bp.temporal.TemporalQuery
+import java.time.temporal.IsoFields
+import java.time.temporal.TemporalAccessor
+import java.time.temporal.TemporalField
+import java.time.temporal.TemporalQuery
 
 object DateTimeFormatter {
   /** Returns the ISO date formatter that prints/parses a date without an offset,
@@ -288,7 +288,7 @@ object DateTimeFormatter {
     * The localized decimal style is not used.
     *
     * This is a special case formatter intended to allow a human readable form
-    * of an {@link org.threeten.bp.Instant Instant}.
+    * of an {@link java.time.Instant Instant}.
     * The {@code Instant} class is designed to
     * only represent a point in time and internally stores a value in nanoseconds
     * from a fixed epoch of 1970-01-01Z. As such, an {@code Instant} cannot be

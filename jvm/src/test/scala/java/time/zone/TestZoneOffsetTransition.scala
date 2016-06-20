@@ -36,11 +36,11 @@ import org.testng.Assert.assertEquals
 import java.time.temporal.ChronoUnit.HOURS
 import java.io.IOException
 import org.testng.annotations.Test
-import org.threeten.bp.AbstractTest
-import org.threeten.bp.Duration
-import org.threeten.bp.LocalDateTime
-import org.threeten.bp.Year
-import org.threeten.bp.ZoneOffset
+import java.time.AbstractTest
+import java.time.Duration
+import java.time.LocalDateTime
+import java.time.Year
+import java.time.ZoneOffset
 
 /** Test ZoneOffsetTransition. */
 @Test object TestZoneOffsetTransition extends TestNGSuite {

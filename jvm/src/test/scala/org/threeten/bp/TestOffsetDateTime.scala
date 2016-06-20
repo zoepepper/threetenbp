@@ -29,11 +29,11 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.threeten.bp
+package java.time
 
 import org.testng.Assert.assertEquals
 import org.testng.Assert.assertTrue
-import org.threeten.bp.Month.DECEMBER
+import java.time.Month.DECEMBER
 import java.time.temporal.ChronoField.ALIGNED_DAY_OF_WEEK_IN_MONTH
 import java.time.temporal.ChronoField.ALIGNED_DAY_OF_WEEK_IN_YEAR
 import java.time.temporal.ChronoField.ALIGNED_WEEK_OF_MONTH
@@ -418,7 +418,7 @@ import java.time.temporal.TemporalQueries
     }
   }
 
-  @DataProvider(name = "sampleTimes") private[bp] def provider_sampleTimes: Array[Array[Any]] = {
+  @DataProvider(name = "sampleTimes") private[time] def provider_sampleTimes: Array[Array[Any]] = {
     Array[Array[Any]](Array(2008, 6, 30, 11, 30, 20, 500, TestOffsetDateTime.OFFSET_PONE), Array(2008, 6, 30, 11, 0, 0, 0, TestOffsetDateTime.OFFSET_PONE), Array(2008, 6, 30, 23, 59, 59, 999999999, TestOffsetDateTime.OFFSET_PONE), Array(-1, 1, 1, 0, 0, 0, 0, TestOffsetDateTime.OFFSET_PONE))
   }
 
@@ -1055,7 +1055,7 @@ import java.time.temporal.TemporalQueries
     assertEquals(TEST_2008_6_30_11_30_59_000000500 == null, false)
   }
 
-  @DataProvider(name = "sampleToString") private[bp] def provider_sampleToString: Array[Array[Any]] = {
+  @DataProvider(name = "sampleToString") private[time] def provider_sampleToString: Array[Array[Any]] = {
     Array[Array[Any]](Array(2008, 6, 30, 11, 30, 59, 0, "Z", "2008-06-30T11:30:59Z"), Array(2008, 6, 30, 11, 30, 59, 0, "+01:00", "2008-06-30T11:30:59+01:00"), Array(2008, 6, 30, 11, 30, 59, 999000000, "Z", "2008-06-30T11:30:59.999Z"), Array(2008, 6, 30, 11, 30, 59, 999000000, "+01:00", "2008-06-30T11:30:59.999+01:00"), Array(2008, 6, 30, 11, 30, 59, 999000, "Z", "2008-06-30T11:30:59.000999Z"), Array(2008, 6, 30, 11, 30, 59, 999000, "+01:00", "2008-06-30T11:30:59.000999+01:00"), Array(2008, 6, 30, 11, 30, 59, 999, "Z", "2008-06-30T11:30:59.000000999Z"), Array(2008, 6, 30, 11, 30, 59, 999, "+01:00", "2008-06-30T11:30:59.000000999+01:00"))
   }
 

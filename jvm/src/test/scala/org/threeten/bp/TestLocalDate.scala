@@ -29,7 +29,7 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.threeten.bp
+package java.time
 
 import org.testng.Assert.assertEquals
 import org.testng.Assert.assertFalse
@@ -509,7 +509,7 @@ import java.time.temporal.TemporalUnit
     assertEquals(t.getDayOfMonth, d, parsable)
   }
 
-  @DataProvider(name = "sampleBadParse") private[bp] def provider_sampleBadParse: Array[Array[AnyRef]] = {
+  @DataProvider(name = "sampleBadParse") private[time] def provider_sampleBadParse: Array[Array[AnyRef]] = {
     Array[Array[AnyRef]](Array("2008/07/05"), Array("10000-01-01"), Array("2008-1-1"), Array("2008--01"), Array("ABCD-02-01"), Array("2008-AB-01"), Array("2008-02-AB"), Array("-0000-02-01"), Array("2008-02-01Z"), Array("2008-02-01+01:00"), Array("2008-02-01+01:00[Europe/Paris]"))
   }
 
@@ -609,7 +609,7 @@ import java.time.temporal.TemporalUnit
     TEST_2007_07_15.query(null)
   }
 
-  @DataProvider(name = "sampleDates") private[bp] def provider_sampleDates: Array[Array[_ <: AnyRef]] = {
+  @DataProvider(name = "sampleDates") private[time] def provider_sampleDates: Array[Array[_ <: AnyRef]] = {
     Array[Array[_ <: AnyRef]](Array[Integer](2008, 7, 5), Array[Integer](2007, 7, 5), Array[Integer](2006, 7, 5), Array[Integer](2005, 7, 5), Array[Integer](2004, 1, 1), Array[Integer](-1, 1, 2))
   }
 
@@ -1377,7 +1377,7 @@ import java.time.temporal.TemporalUnit
     LocalDate.of(Year.MIN_VALUE, 1, 1).minusDays(Long.MaxValue)
   }
 
-  @DataProvider(name = "until") private[bp] def provider_until: Array[Array[Any]] = {
+  @DataProvider(name = "until") private[time] def provider_until: Array[Array[Any]] = {
     Array[Array[Any]](Array("2012-06-30", "2012-06-30", DAYS, 0), Array("2012-06-30", "2012-06-30", WEEKS, 0), Array("2012-06-30", "2012-06-30", MONTHS, 0), Array("2012-06-30", "2012-06-30", YEARS, 0), Array("2012-06-30", "2012-06-30", DECADES, 0), Array("2012-06-30", "2012-06-30", CENTURIES, 0), Array("2012-06-30", "2012-06-30", MILLENNIA, 0), Array("2012-06-30", "2012-07-01", DAYS, 1), Array("2012-06-30", "2012-07-01", WEEKS, 0), Array("2012-06-30", "2012-07-01", MONTHS, 0), Array("2012-06-30", "2012-07-01", YEARS, 0), Array("2012-06-30", "2012-07-01", DECADES, 0), Array("2012-06-30", "2012-07-01", CENTURIES, 0), Array("2012-06-30", "2012-07-01", MILLENNIA, 0), Array("2012-06-30", "2012-07-07", DAYS, 7), Array("2012-06-30", "2012-07-07", WEEKS, 1), Array("2012-06-30", "2012-07-07", MONTHS, 0), Array("2012-06-30", "2012-07-07", YEARS, 0), Array("2012-06-30", "2012-07-07", DECADES, 0), Array("2012-06-30", "2012-07-07", CENTURIES, 0), Array("2012-06-30", "2012-07-07", MILLENNIA, 0), Array("2012-06-30", "2012-07-29", MONTHS, 0), Array("2012-06-30", "2012-07-30", MONTHS, 1), Array("2012-06-30", "2012-07-31", MONTHS, 1))
   }
 
@@ -1674,7 +1674,7 @@ import java.time.temporal.TemporalUnit
     assertEquals(a.hashCode, b.hashCode)
   }
 
-  @DataProvider(name = "sampleToString") private[bp] def provider_sampleToString: Array[Array[Any]] = {
+  @DataProvider(name = "sampleToString") private[time] def provider_sampleToString: Array[Array[Any]] = {
     Array[Array[Any]](Array(2008, 7, 5, "2008-07-05"), Array(2007, 12, 31, "2007-12-31"), Array(999, 12, 31, "0999-12-31"), Array(-1, 1, 2, "-0001-01-02"), Array(9999, 12, 31, "9999-12-31"), Array(-9999, 12, 31, "-9999-12-31"), Array(10000, 1, 1, "+10000-01-01"), Array(-10000, 1, 1, "-10000-01-01"), Array(12345678, 1, 1, "+12345678-01-01"), Array(-12345678, 1, 1, "-12345678-01-01"))
   }
 

@@ -31,25 +31,25 @@
  */
 package java.time.chrono
 
-import org.threeten.bp.temporal.ChronoField._
-import org.threeten.bp.temporal.ChronoUnit.DAYS
-import org.threeten.bp.temporal.ChronoUnit.MONTHS
-import org.threeten.bp.temporal.ChronoUnit.WEEKS
-import org.threeten.bp.temporal.TemporalAdjusters.nextOrSame
+import java.time.temporal.ChronoField._
+import java.time.temporal.ChronoUnit.DAYS
+import java.time.temporal.ChronoUnit.MONTHS
+import java.time.temporal.ChronoUnit.WEEKS
+import java.time.temporal.TemporalAdjusters.nextOrSame
 import java.io.Serializable
 import java.time.Clock
 import java.util.{Arrays, Objects}
 
-import org.threeten.bp.DateTimeException
-import org.threeten.bp.DayOfWeek
-import org.threeten.bp.Instant
-import org.threeten.bp.LocalDate
-import org.threeten.bp.ZoneId
-import org.threeten.bp.format.ResolverStyle
-import org.threeten.bp.temporal.ChronoField
-import org.threeten.bp.temporal.TemporalAccessor
-import org.threeten.bp.temporal.TemporalField
-import org.threeten.bp.temporal.ValueRange
+import java.time.DateTimeException
+import java.time.DayOfWeek
+import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneId
+import java.time.format.ResolverStyle
+import java.time.temporal.ChronoField
+import java.time.temporal.TemporalAccessor
+import java.time.temporal.TemporalField
+import java.time.temporal.ValueRange
 
 @SerialVersionUID(2775954514031616474L)
 object ThaiBuddhistChronology {

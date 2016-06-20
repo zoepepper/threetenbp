@@ -32,13 +32,13 @@
 package java.time.temporal
 
 import org.testng.Assert.assertEquals
-import org.threeten.bp.Month.AUGUST
-import org.threeten.bp.Month.FEBRUARY
-import org.threeten.bp.Month.JULY
-import org.threeten.bp.Month.JUNE
-import org.threeten.bp.Month.MARCH
-import org.threeten.bp.Month.OCTOBER
-import org.threeten.bp.Month.SEPTEMBER
+import java.time.Month.AUGUST
+import java.time.Month.FEBRUARY
+import java.time.Month.JULY
+import java.time.Month.JUNE
+import java.time.Month.MARCH
+import java.time.Month.OCTOBER
+import java.time.Month.SEPTEMBER
 import java.time.temporal.ChronoUnit.DAYS
 import java.time.temporal.ChronoUnit.FOREVER
 import java.time.temporal.ChronoUnit.MONTHS
@@ -46,9 +46,9 @@ import java.time.temporal.ChronoUnit.WEEKS
 import java.time.temporal.ChronoUnit.YEARS
 import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
-import org.threeten.bp.LocalDate
-import org.threeten.bp.Month
-import org.threeten.bp.ZoneOffset
+import java.time.LocalDate
+import java.time.Month
+import java.time.ZoneOffset
 
 /** Test. */
 @Test object TestChronoUnit {

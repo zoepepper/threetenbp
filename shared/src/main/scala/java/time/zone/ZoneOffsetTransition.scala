@@ -29,17 +29,17 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.threeten.bp.zone
+package java.time.zone
 
 import java.io.DataInput
 import java.io.DataOutput
 import java.io.IOException
 import java.io.Serializable
 import java.util.{Objects, Arrays, Collections}
-import org.threeten.bp.Duration
-import org.threeten.bp.Instant
-import org.threeten.bp.LocalDateTime
-import org.threeten.bp.ZoneOffset
+import java.time.Duration
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneOffset
 
 /** A transition between two offsets caused by a discontinuity in the local time-line.
   *

@@ -33,15 +33,15 @@ package java.time
 
 import java.util.Objects
 
-import org.threeten.bp.LocalTime.HOURS_PER_DAY
-import org.threeten.bp.LocalTime.MICROS_PER_DAY
-import org.threeten.bp.LocalTime.MILLIS_PER_DAY
-import org.threeten.bp.LocalTime.MINUTES_PER_DAY
-import org.threeten.bp.LocalTime.NANOS_PER_DAY
-import org.threeten.bp.LocalTime.NANOS_PER_HOUR
-import org.threeten.bp.LocalTime.NANOS_PER_MINUTE
-import org.threeten.bp.LocalTime.NANOS_PER_SECOND
-import org.threeten.bp.LocalTime.SECONDS_PER_DAY
+import java.time.LocalTime.HOURS_PER_DAY
+import java.time.LocalTime.MICROS_PER_DAY
+import java.time.LocalTime.MILLIS_PER_DAY
+import java.time.LocalTime.MINUTES_PER_DAY
+import java.time.LocalTime.NANOS_PER_DAY
+import java.time.LocalTime.NANOS_PER_HOUR
+import java.time.LocalTime.NANOS_PER_MINUTE
+import java.time.LocalTime.NANOS_PER_SECOND
+import java.time.LocalTime.SECONDS_PER_DAY
 import java.io.DataInput
 import java.io.DataOutput
 import java.io.IOException
@@ -53,21 +53,21 @@ import java.time.Clock
 
 import java.time.chrono.ChronoLocalDate
 import java.time.chrono.ChronoLocalDateTime
-import org.threeten.bp.format.DateTimeFormatter
-import org.threeten.bp.format.DateTimeParseException
-import org.threeten.bp.temporal.ChronoField
-import org.threeten.bp.temporal.ChronoUnit
-import org.threeten.bp.temporal.Temporal
-import org.threeten.bp.temporal.TemporalAccessor
-import org.threeten.bp.temporal.TemporalAdjuster
-import org.threeten.bp.temporal.TemporalAmount
-import org.threeten.bp.temporal.TemporalField
-import org.threeten.bp.temporal.TemporalQueries
-import org.threeten.bp.temporal.TemporalQuery
-import org.threeten.bp.temporal.TemporalUnit
-import org.threeten.bp.temporal.UnsupportedTemporalTypeException
-import org.threeten.bp.temporal.ValueRange
-import org.threeten.bp.zone.ZoneRules
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
+import java.time.temporal.ChronoField
+import java.time.temporal.ChronoUnit
+import java.time.temporal.Temporal
+import java.time.temporal.TemporalAccessor
+import java.time.temporal.TemporalAdjuster
+import java.time.temporal.TemporalAmount
+import java.time.temporal.TemporalField
+import java.time.temporal.TemporalQueries
+import java.time.temporal.TemporalQuery
+import java.time.temporal.TemporalUnit
+import java.time.temporal.UnsupportedTemporalTypeException
+import java.time.temporal.ValueRange
+import java.time.zone.ZoneRules
 
 @SerialVersionUID(6207766400415563566L)
 object LocalDateTime {
@@ -343,7 +343,7 @@ object LocalDateTime {
   /** Obtains an instance of {@code LocalDateTime} from a text string such as {@code 2007-12-03T10:15:30}.
     *
     * The string must represent a valid date-time and is parsed using
-    * {@link org.threeten.bp.format.DateTimeFormatter#ISO_LOCAL_DATE_TIME}.
+    * {@link java.time.format.DateTimeFormatter#ISO_LOCAL_DATE_TIME}.
     *
     * @param text  the text to parse such as "2007-12-03T10:15:30", not null
     * @return the parsed local date-time, not null
@@ -366,7 +366,7 @@ object LocalDateTime {
   }
 
   @throws[IOException]
-  private[bp] def readExternal(in: DataInput): LocalDateTime = {
+  private[time] def readExternal(in: DataInput): LocalDateTime = {
     val date: LocalDate = LocalDate.readExternal(in)
     val time: LocalTime = LocalTime.readExternal(in)
     LocalDateTime.of(date, time)
@@ -665,8 +665,8 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
     *
     * For example this code returns a date on the last day of July:
     * <pre>
-    *  import static org.threeten.bp.Month.*;
-    *  import static org.threeten.bp.temporal.Adjusters.*;
+    *  import static java.time.Month.*;
+    *  import static java.time.temporal.Adjusters.*;
     *
     *  result = localDateTime.with(JULY).with(lastDayOfMonth());
     * </pre>
@@ -1569,7 +1569,7 @@ final class LocalDateTime private(private val date: LocalDate, private val time:
   private def readResolve: AnyRef = throw new InvalidObjectException("Deserialization via serialization delegate")
 
   @throws[IOException]
-  private[bp] def writeExternal(out: DataOutput): Unit = {
+  private[time] def writeExternal(out: DataOutput): Unit = {
     date.writeExternal(out)
     time.writeExternal(out)
   }

@@ -37,15 +37,15 @@ import org.testng.Assert.assertFalse
 import org.testng.Assert.assertNotNull
 import org.testng.Assert.assertSame
 import org.testng.Assert.assertTrue
-import org.threeten.bp.DayOfWeek.MONDAY
-import org.threeten.bp.DayOfWeek.TUESDAY
-import org.threeten.bp.Month.DECEMBER
-import org.threeten.bp.Month.JANUARY
+import java.time.DayOfWeek.MONDAY
+import java.time.DayOfWeek.TUESDAY
+import java.time.Month.DECEMBER
+import java.time.Month.JANUARY
 import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
-import org.threeten.bp.DayOfWeek
-import org.threeten.bp.LocalDate
-import org.threeten.bp.Month
+import java.time.DayOfWeek
+import java.time.LocalDate
+import java.time.Month
 
 /** Test DateTimeAdjusters. */
 @Test class TestTemporalAdjusters extends TestNGSuite {

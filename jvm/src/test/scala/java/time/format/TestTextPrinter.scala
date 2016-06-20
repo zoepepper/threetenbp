@@ -38,8 +38,8 @@ import java.time.temporal.ChronoField.MONTH_OF_YEAR
 import java.util.Locale
 import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
-import org.threeten.bp.DateTimeException
-import org.threeten.bp.LocalDate
+import java.time.DateTimeException
+import java.time.LocalDate
 import java.time.temporal.MockFieldValue
 import java.time.temporal.TemporalField
 

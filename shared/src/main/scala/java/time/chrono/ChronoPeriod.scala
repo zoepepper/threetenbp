@@ -33,11 +33,11 @@ package java.time.chrono
 
 import java.util.Objects
 
-import org.threeten.bp.DateTimeException
-import org.threeten.bp.temporal.Temporal
-import org.threeten.bp.temporal.TemporalAmount
-import org.threeten.bp.temporal.TemporalUnit
-import org.threeten.bp.temporal.UnsupportedTemporalTypeException
+import java.time.DateTimeException
+import java.time.temporal.Temporal
+import java.time.temporal.TemporalAmount
+import java.time.temporal.TemporalUnit
+import java.time.temporal.UnsupportedTemporalTypeException
 
 object ChronoPeriod {
   /** Obtains a {@code ChronoPeriod} consisting of amount of time between two dates.

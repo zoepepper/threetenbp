@@ -29,10 +29,10 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.threeten.bp.temporal
+package java.time.temporal
 
-import org.threeten.bp.DateTimeException
-import org.threeten.bp.Duration
+import java.time.DateTimeException
+import java.time.Duration
 
 /** A unit of date-time, such as Days or Hours.
   *

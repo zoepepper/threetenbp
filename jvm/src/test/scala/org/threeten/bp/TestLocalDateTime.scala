@@ -29,7 +29,7 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.threeten.bp
+package java.time
 
 import org.testng.Assert.assertEquals
 import org.testng.Assert.assertFalse
@@ -760,11 +760,11 @@ import java.time.temporal.TemporalUnit
     TEST_2007_07_15_12_30_40_987654321.query(null)
   }
 
-  @DataProvider(name = "sampleDates") private[bp] def provider_sampleDates: Array[Array[AnyRef]] = {
+  @DataProvider(name = "sampleDates") private[time] def provider_sampleDates: Array[Array[AnyRef]] = {
     Array[Array[AnyRef]](Array(2008: Integer, 7: Integer, 5: Integer), Array(2007: Integer, 7: Integer, 5: Integer), Array(2006: Integer, 7: Integer, 5: Integer), Array(2005: Integer, 7: Integer, 5: Integer), Array(2004: Integer, 1: Integer, 1: Integer), Array(-1: Integer, 1: Integer, 2: Integer))
   }
 
-  @DataProvider(name = "sampleTimes") private[bp] def provider_sampleTimes: Array[Array[AnyRef]] = {
+  @DataProvider(name = "sampleTimes") private[time] def provider_sampleTimes: Array[Array[AnyRef]] = {
     Array[Array[AnyRef]](Array(0: Integer, 0: Integer, 0: Integer, 0: Integer), Array(0: Integer, 0: Integer, 0: Integer, 1: Integer), Array(0: Integer, 0: Integer, 1: Integer, 0: Integer), Array(0: Integer, 0: Integer, 1: Integer, 1: Integer), Array(0: Integer, 1: Integer, 0: Integer, 0: Integer), Array(0: Integer, 1: Integer, 0: Integer, 1: Integer), Array(0: Integer, 1: Integer, 1: Integer, 0: Integer), Array(0: Integer, 1: Integer, 1: Integer, 1: Integer), Array(1: Integer, 0: Integer, 0: Integer, 0: Integer), Array(1: Integer, 0: Integer, 0: Integer, 1: Integer), Array(1: Integer, 0: Integer, 1: Integer, 0: Integer), Array(1: Integer, 0: Integer, 1: Integer, 1: Integer), Array(1: Integer, 1: Integer, 0: Integer, 0: Integer), Array(1: Integer, 1: Integer, 0: Integer, 1: Integer), Array(1: Integer, 1: Integer, 1: Integer, 0: Integer), Array(1: Integer, 1: Integer, 1: Integer, 1: Integer))
   }
 
@@ -1113,7 +1113,7 @@ import java.time.temporal.TemporalUnit
     createDateMidnight(Year.MIN_VALUE, 1, 1).plusMonths(-1)
   }
 
-  @DataProvider(name = "samplePlusWeeksSymmetry") private[bp] def provider_samplePlusWeeksSymmetry: Array[Array[AnyRef]] = {
+  @DataProvider(name = "samplePlusWeeksSymmetry") private[time] def provider_samplePlusWeeksSymmetry: Array[Array[AnyRef]] = {
     Array[Array[AnyRef]](Array(createDateMidnight(-1, 1, 1)), Array(createDateMidnight(-1, 2, 28)), Array(createDateMidnight(-1, 3, 1)), Array(createDateMidnight(-1, 12, 31)), Array(createDateMidnight(0, 1, 1)), Array(createDateMidnight(0, 2, 28)), Array(createDateMidnight(0, 2, 29)), Array(createDateMidnight(0, 3, 1)), Array(createDateMidnight(0, 12, 31)), Array(createDateMidnight(2007, 1, 1)), Array(createDateMidnight(2007, 2, 28)), Array(createDateMidnight(2007, 3, 1)), Array(createDateMidnight(2007, 12, 31)), Array(createDateMidnight(2008, 1, 1)), Array(createDateMidnight(2008, 2, 28)), Array(createDateMidnight(2008, 2, 29)), Array(createDateMidnight(2008, 3, 1)), Array(createDateMidnight(2008, 12, 31)), Array(createDateMidnight(2099, 1, 1)), Array(createDateMidnight(2099, 2, 28)), Array(createDateMidnight(2099, 3, 1)), Array(createDateMidnight(2099, 12, 31)), Array(createDateMidnight(2100, 1, 1)), Array(createDateMidnight(2100, 2, 28)), Array(createDateMidnight(2100, 3, 1)), Array(createDateMidnight(2100, 12, 31)))
   }
 
@@ -1188,7 +1188,7 @@ import java.time.temporal.TemporalUnit
     createDateMidnight(Year.MIN_VALUE, 1, 7).plusWeeks(-1)
   }
 
-  @DataProvider(name = "samplePlusDaysSymmetry") private[bp] def provider_samplePlusDaysSymmetry: Array[Array[AnyRef]] = {
+  @DataProvider(name = "samplePlusDaysSymmetry") private[time] def provider_samplePlusDaysSymmetry: Array[Array[AnyRef]] = {
     Array[Array[AnyRef]](Array(createDateMidnight(-1, 1, 1)), Array(createDateMidnight(-1, 2, 28)), Array(createDateMidnight(-1, 3, 1)), Array(createDateMidnight(-1, 12, 31)), Array(createDateMidnight(0, 1, 1)), Array(createDateMidnight(0, 2, 28)), Array(createDateMidnight(0, 2, 29)), Array(createDateMidnight(0, 3, 1)), Array(createDateMidnight(0, 12, 31)), Array(createDateMidnight(2007, 1, 1)), Array(createDateMidnight(2007, 2, 28)), Array(createDateMidnight(2007, 3, 1)), Array(createDateMidnight(2007, 12, 31)), Array(createDateMidnight(2008, 1, 1)), Array(createDateMidnight(2008, 2, 28)), Array(createDateMidnight(2008, 2, 29)), Array(createDateMidnight(2008, 3, 1)), Array(createDateMidnight(2008, 12, 31)), Array(createDateMidnight(2099, 1, 1)), Array(createDateMidnight(2099, 2, 28)), Array(createDateMidnight(2099, 3, 1)), Array(createDateMidnight(2099, 12, 31)), Array(createDateMidnight(2100, 1, 1)), Array(createDateMidnight(2100, 2, 28)), Array(createDateMidnight(2100, 3, 1)), Array(createDateMidnight(2100, 12, 31)))
   }
 
@@ -1436,14 +1436,14 @@ import java.time.temporal.TemporalUnit
     }
   }
 
-  @DataProvider(name = "plusSeconds_fromZero") private[bp] def plusSeconds_fromZero: java.util.Iterator[Array[Any]] = {
+  @DataProvider(name = "plusSeconds_fromZero") private[time] def plusSeconds_fromZero: java.util.Iterator[Array[Any]] = {
     new java.util.Iterator[Array[Any]]() {
-      private[bp] var delta: Int = 30
-      private[bp] var i: Int = -3660
-      private[bp] var date: LocalDate = TEST_2007_07_15_12_30_40_987654321.toLocalDate.minusDays(1)
-      private[bp] var hour: Int = 22
-      private[bp] var min: Int = 59
-      private[bp] var sec: Int = 0
+      private[time] var delta: Int = 30
+      private[time] var i: Int = -3660
+      private[time] var date: LocalDate = TEST_2007_07_15_12_30_40_987654321.toLocalDate.minusDays(1)
+      private[time] var hour: Int = 22
+      private[time] var min: Int = 59
+      private[time] var sec: Int = 0
 
       def hasNext: Boolean = i <= 3660
 
@@ -1522,15 +1522,15 @@ import java.time.temporal.TemporalUnit
     }
   }
 
-  @DataProvider(name = "plusNanos_fromZero") private[bp] def plusNanos_fromZero: java.util.Iterator[Array[Any]] = {
+  @DataProvider(name = "plusNanos_fromZero") private[time] def plusNanos_fromZero: java.util.Iterator[Array[Any]] = {
     new java.util.Iterator[Array[Any]]() {
-      private[bp] var delta: Long = 7500000000L
-      private[bp] var i: Long = -3660 * 1000000000L
-      private[bp] var date: LocalDate = TEST_2007_07_15_12_30_40_987654321.toLocalDate.minusDays(1)
-      private[bp] var hour: Int = 22
-      private[bp] var min: Int = 59
-      private[bp] var sec: Int = 0
-      private[bp] var nanos: Long = 0
+      private[time] var delta: Long = 7500000000L
+      private[time] var i: Long = -3660 * 1000000000L
+      private[time] var date: LocalDate = TEST_2007_07_15_12_30_40_987654321.toLocalDate.minusDays(1)
+      private[time] var hour: Int = 22
+      private[time] var min: Int = 59
+      private[time] var sec: Int = 0
+      private[time] var nanos: Long = 0
 
       def hasNext: Boolean = i <= 3660 * 1000000000L
 
@@ -1700,7 +1700,7 @@ import java.time.temporal.TemporalUnit
     createDateMidnight(Year.MIN_VALUE, 1, 1).minusMonths(1)
   }
 
-  @DataProvider(name = "sampleMinusWeeksSymmetry") private[bp] def provider_sampleMinusWeeksSymmetry: Array[Array[AnyRef]] = {
+  @DataProvider(name = "sampleMinusWeeksSymmetry") private[time] def provider_sampleMinusWeeksSymmetry: Array[Array[AnyRef]] = {
     Array[Array[AnyRef]](Array(createDateMidnight(-1, 1, 1)), Array(createDateMidnight(-1, 2, 28)), Array(createDateMidnight(-1, 3, 1)), Array(createDateMidnight(-1, 12, 31)), Array(createDateMidnight(0, 1, 1)), Array(createDateMidnight(0, 2, 28)), Array(createDateMidnight(0, 2, 29)), Array(createDateMidnight(0, 3, 1)), Array(createDateMidnight(0, 12, 31)), Array(createDateMidnight(2007, 1, 1)), Array(createDateMidnight(2007, 2, 28)), Array(createDateMidnight(2007, 3, 1)), Array(createDateMidnight(2007, 12, 31)), Array(createDateMidnight(2008, 1, 1)), Array(createDateMidnight(2008, 2, 28)), Array(createDateMidnight(2008, 2, 29)), Array(createDateMidnight(2008, 3, 1)), Array(createDateMidnight(2008, 12, 31)), Array(createDateMidnight(2099, 1, 1)), Array(createDateMidnight(2099, 2, 28)), Array(createDateMidnight(2099, 3, 1)), Array(createDateMidnight(2099, 12, 31)), Array(createDateMidnight(2100, 1, 1)), Array(createDateMidnight(2100, 2, 28)), Array(createDateMidnight(2100, 3, 1)), Array(createDateMidnight(2100, 12, 31)))
   }
 
@@ -1775,7 +1775,7 @@ import java.time.temporal.TemporalUnit
     createDateMidnight(Year.MIN_VALUE, 1, 7).minusWeeks(1)
   }
 
-  @DataProvider(name = "sampleMinusDaysSymmetry") private[bp] def provider_sampleMinusDaysSymmetry: Array[Array[AnyRef]] = {
+  @DataProvider(name = "sampleMinusDaysSymmetry") private[time] def provider_sampleMinusDaysSymmetry: Array[Array[AnyRef]] = {
     Array[Array[AnyRef]](Array(createDateMidnight(-1, 1, 1)), Array(createDateMidnight(-1, 2, 28)), Array(createDateMidnight(-1, 3, 1)), Array(createDateMidnight(-1, 12, 31)), Array(createDateMidnight(0, 1, 1)), Array(createDateMidnight(0, 2, 28)), Array(createDateMidnight(0, 2, 29)), Array(createDateMidnight(0, 3, 1)), Array(createDateMidnight(0, 12, 31)), Array(createDateMidnight(2007, 1, 1)), Array(createDateMidnight(2007, 2, 28)), Array(createDateMidnight(2007, 3, 1)), Array(createDateMidnight(2007, 12, 31)), Array(createDateMidnight(2008, 1, 1)), Array(createDateMidnight(2008, 2, 28)), Array(createDateMidnight(2008, 2, 29)), Array(createDateMidnight(2008, 3, 1)), Array(createDateMidnight(2008, 12, 31)), Array(createDateMidnight(2099, 1, 1)), Array(createDateMidnight(2099, 2, 28)), Array(createDateMidnight(2099, 3, 1)), Array(createDateMidnight(2099, 12, 31)), Array(createDateMidnight(2100, 1, 1)), Array(createDateMidnight(2100, 2, 28)), Array(createDateMidnight(2100, 3, 1)), Array(createDateMidnight(2100, 12, 31)))
   }
 
@@ -2029,14 +2029,14 @@ import java.time.temporal.TemporalUnit
     }
   }
 
-  @DataProvider(name = "minusSeconds_fromZero") private[bp] def minusSeconds_fromZero: java.util.Iterator[Array[Any]] = {
+  @DataProvider(name = "minusSeconds_fromZero") private[time] def minusSeconds_fromZero: java.util.Iterator[Array[Any]] = {
     new java.util.Iterator[Array[Any]]() {
-      private[bp] var delta: Int = 30
-      private[bp] var i: Int = 3660
-      private[bp] var date: LocalDate = TEST_2007_07_15_12_30_40_987654321.toLocalDate.minusDays(1)
-      private[bp] var hour: Int = 22
-      private[bp] var min: Int = 59
-      private[bp] var sec: Int = 0
+      private[time] var delta: Int = 30
+      private[time] var i: Int = 3660
+      private[time] var date: LocalDate = TEST_2007_07_15_12_30_40_987654321.toLocalDate.minusDays(1)
+      private[time] var hour: Int = 22
+      private[time] var min: Int = 59
+      private[time] var sec: Int = 0
 
       def hasNext: Boolean = i >= -3660
 
@@ -2108,15 +2108,15 @@ import java.time.temporal.TemporalUnit
     }
   }
 
-  @DataProvider(name = "minusNanos_fromZero") private[bp] def minusNanos_fromZero: java.util.Iterator[Array[Any]] = {
+  @DataProvider(name = "minusNanos_fromZero") private[time] def minusNanos_fromZero: java.util.Iterator[Array[Any]] = {
     new java.util.Iterator[Array[Any]]() {
-      private[bp] var delta: Long = 7500000000L
-      private[bp] var i: Long = 3660 * 1000000000L
-      private[bp] var date: LocalDate = TEST_2007_07_15_12_30_40_987654321.toLocalDate.minusDays(1)
-      private[bp] var hour: Int = 22
-      private[bp] var min: Int = 59
-      private[bp] var sec: Int = 0
-      private[bp] var nanos: Long = 0
+      private[time] var delta: Long = 7500000000L
+      private[time] var i: Long = 3660 * 1000000000L
+      private[time] var date: LocalDate = TEST_2007_07_15_12_30_40_987654321.toLocalDate.minusDays(1)
+      private[time] var hour: Int = 22
+      private[time] var min: Int = 59
+      private[time] var sec: Int = 0
+      private[time] var nanos: Long = 0
 
       def hasNext: Boolean = i >= -3660 * 1000000000L
 
@@ -2157,7 +2157,7 @@ import java.time.temporal.TemporalUnit
     assertEquals(nanos, t.getNano)
   }
 
-  @DataProvider(name = "until") private[bp] def provider_until: Array[Array[Any]] = {
+  @DataProvider(name = "until") private[time] def provider_until: Array[Array[Any]] = {
     Array[Array[Any]](Array("2012-06-15T00:00", "2012-06-15T00:00", NANOS, 0), Array("2012-06-15T00:00", "2012-06-15T00:00", MICROS, 0), Array("2012-06-15T00:00", "2012-06-15T00:00", MILLIS, 0), Array("2012-06-15T00:00", "2012-06-15T00:00", SECONDS, 0), Array("2012-06-15T00:00", "2012-06-15T00:00", MINUTES, 0), Array("2012-06-15T00:00", "2012-06-15T00:00", HOURS, 0), Array("2012-06-15T00:00", "2012-06-15T00:00", HALF_DAYS, 0), Array("2012-06-15T00:00", "2012-06-15T00:00:01", NANOS, 1000000000), Array("2012-06-15T00:00", "2012-06-15T00:00:01", MICROS, 1000000), Array("2012-06-15T00:00", "2012-06-15T00:00:01", MILLIS, 1000), Array("2012-06-15T00:00", "2012-06-15T00:00:01", SECONDS, 1), Array("2012-06-15T00:00", "2012-06-15T00:00:01", MINUTES, 0), Array("2012-06-15T00:00", "2012-06-15T00:00:01", HOURS, 0), Array("2012-06-15T00:00", "2012-06-15T00:00:01", HALF_DAYS, 0), Array("2012-06-15T00:00", "2012-06-15T00:01", NANOS, 60000000000L), Array("2012-06-15T00:00", "2012-06-15T00:01", MICROS, 60000000), Array("2012-06-15T00:00", "2012-06-15T00:01", MILLIS, 60000), Array("2012-06-15T00:00", "2012-06-15T00:01", SECONDS, 60), Array("2012-06-15T00:00", "2012-06-15T00:01", MINUTES, 1), Array("2012-06-15T00:00", "2012-06-15T00:01", HOURS, 0), Array("2012-06-15T00:00", "2012-06-15T00:01", HALF_DAYS, 0), Array("2012-06-15T12:30:40.500", "2012-06-15T12:30:39.499", SECONDS, -1), Array("2012-06-15T12:30:40.500", "2012-06-15T12:30:39.500", SECONDS, -1), Array("2012-06-15T12:30:40.500", "2012-06-15T12:30:39.501", SECONDS, 0), Array("2012-06-15T12:30:40.500", "2012-06-15T12:30:40.499", SECONDS, 0), Array("2012-06-15T12:30:40.500", "2012-06-15T12:30:40.500", SECONDS, 0), Array("2012-06-15T12:30:40.500", "2012-06-15T12:30:40.501", SECONDS, 0), Array("2012-06-15T12:30:40.500", "2012-06-15T12:30:41.499", SECONDS, 0), Array("2012-06-15T12:30:40.500", "2012-06-15T12:30:41.500", SECONDS, 1), Array("2012-06-15T12:30:40.500", "2012-06-15T12:30:41.501", SECONDS, 1), Array("2012-06-15T12:30:40.500", "2012-06-16T12:30:39.499", SECONDS, 86400 - 2), Array("2012-06-15T12:30:40.500", "2012-06-16T12:30:39.500", SECONDS, 86400 - 1), Array("2012-06-15T12:30:40.500", "2012-06-16T12:30:39.501", SECONDS, 86400 - 1), Array("2012-06-15T12:30:40.500", "2012-06-16T12:30:40.499", SECONDS, 86400 - 1), Array("2012-06-15T12:30:40.500", "2012-06-16T12:30:40.500", SECONDS, 86400 + 0), Array("2012-06-15T12:30:40.500", "2012-06-16T12:30:40.501", SECONDS, 86400 + 0), Array("2012-06-15T12:30:40.500", "2012-06-16T12:30:41.499", SECONDS, 86400 + 0), Array("2012-06-15T12:30:40.500", "2012-06-16T12:30:41.500", SECONDS, 86400 + 1), Array("2012-06-15T12:30:40.500", "2012-06-16T12:30:41.501", SECONDS, 86400 + 1))
   }
 
@@ -2286,12 +2286,12 @@ import java.time.temporal.TemporalUnit
     TEST_2007_07_15_12_30_40_987654321.isAfter(null)
   }
 
-  @DataProvider(name = "sampleDateTimes") private[bp] def provider_sampleDateTimes: java.util.Iterator[Array[AnyRef]] = {
+  @DataProvider(name = "sampleDateTimes") private[time] def provider_sampleDateTimes: java.util.Iterator[Array[AnyRef]] = {
     new java.util.Iterator[Array[AnyRef]]() {
-      private[bp] var sampleDates: Array[Array[AnyRef]] = provider_sampleDates
-      private[bp] var sampleTimes: Array[Array[AnyRef]] = provider_sampleTimes
-      private[bp] var datesIndex: Int = 0
-      private[bp] var timesIndex: Int = 0
+      private[time] var sampleDates: Array[Array[AnyRef]] = provider_sampleDates
+      private[time] var sampleTimes: Array[Array[AnyRef]] = provider_sampleTimes
+      private[time] var datesIndex: Int = 0
+      private[time] var timesIndex: Int = 0
 
       def hasNext: Boolean = datesIndex < sampleDates.length
 
@@ -2382,7 +2382,7 @@ import java.time.temporal.TemporalUnit
     assertEquals(a.hashCode, b.hashCode)
   }
 
-  @DataProvider(name = "sampleToString") private[bp] def provider_sampleToString: Array[Array[Any]] = {
+  @DataProvider(name = "sampleToString") private[time] def provider_sampleToString: Array[Array[Any]] = {
     Array[Array[Any]](Array(2008, 7, 5, 2, 1, 0, 0, "2008-07-05T02:01"), Array(2007, 12, 31, 23, 59, 1, 0, "2007-12-31T23:59:01"), Array(999, 12, 31, 23, 59, 59, 990000000, "0999-12-31T23:59:59.990"), Array(-1, 1, 2, 23, 59, 59, 999990000, "-0001-01-02T23:59:59.999990"), Array(-2008, 1, 2, 23, 59, 59, 999999990, "-2008-01-02T23:59:59.999999990"))
   }
 

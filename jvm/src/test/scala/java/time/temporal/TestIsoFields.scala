@@ -34,18 +34,18 @@ package java.time.temporal
 import org.scalatest.testng.TestNGSuite
 import org.testng.Assert.assertEquals
 import org.testng.Assert.assertTrue
-import org.threeten.bp.DayOfWeek.FRIDAY
-import org.threeten.bp.DayOfWeek.MONDAY
-import org.threeten.bp.DayOfWeek.SATURDAY
-import org.threeten.bp.DayOfWeek.SUNDAY
-import org.threeten.bp.DayOfWeek.THURSDAY
-import org.threeten.bp.DayOfWeek.TUESDAY
-import org.threeten.bp.DayOfWeek.WEDNESDAY
+import java.time.DayOfWeek.FRIDAY
+import java.time.DayOfWeek.MONDAY
+import java.time.DayOfWeek.SATURDAY
+import java.time.DayOfWeek.SUNDAY
+import java.time.DayOfWeek.THURSDAY
+import java.time.DayOfWeek.TUESDAY
+import java.time.DayOfWeek.WEDNESDAY
 import java.time.temporal.ChronoField.DAY_OF_WEEK
 import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
-import org.threeten.bp.DayOfWeek
-import org.threeten.bp.LocalDate
+import java.time.DayOfWeek
+import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeFormatterBuilder
 

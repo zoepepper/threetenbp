@@ -42,8 +42,8 @@ import java.util.Locale
 import org.testng.Assert
 import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
-import org.threeten.bp.Duration
-import org.threeten.bp.LocalDate
+import java.time.Duration
+import java.time.LocalDate
 import java.time.format.ResolverStyle
 import java.time.temporal.ChronoUnit
 import java.time.temporal.Temporal

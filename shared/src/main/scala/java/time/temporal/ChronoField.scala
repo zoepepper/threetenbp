@@ -29,24 +29,24 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.threeten.bp.temporal
+package java.time.temporal
 
-import org.threeten.bp.temporal.ChronoUnit.DAYS
-import org.threeten.bp.temporal.ChronoUnit.ERAS
-import org.threeten.bp.temporal.ChronoUnit.FOREVER
-import org.threeten.bp.temporal.ChronoUnit.HALF_DAYS
-import org.threeten.bp.temporal.ChronoUnit.HOURS
-import org.threeten.bp.temporal.ChronoUnit.MICROS
-import org.threeten.bp.temporal.ChronoUnit.MILLIS
-import org.threeten.bp.temporal.ChronoUnit.MINUTES
-import org.threeten.bp.temporal.ChronoUnit.MONTHS
-import org.threeten.bp.temporal.ChronoUnit.NANOS
-import org.threeten.bp.temporal.ChronoUnit.SECONDS
-import org.threeten.bp.temporal.ChronoUnit.WEEKS
-import org.threeten.bp.temporal.ChronoUnit.YEARS
+import java.time.temporal.ChronoUnit.DAYS
+import java.time.temporal.ChronoUnit.ERAS
+import java.time.temporal.ChronoUnit.FOREVER
+import java.time.temporal.ChronoUnit.HALF_DAYS
+import java.time.temporal.ChronoUnit.HOURS
+import java.time.temporal.ChronoUnit.MICROS
+import java.time.temporal.ChronoUnit.MILLIS
+import java.time.temporal.ChronoUnit.MINUTES
+import java.time.temporal.ChronoUnit.MONTHS
+import java.time.temporal.ChronoUnit.NANOS
+import java.time.temporal.ChronoUnit.SECONDS
+import java.time.temporal.ChronoUnit.WEEKS
+import java.time.temporal.ChronoUnit.YEARS
 import java.util.{Objects, Locale}
-import org.threeten.bp.Year
-import org.threeten.bp.format.ResolverStyle
+import java.time.Year
+import java.time.format.ResolverStyle
 
 /** A standard set of fields.
   *

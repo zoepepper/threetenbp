@@ -29,7 +29,7 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.threeten.bp
+package java.time
 
 import org.testng.Assert.assertEquals
 import org.testng.Assert.assertFalse
@@ -204,7 +204,7 @@ import java.time.zone.ZoneRulesException
     ZoneId.of("Unknown", map)
   }
 
-  @DataProvider(name = "String_UTC") private[bp] def data_of_string_UTC: Array[Array[AnyRef]] = {
+  @DataProvider(name = "String_UTC") private[time] def data_of_string_UTC: Array[Array[AnyRef]] = {
     Array[Array[AnyRef]](Array(""), Array("+00"), Array("+0000"), Array("+00:00"), Array("+000000"), Array("+00:00:00"), Array("-00"), Array("-0000"), Array("-00:00"), Array("-000000"), Array("-00:00:00"))
   }
 
@@ -226,7 +226,7 @@ import java.time.zone.ZoneRulesException
     assertEquals(test.normalized, ZoneOffset.UTC)
   }
 
-  @DataProvider(name = "String_Fixed") private[bp] def data_of_string_Fixed: Array[Array[AnyRef]] = {
+  @DataProvider(name = "String_Fixed") private[time] def data_of_string_Fixed: Array[Array[AnyRef]] = {
     Array[Array[AnyRef]](Array("+0", ""), Array("+5", "+05:00"), Array("+01", "+01:00"), Array("+0100", "+01:00"), Array("+01:00", "+01:00"), Array("+010000", "+01:00"), Array("+01:00:00", "+01:00"), Array("+12", "+12:00"), Array("+1234", "+12:34"), Array("+12:34", "+12:34"), Array("+123456", "+12:34:56"), Array("+12:34:56", "+12:34:56"), Array("-02", "-02:00"), Array("-5", "-05:00"), Array("-0200", "-02:00"), Array("-02:00", "-02:00"), Array("-020000", "-02:00"), Array("-02:00:00", "-02:00"))
   }
 
@@ -266,7 +266,7 @@ import java.time.zone.ZoneRulesException
     checkOffset(test.getRules, createLDT(2008, 6, 30), offset, 1)
   }
 
-  @DataProvider(name = "String_UTC_Invalid") private[bp] def data_of_string_UTC_invalid: Array[Array[AnyRef]] = {
+  @DataProvider(name = "String_UTC_Invalid") private[time] def data_of_string_UTC_invalid: Array[Array[AnyRef]] = {
     Array[Array[AnyRef]](Array("A"), Array("B"), Array("C"), Array("D"), Array("E"), Array("F"), Array("G"), Array("H"), Array("I"), Array("J"), Array("K"), Array("L"), Array("M"), Array("N"), Array("O"), Array("P"), Array("Q"), Array("R"), Array("S"), Array("T"), Array("U"), Array("V"), Array("W"), Array("X"), Array("Y"), Array("+0:00"), Array("+00:0"), Array("+0:0"), Array("+000"), Array("+00000"), Array("+0:00:00"), Array("+00:0:00"), Array("+00:00:0"), Array("+0:0:0"), Array("+0:0:00"), Array("+00:0:0"), Array("+0:00:0"), Array("+01_00"), Array("+01;00"), Array("+01@00"), Array("+01:AA"), Array("+19"), Array("+19:00"), Array("+18:01"), Array("+18:00:01"), Array("+1801"), Array("+180001"), Array("-0:00"), Array("-00:0"), Array("-0:0"), Array("-000"), Array("-00000"), Array("-0:00:00"), Array("-00:0:00"), Array("-00:00:0"), Array("-0:0:0"), Array("-0:0:00"), Array("-00:0:0"), Array("-0:00:0"), Array("-19"), Array("-19:00"), Array("-18:01"), Array("-18:00:01"), Array("-1801"), Array("-180001"), Array("-01_00"), Array("-01;00"), Array("-01@00"), Array("-01:AA"), Array("@01:00"))
   }
 
@@ -278,7 +278,7 @@ import java.time.zone.ZoneRulesException
     ZoneId.of("GMT" + id)
   }
 
-  @DataProvider(name = "String_Invalid") private[bp] def data_of_string_invalid: Array[Array[AnyRef]] = {
+  @DataProvider(name = "String_Invalid") private[time] def data_of_string_invalid: Array[Array[AnyRef]] = {
     Array[Array[AnyRef]](Array(""), Array(":"), Array("#"), Array("\u00ef"), Array("`"), Array("!"), Array("\""), Array("\u00ef"), Array("$"), Array("^"), Array("&"), Array("*"), Array("("), Array(")"), Array("="), Array("\\"), Array("|"), Array(","), Array("<"), Array(">"), Array("?"), Array(";"), Array("'"), Array("["), Array("]"), Array("{"), Array("}"), Array("\u00ef:A"), Array("`:A"), Array("!:A"), Array("\":A"), Array("\u00ef:A"), Array("$:A"), Array("^:A"), Array("&:A"), Array("*:A"), Array("(:A"), Array("):A"), Array("=:A"), Array("+:A"), Array("\\:A"), Array("|:A"), Array(",:A"), Array("<:A"), Array(">:A"), Array("?:A"), Array(";:A"), Array("::A"), Array("':A"), Array("@:A"), Array("~:A"), Array("[:A"), Array("]:A"), Array("{:A"), Array("}:A"), Array("A:B#\u00ef"), Array("A:B#`"), Array("A:B#!"), Array("A:B#\""), Array("A:B#\u00ef"), Array("A:B#$"), Array("A:B#^"), Array("A:B#&"), Array("A:B#*"), Array("A:B#("), Array("A:B#)"), Array("A:B#="), Array("A:B#+"), Array("A:B#\\"), Array("A:B#|"), Array("A:B#,"), Array("A:B#<"), Array("A:B#>"), Array("A:B#?"), Array("A:B#;"), Array("A:B#:"), Array("A:B#'"), Array("A:B#@"), Array("A:B#~"), Array("A:B#["), Array("A:B#]"), Array("A:B#{"), Array("A:B#}"))
   }
 
@@ -796,7 +796,7 @@ import java.time.zone.ZoneRulesException
     assertEquals(ZoneId.of("Europe/London") == "Europe/London", false)
   }
 
-  @DataProvider(name = "ToString") private[bp] def data_toString: Array[Array[AnyRef]] = {
+  @DataProvider(name = "ToString") private[time] def data_toString: Array[Array[AnyRef]] = {
     Array[Array[AnyRef]](Array("Europe/London", "Europe/London"), Array("Europe/Paris", "Europe/Paris"), Array("Europe/Berlin", "Europe/Berlin"), Array("Z", "Z"), Array("UTC", "UTC"), Array("UTC+01:00", "UTC+01:00"), Array("GMT+01:00", "GMT+01:00"), Array("UT+01:00", "UT+01:00"))
   }
 

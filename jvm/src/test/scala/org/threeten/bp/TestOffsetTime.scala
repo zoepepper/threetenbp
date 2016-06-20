@@ -29,7 +29,7 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.threeten.bp
+package java.time
 
 import org.testng.Assert.assertEquals
 import org.testng.Assert.assertNotNull
@@ -343,7 +343,7 @@ import java.time.temporal.TemporalQueries
     check(t, h, m, s, n, ZoneOffset.of(offsetId))
   }
 
-  @DataProvider(name = "sampleBadParse") private[bp] def provider_sampleBadParse: Array[Array[AnyRef]] = {
+  @DataProvider(name = "sampleBadParse") private[time] def provider_sampleBadParse: Array[Array[AnyRef]] = {
     Array[Array[AnyRef]](Array("00;00"), Array("12-00"), Array("-01:00"), Array("00:00:00-09"), Array("00:00:00,09"), Array("00:00:abs"), Array("11"), Array("11:30"), Array("11:30+01:00[Europe/Paris]"))
   }
 
@@ -406,7 +406,7 @@ import java.time.temporal.TemporalQueries
     }
   }
 
-  @DataProvider(name = "sampleTimes") private[bp] def provider_sampleTimes: Array[Array[Any]] = {
+  @DataProvider(name = "sampleTimes") private[time] def provider_sampleTimes: Array[Array[Any]] = {
     Array[Array[Any]](Array(11, 30, 20, 500, TestOffsetTime.OFFSET_PONE), Array(11, 0, 0, 0, TestOffsetTime.OFFSET_PONE), Array(23, 59, 59, 999999999, TestOffsetTime.OFFSET_PONE))
   }
 
@@ -953,7 +953,7 @@ import java.time.temporal.TemporalQueries
     assertEquals(TEST_11_30_59_500_PONE == null, false)
   }
 
-  @DataProvider(name = "sampleToString") private[bp] def provider_sampleToString: Array[Array[Any]] = {
+  @DataProvider(name = "sampleToString") private[time] def provider_sampleToString: Array[Array[Any]] = {
     Array[Array[Any]](Array(11, 30, 59, 0, "Z", "11:30:59Z"), Array(11, 30, 59, 0, "+01:00", "11:30:59+01:00"), Array(11, 30, 59, 999000000, "Z", "11:30:59.999Z"), Array(11, 30, 59, 999000000, "+01:00", "11:30:59.999+01:00"), Array(11, 30, 59, 999000, "Z", "11:30:59.000999Z"), Array(11, 30, 59, 999000, "+01:00", "11:30:59.000999+01:00"), Array(11, 30, 59, 999, "Z", "11:30:59.000000999Z"), Array(11, 30, 59, 999, "+01:00", "11:30:59.000000999+01:00"))
   }
 

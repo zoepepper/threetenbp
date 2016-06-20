@@ -33,17 +33,17 @@ package java.time
 
 import java.util.Objects
 
-import org.threeten.bp.temporal.ChronoField.ERA
-import org.threeten.bp.temporal.ChronoField.MONTH_OF_YEAR
-import org.threeten.bp.temporal.ChronoField.PROLEPTIC_MONTH
-import org.threeten.bp.temporal.ChronoField.YEAR
-import org.threeten.bp.temporal.ChronoField.YEAR_OF_ERA
-import org.threeten.bp.temporal.ChronoUnit.CENTURIES
-import org.threeten.bp.temporal.ChronoUnit.DECADES
-import org.threeten.bp.temporal.ChronoUnit.ERAS
-import org.threeten.bp.temporal.ChronoUnit.MILLENNIA
-import org.threeten.bp.temporal.ChronoUnit.MONTHS
-import org.threeten.bp.temporal.ChronoUnit.YEARS
+import java.time.temporal.ChronoField.ERA
+import java.time.temporal.ChronoField.MONTH_OF_YEAR
+import java.time.temporal.ChronoField.PROLEPTIC_MONTH
+import java.time.temporal.ChronoField.YEAR
+import java.time.temporal.ChronoField.YEAR_OF_ERA
+import java.time.temporal.ChronoUnit.CENTURIES
+import java.time.temporal.ChronoUnit.DECADES
+import java.time.temporal.ChronoUnit.ERAS
+import java.time.temporal.ChronoUnit.MILLENNIA
+import java.time.temporal.ChronoUnit.MONTHS
+import java.time.temporal.ChronoUnit.YEARS
 import java.io.DataInput
 import java.io.DataOutput
 import java.io.IOException
@@ -55,22 +55,22 @@ import java.time.Clock
 
 import java.time.chrono.Chronology
 import java.time.chrono.IsoChronology
-import org.threeten.bp.format.DateTimeFormatter
-import org.threeten.bp.format.DateTimeFormatterBuilder
-import org.threeten.bp.format.DateTimeParseException
-import org.threeten.bp.format.SignStyle
-import org.threeten.bp.temporal.ChronoField
-import org.threeten.bp.temporal.ChronoUnit
-import org.threeten.bp.temporal.Temporal
-import org.threeten.bp.temporal.TemporalAccessor
-import org.threeten.bp.temporal.TemporalAdjuster
-import org.threeten.bp.temporal.TemporalAmount
-import org.threeten.bp.temporal.TemporalField
-import org.threeten.bp.temporal.TemporalQueries
-import org.threeten.bp.temporal.TemporalQuery
-import org.threeten.bp.temporal.TemporalUnit
-import org.threeten.bp.temporal.UnsupportedTemporalTypeException
-import org.threeten.bp.temporal.ValueRange
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeFormatterBuilder
+import java.time.format.DateTimeParseException
+import java.time.format.SignStyle
+import java.time.temporal.ChronoField
+import java.time.temporal.ChronoUnit
+import java.time.temporal.Temporal
+import java.time.temporal.TemporalAccessor
+import java.time.temporal.TemporalAdjuster
+import java.time.temporal.TemporalAmount
+import java.time.temporal.TemporalField
+import java.time.temporal.TemporalQueries
+import java.time.temporal.TemporalQuery
+import java.time.temporal.TemporalUnit
+import java.time.temporal.UnsupportedTemporalTypeException
+import java.time.temporal.ValueRange
 
 /** A year-month in the ISO-8601 calendar system, such as {@code 2007-12}.
   *
@@ -221,7 +221,7 @@ object YearMonth {
   }
 
   @throws[IOException]
-  private[bp] def readExternal(in: DataInput): YearMonth = {
+  private[time] def readExternal(in: DataInput): YearMonth = {
     val year: Int = in.readInt
     val month: Byte = in.readByte
     YearMonth.of(year, month)
@@ -571,7 +571,7 @@ final class YearMonth private(private val year: Int, private val month: Int) ext
   /** Returns a copy of this year-month with the specified period added.
     *
     * This method returns a new year-month based on this year-month with the specified period added.
-    * The adder is typically {@link org.threeten.bp.Period Period} but may be any other type implementing
+    * The adder is typically {@link java.time.Period Period} but may be any other type implementing
     * the {@link TemporalAmount} interface.
     * The calculation is delegated to the specified adjuster, which typically calls
     * back to {@link #plus(long, TemporalUnit)}.
@@ -642,7 +642,7 @@ final class YearMonth private(private val year: Int, private val month: Int) ext
   /** Returns a copy of this year-month with the specified period subtracted.
     *
     * This method returns a new year-month based on this year-month with the specified period subtracted.
-    * The subtractor is typically {@link org.threeten.bp.Period Period} but may be any other type implementing
+    * The subtractor is typically {@link java.time.Period Period} but may be any other type implementing
     * the {@link TemporalAmount} interface.
     * The calculation is delegated to the specified adjuster, which typically calls
     * back to {@link #minus(long, TemporalUnit)}.
@@ -934,7 +934,7 @@ final class YearMonth private(private val year: Int, private val month: Int) ext
   private def readResolve: AnyRef = throw new InvalidObjectException("Deserialization via serialization delegate")
 
   @throws[IOException]
-  private[bp] def writeExternal(out: DataOutput): Unit = {
+  private[time] def writeExternal(out: DataOutput): Unit = {
     out.writeInt(year)
     out.writeByte(month)
   }

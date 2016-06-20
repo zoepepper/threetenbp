@@ -35,12 +35,12 @@ import org.scalatest.testng.TestNGSuite
 import org.testng.Assert.assertEquals
 import java.io.IOException
 import org.testng.annotations.Test
-import org.threeten.bp.AbstractTest
-import org.threeten.bp.DayOfWeek
-import org.threeten.bp.LocalDateTime
-import org.threeten.bp.LocalTime
-import org.threeten.bp.Month
-import org.threeten.bp.ZoneOffset
+import java.time.AbstractTest
+import java.time.DayOfWeek
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.Month
+import java.time.ZoneOffset
 import java.time.zone.ZoneOffsetTransitionRule.TimeDefinition
 
 /** Test ZoneOffsetTransitionRule. */

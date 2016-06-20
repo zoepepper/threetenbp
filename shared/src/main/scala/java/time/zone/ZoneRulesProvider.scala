@@ -29,13 +29,13 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.threeten.bp.zone
+package java.time.zone
 
 import java.util.{Objects, ServiceConfigurationError, ServiceLoader}
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.ConcurrentMap
 import java.util.concurrent.CopyOnWriteArrayList
-import org.threeten.bp.DateTimeException
+import java.time.DateTimeException
 
 object ZoneRulesProvider {
   /** The set of loaded providers. */

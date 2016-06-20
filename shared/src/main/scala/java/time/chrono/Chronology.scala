@@ -43,22 +43,22 @@ import java.time.Clock
 import java.util.{Locale, Objects, ServiceLoader}
 import java.util.concurrent.ConcurrentHashMap
 
-import org.threeten.bp.DateTimeException
-import org.threeten.bp.Instant
-import org.threeten.bp.LocalDate
-import org.threeten.bp.LocalTime
-import org.threeten.bp.ZoneId
-import org.threeten.bp.format.DateTimeFormatterBuilder
-import org.threeten.bp.format.ResolverStyle
-import org.threeten.bp.format.TextStyle
-import org.threeten.bp.temporal.ChronoField
-import org.threeten.bp.temporal.Temporal
-import org.threeten.bp.temporal.TemporalAccessor
-import org.threeten.bp.temporal.TemporalField
-import org.threeten.bp.temporal.TemporalQueries
-import org.threeten.bp.temporal.TemporalQuery
-import org.threeten.bp.temporal.UnsupportedTemporalTypeException
-import org.threeten.bp.temporal.ValueRange
+import java.time.DateTimeException
+import java.time.Instant
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatterBuilder
+import java.time.format.ResolverStyle
+import java.time.format.TextStyle
+import java.time.temporal.ChronoField
+import java.time.temporal.Temporal
+import java.time.temporal.TemporalAccessor
+import java.time.temporal.TemporalField
+import java.time.temporal.TemporalQueries
+import java.time.temporal.TemporalQuery
+import java.time.temporal.UnsupportedTemporalTypeException
+import java.time.temporal.ValueRange
 
 object Chronology {
 
@@ -268,7 +268,7 @@ object Chronology {
   *
   * To permit the discovery of additional chronologies, the {@link java.util.ServiceLoader ServiceLoader}
   * is used. A file must be added to the {@code META-INF/services} directory with the
-  * name 'org.threeten.bp.chrono.Chrono' listing the implementation classes.
+  * name 'java.time.chrono.Chrono' listing the implementation classes.
   * See the ServiceLoader for more details on service loading.
   * For lookup by id or calendarType, the system provided calendars are found
   * first followed by application provided calendars.

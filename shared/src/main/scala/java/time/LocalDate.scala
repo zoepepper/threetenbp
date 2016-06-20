@@ -33,20 +33,20 @@ package java.time
 
 import java.util.Objects
 
-import org.threeten.bp.LocalTime.SECONDS_PER_DAY
-import org.threeten.bp.temporal.ChronoField.ALIGNED_DAY_OF_WEEK_IN_MONTH
-import org.threeten.bp.temporal.ChronoField.ALIGNED_DAY_OF_WEEK_IN_YEAR
-import org.threeten.bp.temporal.ChronoField.ALIGNED_WEEK_OF_MONTH
-import org.threeten.bp.temporal.ChronoField.ALIGNED_WEEK_OF_YEAR
-import org.threeten.bp.temporal.ChronoField.DAY_OF_WEEK
-import org.threeten.bp.temporal.ChronoField.DAY_OF_MONTH
-import org.threeten.bp.temporal.ChronoField.DAY_OF_YEAR
-import org.threeten.bp.temporal.ChronoField.EPOCH_DAY
-import org.threeten.bp.temporal.ChronoField.ERA
-import org.threeten.bp.temporal.ChronoField.MONTH_OF_YEAR
-import org.threeten.bp.temporal.ChronoField.PROLEPTIC_MONTH
-import org.threeten.bp.temporal.ChronoField.YEAR
-import org.threeten.bp.temporal.ChronoField.YEAR_OF_ERA
+import java.time.LocalTime.SECONDS_PER_DAY
+import java.time.temporal.ChronoField.ALIGNED_DAY_OF_WEEK_IN_MONTH
+import java.time.temporal.ChronoField.ALIGNED_DAY_OF_WEEK_IN_YEAR
+import java.time.temporal.ChronoField.ALIGNED_WEEK_OF_MONTH
+import java.time.temporal.ChronoField.ALIGNED_WEEK_OF_YEAR
+import java.time.temporal.ChronoField.DAY_OF_WEEK
+import java.time.temporal.ChronoField.DAY_OF_MONTH
+import java.time.temporal.ChronoField.DAY_OF_YEAR
+import java.time.temporal.ChronoField.EPOCH_DAY
+import java.time.temporal.ChronoField.ERA
+import java.time.temporal.ChronoField.MONTH_OF_YEAR
+import java.time.temporal.ChronoField.PROLEPTIC_MONTH
+import java.time.temporal.ChronoField.YEAR
+import java.time.temporal.ChronoField.YEAR_OF_ERA
 import java.io.DataInput
 import java.io.DataOutput
 import java.io.IOException
@@ -59,22 +59,22 @@ import java.time.Clock
 import java.time.chrono.ChronoLocalDate
 import java.time.chrono.Era
 import java.time.chrono.IsoChronology
-import org.threeten.bp.format.DateTimeFormatter
-import org.threeten.bp.format.DateTimeParseException
-import org.threeten.bp.temporal.ChronoField
-import org.threeten.bp.temporal.ChronoUnit
-import org.threeten.bp.temporal.Temporal
-import org.threeten.bp.temporal.TemporalAccessor
-import org.threeten.bp.temporal.TemporalAdjuster
-import org.threeten.bp.temporal.TemporalAmount
-import org.threeten.bp.temporal.TemporalField
-import org.threeten.bp.temporal.TemporalQueries
-import org.threeten.bp.temporal.TemporalQuery
-import org.threeten.bp.temporal.TemporalUnit
-import org.threeten.bp.temporal.UnsupportedTemporalTypeException
-import org.threeten.bp.temporal.ValueRange
-import org.threeten.bp.zone.ZoneOffsetTransition
-import org.threeten.bp.zone.ZoneRules
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
+import java.time.temporal.ChronoField
+import java.time.temporal.ChronoUnit
+import java.time.temporal.Temporal
+import java.time.temporal.TemporalAccessor
+import java.time.temporal.TemporalAdjuster
+import java.time.temporal.TemporalAmount
+import java.time.temporal.TemporalField
+import java.time.temporal.TemporalQueries
+import java.time.temporal.TemporalQuery
+import java.time.temporal.TemporalUnit
+import java.time.temporal.UnsupportedTemporalTypeException
+import java.time.temporal.ValueRange
+import java.time.zone.ZoneOffsetTransition
+import java.time.zone.ZoneRules
 
 @SerialVersionUID(2942565459149668126L)
 object LocalDate {
@@ -93,7 +93,7 @@ object LocalDate {
     * There are five 400 year cycles from year zero to 2000.
     * There are 7 leap years from 1970 to 2000.
     */
-  private[bp] val DAYS_0000_TO_1970: Long = (DAYS_PER_CYCLE * 5L) - (30L * 365L + 7L)
+  private[time] val DAYS_0000_TO_1970: Long = (DAYS_PER_CYCLE * 5L) - (30L * 365L + 7L)
 
   /** Obtains the current date from the system clock in the default time-zone.
     *
@@ -257,7 +257,7 @@ object LocalDate {
   /** Obtains an instance of {@code LocalDate} from a text string such as {@code 2007-12-03}.
     *
     * The string must represent a valid date and is parsed using
-    * {@link org.threeten.bp.format.DateTimeFormatter#ISO_LOCAL_DATE}.
+    * {@link java.time.format.DateTimeFormatter#ISO_LOCAL_DATE}.
     *
     * @param text  the text to parse such as "2007-12-03", not null
     * @return the parsed local date, not null
@@ -311,7 +311,7 @@ object LocalDate {
   }
 
   @throws[IOException]
-  private[bp] def readExternal(in: DataInput): LocalDate = {
+  private[time] def readExternal(in: DataInput): LocalDate = {
     val year: Int = in.readInt
     val month: Int = in.readByte
     val dayOfMonth: Int = in.readByte
@@ -665,8 +665,8 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
     *
     * For example this code returns a date on the last day of July:
     * <pre>
-    * import static org.threeten.bp.Month.*;
-    * import static org.threeten.bp.temporal.Adjusters.*;
+    * import static java.time.Month.*;
+    * import static java.time.temporal.Adjusters.*;
     *
     * result = localDate.with(JULY).with(lastDayOfMonth());
     * </pre>
@@ -1247,7 +1247,7 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
     }
   }
 
-  private[bp] def daysUntil(end: LocalDate): Long = end.toEpochDay - toEpochDay
+  private[time] def daysUntil(end: LocalDate): Long = end.toEpochDay - toEpochDay
 
   private def monthsUntil(end: LocalDate): Long = {
     val packed1: Long = getProlepticMonth * 32L + getDayOfMonth
@@ -1457,7 +1457,7 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
     if (other.isInstanceOf[LocalDate]) compareTo0(other.asInstanceOf[LocalDate])
     else super.compareTo(other)
 
-  private[bp] def compareTo0(otherDate: LocalDate): Int = {
+  private[time] def compareTo0(otherDate: LocalDate): Int = {
     var cmp: Int = year - otherDate.year
     if (cmp == 0) {
       cmp = month - otherDate.month
@@ -1615,7 +1615,7 @@ final class LocalDate private(private val year: Int, monthOfYear: Int, dayOfMont
   private def readResolve: AnyRef = throw new InvalidObjectException("Deserialization via serialization delegate")
 
   @throws[IOException]
-  private[bp] def writeExternal(out: DataOutput): Unit = {
+  private[time] def writeExternal(out: DataOutput): Unit = {
     out.writeInt(year)
     out.writeByte(month)
     out.writeByte(day)

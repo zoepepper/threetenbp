@@ -34,7 +34,7 @@ package java.time.temporal
 import java.time.temporal.ChronoUnit.MONTHS
 import java.time.temporal.ChronoUnit.WEEKS
 import java.util.Locale
-import org.threeten.bp.DateTimeException
+import java.time.DateTimeException
 import java.time.format.ResolverStyle
 
 /** Mock DateTimeField that returns null. */

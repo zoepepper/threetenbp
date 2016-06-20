@@ -29,28 +29,28 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.threeten.bp.temporal
+package java.time.temporal
 
-import org.threeten.bp.temporal.ChronoField.DAY_OF_MONTH
-import org.threeten.bp.temporal.ChronoField.DAY_OF_WEEK
-import org.threeten.bp.temporal.ChronoField.DAY_OF_YEAR
-import org.threeten.bp.temporal.ChronoField.MONTH_OF_YEAR
-import org.threeten.bp.temporal.ChronoField.YEAR
-import org.threeten.bp.temporal.ChronoUnit.DAYS
-import org.threeten.bp.temporal.ChronoUnit.MONTHS
-import org.threeten.bp.temporal.ChronoUnit.WEEKS
-import org.threeten.bp.temporal.ChronoUnit.YEARS
+import java.time.temporal.ChronoField.DAY_OF_MONTH
+import java.time.temporal.ChronoField.DAY_OF_WEEK
+import java.time.temporal.ChronoField.DAY_OF_YEAR
+import java.time.temporal.ChronoField.MONTH_OF_YEAR
+import java.time.temporal.ChronoField.YEAR
+import java.time.temporal.ChronoUnit.DAYS
+import java.time.temporal.ChronoUnit.MONTHS
+import java.time.temporal.ChronoUnit.WEEKS
+import java.time.temporal.ChronoUnit.YEARS
 import java.io.InvalidObjectException
 import java.io.Serializable
 import java.util.{Objects, GregorianCalendar, Locale}
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.ConcurrentMap
-import org.threeten.bp.DateTimeException
-import org.threeten.bp.DayOfWeek
-import org.threeten.bp.Year
+import java.time.DateTimeException
+import java.time.DayOfWeek
+import java.time.Year
 import java.time.chrono.ChronoLocalDate
 import java.time.chrono.Chronology
-import org.threeten.bp.format.ResolverStyle
+import java.time.format.ResolverStyle
 
 @SerialVersionUID(-1177360819670808121L)
 object WeekFields {

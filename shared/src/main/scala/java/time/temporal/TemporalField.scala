@@ -29,11 +29,11 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.threeten.bp.temporal
+package java.time.temporal
 
 import java.util.Locale
-import org.threeten.bp.DateTimeException
-import org.threeten.bp.format.ResolverStyle
+import java.time.DateTimeException
+import java.time.format.ResolverStyle
 
 /** A field of date-time, such as month-of-year or hour-of-minute.
   *

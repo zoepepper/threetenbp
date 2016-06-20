@@ -34,7 +34,7 @@ package java.time
 import java.io.Serializable
 import java.util.Objects
 
-import org.threeten.bp.LocalTime.{NANOS_PER_MINUTE, NANOS_PER_SECOND}
+import java.time.LocalTime.{NANOS_PER_MINUTE, NANOS_PER_SECOND}
 
 object Clock {
   /** Obtains a clock that returns the current instant using the best available
@@ -235,7 +235,7 @@ object Clock {
     * {@link System#currentTimeMillis()}.
     */
   @SerialVersionUID(6740630888130243051L)
-  private[bp] final class SystemClock(val zone: ZoneId) extends Clock with Serializable {
+  private[time] final class SystemClock(val zone: ZoneId) extends Clock with Serializable {
     if (zone == null) throw new NullPointerException("'zone' can not be null")
 
     def getZone: ZoneId = zone
@@ -263,7 +263,7 @@ object Clock {
     * This is typically used for testing.
     */
   @SerialVersionUID(7430389292664866958L)
-  private[bp] final class FixedClock(val instant: Instant, val zone: ZoneId) extends Clock with Serializable {
+  private[time] final class FixedClock(val instant: Instant, val zone: ZoneId) extends Clock with Serializable {
     if (zone == null) throw new NullPointerException("'zone' can not be null")
 
     def getZone: ZoneId = zone
@@ -288,7 +288,7 @@ object Clock {
   /** Implementation of a clock that adds an offset to an underlying clock.
     */
   @SerialVersionUID(2007484719125426256L)
-  private[bp] final class OffsetClock(val baseClock: Clock, val offset: Duration) extends Clock with Serializable {
+  private[time] final class OffsetClock(val baseClock: Clock, val offset: Duration) extends Clock with Serializable {
 
     def getZone: ZoneId = baseClock.getZone
 
@@ -314,7 +314,7 @@ object Clock {
   /** Implementation of a clock that adds an offset to an underlying clock.
     */
   @SerialVersionUID(6504659149906368850L)
-  private[bp] final class TickClock(val baseClock: Clock, val tickNanos: Long) extends Clock with Serializable {
+  private[time] final class TickClock(val baseClock: Clock, val tickNanos: Long) extends Clock with Serializable {
 
      def getZone: ZoneId = baseClock.getZone
 

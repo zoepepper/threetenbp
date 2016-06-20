@@ -29,24 +29,24 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.threeten.bp.format
+package java.time.format
 
-import org.threeten.bp.temporal.ChronoField.EPOCH_DAY
-import org.threeten.bp.temporal.ChronoField.INSTANT_SECONDS
+import java.time.temporal.ChronoField.EPOCH_DAY
+import java.time.temporal.ChronoField.INSTANT_SECONDS
 import java.util.{Objects, Locale}
-import org.threeten.bp.DateTimeException
-import org.threeten.bp.Instant
-import org.threeten.bp.ZoneId
-import org.threeten.bp.ZoneOffset
+import java.time.DateTimeException
+import java.time.Instant
+import java.time.ZoneId
+import java.time.ZoneOffset
 import java.time.chrono.ChronoLocalDate
 import java.time.chrono.Chronology
 import java.time.chrono.IsoChronology
-import org.threeten.bp.temporal.ChronoField
-import org.threeten.bp.temporal.TemporalAccessor
-import org.threeten.bp.temporal.TemporalField
-import org.threeten.bp.temporal.TemporalQueries
-import org.threeten.bp.temporal.TemporalQuery
-import org.threeten.bp.temporal.ValueRange
+import java.time.temporal.ChronoField
+import java.time.temporal.TemporalAccessor
+import java.time.temporal.TemporalField
+import java.time.temporal.TemporalQueries
+import java.time.temporal.TemporalQuery
+import java.time.temporal.ValueRange
 
 private object DateTimePrintContext {
   private def adjust(temporal: TemporalAccessor, formatter: DateTimeFormatter): TemporalAccessor = {

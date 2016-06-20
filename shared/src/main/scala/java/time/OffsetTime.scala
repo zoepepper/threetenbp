@@ -33,13 +33,13 @@ package java.time
 
 import java.util.Objects
 
-import org.threeten.bp.LocalTime.NANOS_PER_HOUR
-import org.threeten.bp.LocalTime.NANOS_PER_MINUTE
-import org.threeten.bp.LocalTime.NANOS_PER_SECOND
-import org.threeten.bp.LocalTime.SECONDS_PER_DAY
-import org.threeten.bp.temporal.ChronoField.NANO_OF_DAY
-import org.threeten.bp.temporal.ChronoField.OFFSET_SECONDS
-import org.threeten.bp.temporal.ChronoUnit.NANOS
+import java.time.LocalTime.NANOS_PER_HOUR
+import java.time.LocalTime.NANOS_PER_MINUTE
+import java.time.LocalTime.NANOS_PER_SECOND
+import java.time.LocalTime.SECONDS_PER_DAY
+import java.time.temporal.ChronoField.NANO_OF_DAY
+import java.time.temporal.ChronoField.OFFSET_SECONDS
+import java.time.temporal.ChronoUnit.NANOS
 import java.io.DataInput
 import java.io.DataOutput
 import java.io.IOException
@@ -49,21 +49,21 @@ import java.io.Serializable
 import java.time
 import java.time.Clock
 
-import org.threeten.bp.format.DateTimeFormatter
-import org.threeten.bp.format.DateTimeParseException
-import org.threeten.bp.temporal.ChronoField
-import org.threeten.bp.temporal.ChronoUnit
-import org.threeten.bp.temporal.Temporal
-import org.threeten.bp.temporal.TemporalAccessor
-import org.threeten.bp.temporal.TemporalAdjuster
-import org.threeten.bp.temporal.TemporalAmount
-import org.threeten.bp.temporal.TemporalField
-import org.threeten.bp.temporal.TemporalQueries
-import org.threeten.bp.temporal.TemporalQuery
-import org.threeten.bp.temporal.TemporalUnit
-import org.threeten.bp.temporal.UnsupportedTemporalTypeException
-import org.threeten.bp.temporal.ValueRange
-import org.threeten.bp.zone.ZoneRules
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
+import java.time.temporal.ChronoField
+import java.time.temporal.ChronoUnit
+import java.time.temporal.Temporal
+import java.time.temporal.TemporalAccessor
+import java.time.temporal.TemporalAdjuster
+import java.time.temporal.TemporalAmount
+import java.time.temporal.TemporalField
+import java.time.temporal.TemporalQueries
+import java.time.temporal.TemporalQuery
+import java.time.temporal.TemporalUnit
+import java.time.temporal.UnsupportedTemporalTypeException
+import java.time.temporal.ValueRange
+import java.time.zone.ZoneRules
 
 @SerialVersionUID(7264499704384272492L)
 object OffsetTime {
@@ -212,7 +212,7 @@ object OffsetTime {
   /** Obtains an instance of {@code OffsetTime} from a text string such as {@code 10:15:30+01:00}.
     *
     * The string must represent a valid time and is parsed using
-    * {@link org.threeten.bp.format.DateTimeFormatter#ISO_OFFSET_TIME}.
+    * {@link java.time.format.DateTimeFormatter#ISO_OFFSET_TIME}.
     *
     * @param text  the text to parse such as "10:15:30+01:00", not null
     * @return the parsed local time, not null
@@ -235,7 +235,7 @@ object OffsetTime {
   }
 
   @throws[IOException]
-  private[bp] def readExternal(in: DataInput): OffsetTime = {
+  private[time] def readExternal(in: DataInput): OffsetTime = {
     val time: LocalTime = LocalTime.readExternal(in)
     val offset: ZoneOffset = ZoneOffset.readExternal(in)
     OffsetTime.of(time, offset)
@@ -1080,7 +1080,7 @@ final class OffsetTime(private val time: LocalTime, private val offset: ZoneOffs
   private def readResolve: AnyRef = throw new InvalidObjectException("Deserialization via serialization delegate")
 
   @throws[IOException]
-  private[bp] def writeExternal(out: DataOutput): Unit = {
+  private[time] def writeExternal(out: DataOutput): Unit = {
     time.writeExternal(out)
     offset.writeExternal(out)
   }

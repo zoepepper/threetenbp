@@ -29,7 +29,7 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.threeten.bp
+package java.time
 
 import org.testng.Assert.assertEquals
 import org.testng.Assert.assertNotNull
@@ -438,7 +438,7 @@ import java.time.temporal.UnsupportedTemporalTypeException
     assertEquals(t.getNano, n)
   }
 
-  @DataProvider(name = "sampleBadParse") private[bp] def provider_sampleBadParse: Array[Array[AnyRef]] = {
+  @DataProvider(name = "sampleBadParse") private[time] def provider_sampleBadParse: Array[Array[AnyRef]] = {
     Array[Array[AnyRef]](Array("00;00"), Array("12-00"), Array("-01:00"), Array("00:00:00-09"), Array("00:00:00,09"), Array("00:00:abs"), Array("11"), Array("11:30+01:00"), Array("11:30+01:00[Europe/Paris]"))
   }
 
@@ -548,7 +548,7 @@ import java.time.temporal.UnsupportedTemporalTypeException
     TEST_12_30_40_987654321.query(null)
   }
 
-  @DataProvider(name = "sampleTimes") private[bp] def provider_sampleTimes: Array[Array[_ <: AnyRef]] = {
+  @DataProvider(name = "sampleTimes") private[time] def provider_sampleTimes: Array[Array[_ <: AnyRef]] = {
     Array[Array[_ <: AnyRef]](Array[Integer](0, 0, 0, 0), Array[Integer](0, 0, 0, 1), Array[Integer](0, 0, 1, 0), Array[Integer](0, 0, 1, 1), Array[Integer](0, 1, 0, 0), Array[Integer](0, 1, 0, 1), Array[Integer](0, 1, 1, 0), Array[Integer](0, 1, 1, 1), Array[Integer](1, 0, 0, 0), Array[Integer](1, 0, 0, 1), Array[Integer](1, 0, 1, 0), Array[Integer](1, 0, 1, 1), Array[Integer](1, 1, 0, 0), Array[Integer](1, 1, 0, 1), Array[Integer](1, 1, 1, 0), Array[Integer](1, 1, 1, 1))
   }
 
@@ -795,7 +795,7 @@ import java.time.temporal.UnsupportedTemporalTypeException
     }
   }
 
-  @DataProvider(name = "truncatedToValid") private[bp] def data_truncatedToValid: Array[Array[AnyRef]] = {
+  @DataProvider(name = "truncatedToValid") private[time] def data_truncatedToValid: Array[Array[AnyRef]] = {
     Array[Array[AnyRef]](Array(LocalTime.of(1, 2, 3, 123456789), NANOS, LocalTime.of(1, 2, 3, 123456789)), Array(LocalTime.of(1, 2, 3, 123456789), MICROS, LocalTime.of(1, 2, 3, 123456000)), Array(LocalTime.of(1, 2, 3, 123456789), MILLIS, LocalTime.of(1, 2, 3, 123000000)), Array(LocalTime.of(1, 2, 3, 123456789), SECONDS, LocalTime.of(1, 2, 3)), Array(LocalTime.of(1, 2, 3, 123456789), MINUTES, LocalTime.of(1, 2)), Array(LocalTime.of(1, 2, 3, 123456789), HOURS, LocalTime.of(1, 0)), Array(LocalTime.of(1, 2, 3, 123456789), DAYS, LocalTime.MIDNIGHT), Array(LocalTime.of(1, 1, 1, 123456789), NINETY_MINS, LocalTime.of(0, 0)), Array(LocalTime.of(2, 1, 1, 123456789), NINETY_MINS, LocalTime.of(1, 30)), Array(LocalTime.of(3, 1, 1, 123456789), NINETY_MINS, LocalTime.of(3, 0)))
   }
 
@@ -803,7 +803,7 @@ import java.time.temporal.UnsupportedTemporalTypeException
     assertEquals(input.truncatedTo(unit), expected)
   }
 
-  @DataProvider(name = "truncatedToInvalid") private[bp] def data_truncatedToInvalid: Array[Array[AnyRef]] = {
+  @DataProvider(name = "truncatedToInvalid") private[time] def data_truncatedToInvalid: Array[Array[AnyRef]] = {
     Array[Array[AnyRef]](Array(LocalTime.of(1, 2, 3, 123456789), NINETY_FIVE_MINS), Array(LocalTime.of(1, 2, 3, 123456789), WEEKS), Array(LocalTime.of(1, 2, 3, 123456789), MONTHS), Array(LocalTime.of(1, 2, 3, 123456789), YEARS))
   }
 
@@ -1106,13 +1106,13 @@ import java.time.temporal.UnsupportedTemporalTypeException
     }
   }
 
-  @DataProvider(name = "plusSeconds_fromZero") private[bp] def plusSeconds_fromZero: java.util.Iterator[Array[Any]] = {
+  @DataProvider(name = "plusSeconds_fromZero") private[time] def plusSeconds_fromZero: java.util.Iterator[Array[Any]] = {
     new java.util.Iterator[Array[Any]]() {
-      private[bp] var delta: Int = 30
-      private[bp] var i: Int = -3660
-      private[bp] var hour: Int = 22
-      private[bp] var min: Int = 59
-      private[bp] var sec: Int = 0
+      private[time] var delta: Int = 30
+      private[time] var i: Int = -3660
+      private[time] var hour: Int = 22
+      private[time] var min: Int = 59
+      private[time] var sec: Int = 0
 
       def hasNext: Boolean = i <= 3660
 
@@ -1196,14 +1196,14 @@ import java.time.temporal.UnsupportedTemporalTypeException
     }
   }
 
-  @DataProvider(name = "plusNanos_fromZero") private[bp] def plusNanos_fromZero: java.util.Iterator[Array[Any]] = {
+  @DataProvider(name = "plusNanos_fromZero") private[time] def plusNanos_fromZero: java.util.Iterator[Array[Any]] = {
     new java.util.Iterator[Array[Any]]() {
-      private[bp] var delta: Long = 7500000000L
-      private[bp] var i: Long = -3660 * 1000000000L
-      private[bp] var hour: Int = 22
-      private[bp] var min: Int = 59
-      private[bp] var sec: Int = 0
-      private[bp] var nanos: Long = 0
+      private[time] var delta: Long = 7500000000L
+      private[time] var i: Long = -3660 * 1000000000L
+      private[time] var hour: Int = 22
+      private[time] var min: Int = 59
+      private[time] var sec: Int = 0
+      private[time] var nanos: Long = 0
 
       def hasNext: Boolean = i <= 3660 * 1000000000L
 
@@ -1536,13 +1536,13 @@ import java.time.temporal.UnsupportedTemporalTypeException
     }
   }
 
-  @DataProvider(name = "minusSeconds_fromZero") private[bp] def minusSeconds_fromZero: java.util.Iterator[Array[Any]] = {
+  @DataProvider(name = "minusSeconds_fromZero") private[time] def minusSeconds_fromZero: java.util.Iterator[Array[Any]] = {
     new java.util.Iterator[Array[Any]]() {
-      private[bp] var delta: Int = 30
-      private[bp] var i: Int = 3660
-      private[bp] var hour: Int = 22
-      private[bp] var min: Int = 59
-      private[bp] var sec: Int = 0
+      private[time] var delta: Int = 30
+      private[time] var i: Int = 3660
+      private[time] var hour: Int = 22
+      private[time] var min: Int = 59
+      private[time] var sec: Int = 0
 
       def hasNext: Boolean = i >= -3660
 
@@ -1640,14 +1640,14 @@ import java.time.temporal.UnsupportedTemporalTypeException
     }
   }
 
-  @DataProvider(name = "minusNanos_fromZero") private[bp] def minusNanos_fromZero: java.util.Iterator[Array[_ <: AnyRef]] = {
+  @DataProvider(name = "minusNanos_fromZero") private[time] def minusNanos_fromZero: java.util.Iterator[Array[_ <: AnyRef]] = {
     new java.util.Iterator[Array[_ <: AnyRef]]() {
-      private[bp] var delta: Long = 7500000000L
-      private[bp] var i: Long = 3660 * 1000000000L
-      private[bp] var hour: Int = 22
-      private[bp] var min: Int = 59
-      private[bp] var sec: Int = 0
-      private[bp] var nanos: Long = 0
+      private[time] var delta: Long = 7500000000L
+      private[time] var i: Long = 3660 * 1000000000L
+      private[time] var hour: Int = 22
+      private[time] var min: Int = 59
+      private[time] var sec: Int = 0
+      private[time] var nanos: Long = 0
 
       def hasNext: Boolean = i >= -3660 * 1000000000L
 
@@ -1706,7 +1706,7 @@ import java.time.temporal.UnsupportedTemporalTypeException
     assertEquals(t, LocalTime.NOON)
   }
 
-  @DataProvider(name = "until") private[bp] def provider_until: Array[Array[Any]] = {
+  @DataProvider(name = "until") private[time] def provider_until: Array[Array[Any]] = {
     Array[Array[Any]](Array("00:00", "00:00", NANOS, 0), Array("00:00", "00:00", MICROS, 0), Array("00:00", "00:00", MILLIS, 0), Array("00:00", "00:00", SECONDS, 0), Array("00:00", "00:00", MINUTES, 0), Array("00:00", "00:00", HOURS, 0), Array("00:00", "00:00", HALF_DAYS, 0), Array("00:00", "00:00:01", NANOS, 1000000000), Array("00:00", "00:00:01", MICROS, 1000000), Array("00:00", "00:00:01", MILLIS, 1000), Array("00:00", "00:00:01", SECONDS, 1), Array("00:00", "00:00:01", MINUTES, 0), Array("00:00", "00:00:01", HOURS, 0), Array("00:00", "00:00:01", HALF_DAYS, 0), Array("00:00", "00:01", NANOS, 60000000000L), Array("00:00", "00:01", MICROS, 60000000), Array("00:00", "00:01", MILLIS, 60000), Array("00:00", "00:01", SECONDS, 60), Array("00:00", "00:01", MINUTES, 1), Array("00:00", "00:01", HOURS, 0), Array("00:00", "00:01", HALF_DAYS, 0))
   }
 
@@ -1912,7 +1912,7 @@ import java.time.temporal.UnsupportedTemporalTypeException
     assertEquals(a.hashCode == b.hashCode, false)
   }
 
-  @DataProvider(name = "sampleToString") private[bp] def provider_sampleToString: Array[Array[Any]] = {
+  @DataProvider(name = "sampleToString") private[time] def provider_sampleToString: Array[Array[Any]] = {
     Array[Array[Any]](Array(0, 0, 0, 0, "00:00"), Array(1, 0, 0, 0, "01:00"), Array(23, 0, 0, 0, "23:00"), Array(0, 1, 0, 0, "00:01"), Array(12, 30, 0, 0, "12:30"), Array(23, 59, 0, 0, "23:59"), Array(0, 0, 1, 0, "00:00:01"), Array(0, 0, 59, 0, "00:00:59"), Array(0, 0, 0, 100000000, "00:00:00.100"), Array(0, 0, 0, 10000000, "00:00:00.010"), Array(0, 0, 0, 1000000, "00:00:00.001"), Array(0, 0, 0, 100000, "00:00:00.000100"), Array(0, 0, 0, 10000, "00:00:00.000010"), Array(0, 0, 0, 1000, "00:00:00.000001"), Array(0, 0, 0, 100, "00:00:00.000000100"), Array(0, 0, 0, 10, "00:00:00.000000010"), Array(0, 0, 0, 1, "00:00:00.000000001"), Array(0, 0, 0, 999999999, "00:00:00.999999999"), Array(0, 0, 0, 99999999, "00:00:00.099999999"), Array(0, 0, 0, 9999999, "00:00:00.009999999"), Array(0, 0, 0, 999999, "00:00:00.000999999"), Array(0, 0, 0, 99999, "00:00:00.000099999"), Array(0, 0, 0, 9999, "00:00:00.000009999"), Array(0, 0, 0, 999, "00:00:00.000000999"), Array(0, 0, 0, 99, "00:00:00.000000099"), Array(0, 0, 0, 9, "00:00:00.000000009"))
   }
 

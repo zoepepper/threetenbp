@@ -36,10 +36,10 @@ import java.math.{BigDecimal, BigInteger, RoundingMode}
 import java.util.regex.{Matcher, Pattern}
 import java.util.{Arrays, Collections, Objects}
 
-import org.threeten.bp.format.DateTimeParseException
-import org.threeten.bp.temporal.ChronoField.NANO_OF_SECOND
-import org.threeten.bp.temporal.ChronoUnit._
-import org.threeten.bp.temporal.{TemporalAmount, TemporalUnit, UnsupportedTemporalTypeException}
+import java.time.format.DateTimeParseException
+import java.time.temporal.ChronoField.NANO_OF_SECOND
+import java.time.temporal.ChronoUnit._
+import java.time.temporal.{TemporalAmount, TemporalUnit, UnsupportedTemporalTypeException}
 
 @SerialVersionUID(3078945930695997490L)
 object Duration {
@@ -379,7 +379,7 @@ object Duration {
   }
 
   @throws[IOException]
-  private[bp] def readExternal(in: DataInput): Duration = {
+  private[time] def readExternal(in: DataInput): Duration = {
     val seconds: Long = in.readLong
     val nanos: Int = in.readInt
     Duration.ofSeconds(seconds, nanos)
@@ -1020,7 +1020,7 @@ final class Duration private(private val seconds: Long, private val nanos: Int) 
   private def readResolve: AnyRef = throw new InvalidObjectException("Deserialization via serialization delegate")
 
   @throws[IOException]
-  private[bp] def writeExternal(out: DataOutput): Unit = {
+  private[time] def writeExternal(out: DataOutput): Unit = {
     out.writeLong(seconds)
     out.writeInt(nanos)
   }

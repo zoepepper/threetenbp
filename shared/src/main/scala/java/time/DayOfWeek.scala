@@ -33,9 +33,9 @@ package java.time
 
 import java.util.Locale
 
-import org.threeten.bp.format.{DateTimeFormatterBuilder, TextStyle}
-import org.threeten.bp.temporal.ChronoUnit.DAYS
-import org.threeten.bp.temporal._
+import java.time.format.{DateTimeFormatterBuilder, TextStyle}
+import java.time.temporal.ChronoUnit.DAY_OF_WEEK
+import java.time.temporal._
 
 /** A day-of-week, such as 'Tuesday'.
   *

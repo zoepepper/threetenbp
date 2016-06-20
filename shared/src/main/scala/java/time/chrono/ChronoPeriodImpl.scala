@@ -32,18 +32,18 @@
 package java.time.chrono
 
 
-import org.threeten.bp.temporal.ChronoUnit.DAYS
-import org.threeten.bp.temporal.ChronoUnit.MONTHS
-import org.threeten.bp.temporal.ChronoUnit.YEARS
+import java.time.temporal.ChronoUnit.DAYS
+import java.time.temporal.ChronoUnit.MONTHS
+import java.time.temporal.ChronoUnit.YEARS
 import java.io.Serializable
 import java.util.{Objects, Arrays, Collections}
-import org.threeten.bp.DateTimeException
-import org.threeten.bp.temporal.ChronoField
-import org.threeten.bp.temporal.Temporal
-import org.threeten.bp.temporal.TemporalAmount
-import org.threeten.bp.temporal.TemporalQueries
-import org.threeten.bp.temporal.TemporalUnit
-import org.threeten.bp.temporal.UnsupportedTemporalTypeException
+import java.time.DateTimeException
+import java.time.temporal.ChronoField
+import java.time.temporal.Temporal
+import java.time.temporal.TemporalAmount
+import java.time.temporal.TemporalQueries
+import java.time.temporal.TemporalUnit
+import java.time.temporal.UnsupportedTemporalTypeException
 
 /** An implementation of {@code ChronoPeriod}.
   */

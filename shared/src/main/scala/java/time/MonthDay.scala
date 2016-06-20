@@ -33,8 +33,8 @@ package java.time
 
 import java.util.Objects
 
-import org.threeten.bp.temporal.ChronoField.DAY_OF_MONTH
-import org.threeten.bp.temporal.ChronoField.MONTH_OF_YEAR
+import java.time.temporal.ChronoField.DAY_OF_MONTH
+import java.time.temporal.ChronoField.MONTH_OF_YEAR
 import java.io.DataInput
 import java.io.DataOutput
 import java.io.IOException
@@ -46,18 +46,18 @@ import java.time.Clock
 
 import java.time.chrono.Chronology
 import java.time.chrono.IsoChronology
-import org.threeten.bp.format.DateTimeFormatter
-import org.threeten.bp.format.DateTimeFormatterBuilder
-import org.threeten.bp.format.DateTimeParseException
-import org.threeten.bp.temporal.ChronoField
-import org.threeten.bp.temporal.Temporal
-import org.threeten.bp.temporal.TemporalAccessor
-import org.threeten.bp.temporal.TemporalAdjuster
-import org.threeten.bp.temporal.TemporalField
-import org.threeten.bp.temporal.TemporalQueries
-import org.threeten.bp.temporal.TemporalQuery
-import org.threeten.bp.temporal.UnsupportedTemporalTypeException
-import org.threeten.bp.temporal.ValueRange
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeFormatterBuilder
+import java.time.format.DateTimeParseException
+import java.time.temporal.ChronoField
+import java.time.temporal.Temporal
+import java.time.temporal.TemporalAccessor
+import java.time.temporal.TemporalAdjuster
+import java.time.temporal.TemporalField
+import java.time.temporal.TemporalQueries
+import java.time.temporal.TemporalQuery
+import java.time.temporal.UnsupportedTemporalTypeException
+import java.time.temporal.ValueRange
 
 @SerialVersionUID(-939150713474957432L)
 object MonthDay {
@@ -204,7 +204,7 @@ object MonthDay {
   }
 
   @throws[IOException]
-  private[bp] def readExternal(in: DataInput): MonthDay = {
+  private[time] def readExternal(in: DataInput): MonthDay = {
     val month: Byte = in.readByte
     val day: Byte = in.readByte
     MonthDay.of(month, day)
@@ -608,7 +608,7 @@ final class MonthDay private (private val month: Int, private val day: Int) exte
   private def readResolve: AnyRef = throw new InvalidObjectException("Deserialization via serialization delegate")
 
   @throws[IOException]
-  private[bp] def writeExternal(out: DataOutput): Unit = {
+  private[time] def writeExternal(out: DataOutput): Unit = {
     out.writeByte(month)
     out.writeByte(day)
   }

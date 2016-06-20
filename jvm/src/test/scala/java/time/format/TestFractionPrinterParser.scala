@@ -37,8 +37,8 @@ import java.time.temporal.ChronoField.NANO_OF_SECOND
 import java.time.temporal.ChronoField.SECOND_OF_MINUTE
 import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
-import org.threeten.bp.DateTimeException
-import org.threeten.bp.LocalTime
+import java.time.DateTimeException
+import java.time.LocalTime
 import java.time.temporal.MockFieldValue
 import java.time.temporal.TemporalField
 

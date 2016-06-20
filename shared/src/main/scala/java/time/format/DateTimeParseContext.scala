@@ -29,14 +29,14 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.threeten.bp.format
+package java.time.format
 
 import java.util.{Objects, Locale}
-import org.threeten.bp.Period
-import org.threeten.bp.ZoneId
+import java.time.Period
+import java.time.ZoneId
 import java.time.chrono.Chronology
 import java.time.chrono.IsoChronology
-import org.threeten.bp.temporal._
+import java.time.temporal._
 
 private[format] object DateTimeParseContext {
   /** Compares two characters ignoring case.

@@ -29,22 +29,22 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.threeten.bp.zone
+package java.time.zone
 
-import org.threeten.bp.temporal.ChronoField.YEAR
-import org.threeten.bp.temporal.TemporalAdjusters.nextOrSame
-import org.threeten.bp.temporal.TemporalAdjusters.previousOrSame
+import java.time.temporal.ChronoField.YEAR
+import java.time.temporal.TemporalAdjusters.nextOrSame
+import java.time.temporal.TemporalAdjusters.previousOrSame
 import java.util.{Objects, Collections}
-import org.threeten.bp.DateTimeException
-import org.threeten.bp.DayOfWeek
-import org.threeten.bp.LocalDate
-import org.threeten.bp.LocalDateTime
-import org.threeten.bp.LocalTime
-import org.threeten.bp.Month
-import org.threeten.bp.Year
-import org.threeten.bp.ZoneOffset
+import java.time.DateTimeException
+import java.time.DayOfWeek
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.Month
+import java.time.Year
+import java.time.ZoneOffset
 import java.time.chrono.IsoChronology
-import org.threeten.bp.zone.ZoneOffsetTransitionRule.TimeDefinition
+import java.time.zone.ZoneOffsetTransitionRule.TimeDefinition
 
 /** A mutable builder used to create all the rules for a historic time-zone.
   *

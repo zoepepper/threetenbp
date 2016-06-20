@@ -31,25 +31,25 @@
  */
 package java.time.chrono
 
-import org.threeten.bp.temporal.ChronoField.EPOCH_DAY
-import org.threeten.bp.temporal.ChronoField.NANO_OF_DAY
-import org.threeten.bp.temporal.ChronoUnit.NANOS
+import java.time.temporal.ChronoField.EPOCH_DAY
+import java.time.temporal.ChronoField.NANO_OF_DAY
+import java.time.temporal.ChronoUnit.NANOS
 import java.util.{Objects, Comparator}
-import org.threeten.bp.DateTimeException
-import org.threeten.bp.Instant
-import org.threeten.bp.LocalDate
-import org.threeten.bp.LocalTime
-import org.threeten.bp.ZoneId
-import org.threeten.bp.ZoneOffset
-import org.threeten.bp.format.DateTimeFormatter
-import org.threeten.bp.temporal.Temporal
-import org.threeten.bp.temporal.TemporalAccessor
-import org.threeten.bp.temporal.TemporalAdjuster
-import org.threeten.bp.temporal.TemporalAmount
-import org.threeten.bp.temporal.TemporalField
-import org.threeten.bp.temporal.TemporalQueries
-import org.threeten.bp.temporal.TemporalQuery
-import org.threeten.bp.temporal.TemporalUnit
+import java.time.DateTimeException
+import java.time.Instant
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.ZoneId
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
+import java.time.temporal.Temporal
+import java.time.temporal.TemporalAccessor
+import java.time.temporal.TemporalAdjuster
+import java.time.temporal.TemporalAmount
+import java.time.temporal.TemporalField
+import java.time.temporal.TemporalQueries
+import java.time.temporal.TemporalQuery
+import java.time.temporal.TemporalUnit
 
 object ChronoLocalDateTime {
   /** Gets a comparator that compares {@code ChronoLocalDateTime} in

@@ -38,11 +38,11 @@ import java.lang.reflect.InvocationTargetException
 import java.lang.reflect.Method
 import java.util.StringTokenizer
 import org.testng.annotations.Test
-import org.threeten.bp.DayOfWeek
-import org.threeten.bp.LocalDate
-import org.threeten.bp.LocalTime
-import org.threeten.bp.Month
-import org.threeten.bp.Year
+import java.time.DayOfWeek
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.Month
+import java.time.Year
 import java.time.zone.ZoneOffsetTransitionRule.TimeDefinition
 
 object TestTzdbZoneRulesCompiler {

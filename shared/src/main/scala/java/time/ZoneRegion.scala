@@ -39,9 +39,9 @@ import java.io.ObjectStreamException
 import java.io.Serializable
 import java.util.Objects
 import java.util.regex.Pattern
-import org.threeten.bp.zone.ZoneRules
-import org.threeten.bp.zone.ZoneRulesException
-import org.threeten.bp.zone.ZoneRulesProvider
+import java.time.zone.ZoneRules
+import java.time.zone.ZoneRulesException
+import java.time.zone.ZoneRulesProvider
 import scala.annotation.meta.field
 
 @SerialVersionUID(8386373296231747096L)
@@ -92,7 +92,7 @@ private object ZoneRegion {
     * @throws DateTimeException if the ID format is invalid
     * @throws DateTimeException if checking availability and the ID cannot be found
     */
-  private[bp] def ofId(zoneId: String, checkAvailable: Boolean): ZoneRegion = {
+  private[time] def ofId(zoneId: String, checkAvailable: Boolean): ZoneRegion = {
     Objects.requireNonNull(zoneId, "zoneId")
     if (zoneId.length < 2 || !PATTERN.matcher(zoneId).matches)
       throw new DateTimeException(s"Invalid ID for region-based ZoneId, invalid format: $zoneId")
@@ -109,7 +109,7 @@ private object ZoneRegion {
   }
 
   @throws[IOException]
-  private[bp] def readExternal(in: DataInput): ZoneId = {
+  private[time] def readExternal(in: DataInput): ZoneId = {
     val id: String = in.readUTF
     ofLenient(id)
   }
@@ -137,7 +137,7 @@ private object ZoneRegion {
   * @param rules  the rules, null for lazy lookup
   */
 @SerialVersionUID(8386373296231747096L)
-final class ZoneRegion private[bp](private val id: String, @(transient @field) private val rules: ZoneRules) extends ZoneId with Serializable {
+final class ZoneRegion private[time](private val id: String, @(transient @field) private val rules: ZoneRules) extends ZoneId with Serializable {
 
   def getId: String = id
 
@@ -154,11 +154,11 @@ final class ZoneRegion private[bp](private val id: String, @(transient @field) p
   private def readResolve: AnyRef = throw new InvalidObjectException("Deserialization via serialization delegate")
 
   @throws[IOException]
-  private[bp] def write(out: DataOutput): Unit = {
+  private[time] def write(out: DataOutput): Unit = {
     out.writeByte(Ser.ZONE_REGION_TYPE)
     writeExternal(out)
   }
 
   @throws[IOException]
-  private[bp] def writeExternal(out: DataOutput): Unit = out.writeUTF(id)
+  private[time] def writeExternal(out: DataOutput): Unit = out.writeUTF(id)
 }

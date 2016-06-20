@@ -35,10 +35,10 @@ import java.util.Locale
 import org.scalatest.testng.TestNGSuite
 import org.testng.annotations.BeforeMethod
 import org.testng.annotations.Test
-import org.threeten.bp.LocalDateTime
-import org.threeten.bp.ZoneId
-import org.threeten.bp.ZonedDateTime
-import org.threeten.bp.DateTimeException
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.time.DateTimeException
 import java.time.chrono.IsoChronology
 import java.time.temporal.TemporalAccessor
 import java.time.temporal.TemporalField

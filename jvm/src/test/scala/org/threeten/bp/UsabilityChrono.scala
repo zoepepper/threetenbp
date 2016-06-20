@@ -29,7 +29,7 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.threeten.bp
+package java.time
 
 import java.time.temporal.ChronoField.DAY_OF_MONTH
 import java.time.temporal.ChronoField.DAY_OF_WEEK
@@ -101,7 +101,7 @@ object UsabilityChrono {
 
   /** Example code.
     */
-  private[bp] def example1(): Unit = {
+  private[time] def example1(): Unit = {
     System.out.printf("Available Calendars%n")
     val now1: ChronoLocalDate = MinguoChronology.INSTANCE.dateNow
     val day: Int = now1.get(ChronoField.DAY_OF_MONTH)

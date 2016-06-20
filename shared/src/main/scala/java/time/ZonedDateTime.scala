@@ -33,9 +33,9 @@ package java.time
 
 import java.util.Objects
 
-import org.threeten.bp.temporal.ChronoField.INSTANT_SECONDS
-import org.threeten.bp.temporal.ChronoField.NANO_OF_SECOND
-import org.threeten.bp.temporal.ChronoField.OFFSET_SECONDS
+import java.time.temporal.ChronoField.INSTANT_SECONDS
+import java.time.temporal.ChronoField.NANO_OF_SECOND
+import java.time.temporal.ChronoField.OFFSET_SECONDS
 import java.io.DataInput
 import java.io.DataOutput
 import java.io.IOException
@@ -46,22 +46,22 @@ import java.time
 import java.time.Clock
 
 import java.time.chrono.ChronoZonedDateTime
-import org.threeten.bp.format.DateTimeFormatter
-import org.threeten.bp.format.DateTimeParseException
-import org.threeten.bp.temporal.ChronoField
-import org.threeten.bp.temporal.ChronoUnit
-import org.threeten.bp.temporal.Temporal
-import org.threeten.bp.temporal.TemporalAccessor
-import org.threeten.bp.temporal.TemporalAdjuster
-import org.threeten.bp.temporal.TemporalAmount
-import org.threeten.bp.temporal.TemporalField
-import org.threeten.bp.temporal.TemporalQueries
-import org.threeten.bp.temporal.TemporalQuery
-import org.threeten.bp.temporal.TemporalUnit
-import org.threeten.bp.temporal.UnsupportedTemporalTypeException
-import org.threeten.bp.temporal.ValueRange
-import org.threeten.bp.zone.ZoneOffsetTransition
-import org.threeten.bp.zone.ZoneRules
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
+import java.time.temporal.ChronoField
+import java.time.temporal.ChronoUnit
+import java.time.temporal.Temporal
+import java.time.temporal.TemporalAccessor
+import java.time.temporal.TemporalAdjuster
+import java.time.temporal.TemporalAmount
+import java.time.temporal.TemporalField
+import java.time.temporal.TemporalQueries
+import java.time.temporal.TemporalQuery
+import java.time.temporal.TemporalUnit
+import java.time.temporal.UnsupportedTemporalTypeException
+import java.time.temporal.ValueRange
+import java.time.zone.ZoneOffsetTransition
+import java.time.zone.ZoneRules
 
 @SerialVersionUID(-6260982410461394882L)
 object ZonedDateTime {
@@ -415,7 +415,7 @@ object ZonedDateTime {
     * {@code 2007-12-03T10:15:30+01:00[Europe/Paris]}.
     *
     * The string must represent a valid date-time and is parsed using
-    * {@link org.threeten.bp.format.DateTimeFormatter#ISO_ZONED_DATE_TIME}.
+    * {@link java.time.format.DateTimeFormatter#ISO_ZONED_DATE_TIME}.
     *
     * @param text  the text to parse such as "2007-12-03T10:15:30+01:00[Europe/Paris]", not null
     * @return the parsed zoned date-time, not null
@@ -438,7 +438,7 @@ object ZonedDateTime {
   }
 
   @throws(classOf[IOException])
-  private[bp] def readExternal(in: DataInput): ZonedDateTime = {
+  private[time] def readExternal(in: DataInput): ZonedDateTime = {
     val dateTime: LocalDateTime = LocalDateTime.readExternal(in)
     val offset: ZoneOffset = ZoneOffset.readExternal(in)
     val zone: ZoneId = Ser.read(in).asInstanceOf[ZoneId]
@@ -927,8 +927,8 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
     *
     * For example this code returns a date on the last day of July:
     * <pre>
-    * import static org.threeten.bp.Month.*;
-    * import static org.threeten.bp.temporal.Adjusters.*;
+    * import static java.time.Month.*;
+    * import static java.time.temporal.Adjusters.*;
     *
     * result = zonedDateTime.with(JULY).with(lastDayOfMonth());
     * </pre>
@@ -1817,7 +1817,7 @@ final class ZonedDateTime(private val dateTime: LocalDateTime, private val offse
   private def readResolve: AnyRef = throw new InvalidObjectException("Deserialization via serialization delegate")
 
   @throws[IOException]
-  private[bp] def writeExternal(out: DataOutput): Unit = {
+  private[time] def writeExternal(out: DataOutput): Unit = {
     dateTime.writeExternal(out)
     offset.writeExternal(out)
     zone.write(out)

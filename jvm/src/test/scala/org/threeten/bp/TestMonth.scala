@@ -29,12 +29,12 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.threeten.bp
+package java.time
 
 import org.testng.Assert.assertEquals
-import org.threeten.bp.Month.DECEMBER
-import org.threeten.bp.Month.JANUARY
-import org.threeten.bp.Month.JUNE
+import java.time.Month.DECEMBER
+import java.time.Month.JANUARY
+import java.time.Month.JUNE
 import java.time.temporal.ChronoField.MONTH_OF_YEAR
 import java.util.ArrayList
 import java.util.Arrays
@@ -128,13 +128,13 @@ import java.time.temporal.TemporalQueries
   @Test(expectedExceptions = Array(classOf[NullPointerException])) def test_getDisplayName_nullLocale(): Unit =
     Month.JANUARY.getDisplayName(TextStyle.FULL, null)
 
-  @DataProvider(name = "plus") private[bp] def data_plus: Array[Array[Any]] =
+  @DataProvider(name = "plus") private[time] def data_plus: Array[Array[Any]] =
     Array[Array[Any]](Array(1, -13, 12), Array(1, -12, 1), Array(1, -11, 2), Array(1, -10, 3), Array(1, -9, 4), Array(1, -8, 5), Array(1, -7, 6), Array(1, -6, 7), Array(1, -5, 8), Array(1, -4, 9), Array(1, -3, 10), Array(1, -2, 11), Array(1, -1, 12), Array(1, 0, 1), Array(1, 1, 2), Array(1, 2, 3), Array(1, 3, 4), Array(1, 4, 5), Array(1, 5, 6), Array(1, 6, 7), Array(1, 7, 8), Array(1, 8, 9), Array(1, 9, 10), Array(1, 10, 11), Array(1, 11, 12), Array(1, 12, 1), Array(1, 13, 2), Array(1, 1, 2), Array(2, 1, 3), Array(3, 1, 4), Array(4, 1, 5), Array(5, 1, 6), Array(6, 1, 7), Array(7, 1, 8), Array(8, 1, 9), Array(9, 1, 10), Array(10, 1, 11), Array(11, 1, 12), Array(12, 1, 1), Array(1, -1, 12), Array(2, -1, 1), Array(3, -1, 2), Array(4, -1, 3), Array(5, -1, 4), Array(6, -1, 5), Array(7, -1, 6), Array(8, -1, 7), Array(9, -1, 8), Array(10, -1, 9), Array(11, -1, 10), Array(12, -1, 11))
 
   @Test(dataProvider = "plus") def test_plus_long(base: Int, amount: Long, expected: Int): Unit =
     assertEquals(Month.of(base).plus(amount), Month.of(expected))
 
-  @DataProvider(name = "minus") private[bp] def data_minus: Array[Array[Any]] =
+  @DataProvider(name = "minus") private[time] def data_minus: Array[Array[Any]] =
     Array[Array[Any]](Array(1, -13, 2), Array(1, -12, 1), Array(1, -11, 12), Array(1, -10, 11), Array(1, -9, 10), Array(1, -8, 9), Array(1, -7, 8), Array(1, -6, 7), Array(1, -5, 6), Array(1, -4, 5), Array(1, -3, 4), Array(1, -2, 3), Array(1, -1, 2), Array(1, 0, 1), Array(1, 1, 12), Array(1, 2, 11), Array(1, 3, 10), Array(1, 4, 9), Array(1, 5, 8), Array(1, 6, 7), Array(1, 7, 6), Array(1, 8, 5), Array(1, 9, 4), Array(1, 10, 3), Array(1, 11, 2), Array(1, 12, 1), Array(1, 13, 12))
 
   @Test(dataProvider = "minus") def test_minus_long(base: Int, amount: Long, expected: Int): Unit =

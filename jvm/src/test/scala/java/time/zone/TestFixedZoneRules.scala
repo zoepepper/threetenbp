@@ -39,12 +39,12 @@ import java.io.ObjectInputStream
 import java.io.ObjectOutputStream
 import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
-import org.threeten.bp.Duration
-import org.threeten.bp.Instant
-import org.threeten.bp.LocalDateTime
-import org.threeten.bp.LocalTime
-import org.threeten.bp.Month
-import org.threeten.bp.ZoneOffset
+import java.time.Duration
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.Month
+import java.time.ZoneOffset
 import java.time.zone.ZoneOffsetTransitionRule.TimeDefinition
 
 /** Test ZoneRules for fixed offset time-zones. */

@@ -42,22 +42,22 @@ import java.io.StreamCorruptedException
 
 @SerialVersionUID(-7683839454370182990L)
 private object Ser {
-  private[bp] val DURATION_TYPE: Byte = 1
-  private[bp] val INSTANT_TYPE: Byte = 2
-  private[bp] val LOCAL_DATE_TYPE: Byte = 3
-  private[bp] val LOCAL_DATE_TIME_TYPE: Byte = 4
-  private[bp] val LOCAL_TIME_TYPE: Byte = 5
-  private[bp] val ZONED_DATE_TIME_TYPE: Byte = 6
-  private[bp] val ZONE_REGION_TYPE: Byte = 7
-  private[bp] val ZONE_OFFSET_TYPE: Byte = 8
-  private[bp] val MONTH_DAY_TYPE: Byte = 64
-  private[bp] val OFFSET_TIME_TYPE: Byte = 66
-  private[bp] val YEAR_TYPE: Byte = 67
-  private[bp] val YEAR_MONTH_TYPE: Byte = 68
-  private[bp] val OFFSET_DATE_TIME_TYPE: Byte = 69
+  private[time] val DURATION_TYPE: Byte = 1
+  private[time] val INSTANT_TYPE: Byte = 2
+  private[time] val LOCAL_DATE_TYPE: Byte = 3
+  private[time] val LOCAL_DATE_TIME_TYPE: Byte = 4
+  private[time] val LOCAL_TIME_TYPE: Byte = 5
+  private[time] val ZONED_DATE_TIME_TYPE: Byte = 6
+  private[time] val ZONE_REGION_TYPE: Byte = 7
+  private[time] val ZONE_OFFSET_TYPE: Byte = 8
+  private[time] val MONTH_DAY_TYPE: Byte = 64
+  private[time] val OFFSET_TIME_TYPE: Byte = 66
+  private[time] val YEAR_TYPE: Byte = 67
+  private[time] val YEAR_MONTH_TYPE: Byte = 68
+  private[time] val OFFSET_DATE_TIME_TYPE: Byte = 69
 
   @throws[IOException]
-  private[bp] def writeInternal(`type`: Byte, `object`: AnyRef, out: DataOutput): Unit = {
+  private[time] def writeInternal(`type`: Byte, `object`: AnyRef, out: DataOutput): Unit = {
     out.writeByte(`type`)
     `type` match {
       case DURATION_TYPE         => `object`.asInstanceOf[Duration].writeExternal(out)
@@ -78,7 +78,7 @@ private object Ser {
   }
 
   @throws[IOException]
-  private[bp] def read(in: DataInput): AnyRef = {
+  private[time] def read(in: DataInput): AnyRef = {
     val `type`: Byte = in.readByte
     readInternal(`type`, in)
   }
@@ -129,7 +129,7 @@ private object Ser {
   * @param object  the object being serialized
   */
 @SerialVersionUID(-7683839454370182990L)
-final class Ser private[bp](private var `type`: Byte, private var `object`: AnyRef) extends Externalizable {
+final class Ser private[time](private var `type`: Byte, private var `object`: AnyRef) extends Externalizable {
 
   /** Constructor for deserialization. */
   def this() {

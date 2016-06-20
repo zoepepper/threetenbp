@@ -29,15 +29,15 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.threeten.bp.temporal
+package java.time.temporal
 
-import org.threeten.bp.temporal.ChronoField.EPOCH_DAY
-import org.threeten.bp.temporal.ChronoField.NANO_OF_DAY
-import org.threeten.bp.temporal.ChronoField.OFFSET_SECONDS
-import org.threeten.bp.LocalDate
-import org.threeten.bp.LocalTime
-import org.threeten.bp.ZoneId
-import org.threeten.bp.ZoneOffset
+import java.time.temporal.ChronoField.EPOCH_DAY
+import java.time.temporal.ChronoField.NANO_OF_DAY
+import java.time.temporal.ChronoField.OFFSET_SECONDS
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.ZoneId
+import java.time.ZoneOffset
 import java.time.chrono.Chronology
 
 /** Common implementations of {@code TemporalQuery}.

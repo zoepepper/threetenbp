@@ -36,7 +36,7 @@ import org.testng.Assert.assertTrue
 import java.time.temporal.ChronoField.OFFSET_SECONDS
 import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
-import org.threeten.bp.ZoneOffset
+import java.time.ZoneOffset
 import java.time.temporal.TemporalQueries
 
 /** Test OffsetIdPrinterParser. */

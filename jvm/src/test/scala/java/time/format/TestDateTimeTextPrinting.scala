@@ -40,8 +40,8 @@ import java.util.Locale
 import org.testng.annotations.BeforeMethod
 import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
-import org.threeten.bp.LocalDateTime
-import org.threeten.bp.Month
+import java.time.LocalDateTime
+import java.time.Month
 import java.time.temporal.TemporalField
 
 /** Test text printing. */

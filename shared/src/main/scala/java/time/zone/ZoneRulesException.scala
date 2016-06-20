@@ -29,9 +29,9 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.threeten.bp.zone
+package java.time.zone
 
-import org.threeten.bp.DateTimeException
+import java.time.DateTimeException
 
 /** Thrown to indicate a problem with time-zone configuration.
   *

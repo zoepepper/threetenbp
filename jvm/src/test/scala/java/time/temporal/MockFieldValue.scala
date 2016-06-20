@@ -31,7 +31,7 @@
  */
 package java.time.temporal
 
-import org.threeten.bp.DateTimeException
+import java.time.DateTimeException
 
 /** Mock simple date-time with one field-value. */
 final class MockFieldValue(private val field: TemporalField, private val value: Long) extends TemporalAccessor {

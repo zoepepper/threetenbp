@@ -29,10 +29,10 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.threeten.bp.format
+package java.time.format
 
 import java.util.Locale
-import org.threeten.bp.temporal.TemporalField
+import java.time.temporal.TemporalField
 
 private[format] object DateTimeTextProvider {
   /** Gets the provider.

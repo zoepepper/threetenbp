@@ -32,18 +32,18 @@
 package java.time.chrono
 
 
-import org.threeten.bp.temporal.ChronoField.ALIGNED_DAY_OF_WEEK_IN_MONTH
-import org.threeten.bp.temporal.ChronoField.ALIGNED_DAY_OF_WEEK_IN_YEAR
-import org.threeten.bp.temporal.ChronoField.ALIGNED_WEEK_OF_MONTH
-import org.threeten.bp.temporal.ChronoField.ALIGNED_WEEK_OF_YEAR
-import org.threeten.bp.temporal.ChronoField.EPOCH_DAY
-import org.threeten.bp.temporal.ChronoField.DAY_OF_WEEK
-import org.threeten.bp.temporal.ChronoField.DAY_OF_MONTH
-import org.threeten.bp.temporal.ChronoField.DAY_OF_YEAR
-import org.threeten.bp.temporal.ChronoField.MONTH_OF_YEAR
-import org.threeten.bp.temporal.ChronoField.YEAR
-import org.threeten.bp.temporal.ChronoField.YEAR_OF_ERA
-import org.threeten.bp.temporal.ChronoField.ERA
+import java.time.temporal.ChronoField.ALIGNED_DAY_OF_WEEK_IN_MONTH
+import java.time.temporal.ChronoField.ALIGNED_DAY_OF_WEEK_IN_YEAR
+import java.time.temporal.ChronoField.ALIGNED_WEEK_OF_MONTH
+import java.time.temporal.ChronoField.ALIGNED_WEEK_OF_YEAR
+import java.time.temporal.ChronoField.EPOCH_DAY
+import java.time.temporal.ChronoField.DAY_OF_WEEK
+import java.time.temporal.ChronoField.DAY_OF_MONTH
+import java.time.temporal.ChronoField.DAY_OF_YEAR
+import java.time.temporal.ChronoField.MONTH_OF_YEAR
+import java.time.temporal.ChronoField.YEAR
+import java.time.temporal.ChronoField.YEAR_OF_ERA
+import java.time.temporal.ChronoField.ERA
 import java.io.BufferedReader
 import java.io.DataInput
 import java.io.DataOutput
@@ -60,19 +60,19 @@ import java.util.{Objects, StringTokenizer}
 import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
 
-import org.threeten.bp.DateTimeException
-import org.threeten.bp.DayOfWeek
-import org.threeten.bp.LocalDate
-import org.threeten.bp.LocalTime
-import org.threeten.bp.ZoneId
-import org.threeten.bp.temporal.ChronoField
-import org.threeten.bp.temporal.TemporalAccessor
-import org.threeten.bp.temporal.TemporalAdjuster
-import org.threeten.bp.temporal.TemporalAmount
-import org.threeten.bp.temporal.TemporalField
-import org.threeten.bp.temporal.TemporalUnit
-import org.threeten.bp.temporal.UnsupportedTemporalTypeException
-import org.threeten.bp.temporal.ValueRange
+import java.time.DateTimeException
+import java.time.DayOfWeek
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.ZoneId
+import java.time.temporal.ChronoField
+import java.time.temporal.TemporalAccessor
+import java.time.temporal.TemporalAdjuster
+import java.time.temporal.TemporalAmount
+import java.time.temporal.TemporalField
+import java.time.temporal.TemporalUnit
+import java.time.temporal.UnsupportedTemporalTypeException
+import java.time.temporal.ValueRange
 
 @SerialVersionUID(-5207853542612002020L)
 object HijrahDate {
@@ -1173,8 +1173,8 @@ object HijrahDate {
     * The default location and file name can be overriden by setting
     * following two Java's system property.
     * <pre>
-    * Location: org.threeten.bp.i18n.HijrahDate.deviationConfigDir
-    * File name: org.threeten.bp.i18n.HijrahDate.deviationConfigFile
+    * Location: java.time.i18n.HijrahDate.deviationConfigDir
+    * File name: java.time.i18n.HijrahDate.deviationConfigFile
     * </pre>
     * Regarding the file format, see readDeviationConfig() method for details.
     *
@@ -1183,10 +1183,10 @@ object HijrahDate {
     */
   @throws[IOException]
   private def getConfigFileInputStream: InputStream = {
-    var fileName: String = System.getProperty("org.threeten.bp.i18n.HijrahDate.deviationConfigFile")
+    var fileName: String = System.getProperty("java.time.i18n.HijrahDate.deviationConfigFile")
     if (fileName == null)
       fileName = DEFAULT_CONFIG_FILENAME
-    var dir: String = System.getProperty("org.threeten.bp.i18n.HijrahDate.deviationConfigDir")
+    var dir: String = System.getProperty("java.time.i18n.HijrahDate.deviationConfigDir")
     if (dir != null) {
       if (!(dir.length == 0 && dir.endsWith(System.getProperty("file.separator"))))
         dir = dir + System.getProperty("file.separator")
@@ -1285,8 +1285,8 @@ object HijrahDate {
   * The default location and file name can be overriden by setting
   * following two Java's system property.
   * <pre>
-  * Location: org.threeten.bp.i18n.HijrahDate.deviationConfigDir
-  * File name: org.threeten.bp.i18n.HijrahDate.deviationConfigFile</pre>
+  * Location: java.time.i18n.HijrahDate.deviationConfigDir
+  * File name: java.time.i18n.HijrahDate.deviationConfigFile</pre>
   *
   * <h3>Specification for implementors</h3>
   * This class is immutable and thread-safe.

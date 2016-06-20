@@ -32,7 +32,7 @@
 package java.time
 
 import java.util.Objects
-import org.threeten.bp.temporal.ChronoField.OFFSET_SECONDS
+import java.time.temporal.ChronoField.OFFSET_SECONDS
 import java.io.DataInput
 import java.io.DataOutput
 import java.io.IOException
@@ -41,16 +41,16 @@ import java.io.ObjectStreamException
 import java.io.Serializable
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.ConcurrentMap
-import org.threeten.bp.temporal.ChronoField
-import org.threeten.bp.temporal.Temporal
-import org.threeten.bp.temporal.TemporalAccessor
-import org.threeten.bp.temporal.TemporalAdjuster
-import org.threeten.bp.temporal.TemporalField
-import org.threeten.bp.temporal.TemporalQueries
-import org.threeten.bp.temporal.TemporalQuery
-import org.threeten.bp.temporal.UnsupportedTemporalTypeException
-import org.threeten.bp.temporal.ValueRange
-import org.threeten.bp.zone.ZoneRules
+import java.time.temporal.ChronoField
+import java.time.temporal.Temporal
+import java.time.temporal.TemporalAccessor
+import java.time.temporal.TemporalAdjuster
+import java.time.temporal.TemporalField
+import java.time.temporal.TemporalQueries
+import java.time.temporal.TemporalQuery
+import java.time.temporal.UnsupportedTemporalTypeException
+import java.time.temporal.ValueRange
+import java.time.zone.ZoneRules
 
 @SerialVersionUID(2357656521762053153L)
 object ZoneOffset {
@@ -310,7 +310,7 @@ object ZoneOffset {
   }
 
   @throws[IOException]
-  private[bp] def readExternal(in: DataInput): ZoneOffset = {
+  private[time] def readExternal(in: DataInput): ZoneOffset = {
     val offsetByte: Int = in.readByte
     if (offsetByte == 127) ZoneOffset.ofTotalSeconds(in.readInt) else ZoneOffset.ofTotalSeconds(offsetByte * 900)
   }
@@ -597,13 +597,13 @@ final class ZoneOffset private(private val totalSeconds: Int) extends ZoneId wit
   private def readResolve: AnyRef = throw new InvalidObjectException("Deserialization via serialization delegate")
 
   @throws[IOException]
-  private[bp] def write(out: DataOutput): Unit = {
+  private[time] def write(out: DataOutput): Unit = {
     out.writeByte(Ser.ZONE_OFFSET_TYPE)
     writeExternal(out)
   }
 
   @throws[IOException]
-  private[bp] def writeExternal(out: DataOutput): Unit = {
+  private[time] def writeExternal(out: DataOutput): Unit = {
     val offsetSecs: Int = totalSeconds
     val offsetByte: Int = if (offsetSecs % 900 == 0) offsetSecs / 900 else 127
     out.writeByte(offsetByte)

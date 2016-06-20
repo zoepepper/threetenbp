@@ -35,7 +35,7 @@ import org.testng.Assert.assertEquals
 import org.testng.annotations.BeforeMethod
 import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
-import org.threeten.bp.LocalDate
+import java.time.LocalDate
 
 /** Test. */
 @Test object TestJulianFields {

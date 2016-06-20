@@ -35,16 +35,16 @@ import java.io.DataOutput
 import java.io.IOException
 import java.io.Serializable
 import java.util.{Objects, Collections, Locale, TimeZone}
-import org.threeten.bp.format.DateTimeFormatterBuilder
-import org.threeten.bp.format.TextStyle
-import org.threeten.bp.temporal.TemporalAccessor
-import org.threeten.bp.temporal.TemporalField
-import org.threeten.bp.temporal.TemporalQueries
-import org.threeten.bp.temporal.TemporalQuery
-import org.threeten.bp.temporal.UnsupportedTemporalTypeException
-import org.threeten.bp.zone.ZoneRules
-import org.threeten.bp.zone.ZoneRulesException
-import org.threeten.bp.zone.ZoneRulesProvider
+import java.time.format.DateTimeFormatterBuilder
+import java.time.format.TextStyle
+import java.time.temporal.TemporalAccessor
+import java.time.temporal.TemporalField
+import java.time.temporal.TemporalQueries
+import java.time.temporal.TemporalQuery
+import java.time.temporal.UnsupportedTemporalTypeException
+import java.time.zone.ZoneRules
+import java.time.zone.ZoneRulesException
+import java.time.zone.ZoneRulesProvider
 
 @SerialVersionUID(8352817235686L)
 object ZoneId {
@@ -368,7 +368,7 @@ object ZoneId {
   * @constructor Constructor only accessible within the package.
   */
 @SerialVersionUID(8352817235686L)
-abstract class ZoneId private[bp]() extends Serializable {
+abstract class ZoneId private[time]() extends Serializable {
   if ((getClass ne classOf[ZoneOffset]) && (getClass ne classOf[ZoneRegion]))
     throw new AssertionError("Invalid subclass")
 
@@ -476,5 +476,5 @@ abstract class ZoneId private[bp]() extends Serializable {
   override def toString: String = getId
 
   @throws[IOException]
-  private[bp] def write(out: DataOutput): Unit
+  private[time] def write(out: DataOutput): Unit
 }

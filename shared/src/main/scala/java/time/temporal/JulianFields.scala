@@ -29,15 +29,15 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.threeten.bp.temporal
+package java.time.temporal
 
-import org.threeten.bp.temporal.ChronoField.EPOCH_DAY
-import org.threeten.bp.temporal.ChronoUnit.DAYS
-import org.threeten.bp.temporal.ChronoUnit.FOREVER
+import java.time.temporal.ChronoField.EPOCH_DAY
+import java.time.temporal.ChronoUnit.DAYS
+import java.time.temporal.ChronoUnit.FOREVER
 import java.util.{Objects, Locale}
-import org.threeten.bp.DateTimeException
+import java.time.DateTimeException
 import java.time.chrono.Chronology
-import org.threeten.bp.format.ResolverStyle
+import java.time.format.ResolverStyle
 
 /** A set of date fields that provide access to Julian Days.
   *

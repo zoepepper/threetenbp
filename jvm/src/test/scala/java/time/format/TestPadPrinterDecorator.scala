@@ -33,8 +33,8 @@ package java.time.format
 
 import org.testng.Assert.assertEquals
 import org.testng.annotations.Test
-import org.threeten.bp.DateTimeException
-import org.threeten.bp.LocalDate
+import java.time.DateTimeException
+import java.time.LocalDate
 
 /** Test PadPrinterDecorator. */
 @Test class TestPadPrinterDecorator extends AbstractTestPrinterParser {

@@ -33,15 +33,15 @@ package java.time
 
 import java.util.Objects
 
-import org.threeten.bp.LocalTime.SECONDS_PER_DAY
-import org.threeten.bp.LocalTime.SECONDS_PER_HOUR
-import org.threeten.bp.LocalTime.SECONDS_PER_MINUTE
-import org.threeten.bp.temporal.ChronoField.INSTANT_SECONDS
-import org.threeten.bp.temporal.ChronoField.MICRO_OF_SECOND
-import org.threeten.bp.temporal.ChronoField.MILLI_OF_SECOND
-import org.threeten.bp.temporal.ChronoField.NANO_OF_SECOND
-import org.threeten.bp.temporal.ChronoUnit.DAYS
-import org.threeten.bp.temporal.ChronoUnit.NANOS
+import java.time.LocalTime.SECONDS_PER_DAY
+import java.time.LocalTime.SECONDS_PER_HOUR
+import java.time.LocalTime.SECONDS_PER_MINUTE
+import java.time.temporal.ChronoField.INSTANT_SECONDS
+import java.time.temporal.ChronoField.MICRO_OF_SECOND
+import java.time.temporal.ChronoField.MILLI_OF_SECOND
+import java.time.temporal.ChronoField.NANO_OF_SECOND
+import java.time.temporal.ChronoUnit.DAYS
+import java.time.temporal.ChronoUnit.NANOS
 import java.io.DataInput
 import java.io.DataOutput
 import java.io.IOException
@@ -51,20 +51,20 @@ import java.io.Serializable
 import java.time
 import java.time.Clock
 
-import org.threeten.bp.format.DateTimeFormatter
-import org.threeten.bp.format.DateTimeParseException
-import org.threeten.bp.temporal.ChronoField
-import org.threeten.bp.temporal.ChronoUnit
-import org.threeten.bp.temporal.Temporal
-import org.threeten.bp.temporal.TemporalAccessor
-import org.threeten.bp.temporal.TemporalAdjuster
-import org.threeten.bp.temporal.TemporalAmount
-import org.threeten.bp.temporal.TemporalField
-import org.threeten.bp.temporal.TemporalQueries
-import org.threeten.bp.temporal.TemporalQuery
-import org.threeten.bp.temporal.TemporalUnit
-import org.threeten.bp.temporal.UnsupportedTemporalTypeException
-import org.threeten.bp.temporal.ValueRange
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
+import java.time.temporal.ChronoField
+import java.time.temporal.ChronoUnit
+import java.time.temporal.Temporal
+import java.time.temporal.TemporalAccessor
+import java.time.temporal.TemporalAdjuster
+import java.time.temporal.TemporalAmount
+import java.time.temporal.TemporalField
+import java.time.temporal.TemporalQueries
+import java.time.temporal.TemporalQuery
+import java.time.temporal.TemporalUnit
+import java.time.temporal.UnsupportedTemporalTypeException
+import java.time.temporal.ValueRange
 
 @SerialVersionUID(-665713676816604388L)
 object Instant {
@@ -233,7 +233,7 @@ object Instant {
       new Instant(seconds, nanoOfSecond)
 
   @throws[IOException]
-  private[bp] def readExternal(in: DataInput): Instant = {
+  private[time] def readExternal(in: DataInput): Instant = {
     val seconds: Long = in.readLong
     val nanos: Int = in.readInt
     Instant.ofEpochSecond(seconds, nanos)
@@ -1006,7 +1006,7 @@ final class Instant private(private val seconds: Long, private val nanos: Int) e
   private def readResolve: AnyRef = throw new InvalidObjectException("Deserialization via serialization delegate")
 
   @throws[IOException]
-  private[bp] def writeExternal(out: DataOutput): Unit = {
+  private[time] def writeExternal(out: DataOutput): Unit = {
     out.writeLong(seconds)
     out.writeInt(nanos)
   }

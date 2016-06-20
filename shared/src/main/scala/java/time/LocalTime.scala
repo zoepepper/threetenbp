@@ -33,14 +33,14 @@ package java.time
 
 import java.util.Objects
 
-import org.threeten.bp.temporal.ChronoField.HOUR_OF_DAY
-import org.threeten.bp.temporal.ChronoField.MICRO_OF_DAY
-import org.threeten.bp.temporal.ChronoField.MINUTE_OF_HOUR
-import org.threeten.bp.temporal.ChronoField.NANO_OF_DAY
-import org.threeten.bp.temporal.ChronoField.NANO_OF_SECOND
-import org.threeten.bp.temporal.ChronoField.SECOND_OF_DAY
-import org.threeten.bp.temporal.ChronoField.SECOND_OF_MINUTE
-import org.threeten.bp.temporal.ChronoUnit.NANOS
+import java.time.temporal.ChronoField.HOUR_OF_DAY
+import java.time.temporal.ChronoField.MICRO_OF_DAY
+import java.time.temporal.ChronoField.MINUTE_OF_HOUR
+import java.time.temporal.ChronoField.NANO_OF_DAY
+import java.time.temporal.ChronoField.NANO_OF_SECOND
+import java.time.temporal.ChronoField.SECOND_OF_DAY
+import java.time.temporal.ChronoField.SECOND_OF_MINUTE
+import java.time.temporal.ChronoUnit.NANOS
 import java.io.DataInput
 import java.io.DataOutput
 import java.io.IOException
@@ -50,20 +50,20 @@ import java.io.Serializable
 import java.time
 import java.time.Clock
 
-import org.threeten.bp.format.DateTimeFormatter
-import org.threeten.bp.format.DateTimeParseException
-import org.threeten.bp.temporal.ChronoField
-import org.threeten.bp.temporal.ChronoUnit
-import org.threeten.bp.temporal.Temporal
-import org.threeten.bp.temporal.TemporalAccessor
-import org.threeten.bp.temporal.TemporalAdjuster
-import org.threeten.bp.temporal.TemporalAmount
-import org.threeten.bp.temporal.TemporalField
-import org.threeten.bp.temporal.TemporalQueries
-import org.threeten.bp.temporal.TemporalQuery
-import org.threeten.bp.temporal.TemporalUnit
-import org.threeten.bp.temporal.UnsupportedTemporalTypeException
-import org.threeten.bp.temporal.ValueRange
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
+import java.time.temporal.ChronoField
+import java.time.temporal.ChronoUnit
+import java.time.temporal.Temporal
+import java.time.temporal.TemporalAccessor
+import java.time.temporal.TemporalAdjuster
+import java.time.temporal.TemporalAmount
+import java.time.temporal.TemporalField
+import java.time.temporal.TemporalQueries
+import java.time.temporal.TemporalQuery
+import java.time.temporal.TemporalUnit
+import java.time.temporal.UnsupportedTemporalTypeException
+import java.time.temporal.ValueRange
 
 @SerialVersionUID(6414437269572265201L)
 object LocalTime {
@@ -93,29 +93,29 @@ object LocalTime {
   val NOON: LocalTime = HOURS(12)
 
   /** Hours per day. */
-  private[bp] val HOURS_PER_DAY: Int      = 24
+  private[time] val HOURS_PER_DAY: Int      = 24
   /** Minutes per hour. */
-  private[bp] val MINUTES_PER_HOUR: Int   = 60
+  private[time] val MINUTES_PER_HOUR: Int   = 60
   /** Minutes per day. */
-  private[bp] val MINUTES_PER_DAY: Int    = MINUTES_PER_HOUR * HOURS_PER_DAY
+  private[time] val MINUTES_PER_DAY: Int    = MINUTES_PER_HOUR * HOURS_PER_DAY
   /** Seconds per minute. */
-  private[bp] val SECONDS_PER_MINUTE: Int = 60
+  private[time] val SECONDS_PER_MINUTE: Int = 60
   /** Seconds per hour. */
-  private[bp] val SECONDS_PER_HOUR: Int   = SECONDS_PER_MINUTE * MINUTES_PER_HOUR
+  private[time] val SECONDS_PER_HOUR: Int   = SECONDS_PER_MINUTE * MINUTES_PER_HOUR
   /** Seconds per day. */
-  private[bp] val SECONDS_PER_DAY: Int    = SECONDS_PER_HOUR * HOURS_PER_DAY
+  private[time] val SECONDS_PER_DAY: Int    = SECONDS_PER_HOUR * HOURS_PER_DAY
   /** Milliseconds per day. */
-  private[bp] val MILLIS_PER_DAY: Long    = SECONDS_PER_DAY * 1000L
+  private[time] val MILLIS_PER_DAY: Long    = SECONDS_PER_DAY * 1000L
   /** Microseconds per day. */
-  private[bp] val MICROS_PER_DAY: Long    = SECONDS_PER_DAY * 1000000L
+  private[time] val MICROS_PER_DAY: Long    = SECONDS_PER_DAY * 1000000L
   /** Nanos per second. */
-  private[bp] val NANOS_PER_SECOND: Long  = 1000000000L
+  private[time] val NANOS_PER_SECOND: Long  = 1000000000L
   /** Nanos per minute. */
-  private[bp] val NANOS_PER_MINUTE: Long  = NANOS_PER_SECOND * SECONDS_PER_MINUTE
+  private[time] val NANOS_PER_MINUTE: Long  = NANOS_PER_SECOND * SECONDS_PER_MINUTE
   /** Nanos per hour. */
-  private[bp] val NANOS_PER_HOUR: Long    = NANOS_PER_MINUTE * MINUTES_PER_HOUR
+  private[time] val NANOS_PER_HOUR: Long    = NANOS_PER_MINUTE * MINUTES_PER_HOUR
   /** Nanos per day. */
-  private[bp] val NANOS_PER_DAY: Long     = NANOS_PER_HOUR * HOURS_PER_DAY
+  private[time] val NANOS_PER_DAY: Long     = NANOS_PER_HOUR * HOURS_PER_DAY
 
   /** Obtains the current time from the system clock in the default time-zone.
     *
@@ -251,7 +251,7 @@ object LocalTime {
     * @return the local time, not null
     * @throws DateTimeException if the either input value is invalid
     */
-  private[bp] def ofSecondOfDay(secondOfDay: Long, nanoOfSecond: Int): LocalTime = {
+  private[time] def ofSecondOfDay(secondOfDay: Long, nanoOfSecond: Int): LocalTime = {
     var _secondOfDay = secondOfDay
     SECOND_OF_DAY.checkValidValue(_secondOfDay)
     NANO_OF_SECOND.checkValidValue(nanoOfSecond)
@@ -308,7 +308,7 @@ object LocalTime {
   /** Obtains an instance of {@code LocalTime} from a text string such as {@code 10:15}.
     *
     * The string must represent a valid time and is parsed using
-    * {@link org.threeten.bp.format.DateTimeFormatter#ISO_LOCAL_TIME}.
+    * {@link java.time.format.DateTimeFormatter#ISO_LOCAL_TIME}.
     *
     * @param text the text to parse such as "10:15:30", not null
     * @return the parsed local time, not null
@@ -345,7 +345,7 @@ object LocalTime {
     else new LocalTime(hour, minute, second, nanoOfSecond)
 
   @throws[IOException]
-  private[bp] def readExternal(in: DataInput): LocalTime = {
+  private[time] def readExternal(in: DataInput): LocalTime = {
     var hour: Int = in.readByte
     var minute: Int = 0
     var second: Int = 0
@@ -1311,7 +1311,7 @@ final class LocalTime(_hour: Int, _minute: Int, _second: Int, private val nano: 
   private def readResolve: AnyRef = throw new InvalidObjectException("Deserialization via serialization delegate")
 
   @throws[IOException]
-  private[bp] def writeExternal(out: DataOutput): Unit = {
+  private[time] def writeExternal(out: DataOutput): Unit = {
     if (nano == 0) {
       if (second == 0) {
         if (minute == 0)

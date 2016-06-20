@@ -31,37 +31,37 @@
  */
 package java.time.chrono
 
-import org.threeten.bp.temporal.ChronoField.ALIGNED_DAY_OF_WEEK_IN_MONTH
-import org.threeten.bp.temporal.ChronoField.ALIGNED_DAY_OF_WEEK_IN_YEAR
-import org.threeten.bp.temporal.ChronoField.ALIGNED_WEEK_OF_MONTH
-import org.threeten.bp.temporal.ChronoField.ALIGNED_WEEK_OF_YEAR
-import org.threeten.bp.temporal.ChronoField.DAY_OF_MONTH
-import org.threeten.bp.temporal.ChronoField.DAY_OF_WEEK
-import org.threeten.bp.temporal.ChronoField.DAY_OF_YEAR
-import org.threeten.bp.temporal.ChronoField.EPOCH_DAY
-import org.threeten.bp.temporal.ChronoField.ERA
-import org.threeten.bp.temporal.ChronoField.MONTH_OF_YEAR
-import org.threeten.bp.temporal.ChronoField.PROLEPTIC_MONTH
-import org.threeten.bp.temporal.ChronoField.YEAR
-import org.threeten.bp.temporal.ChronoField.YEAR_OF_ERA
-import org.threeten.bp.temporal.ChronoUnit.DAYS
-import org.threeten.bp.temporal.ChronoUnit.MONTHS
-import org.threeten.bp.temporal.ChronoUnit.WEEKS
-import org.threeten.bp.temporal.TemporalAdjusters.nextOrSame
+import java.time.temporal.ChronoField.ALIGNED_DAY_OF_WEEK_IN_MONTH
+import java.time.temporal.ChronoField.ALIGNED_DAY_OF_WEEK_IN_YEAR
+import java.time.temporal.ChronoField.ALIGNED_WEEK_OF_MONTH
+import java.time.temporal.ChronoField.ALIGNED_WEEK_OF_YEAR
+import java.time.temporal.ChronoField.DAY_OF_MONTH
+import java.time.temporal.ChronoField.DAY_OF_WEEK
+import java.time.temporal.ChronoField.DAY_OF_YEAR
+import java.time.temporal.ChronoField.EPOCH_DAY
+import java.time.temporal.ChronoField.ERA
+import java.time.temporal.ChronoField.MONTH_OF_YEAR
+import java.time.temporal.ChronoField.PROLEPTIC_MONTH
+import java.time.temporal.ChronoField.YEAR
+import java.time.temporal.ChronoField.YEAR_OF_ERA
+import java.time.temporal.ChronoUnit.DAYS
+import java.time.temporal.ChronoUnit.MONTHS
+import java.time.temporal.ChronoUnit.WEEKS
+import java.time.temporal.TemporalAdjusters.nextOrSame
 import java.io.Serializable
 import java.time.Clock
 import java.util.{Arrays, Calendar, Locale, Objects}
 
-import org.threeten.bp.DateTimeException
-import org.threeten.bp.DayOfWeek
-import org.threeten.bp.Instant
-import org.threeten.bp.LocalDate
-import org.threeten.bp.ZoneId
-import org.threeten.bp.format.ResolverStyle
-import org.threeten.bp.temporal.ChronoField
-import org.threeten.bp.temporal.TemporalAccessor
-import org.threeten.bp.temporal.TemporalField
-import org.threeten.bp.temporal.ValueRange
+import java.time.DateTimeException
+import java.time.DayOfWeek
+import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneId
+import java.time.format.ResolverStyle
+import java.time.temporal.ChronoField
+import java.time.temporal.TemporalAccessor
+import java.time.temporal.TemporalField
+import java.time.temporal.ValueRange
 
 @SerialVersionUID(459996390165777884L)
 object JapaneseChronology {

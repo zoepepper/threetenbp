@@ -34,7 +34,7 @@ package java.time.chrono
 import java.util.Objects
 
 import java.time.chrono.ThaiBuddhistChronology.YEARS_DIFFERENCE
-import org.threeten.bp.temporal.ChronoField._
+import java.time.temporal.ChronoField._
 import java.io.DataInput
 import java.io.DataOutput
 import java.io.IOException
@@ -42,19 +42,19 @@ import java.io.Serializable
 import java.time
 import java.time.Clock
 
-import org.threeten.bp.DateTimeException
-import org.threeten.bp.LocalDate
-import org.threeten.bp.LocalTime
-import org.threeten.bp.Period
-import org.threeten.bp.ZoneId
-import org.threeten.bp.temporal.ChronoField
-import org.threeten.bp.temporal.TemporalAccessor
-import org.threeten.bp.temporal.TemporalAdjuster
-import org.threeten.bp.temporal.TemporalAmount
-import org.threeten.bp.temporal.TemporalField
-import org.threeten.bp.temporal.TemporalUnit
-import org.threeten.bp.temporal.UnsupportedTemporalTypeException
-import org.threeten.bp.temporal.ValueRange
+import java.time.DateTimeException
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.Period
+import java.time.ZoneId
+import java.time.temporal.ChronoField
+import java.time.temporal.TemporalAccessor
+import java.time.temporal.TemporalAdjuster
+import java.time.temporal.TemporalAmount
+import java.time.temporal.TemporalField
+import java.time.temporal.TemporalUnit
+import java.time.temporal.UnsupportedTemporalTypeException
+import java.time.temporal.ValueRange
 
 @SerialVersionUID(-8722293800195731463L)
 object ThaiBuddhistDate {

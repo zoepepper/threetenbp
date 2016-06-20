@@ -29,7 +29,7 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.threeten.bp
+package java.time
 
 /** Support for calendar systems other than the default ISO.
   *
@@ -38,15 +38,15 @@ package org.threeten.bp
   *
   * The supported calendar systems includes:
   *
-  *   -{@linkplain org.threeten.bp.chrono.HijrahChronology Hijrah calendar}
-  *   -{@linkplain org.threeten.bp.chrono.JapaneseChronology Japanese calendar}
-  *   -{@linkplain org.threeten.bp.chrono.MinguoChronology Minguo calendar}
-  *   -{@linkplain org.threeten.bp.chrono.ThaiBuddhistChronology Thai Buddhist calendar}
+  *   -{@linkplain java.time.chrono.HijrahChronology Hijrah calendar}
+  *   -{@linkplain java.time.chrono.JapaneseChronology Japanese calendar}
+  *   -{@linkplain java.time.chrono.MinguoChronology Minguo calendar}
+  *   -{@linkplain java.time.chrono.ThaiBuddhistChronology Thai Buddhist calendar}
   *
   * It is intended that applications use the main API whenever possible, including code to read and write
   * from a persistent data store, such as a database, and to send dates and times across a network.
   * This package is then used at the user interface level to deal with localized input/output.
-  * See {@link org.threeten.bp.chrono.ChronoLocalDate ChronoLocalDate} for a full discussion of the issues.
+  * See {@link java.time.chrono.ChronoLocalDate ChronoLocalDate} for a full discussion of the issues.
   *
   * == Example ==
   *

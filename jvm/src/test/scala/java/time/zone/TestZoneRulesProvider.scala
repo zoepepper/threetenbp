@@ -37,7 +37,7 @@ import org.testng.Assert.assertNotNull
 import org.testng.Assert.assertTrue
 import java.util.Collections
 import org.testng.annotations.Test
-import org.threeten.bp.ZoneOffset
+import java.time.ZoneOffset
 
 /** Test ZoneRulesProvider. */
 @Test object TestZoneRulesProvider {

@@ -29,18 +29,18 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.threeten.bp
+package java.time
 
 /** Provides classes to print and parse dates and times.
   *
-  * Printing and parsing is based around the {@link org.threeten.bp.format.DateTimeFormatter DateTimeFormatter} class.
+  * Printing and parsing is based around the {@link java.time.format.DateTimeFormatter DateTimeFormatter} class.
   * That class contains common formatters and factory methods.
-  * The {@link org.threeten.bp.format.DateTimeFormatterBuilder DateTimeFormatterBuilder} class is available
+  * The {@link java.time.format.DateTimeFormatterBuilder DateTimeFormatterBuilder} class is available
   * for advanced and complex use cases.
   *
-  * Localization occurs by calling {@link org.threeten.bp.format.DateTimeFormatter#withLocale(java.util.Locale) withLocale(Locale)}
+  * Localization occurs by calling {@link java.time.format.DateTimeFormatter#withLocale(java.util.Locale) withLocale(Locale)}
   * on the formatter. Further customization is possible using
-  * {@link org.threeten.bp.format.DecimalStyle DecimalStyle}.
+  * {@link java.time.format.DecimalStyle DecimalStyle}.
   */
 package object format
 

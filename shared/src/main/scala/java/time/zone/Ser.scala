@@ -29,7 +29,7 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.threeten.bp.zone
+package java.time.zone
 
 import java.io.DataInput
 import java.io.DataOutput
@@ -39,7 +39,7 @@ import java.io.InvalidClassException
 import java.io.ObjectInput
 import java.io.ObjectOutput
 import java.io.StreamCorruptedException
-import org.threeten.bp.ZoneOffset
+import java.time.ZoneOffset
 
 /** The shared serialization delegate for this package.
   *

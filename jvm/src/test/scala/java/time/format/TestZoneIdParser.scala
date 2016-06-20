@@ -35,8 +35,8 @@ import org.testng.Assert.assertEquals
 import org.testng.Assert.assertTrue
 import org.testng.annotations.DataProvider
 import org.testng.annotations.Test
-import org.threeten.bp.ZoneId
-import org.threeten.bp.ZoneOffset
+import java.time.ZoneId
+import java.time.ZoneOffset
 import java.time.temporal.TemporalQueries
 import java.time.zone.ZoneRulesProvider
 

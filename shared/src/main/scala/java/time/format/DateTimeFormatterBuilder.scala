@@ -29,18 +29,18 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.threeten.bp.format
+package java.time.format
 
-import org.threeten.bp.format.DateTimeFormatterBuilder.ZoneIdPrinterParser.SubstringTree
-import org.threeten.bp.temporal.ChronoField.DAY_OF_MONTH
-import org.threeten.bp.temporal.ChronoField.HOUR_OF_DAY
-import org.threeten.bp.temporal.ChronoField.INSTANT_SECONDS
-import org.threeten.bp.temporal.ChronoField.MINUTE_OF_HOUR
-import org.threeten.bp.temporal.ChronoField.MONTH_OF_YEAR
-import org.threeten.bp.temporal.ChronoField.NANO_OF_SECOND
-import org.threeten.bp.temporal.ChronoField.OFFSET_SECONDS
-import org.threeten.bp.temporal.ChronoField.SECOND_OF_MINUTE
-import org.threeten.bp.temporal.ChronoField.YEAR
+import java.time.format.DateTimeFormatterBuilder.ZoneIdPrinterParser.SubstringTree
+import java.time.temporal.ChronoField.DAY_OF_MONTH
+import java.time.temporal.ChronoField.HOUR_OF_DAY
+import java.time.temporal.ChronoField.INSTANT_SECONDS
+import java.time.temporal.ChronoField.MINUTE_OF_HOUR
+import java.time.temporal.ChronoField.MONTH_OF_YEAR
+import java.time.temporal.ChronoField.NANO_OF_SECOND
+import java.time.temporal.ChronoField.OFFSET_SECONDS
+import java.time.temporal.ChronoField.SECOND_OF_MINUTE
+import java.time.temporal.ChronoField.YEAR
 import java.math.BigDecimal
 import java.math.BigInteger
 import java.math.RoundingMode
@@ -48,24 +48,24 @@ import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util._
 import java.lang.StringBuilder
-import org.threeten.bp.DateTimeException
-import org.threeten.bp.Instant
-import org.threeten.bp.LocalDate
-import org.threeten.bp.LocalDateTime
-import org.threeten.bp.ZoneId
-import org.threeten.bp.ZoneOffset
+import java.time.DateTimeException
+import java.time.Instant
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.ZoneOffset
 import java.time.chrono.ChronoLocalDate
 import java.time.chrono.Chronology
-import org.threeten.bp.temporal.ChronoField
-import org.threeten.bp.temporal.IsoFields
-import org.threeten.bp.temporal.TemporalAccessor
-import org.threeten.bp.temporal.TemporalField
-import org.threeten.bp.temporal.TemporalQueries
-import org.threeten.bp.temporal.TemporalQuery
-import org.threeten.bp.temporal.ValueRange
-import org.threeten.bp.temporal.WeekFields
-import org.threeten.bp.zone.ZoneRulesProvider
-import org.threeten.bp.format.SignStyle._
+import java.time.temporal.ChronoField
+import java.time.temporal.IsoFields
+import java.time.temporal.TemporalAccessor
+import java.time.temporal.TemporalField
+import java.time.temporal.TemporalQueries
+import java.time.temporal.TemporalQuery
+import java.time.temporal.ValueRange
+import java.time.temporal.WeekFields
+import java.time.zone.ZoneRulesProvider
+import java.time.format.SignStyle._
 
 import scala.annotation.tailrec
 
@@ -1598,7 +1598,7 @@ object DateTimeFormatterBuilder {
       if (textStyle == null)
         buf.append(chrono.getId)
       else {
-        val bundle: ResourceBundle = ResourceBundle.getBundle("org.threeten.bp.format.ChronologyText", context.getLocale, classOf[DateTimeFormatterBuilder].getClassLoader)
+        val bundle: ResourceBundle = ResourceBundle.getBundle("java.time.format.ChronologyText", context.getLocale, classOf[DateTimeFormatterBuilder].getClassLoader)
         try {
           val text: String = bundle.getString(chrono.getId)
           buf.append(text)

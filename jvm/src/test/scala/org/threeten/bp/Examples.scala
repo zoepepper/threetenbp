@@ -29,11 +29,11 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.threeten.bp
+package java.time
 
 import java.time.Clock
 
-import org.threeten.bp.Month.DECEMBER
+import java.time.Month.DECEMBER
 import java.time.temporal.ChronoField.DAY_OF_MONTH
 import java.time.temporal.ChronoField.DAY_OF_YEAR
 import java.time.temporal.ChronoField.MONTH_OF_YEAR

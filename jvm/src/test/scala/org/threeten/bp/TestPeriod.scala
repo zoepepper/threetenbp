@@ -29,7 +29,7 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.threeten.bp
+package java.time
 
 import org.testng.Assert.assertEquals
 import org.testng.Assert.assertSame
@@ -59,7 +59,7 @@ import org.testng.annotations.Test
     assertTrue(classOf[Serializable].isAssignableFrom(classOf[Period]))
   }
 
-  @DataProvider(name = "serialization") private[bp] def data_serialization: Array[Array[AnyRef]] = {
+  @DataProvider(name = "serialization") private[time] def data_serialization: Array[Array[AnyRef]] = {
     Array[Array[AnyRef]](Array(Period.ZERO), Array(Period.ofDays(1)), Array(Period.of(1, 2, 3)))
   }
 
@@ -124,7 +124,7 @@ import org.testng.annotations.Test
     assertPeriod(Period.ofDays(Int.MinValue), 0, 0, Int.MinValue)
   }
 
-  @DataProvider(name = "between") private[bp] def data_between: Array[Array[Int]] = {
+  @DataProvider(name = "between") private[time] def data_between: Array[Array[Int]] = {
     Array[Array[Int]](Array(2010, 1, 1, 2010, 1, 1, 0, 0, 0), Array(2010, 1, 1, 2010, 1, 2, 0, 0, 1), Array(2010, 1, 1, 2010, 1, 31, 0, 0, 30), Array(2010, 1, 1, 2010, 2, 1, 0, 1, 0), Array(2010, 1, 1, 2010, 2, 28, 0, 1, 27), Array(2010, 1, 1, 2010, 3, 1, 0, 2, 0), Array(2010, 1, 1, 2010, 12, 31, 0, 11, 30), Array(2010, 1, 1, 2011, 1, 1, 1, 0, 0), Array(2010, 1, 1, 2011, 12, 31, 1, 11, 30), Array(2010, 1, 1, 2012, 1, 1, 2, 0, 0), Array(2010, 1, 10, 2010, 1, 1, 0, 0, -9), Array(2010, 1, 10, 2010, 1, 2, 0, 0, -8), Array(2010, 1, 10, 2010, 1, 9, 0, 0, -1), Array(2010, 1, 10, 2010, 1, 10, 0, 0, 0), Array(2010, 1, 10, 2010, 1, 11, 0, 0, 1), Array(2010, 1, 10, 2010, 1, 31, 0, 0, 21), Array(2010, 1, 10, 2010, 2, 1, 0, 0, 22), Array(2010, 1, 10, 2010, 2, 9, 0, 0, 30), Array(2010, 1, 10, 2010, 2, 10, 0, 1, 0), Array(2010, 1, 10, 2010, 2, 28, 0, 1, 18), Array(2010, 1, 10, 2010, 3, 1, 0, 1, 19), Array(2010, 1, 10, 2010, 3, 9, 0, 1, 27), Array(2010, 1, 10, 2010, 3, 10, 0, 2, 0), Array(2010, 1, 10, 2010, 12, 31, 0, 11, 21), Array(2010, 1, 10, 2011, 1, 1, 0, 11, 22), Array(2010, 1, 10, 2011, 1, 9, 0, 11, 30), Array(2010, 1, 10, 2011, 1, 10, 1, 0, 0), Array(2010, 3, 30, 2011, 5, 1, 1, 1, 1), Array(2010, 4, 30, 2011, 5, 1, 1, 0, 1), Array(2010, 2, 28, 2012, 2, 27, 1, 11, 30), Array(2010, 2, 28, 2012, 2, 28, 2, 0, 0), Array(2010, 2, 28, 2012, 2, 29, 2, 0, 1), Array(2012, 2, 28, 2014, 2, 27, 1, 11, 30), Array(2012, 2, 28, 2014, 2, 28, 2, 0, 0), Array(2012, 2, 28, 2014, 3, 1, 2, 0, 1), Array(2012, 2, 29, 2014, 2, 28, 1, 11, 30), Array(2012, 2, 29, 2014, 3, 1, 2, 0, 1), Array(2012, 2, 29, 2014, 3, 2, 2, 0, 2), Array(2012, 2, 29, 2016, 2, 28, 3, 11, 30), Array(2012, 2, 29, 2016, 2, 29, 4, 0, 0), Array(2012, 2, 29, 2016, 3, 1, 4, 0, 1), Array(2010, 1, 1, 2009, 12, 31, 0, 0, -1), Array(2010, 1, 1, 2009, 12, 30, 0, 0, -2), Array(2010, 1, 1, 2009, 12, 2, 0, 0, -30), Array(2010, 1, 1, 2009, 12, 1, 0, -1, 0), Array(2010, 1, 1, 2009, 11, 30, 0, -1, -1), Array(2010, 1, 1, 2009, 11, 2, 0, -1, -29), Array(2010, 1, 1, 2009, 11, 1, 0, -2, 0), Array(2010, 1, 1, 2009, 1, 2, 0, -11, -30), Array(2010, 1, 1, 2009, 1, 1, -1, 0, 0), Array(2010, 1, 15, 2010, 1, 15, 0, 0, 0), Array(2010, 1, 15, 2010, 1, 14, 0, 0, -1), Array(2010, 1, 15, 2010, 1, 1, 0, 0, -14), Array(2010, 1, 15, 2009, 12, 31, 0, 0, -15), Array(2010, 1, 15, 2009, 12, 16, 0, 0, -30), Array(2010, 1, 15, 2009, 12, 15, 0, -1, 0), Array(2010, 1, 15, 2009, 12, 14, 0, -1, -1), Array(2010, 2, 28, 2009, 3, 1, 0, -11, -27), Array(2010, 2, 28, 2009, 2, 28, -1, 0, 0), Array(2010, 2, 28, 2009, 2, 27, -1, 0, -1), Array(2010, 2, 28, 2008, 2, 29, -1, -11, -28), Array(2010, 2, 28, 2008, 2, 28, -2, 0, 0), Array(2010, 2, 28, 2008, 2, 27, -2, 0, -1), Array(2012, 2, 29, 2009, 3, 1, -2, -11, -28), Array(2012, 2, 29, 2009, 2, 28, -3, 0, -1), Array(2012, 2, 29, 2009, 2, 27, -3, 0, -2), Array(2012, 2, 29, 2008, 3, 1, -3, -11, -28), Array(2012, 2, 29, 2008, 2, 29, -4, 0, 0), Array(2012, 2, 29, 2008, 2, 28, -4, 0, -1))
   }
 
@@ -143,7 +143,7 @@ import org.testng.annotations.Test
     Period.between(LocalDate.of(2010, 1, 1), null.asInstanceOf[LocalDate])
   }
 
-  @DataProvider(name = "parse") private[bp] def data_parse: Array[Array[AnyRef]] = {
+  @DataProvider(name = "parse") private[time] def data_parse: Array[Array[AnyRef]] = {
     Array[Array[AnyRef]](Array("P0D", Period.ZERO), Array("P0W", Period.ZERO), Array("P0M", Period.ZERO), Array("P0Y", Period.ZERO), Array("P0Y0D", Period.ZERO), Array("P0Y0W", Period.ZERO), Array("P0Y0M", Period.ZERO), Array("P0M0D", Period.ZERO), Array("P0M0W", Period.ZERO), Array("P0W0D", Period.ZERO), Array("P1D", Period.ofDays(1)), Array("P2D", Period.ofDays(2)), Array("P-2D", Period.ofDays(-2)), Array("-P2D", Period.ofDays(-2)), Array("-P-2D", Period.ofDays(2)), Array("P" + Int.MaxValue + "D", Period.ofDays(Int.MaxValue)), Array("P" + Int.MinValue + "D", Period.ofDays(Int.MinValue)), Array("P1W", Period.ofDays(7)), Array("P2W", Period.ofDays(14)), Array("P-2W", Period.ofDays(-14)), Array("-P2W", Period.ofDays(-14)), Array("-P-2W", Period.ofDays(14)), Array("P1M", Period.ofMonths(1)), Array("P2M", Period.ofMonths(2)), Array("P-2M", Period.ofMonths(-2)), Array("-P2M", Period.ofMonths(-2)), Array("-P-2M", Period.ofMonths(2)), Array("P" + Int.MaxValue + "M", Period.ofMonths(Int.MaxValue)), Array("P" + Int.MinValue + "M", Period.ofMonths(Int.MinValue)), Array("P1Y", Period.ofYears(1)), Array("P2Y", Period.ofYears(2)), Array("P-2Y", Period.ofYears(-2)), Array("-P2Y", Period.ofYears(-2)), Array("-P-2Y", Period.ofYears(2)), Array("P" + Int.MaxValue + "Y", Period.ofYears(Int.MaxValue)), Array("P" + Int.MinValue + "Y", Period.ofYears(Int.MinValue)), Array("P1Y2M3W4D", Period.of(1, 2, 3 * 7 + 4)))
   }
 
@@ -227,7 +227,7 @@ import org.testng.annotations.Test
     assertSame(test.withDays(0), Period.ZERO)
   }
 
-  @DataProvider(name = "plus") private[bp] def data_plus: Array[Array[AnyRef]] = {
+  @DataProvider(name = "plus") private[time] def data_plus: Array[Array[AnyRef]] = {
     Array[Array[AnyRef]](Array(TestPeriod.pymd(0, 0, 0), TestPeriod.pymd(0, 0, 0), TestPeriod.pymd(0, 0, 0)), Array(TestPeriod.pymd(0, 0, 0), TestPeriod.pymd(5, 0, 0), TestPeriod.pymd(5, 0, 0)), Array(TestPeriod.pymd(0, 0, 0), TestPeriod.pymd(-5, 0, 0), TestPeriod.pymd(-5, 0, 0)), Array(TestPeriod.pymd(0, 0, 0), TestPeriod.pymd(0, 5, 0), TestPeriod.pymd(0, 5, 0)), Array(TestPeriod.pymd(0, 0, 0), TestPeriod.pymd(0, -5, 0), TestPeriod.pymd(0, -5, 0)), Array(TestPeriod.pymd(0, 0, 0), TestPeriod.pymd(0, 0, 5), TestPeriod.pymd(0, 0, 5)), Array(TestPeriod.pymd(0, 0, 0), TestPeriod.pymd(0, 0, -5), TestPeriod.pymd(0, 0, -5)), Array(TestPeriod.pymd(0, 0, 0), TestPeriod.pymd(2, 3, 4), TestPeriod.pymd(2, 3, 4)), Array(TestPeriod.pymd(0, 0, 0), TestPeriod.pymd(-2, -3, -4), TestPeriod.pymd(-2, -3, -4)), Array(TestPeriod.pymd(4, 5, 6), TestPeriod.pymd(2, 3, 4), TestPeriod.pymd(6, 8, 10)), Array(TestPeriod.pymd(4, 5, 6), TestPeriod.pymd(-2, -3, -4), TestPeriod.pymd(2, 2, 2)))
   }
 
@@ -316,7 +316,7 @@ import org.testng.annotations.Test
     test.plusDays(-1)
   }
 
-  @DataProvider(name = "minus") private[bp] def data_minus: Array[Array[AnyRef]] = {
+  @DataProvider(name = "minus") private[time] def data_minus: Array[Array[AnyRef]] = {
     Array[Array[AnyRef]](Array(TestPeriod.pymd(0, 0, 0), TestPeriod.pymd(0, 0, 0), TestPeriod.pymd(0, 0, 0)), Array(TestPeriod.pymd(0, 0, 0), TestPeriod.pymd(5, 0, 0), TestPeriod.pymd(-5, 0, 0)), Array(TestPeriod.pymd(0, 0, 0), TestPeriod.pymd(-5, 0, 0), TestPeriod.pymd(5, 0, 0)), Array(TestPeriod.pymd(0, 0, 0), TestPeriod.pymd(0, 5, 0), TestPeriod.pymd(0, -5, 0)), Array(TestPeriod.pymd(0, 0, 0), TestPeriod.pymd(0, -5, 0), TestPeriod.pymd(0, 5, 0)), Array(TestPeriod.pymd(0, 0, 0), TestPeriod.pymd(0, 0, 5), TestPeriod.pymd(0, 0, -5)), Array(TestPeriod.pymd(0, 0, 0), TestPeriod.pymd(0, 0, -5), TestPeriod.pymd(0, 0, 5)), Array(TestPeriod.pymd(0, 0, 0), TestPeriod.pymd(2, 3, 4), TestPeriod.pymd(-2, -3, -4)), Array(TestPeriod.pymd(0, 0, 0), TestPeriod.pymd(-2, -3, -4), TestPeriod.pymd(2, 3, 4)), Array(TestPeriod.pymd(4, 5, 6), TestPeriod.pymd(2, 3, 4), TestPeriod.pymd(2, 2, 2)), Array(TestPeriod.pymd(4, 5, 6), TestPeriod.pymd(-2, -3, -4), TestPeriod.pymd(6, 8, 10)))
   }
 
@@ -446,7 +446,7 @@ import org.testng.annotations.Test
     Period.ofYears(Int.MinValue).negated
   }
 
-  @DataProvider(name = "normalized") private[bp] def data_normalized: Array[Array[Int]] = {
+  @DataProvider(name = "normalized") private[time] def data_normalized: Array[Array[Int]] = {
     Array[Array[Int]](Array(0, 0, 0, 0), Array(1, 0, 1, 0), Array(-1, 0, -1, 0), Array(1, 1, 1, 1), Array(1, 2, 1, 2), Array(1, 11, 1, 11), Array(1, 12, 2, 0), Array(1, 13, 2, 1), Array(1, 23, 2, 11), Array(1, 24, 3, 0), Array(1, 25, 3, 1), Array(1, -1, 0, 11), Array(1, -2, 0, 10), Array(1, -11, 0, 1), Array(1, -12, 0, 0), Array(1, -13, 0, -1), Array(1, -23, 0, -11), Array(1, -24, -1, 0), Array(1, -25, -1, -1), Array(1, -35, -1, -11), Array(1, -36, -2, 0), Array(1, -37, -2, -1), Array(-1, 1, 0, -11), Array(-1, 11, 0, -1), Array(-1, 12, 0, 0), Array(-1, 13, 0, 1), Array(-1, 23, 0, 11), Array(-1, 24, 1, 0), Array(-1, 25, 1, 1), Array(-1, -1, -1, -1), Array(-1, -11, -1, -11), Array(-1, -12, -2, 0), Array(-1, -13, -2, -1))
   }
 
@@ -464,7 +464,7 @@ import org.testng.annotations.Test
     base.normalized
   }
 
-  @DataProvider(name = "addTo") private[bp] def data_addTo: Array[Array[AnyRef]] = {
+  @DataProvider(name = "addTo") private[time] def data_addTo: Array[Array[AnyRef]] = {
     Array[Array[AnyRef]](Array(TestPeriod.pymd(0, 0, 0), TestPeriod.date(2012, 6, 30), TestPeriod.date(2012, 6, 30)), Array(TestPeriod.pymd(1, 0, 0), TestPeriod.date(2012, 6, 10), TestPeriod.date(2013, 6, 10)), Array(TestPeriod.pymd(0, 1, 0), TestPeriod.date(2012, 6, 10), TestPeriod.date(2012, 7, 10)), Array(TestPeriod.pymd(0, 0, 1), TestPeriod.date(2012, 6, 10), TestPeriod.date(2012, 6, 11)), Array(TestPeriod.pymd(-1, 0, 0), TestPeriod.date(2012, 6, 10), TestPeriod.date(2011, 6, 10)), Array(TestPeriod.pymd(0, -1, 0), TestPeriod.date(2012, 6, 10), TestPeriod.date(2012, 5, 10)), Array(TestPeriod.pymd(0, 0, -1), TestPeriod.date(2012, 6, 10), TestPeriod.date(2012, 6, 9)), Array(TestPeriod.pymd(1, 2, 3), TestPeriod.date(2012, 6, 27), TestPeriod.date(2013, 8, 30)), Array(TestPeriod.pymd(1, 2, 3), TestPeriod.date(2012, 6, 28), TestPeriod.date(2013, 8, 31)), Array(TestPeriod.pymd(1, 2, 3), TestPeriod.date(2012, 6, 29), TestPeriod.date(2013, 9, 1)), Array(TestPeriod.pymd(1, 2, 3), TestPeriod.date(2012, 6, 30), TestPeriod.date(2013, 9, 2)), Array(TestPeriod.pymd(1, 2, 3), TestPeriod.date(2012, 7, 1), TestPeriod.date(2013, 9, 4)), Array(TestPeriod.pymd(1, 0, 0), TestPeriod.date(2011, 2, 28), TestPeriod.date(2012, 2, 28)), Array(TestPeriod.pymd(4, 0, 0), TestPeriod.date(2011, 2, 28), TestPeriod.date(2015, 2, 28)), Array(TestPeriod.pymd(1, 0, 0), TestPeriod.date(2012, 2, 29), TestPeriod.date(2013, 2, 28)), Array(TestPeriod.pymd(4, 0, 0), TestPeriod.date(2012, 2, 29), TestPeriod.date(2016, 2, 29)), Array(TestPeriod.pymd(1, 1, 0), TestPeriod.date(2011, 1, 29), TestPeriod.date(2012, 2, 29)), Array(TestPeriod.pymd(1, 2, 0), TestPeriod.date(2012, 2, 29), TestPeriod.date(2013, 4, 29)))
   }
 
@@ -484,7 +484,7 @@ import org.testng.annotations.Test
     Period.ofDays(2).addTo(null)
   }
 
-  @DataProvider(name = "subtractFrom") private[bp] def data_subtractFrom: Array[Array[AnyRef]] = {
+  @DataProvider(name = "subtractFrom") private[time] def data_subtractFrom: Array[Array[AnyRef]] = {
     Array[Array[AnyRef]](Array(TestPeriod.pymd(0, 0, 0), TestPeriod.date(2012, 6, 30), TestPeriod.date(2012, 6, 30)), Array(TestPeriod.pymd(1, 0, 0), TestPeriod.date(2012, 6, 10), TestPeriod.date(2011, 6, 10)), Array(TestPeriod.pymd(0, 1, 0), TestPeriod.date(2012, 6, 10), TestPeriod.date(2012, 5, 10)), Array(TestPeriod.pymd(0, 0, 1), TestPeriod.date(2012, 6, 10), TestPeriod.date(2012, 6, 9)), Array(TestPeriod.pymd(-1, 0, 0), TestPeriod.date(2012, 6, 10), TestPeriod.date(2013, 6, 10)), Array(TestPeriod.pymd(0, -1, 0), TestPeriod.date(2012, 6, 10), TestPeriod.date(2012, 7, 10)), Array(TestPeriod.pymd(0, 0, -1), TestPeriod.date(2012, 6, 10), TestPeriod.date(2012, 6, 11)), Array(TestPeriod.pymd(1, 2, 3), TestPeriod.date(2012, 8, 30), TestPeriod.date(2011, 6, 27)), Array(TestPeriod.pymd(1, 2, 3), TestPeriod.date(2012, 8, 31), TestPeriod.date(2011, 6, 27)), Array(TestPeriod.pymd(1, 2, 3), TestPeriod.date(2012, 9, 1), TestPeriod.date(2011, 6, 28)), Array(TestPeriod.pymd(1, 2, 3), TestPeriod.date(2012, 9, 2), TestPeriod.date(2011, 6, 29)), Array(TestPeriod.pymd(1, 2, 3), TestPeriod.date(2012, 9, 3), TestPeriod.date(2011, 6, 30)), Array(TestPeriod.pymd(1, 2, 3), TestPeriod.date(2012, 9, 4), TestPeriod.date(2011, 7, 1)), Array(TestPeriod.pymd(1, 0, 0), TestPeriod.date(2011, 2, 28), TestPeriod.date(2010, 2, 28)), Array(TestPeriod.pymd(4, 0, 0), TestPeriod.date(2011, 2, 28), TestPeriod.date(2007, 2, 28)), Array(TestPeriod.pymd(1, 0, 0), TestPeriod.date(2012, 2, 29), TestPeriod.date(2011, 2, 28)), Array(TestPeriod.pymd(4, 0, 0), TestPeriod.date(2012, 2, 29), TestPeriod.date(2008, 2, 29)), Array(TestPeriod.pymd(1, 1, 0), TestPeriod.date(2013, 3, 29), TestPeriod.date(2012, 2, 29)), Array(TestPeriod.pymd(1, 2, 0), TestPeriod.date(2012, 2, 29), TestPeriod.date(2010, 12, 29)))
   }
 
@@ -547,7 +547,7 @@ import org.testng.annotations.Test
     assertEquals(test5.hashCode == test5Y.hashCode, false)
   }
 
-  @DataProvider(name = "toStringAndParse") private[bp] def data_toString: Array[Array[AnyRef]] = {
+  @DataProvider(name = "toStringAndParse") private[time] def data_toString: Array[Array[AnyRef]] = {
     Array[Array[AnyRef]](Array(Period.ZERO, "P0D"), Array(Period.ofDays(0), "P0D"), Array(Period.ofYears(1), "P1Y"), Array(Period.ofMonths(1), "P1M"), Array(Period.ofDays(1), "P1D"), Array(Period.of(1, 2, 3), "P1Y2M3D"))
   }
 

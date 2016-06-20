@@ -31,9 +31,9 @@
  */
 package java.time
 
-import org.threeten.bp.temporal.ChronoUnit.DAYS
-import org.threeten.bp.temporal.ChronoUnit.MONTHS
-import org.threeten.bp.temporal.ChronoUnit.YEARS
+import java.time.temporal.ChronoUnit.DAYS
+import java.time.temporal.ChronoUnit.MONTHS
+import java.time.temporal.ChronoUnit.YEARS
 import java.io.Serializable
 import java.util.{Objects, Arrays, Collections}
 import java.util.regex.Matcher
@@ -41,12 +41,12 @@ import java.util.regex.Pattern
 import java.time.chrono.ChronoPeriod
 import java.time.chrono.Chronology
 import java.time.chrono.IsoChronology
-import org.threeten.bp.format.DateTimeParseException
-import org.threeten.bp.temporal.ChronoUnit
-import org.threeten.bp.temporal.Temporal
-import org.threeten.bp.temporal.TemporalAmount
-import org.threeten.bp.temporal.TemporalUnit
-import org.threeten.bp.temporal.UnsupportedTemporalTypeException
+import java.time.format.DateTimeParseException
+import java.time.temporal.ChronoUnit
+import java.time.temporal.Temporal
+import java.time.temporal.TemporalAmount
+import java.time.temporal.TemporalUnit
+import java.time.temporal.UnsupportedTemporalTypeException
 
 @SerialVersionUID(-8290556941213247973L)
 object Period {
